@@ -65,7 +65,6 @@ services:
   - type: web
     name: womencypedia-frontend
     runtime: static
-    region: oregon
     plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: .
