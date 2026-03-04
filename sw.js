@@ -23,16 +23,34 @@ const PRECACHE_ASSETS = [
     '/manifest.json'
 ];
 
+// Critical assets that MUST cache for the app to function offline
+const CRITICAL_ASSETS = new Set(['/', '/index.html', '/css/tailwind.css', '/css/styles.css']);
+
 // Install event - cache core assets
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
+                // Pass raw promises — let allSettled observe successes and failures
                 return Promise.allSettled(
-                    PRECACHE_ASSETS.map(url =>
-                        cache.add(url).catch(() => { /* skip unavailable assets */ })
-                    )
-                );
+                    PRECACHE_ASSETS.map(url => cache.add(url))
+                ).then(results => {
+                    let criticalFailed = false;
+                    results.forEach((result, i) => {
+                        if (result.status === 'rejected') {
+                            const url = PRECACHE_ASSETS[i];
+                            if (CRITICAL_ASSETS.has(url)) {
+                                console.error(`[SW] Critical asset failed to cache: ${url}`, result.reason);
+                                criticalFailed = true;
+                            } else {
+                                console.warn(`[SW] Non-critical asset skipped: ${url}`);
+                            }
+                        }
+                    });
+                    if (criticalFailed) {
+                        throw new Error('One or more critical assets failed to cache');
+                    }
+                });
             })
             .then(() => self.skipWaiting())
     );

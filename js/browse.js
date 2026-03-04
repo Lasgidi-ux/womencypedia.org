@@ -101,6 +101,20 @@ function loadStaticFallback(container) {
         displayBiographies();
     } else if (container && typeof UI !== 'undefined' && UI.showError) {
         UI.showError(container, 'Unable to load biographies. Please try again later.', loadBiographies);
+    } else {
+        // Last resort: no static data, no UI.showError available
+        console.error('[Browse] Unable to load biographies: API unavailable and no static fallback data found.');
+
+        // Clear any loading spinner left in the container
+        if (container) {
+            container.innerHTML = '<p class="text-center text-text-secondary py-8">Content is temporarily unavailable. Please refresh the page.</p>';
+            container.classList.remove('loading');
+        }
+
+        // Dispatch event so other code can react (e.g. error tracking)
+        document.dispatchEvent(new CustomEvent('biographiesLoadError', {
+            detail: { reason: 'no-static-data', container }
+        }));
     }
 }
 
