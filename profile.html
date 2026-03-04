@@ -70,7 +70,8 @@
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
+                    / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -89,8 +90,8 @@
 
         <!-- Explore -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="profile.explore">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="profile.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -106,8 +107,8 @@
 
         <!-- Learn -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="profile.learn">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="profile.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -123,8 +124,8 @@
 
         <!-- Participate -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="profile.participate">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="profile.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
@@ -135,13 +136,14 @@
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary"
+                data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="profile.about">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="profile.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -158,10 +160,11 @@
             <a href="contact.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
         </div>
-<!-- CTA -->
+        <!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span
+                    data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
@@ -250,7 +253,8 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
                                         Guidelines</a>
                                     <a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" data-i18n="donate">Donate</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="donate">Donate</a>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +330,8 @@
                             Admin
                         </a>
                         <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-i18n="signIn">
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                            data-i18n="signIn">
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
@@ -358,17 +363,27 @@
             <div id="profile-card" class="bg-white rounded-2xl border border-border-light p-8 mb-8">
                 <div class="flex flex-col md:flex-row gap-8 items-start">
                     <!-- Avatar -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 relative group">
                         <div id="profile-avatar-container"
-                            class="size-32 rounded-full bg-primary flex items-center justify-center text-white text-5xl font-serif font-bold">
+                            class="size-32 rounded-full bg-primary flex items-center justify-center text-white text-5xl font-serif font-bold overflow-hidden cursor-pointer"
+                            onclick="document.getElementById('avatar-file-input').click()">
                             <span class="material-symbols-outlined">person</span>
                         </div>
+                        <!-- Upload overlay -->
+                        <div class="absolute inset-0 size-32 rounded-full bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                            onclick="document.getElementById('avatar-file-input').click()">
+                            <span class="material-symbols-outlined text-white text-3xl">photo_camera</span>
+                            <span class="text-white text-xs font-medium mt-1">Change Photo</span>
+                        </div>
+                        <input type="file" id="avatar-file-input" accept="image/*" class="hidden"
+                            onchange="handleAvatarUpload(event)">
                     </div>
 
                     <!-- Info -->
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-4 mb-4">
-                            <h1 id="profile-name" class="font-serif text-3xl font-bold text-text-main" data-i18n="profile.loading">Loading...</h1>
+                            <h1 id="profile-name" class="font-serif text-3xl font-bold text-text-main"
+                                data-i18n="profile.loading">Loading...</h1>
                             <span id="profile-role"
                                 class="hidden px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider rounded-full">User</span>
                         </div>
@@ -392,7 +407,8 @@
                         <button
                             onclick="document.getElementById('settings-section').classList.remove('hidden'); document.getElementById('settings-section').scrollIntoView({behavior:'smooth'})"
                             class="px-6 py-2.5 border border-border-light text-text-main font-medium rounded-lg hover:bg-lavender-soft transition-colors flex items-center gap-2">
-                            <span class="material-symbols-outlined text-[18px]">edit</span><span data-i18n="editProfile">Edit Profile</span></button>
+                            <span class="material-symbols-outlined text-[18px]">edit</span><span
+                                data-i18n="editProfile">Edit Profile</span></button>
                         <button onclick="showTab('settings')"
                             class="px-6 py-2.5 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2">
                             <span class="material-symbols-outlined text-[18px]">settings</span>
@@ -474,7 +490,8 @@
                     <!-- My Contributions (dynamically populated from Strapi) -->
                     <div id="my-biographies" data-tab-content="my biographies">
                         <div class="flex items-center justify-between mb-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="profile.recentContributions">Recent Contributions</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main"
+                                data-i18n="profile.recentContributions">Recent Contributions</h3>
                             <a href="share-story.html" class="text-primary text-sm font-bold hover:underline">Share
                                 Story →</a>
                         </div>
@@ -490,7 +507,8 @@
                     <!-- Saved Biographies (dynamically populated) -->
                     <div data-tab-content="saved" style="display:none">
                         <div class="flex items-center justify-between mb-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="profile.savedBiographies">Saved Biographies</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main"
+                                data-i18n="profile.savedBiographies">Saved Biographies</h3>
                             <a href="browse.html" class="text-primary text-sm font-bold hover:underline">Browse All
                                 →</a>
                         </div>
@@ -505,7 +523,8 @@
                     <!-- Nominations -->
                     <div data-tab-content="nominations" style="display:none">
                         <div class="flex items-center justify-between mb-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="profile.myNominations">My Nominations</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="profile.myNominations">My
+                                Nominations</h3>
                             <a href="nominate.html" class="text-primary text-sm font-bold hover:underline">Nominate
                                 →</a>
                         </div>
@@ -513,7 +532,8 @@
                             <div class="text-center py-12">
                                 <span
                                     class="material-symbols-outlined text-5xl text-text-secondary/40 mb-4">person_add</span>
-                                <h3 class="font-serif text-lg font-semibold text-text-main mb-2" data-i18n="profile.noNominationsYet">No nominations yet</h3>
+                                <h3 class="font-serif text-lg font-semibold text-text-main mb-2"
+                                    data-i18n="profile.noNominationsYet">No nominations yet</h3>
                                 <p class="text-text-secondary text-sm mb-4">Nominate a remarkable woman to be featured
                                     on Womencypedia.</p>
                                 <a href="nominate.html"
@@ -528,10 +548,12 @@
 
             <!-- Badges Section -->
             <div class="mt-8">
-                <h3 class="font-serif text-xl font-bold text-text-main mb-6" data-i18n="profile.recognitionBadges">Recognition Badges</h3>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-white rounded-xl p-6 border border-border-light flex items-center gap-4">
-                        <div class="size-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <h3 class="font-serif text-xl font-bold text-text-main mb-6" data-i18n="profile.recognitionBadges">
+                    Recognition Badges</h3>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" id="badges-grid">
+                    <div
+                        class="bg-white rounded-xl p-6 border border-border-light flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left hover:shadow-md hover:border-primary/20 transition-all">
+                        <div class="size-14 rounded-full bg-primary/10 flex items-center justify-center">
                             <span class="material-symbols-outlined text-primary text-2xl">workspace_premium</span>
                         </div>
                         <div>
@@ -539,8 +561,9 @@
                             <p class="text-xs text-text-secondary">50+ contributions</p>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 border border-border-light flex items-center gap-4">
-                        <div class="size-12 rounded-full bg-accent-teal/10 flex items-center justify-center">
+                    <div
+                        class="bg-white rounded-xl p-6 border border-border-light flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left hover:shadow-md hover:border-primary/20 transition-all">
+                        <div class="size-14 rounded-full bg-accent-teal/10 flex items-center justify-center">
                             <span class="material-symbols-outlined text-accent-teal text-2xl">star</span>
                         </div>
                         <div>
@@ -548,8 +571,9 @@
                             <p class="text-xs text-text-secondary">50+ reviews</p>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 border border-border-light flex items-center gap-4">
-                        <div class="size-12 rounded-full bg-accent-gold/10 flex items-center justify-center">
+                    <div
+                        class="bg-white rounded-xl p-6 border border-border-light flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left hover:shadow-md hover:border-primary/20 transition-all">
+                        <div class="size-14 rounded-full bg-accent-gold/10 flex items-center justify-center">
                             <span class="material-symbols-outlined text-accent-gold text-2xl">military_tech</span>
                         </div>
                         <div>
@@ -557,8 +581,9 @@
                             <p class="text-xs text-text-secondary">10+ original</p>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 border border-border-light flex items-center gap-4">
-                        <div class="size-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <div
+                        class="bg-white rounded-xl p-6 border border-border-light flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left hover:shadow-md hover:border-primary/20 transition-all">
+                        <div class="size-14 rounded-full bg-primary/10 flex items-center justify-center">
                             <span class="material-symbols-outlined text-primary text-2xl">verified</span>
                         </div>
                         <div>
@@ -613,7 +638,8 @@
                             </div>
                             <button type="submit"
                                 class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2">
-                                <span class="material-symbols-outlined text-[20px]">save</span><span data-i18n="saveChanges">Save Changes</span></button>
+                                <span class="material-symbols-outlined text-[20px]">save</span><span
+                                    data-i18n="saveChanges">Save Changes</span></button>
                         </form>
                     </div>
                 </div>
@@ -713,7 +739,8 @@
                                 <p class="text-sm text-text-secondary">Manage devices logged into your account</p>
                             </div>
                             <button
-                                class="px-4 py-2 border border-border-light text-text-main font-medium rounded-lg hover:bg-lavender-soft transition-colors"><span data-i18n="viewAll">View All</span></button>
+                                class="px-4 py-2 border border-border-light text-text-main font-medium rounded-lg hover:bg-lavender-soft transition-colors"><span
+                                    data-i18n="viewAll">View All</span></button>
                         </div>
                     </div>
                 </div>
@@ -877,8 +904,8 @@
                         href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html" data-i18n="donate">Donate</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html"
+                        data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -907,8 +934,9 @@
             </div>
             <div class="text-center">
                 <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                        href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
-                        href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
+                        href="privacy-policy.html" class="text-gray-400 hover:text-white"><span
+                            data-i18n="privacyPolicy">Privacy Policy</span></a> | <a href="terms-of-use.html"
+                        class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
             </div>
         </div>
         </div>
@@ -926,7 +954,8 @@
                 <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-primary text-3xl">login</span>
                 </div>
-                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="profile.welcomeBack">Welcome Back</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="profile.welcomeBack">Welcome Back
+                </h2>
                 <p class="text-text-secondary text-sm mt-2">Sign in to access your profile</p>
             </div>
 
@@ -1053,6 +1082,75 @@
                 }, 500);
             }
         }
+
+        // Avatar upload handler
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                if (typeof UI !== 'undefined' && UI.showToast) {
+                    UI.showToast('Please select an image file (JPEG, PNG, GIF)', 'error');
+                } else {
+                    alert('Please select an image file (JPEG, PNG, GIF)');
+                }
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                if (typeof UI !== 'undefined' && UI.showToast) {
+                    UI.showToast('Image must be smaller than 5MB', 'error');
+                } else {
+                    alert('Image must be smaller than 5MB');
+                }
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const avatarContainer = document.getElementById('profile-avatar-container');
+                if (avatarContainer) {
+                    avatarContainer.innerHTML = '';
+                    avatarContainer.style.padding = '0';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Profile avatar';
+                    img.className = 'w-full h-full object-cover';
+                    avatarContainer.appendChild(img);
+
+                    // Persist to localStorage
+                    try {
+                        localStorage.setItem('womencypedia_avatar', e.target.result);
+                    } catch (err) {
+                        console.warn('[Profile] Avatar too large to store in localStorage');
+                    }
+
+                    if (typeof UI !== 'undefined' && UI.showToast) {
+                        UI.showToast('Profile photo updated!', 'success');
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Restore saved avatar on load
+        (function restoreAvatar() {
+            const savedAvatar = localStorage.getItem('womencypedia_avatar');
+            if (savedAvatar) {
+                const avatarContainer = document.getElementById('profile-avatar-container');
+                if (avatarContainer) {
+                    avatarContainer.innerHTML = '';
+                    avatarContainer.style.padding = '0';
+                    const img = document.createElement('img');
+                    img.src = savedAvatar;
+                    img.alt = 'Profile avatar';
+                    img.className = 'w-full h-full object-cover';
+                    avatarContainer.appendChild(img);
+                }
+            }
+        })();
 
         // Tab switching function
         function showTab(tabName) {

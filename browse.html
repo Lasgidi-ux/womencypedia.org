@@ -335,21 +335,13 @@
                     historical imbalance and build a more complete, truthful record of human history.
                 </p>
 
-                <!-- Search Bar -->
-                <div class="max-w-2xl mx-auto">
-                    <div
-                        class="flex items-center bg-white border border-border-light rounded-xl px-4 py-3 shadow-sm focus-within:border-accent-teal focus-within:ring-2 focus-within:ring-accent-teal/20">
-                        <span class="material-symbols-outlined text-accent-teal text-[24px]">search</span>
-                        <input type="search"
-                            class="flex-1 bg-transparent border-none focus:ring-0 text-base ml-3 placeholder-text-secondary"
-                            placeholder="Search by name, region, era, or keyword..." / data-i18n-placeholder="search">
-                        <button
-                            class="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-text-main text-white rounded-lg font-bold text-sm hover:bg-text-main/90 transition-colors">
-                            <span class="material-symbols-outlined text-[18px]">tune</span>
-                            Filters
-                        </button>
-                    </div>
-                </div>
+                <!-- CTA to main search -->
+                <a href="#search-filters"
+                    class="inline-flex items-center gap-2 px-8 py-4 bg-text-main text-white rounded-lg font-bold text-sm hover:bg-text-main/90 transition-colors shadow-lg">
+                    <span class="material-symbols-outlined text-[20px]">search</span>
+                    Start Searching
+                    <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+                </a>
             </div>
         </section>
 
@@ -403,7 +395,7 @@
         </section>
 
         <!-- Enhanced Search & Filters -->
-        <section class="py-8 bg-white border-b border-border-light">
+        <section id="search-filters" class="py-8 bg-white border-b border-border-light scroll-mt-24">
             <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
                 <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
                     <!-- Search Bar -->
@@ -626,7 +618,7 @@
                             place — in land, culture, language, and community. The regional structure allows readers to
                             explore women's histories within their cultural and geographic contexts.</p>
                     </div>
-                    <a href="javascript:void(0)"
+                    <a href="browse.html"
                         class="hidden sm:flex items-center gap-2 text-sm font-bold text-text-main hover:text-primary">
                         View All Regions
                         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
@@ -635,7 +627,7 @@
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Africa -->
-                    <a href="biography.html"
+                    <a href="browse.html?region=africa"
                         class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                         <div class="h-40 bg-gradient-to-br from-accent-gold/20 to-primary/20 relative overflow-hidden">
                             <div
@@ -655,7 +647,7 @@
                     </a>
 
                     <!-- Europe -->
-                    <a href="biography.html"
+                    <a href="browse.html?region=europe"
                         class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                         <div class="h-40 bg-gradient-to-br from-divider/20 to-lavender-soft relative overflow-hidden">
                             <div
@@ -675,7 +667,7 @@
                     </a>
 
                     <!-- Asia -->
-                    <a href="biography.html"
+                    <a href="browse.html?region=asia"
                         class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                         <div class="h-40 bg-gradient-to-br from-primary/20 to-accent-teal/20 relative overflow-hidden">
                             <div
@@ -695,7 +687,7 @@
                     </a>
 
                     <!-- Middle East -->
-                    <a href="biography.html"
+                    <a href="browse.html?region=middle-east"
                         class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                         <div class="h-40 bg-gradient-to-br from-accent-gold/30 to-primary/10 relative overflow-hidden">
                             <div
@@ -715,7 +707,7 @@
                     </a>
 
                     <!-- North America -->
-                    <a href="biography.html"
+                    <a href="browse.html?region=north-america"
                         class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                         <div class="h-40 bg-gradient-to-br from-accent-teal/20 to-divider/20 relative overflow-hidden">
                             <div
@@ -735,7 +727,7 @@
                     </a>
 
                     <!-- South America -->
-                    <a href="biography.html"
+                    <a href="browse.html?region=south-america"
                         class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                         <div class="h-40 bg-gradient-to-br from-primary/30 to-accent-gold/20 relative overflow-hidden">
                             <div
@@ -755,7 +747,7 @@
                     </a>
 
                     <!-- Oceania -->
-                    <a href="biography.html"
+                    <a href="browse.html?region=oceania"
                         class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                         <div class="h-40 bg-gradient-to-br from-accent-teal/30 to-primary/10 relative overflow-hidden">
                             <div
@@ -775,7 +767,7 @@
                     </a>
 
                     <!-- Antarctica -->
-                    <a href="biography.html"
+                    <a href="browse.html?region=antarctica"
                         class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                         <div class="h-40 bg-gradient-to-br from-white to-accent-teal/20 relative overflow-hidden">
                             <div
