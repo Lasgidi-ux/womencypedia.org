@@ -761,12 +761,60 @@ const I18N = {
         window.location.reload();
     },
 
+    /** Loaded locale JSON data (from locales/*.json files) */
+    _localeData: {},
+
     /**
-     * Get a translated UI string
+     * Load locale JSON file from locales/ directory.
+     * Merges into _localeData for the given locale code.
+     */
+    async _loadLocaleFile(localeCode) {
+        if (this._localeData[localeCode]) return; // already loaded
+        try {
+            const response = await fetch(`locales/${localeCode}.json`, { cache: 'default' });
+            if (response.ok) {
+                this._localeData[localeCode] = await response.json();
+            }
+        } catch {
+            // Locale file not available — will use inline translations
+        }
+    },
+
+    /**
+     * Check if a key resolves to an actual translation (not the raw key).
+     */
+    _hasTranslation(key) {
+        // Check inline translations
+        const localeStrings = this.translations[this.currentLocale] || {};
+        if (localeStrings[key]) return true;
+        if (this.translations['en'] && this.translations['en'][key]) return true;
+        // Check loaded locale JSON
+        const jsonData = this._localeData[this.currentLocale] || {};
+        if (jsonData[key]) return true;
+        const enJsonData = this._localeData['en'] || {};
+        if (enJsonData[key]) return true;
+        return false;
+    },
+
+    /**
+     * Get a translated UI string.
+     * Priority: locale JSON → inline translations → original page text → raw key (last resort)
      */
     t(key, params = {}) {
+        // 1. Check loaded locale JSON files (locales/*.json)
+        const jsonData = this._localeData[this.currentLocale] || {};
+        const enJsonData = this._localeData['en'] || {};
+
+        // 2. Check inline translation dictionaries
         const localeStrings = this.translations[this.currentLocale] || this.translations['en'];
-        let text = localeStrings[key] || this.translations['en'][key] || key;
+
+        // 3. Resolve with priority chain
+        let text = jsonData[key]
+            || localeStrings[key]
+            || enJsonData[key]
+            || this.translations['en'][key]
+            || this._originalTexts[key]  // preserved original HTML text
+            || key; // last resort fallback
 
         // Simple interpolation: {{count}} → params.count
         for (const [param, value] of Object.entries(params)) {
@@ -783,17 +831,19 @@ const I18N = {
      */
     translatePage() {
         // Translate text content: data-i18n="key"
+        // CRITICAL: Only replace if a real translation exists, otherwise preserve original text
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (key) {
+            if (key && this._hasTranslation(key)) {
                 el.textContent = this.t(key);
             }
+            // If no translation found, leave original HTML content untouched
         });
 
         // Translate HTML content (for keys with <em>, <strong>, etc.): data-i18n-html="key"
         document.querySelectorAll('[data-i18n-html]').forEach(el => {
             const key = el.getAttribute('data-i18n-html');
-            if (key) {
+            if (key && this._hasTranslation(key)) {
                 el.innerHTML = this.t(key);
             }
         });
@@ -961,9 +1011,19 @@ const I18N = {
 };
 
 // Auto-initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Store original English text BEFORE translating
     I18N.storeOriginalTexts();
+
+    // Load locale JSON files (en.json + current locale)
+    await I18N._loadLocaleFile('en');
+    const urlLocale = new URLSearchParams(window.location.search).get('locale');
+    const storedLocale = localStorage.getItem(I18N.STORAGE_KEY);
+    const targetLocale = urlLocale || storedLocale || navigator.language?.split('-')[0] || 'en';
+    if (targetLocale !== 'en' && I18N.isSupported(targetLocale)) {
+        await I18N._loadLocaleFile(targetLocale);
+    }
+
     I18N.init();
     // Intercept links AFTER init so locale is set
     I18N.interceptAllLinks();
