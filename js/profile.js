@@ -66,8 +66,7 @@ async function loadUserProfile() {
         const response = await fetch(`${CONFIG.API_BASE_URL}/api/users/me?populate=role,avatar`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache'
+                'Content-Type': 'application/json'
             },
             cache: 'no-store'
         });
@@ -129,7 +128,7 @@ async function loadUserStats(token) {
         const contribResponse = await fetch(
             `${CONFIG.API_BASE_URL}/api/contributions?filters[author][id][$eq]=${profileData.id}&pagination[pageSize]=1`,
             {
-                headers: { 'Authorization': `Bearer ${token}`, 'Cache-Control': 'no-cache' },
+                headers: { 'Authorization': `Bearer ${token}` },
                 cache: 'no-store'
             }
         );
@@ -143,7 +142,7 @@ async function loadUserStats(token) {
         const nomResponse = await fetch(
             `${CONFIG.API_BASE_URL}/api/contributions?filters[author][id][$eq]=${profileData.id}&filters[type][$eq]=nomination&pagination[pageSize]=1`,
             {
-                headers: { 'Authorization': `Bearer ${token}`, 'Cache-Control': 'no-cache' },
+                headers: { 'Authorization': `Bearer ${token}` },
                 cache: 'no-store'
             }
         );
@@ -166,7 +165,7 @@ async function loadUserContributions(token) {
         const response = await fetch(
             `${CONFIG.API_BASE_URL}/api/contributions?filters[author][id][$eq]=${profileData.id}&sort=createdAt:desc&pagination[pageSize]=5&populate=*`,
             {
-                headers: { 'Authorization': `Bearer ${token}`, 'Cache-Control': 'no-cache' },
+                headers: { 'Authorization': `Bearer ${token}` },
                 cache: 'no-store'
             }
         );
@@ -191,7 +190,7 @@ async function loadUserSaved(token) {
         const response = await fetch(
             `${CONFIG.API_BASE_URL}/api/users/me?populate=savedBiographies`,
             {
-                headers: { 'Authorization': `Bearer ${token}`, 'Cache-Control': 'no-cache' },
+                headers: { 'Authorization': `Bearer ${token}` },
                 cache: 'no-store'
             }
         );
@@ -284,7 +283,12 @@ function updateProfileUI() {
     const avatarContainer = document.getElementById('profile-avatar-container');
     if (avatarContainer) {
         if (profileData.avatar) {
-            avatarContainer.innerHTML = `<img src="${profileData.avatar}" alt="${profileData.name}" class="size-32 rounded-full object-cover border-4 border-white shadow-lg">`;
+            avatarContainer.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = profileData.avatar;
+            img.alt = profileData.name;
+            img.className = 'size-32 rounded-full object-cover border-4 border-white shadow-lg';
+            avatarContainer.appendChild(img);
         } else {
             const initials = getInitials(profileData.name);
             avatarContainer.innerHTML = initials
@@ -292,7 +296,6 @@ function updateProfileUI() {
                 : `<span class="material-symbols-outlined text-4xl text-white/80">person</span>`;
         }
     }
-
     // Update stats
     updateStatsUI();
 
@@ -365,19 +368,36 @@ function renderContributionsTab() {
             rejected: 'bg-red-100 text-red-700'
         }[contrib.status] || 'bg-gray-100 text-gray-700';
 
+        // Escape user-controlled content to prevent XSS
+        const safeType = typeof Security !== 'undefined' ? Security.escapeHtml(contrib.type) : (contrib.type || '');
+        const safeTitle = typeof Security !== 'undefined' ? Security.escapeHtml(contrib.title) : (contrib.title || '');
+        const safeName = typeof Security !== 'undefined' ? Security.escapeHtml(contrib.name) : (contrib.name || '');
+        const safeStatus = typeof Security !== 'undefined' ? Security.escapeHtml(contrib.status) : (contrib.status || '');
+        const displayTitle = safeTitle || safeName || 'Untitled';
+
         return `
             <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-border-light hover:shadow-md transition-shadow">
                 <div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span class="material-symbols-outlined text-primary text-[20px]">${contrib.type === 'nomination' ? 'person_add' : 'article'}</span>
+                    <span class="material-symbols-outlined text-primary text-[20px]">${safeType === 'nomination' ? 'person_add' : 'article'}</span>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <h4 class="font-serif font-semibold text-text-main truncate">${contrib.title || contrib.name || 'Untitled'}</h4>
+                    <h4 class="font-serif font-semibold text-text-main truncate">${displayTitle}</h4>
                     <p class="text-sm text-text-secondary mt-1">${date}</p>
                 </div>
-                <span class="px-2 py-1 rounded-full text-xs font-medium ${statusColor}">${contrib.status || 'draft'}</span>
+                <span class="px-2 py-1 rounded-full text-xs font-medium ${statusColor}">${safeStatus || 'draft'}</span>
             </div>
         `;
     }).join('');
+}
+
+/**
+ * Escape HTML to prevent XSS
+ */
+function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = String(str);
+    return div.innerHTML;
 }
 
 /**
@@ -402,23 +422,56 @@ function renderSavedTab() {
         return;
     }
 
+    // Whitelist of allowed image domains/patterns
+    const allowedImagePatterns = [
+        /^https?:\/\/[^\/]+\.strapi\.io\//i,
+        /^https?:\/\/res\.cloudinary\.com\//i,
+        /^https?:\/\/[^\/]+\.(jpg|jpeg|png|webp|gif)$/i,
+        /^data:image\//i
+    ];
+
+    function isValidImageUrl(url) {
+        if (!url) return false;
+        return allowedImagePatterns.some(pattern => pattern.test(url));
+    }
+
     container.innerHTML = profileData.saved.map(item => {
         const attrs = item.attributes || item;
-        const imageUrl = attrs.image?.url
-            ? (attrs.image.url.startsWith('http') ? attrs.image.url : `${CONFIG.API_BASE_URL}${attrs.image.url}`)
-            : null;
+
+        // Sanitize user-controlled text fields
+        const safeName = escapeHtml(attrs.name || 'Unnamed');
+        const safeRegion = escapeHtml(attrs.region || '');
+        const safeEra = escapeHtml(attrs.era || '');
+
+        // Validate and encode URL for slug
+        const slug = attrs.slug || item.id;
+        const safeSlug = encodeURIComponent(String(slug));
+
+        // Validate image URL against whitelist
+        let imageUrl = null;
+        if (attrs.image?.url) {
+            const rawUrl = attrs.image.url.startsWith('http')
+                ? attrs.image.url
+                : `${CONFIG.API_BASE_URL}${attrs.image.url}`;
+            if (isValidImageUrl(rawUrl)) {
+                imageUrl = rawUrl;
+            }
+        }
+
+        // Escape alt text for image
+        const safeAlt = escapeHtml(attrs.name || '');
 
         return `
-            <a href="biography.html?slug=${attrs.slug || item.id}" class="flex items-center gap-4 p-4 bg-white rounded-xl border border-border-light hover:shadow-md transition-shadow group">
+            <a href="biography.html?slug=${safeSlug}" class="flex items-center gap-4 p-4 bg-white rounded-xl border border-border-light hover:shadow-md transition-shadow group">
                 <div class="size-14 rounded-lg overflow-hidden flex-shrink-0 bg-primary/10">
                     ${imageUrl
-                ? `<img src="${imageUrl}" alt="${attrs.name || ''}" class="w-full h-full object-cover">`
+                ? `<img src="${escapeHtml(imageUrl)}" alt="${safeAlt}" class="w-full h-full object-cover">`
                 : `<div class="w-full h-full flex items-center justify-center"><span class="material-symbols-outlined text-primary/40">person</span></div>`
             }
                 </div>
                 <div class="flex-1 min-w-0">
-                    <h4 class="font-serif font-semibold text-text-main truncate group-hover:text-primary transition-colors">${attrs.name || 'Unnamed'}</h4>
-                    <p class="text-sm text-text-secondary">${attrs.region || ''} ${attrs.era ? '• ' + attrs.era : ''}</p>
+                    <h4 class="font-serif font-semibold text-text-main truncate group-hover:text-primary transition-colors">${safeName}</h4>
+                    <p class="text-sm text-text-secondary">${safeRegion}${safeRegion && safeEra ? ' • ' : ''}${safeEra}</p>
                 </div>
                 <span class="material-symbols-outlined text-text-secondary/40 group-hover:text-primary transition-colors">chevron_right</span>
             </a>
@@ -470,6 +523,12 @@ function setupAvatarUpload() {
  * Upload avatar to Strapi Media Library and update user
  */
 async function uploadAvatar(file) {
+    // Guard: Check Auth exists before calling getAccessToken
+    if (typeof Auth === 'undefined') {
+        console.warn('Auth is not defined, cannot upload avatar');
+        return;
+    }
+
     const token = Auth.getAccessToken();
     if (!token || !profileData.id) return;
 
@@ -520,7 +579,8 @@ async function uploadAvatar(file) {
 // Get initials from name
 function getInitials(name) {
     if (!name || name === 'Guest User') return null;
-    const parts = name.split(' ');
+    // Trim and filter out empty segments to handle multiple/leading/trailing spaces
+    const parts = name.trim().split(/\s+/).filter(Boolean);
     if (parts.length >= 2) {
         return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
     }
@@ -650,6 +710,12 @@ function showEditProfileModal() {
     const isAuthenticated = typeof Auth !== 'undefined' && Auth.isAuthenticated();
     const t = typeof I18N !== 'undefined' ? (k) => I18N.t(k) : (k) => k;
 
+    // Escape user-controlled values to prevent XSS
+    const safeName = escapeHtml(profileData.name);
+    const safeEmail = escapeHtml(profileData.email);
+    const safeLocation = escapeHtml(profileData.location || '');
+    const safeBio = escapeHtml(profileData.bio);
+
     const authNotice = !isAuthenticated
         ? `<div class="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
             <span class="material-symbols-outlined text-[16px] align-middle mr-1">info</span>
@@ -668,23 +734,23 @@ function showEditProfileModal() {
             <form id="edit-profile-form" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-text-main mb-2">Display Name</label>
-                    <input type="text" id="edit-name" value="${profileData.name}"
+                    <input type="text" id="edit-name" value="${safeName}"
                         class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-text-main mb-2">Email</label>
-                    <input type="email" id="edit-email" value="${profileData.email}" ${isAuthenticated ? '' : 'disabled'}
+                    <input type="email" id="edit-email" value="${safeEmail}" ${isAuthenticated ? '' : 'disabled'}
                         class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal disabled:bg-gray-100 disabled:cursor-not-allowed">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-text-main mb-2">Location</label>
-                    <input type="text" id="edit-location" value="${profileData.location || ''}"
+                    <input type="text" id="edit-location" value="${safeLocation}"
                         class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-text-main mb-2">Bio</label>
                     <textarea id="edit-bio" rows="3"
-                        class="w-full px-4 py-3 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal resize-none">${profileData.bio}</textarea>
+                        class="w-full px-4 py-3 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal resize-none">${safeBio}</textarea>
                 </div>
             </form>
             <div class="flex gap-4 mt-6">
@@ -772,7 +838,20 @@ function getRelativeTime(dateString) {
     const date = new Date(dateString);
     const now = new Date();
     const diffTime = Math.abs(now - date);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // Use Math.floor for accurate day calculation
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    const diffMinutes = Math.floor(diffTime / (1000 * 60));
+
+    // Special case: same-day differences show hours/minutes
+    if (diffDays === 0) {
+        if (diffHours === 0) {
+            if (diffMinutes <= 1) return 'Just now';
+            return `${diffMinutes} minutes ago`;
+        }
+        return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+    }
 
     if (diffDays === 1) return 'Yesterday';
     if (diffDays < 7) return `${diffDays} days ago`;

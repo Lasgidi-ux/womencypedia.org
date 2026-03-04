@@ -36,6 +36,7 @@
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#E8A6A6">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display min-h-screen">
@@ -49,10 +50,11 @@
     <!-- Mobile Search Sheet -->
     <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
         <div class="flex items-center gap-3">
+            <div id="language-switcher"></div>
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search leaders, organizations..."
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -70,7 +72,7 @@
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="leader_profile.explore">
                 Explore</h3>
             <a href="index.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Home</a>
             <a href="browse.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Browse</a>
@@ -142,7 +144,7 @@
                             </span>
                         </div>
 
-                        <h1 class="font-heading text-3xl lg:text-4xl font-bold text-text-main mb-3" id="org-name">
+                        <h1 class="font-heading text-3xl lg:text-4xl font-bold text-text-main mb-3" id="org-name" data-i18n="leader_profile.organizationName">
                             Organization Name
                         </h1>
 
@@ -247,7 +249,7 @@
                         </div>
 
                         <div class="bg-white rounded-2xl p-6 lg:p-8 border border-border-light">
-                            <h2 class="font-heading text-xl font-bold text-text-main mb-4">Mission & Vision</h2>
+                            <h2 class="font-heading text-xl font-bold text-text-main mb-4" data-i18n="leader_profile.missionVision">Mission & Vision</h2>
                             <div class="space-y-4">
                                 <div class="bg-accent-teal/10 rounded-xl p-5">
                                     <h3 class="font-medium text-accent-teal mb-2 flex items-center gap-2">
@@ -272,7 +274,7 @@
                     <!-- Governance Tab -->
                     <div id="tab-governance" class="tab-content hidden">
                         <div class="bg-white rounded-2xl p-6 lg:p-8 border border-border-light">
-                            <h2 class="font-heading text-xl font-bold text-text-main mb-4">Leadership Structure</h2>
+                            <h2 class="font-heading text-xl font-bold text-text-main mb-4" data-i18n="leader_profile.leadershipStructure">Leadership Structure</h2>
                             <div class="prose max-w-none text-text-secondary" id="org-governance">
                                 <p>Information about the organization's governance structure, leadership positions, and
                                     decision-making processes will appear here.</p>
@@ -310,7 +312,7 @@
                     <!-- Impact Tab -->
                     <div id="tab-impact" class="tab-content hidden">
                         <div class="bg-white rounded-2xl p-6 lg:p-8 border border-border-light">
-                            <h2 class="font-heading text-xl font-bold text-text-main mb-4">Impact Metrics</h2>
+                            <h2 class="font-heading text-xl font-bold text-text-main mb-4" data-i18n="leader_profile.impactMetrics">Impact Metrics</h2>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" id="impact-metrics">
                                 <div class="text-center p-4 bg-background-cream rounded-xl">
                                     <p class="text-3xl font-bold text-primary" id="metric-employees">-</p>
@@ -339,7 +341,7 @@
                     <!-- Contributions Tab -->
                     <div id="tab-contributions" class="tab-content hidden">
                         <div class="bg-white rounded-2xl p-6 lg:p-8 border border-border-light">
-                            <h2 class="font-heading text-xl font-bold text-text-main mb-4">Related Contributions</h2>
+                            <h2 class="font-heading text-xl font-bold text-text-main mb-4" data-i18n="leader_profile.relatedContributions">Related Contributions</h2>
                             <p class="text-text-secondary mb-4">Articles, case studies, and reports related to this
                                 organization.</p>
                             <div id="contributions-list" class="space-y-4">
@@ -353,7 +355,7 @@
                 <div class="lg:col-span-1">
                     <!-- Contact Card -->
                     <div class="bg-white rounded-2xl p-6 border border-border-light mb-6">
-                        <h3 class="font-heading text-lg font-bold text-text-main mb-4">Contact Information</h3>
+                        <h3 class="font-heading text-lg font-bold text-text-main mb-4" data-i18n="leader_profile.contactInformation">Contact Information</h3>
                         <div class="space-y-3">
                             <a href="#" id="contact-website"
                                 class="flex items-center gap-3 text-text-secondary hover:text-primary transition-colors">
@@ -370,7 +372,7 @@
 
                     <!-- Similar Organizations -->
                     <div class="bg-white rounded-2xl p-6 border border-border-light">
-                        <h3 class="font-heading text-lg font-bold text-text-main mb-4">Similar Organizations</h3>
+                        <h3 class="font-heading text-lg font-bold text-text-main mb-4" data-i18n="leader_profile.similarOrganizations">Similar Organizations</h3>
                         <div class="space-y-4" id="similar-orgs">
                             <p class="text-text-secondary text-sm">Loading similar organizations...</p>
                         </div>
@@ -558,6 +560,8 @@
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

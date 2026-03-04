@@ -44,6 +44,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -60,7 +61,7 @@
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -80,7 +81,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="education_module_2.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -97,7 +98,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="education_module_2.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -114,7 +115,7 @@
         <!-- Modules -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="education_module_2.modules">
                 Modules</h3>
             <a href="education-module-1.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Module
@@ -142,7 +143,7 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="education_module_2.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
@@ -153,13 +154,13 @@
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="education_module_2.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -180,9 +181,7 @@
         <!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Share Your Story
-            </a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
@@ -197,104 +196,7 @@
                             class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
                     <nav class="hidden lg:flex items-center gap-6">
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Explore<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="index.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a><a
-                                        href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a><a
-                                        href="featured.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a><a
-                                        href="collections.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a><a
-                                        href="timelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">Learn<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="education.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Education</a><a
-                                        href="enterprises.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a><a
-                                        href="research.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a><a
-                                        href="publications.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a><a
-                                        href="resources.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Participate<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="nominate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
-                                        a Woman</a><a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
-                                        Your Story</a><a href="contributor-guidelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
-                                        Guidelines</a><a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">About<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="about.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
-                                        Us</a><a href="founders.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Founders</a><a
-                                        href="contributors.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a><a
-                                        href="methodology.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a><a
-                                        href="editorial-standards.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
-                                        Standards</a><a href="contact.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">My
-                                Profile<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="profile.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">My
-                                        data-auth="admin-only" href="admin.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
-                                        style="display:none">Admin</a><a href="biography.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </nav>
                 </div>
                 <div class="flex items-center gap-3 lg:gap-6">
@@ -306,8 +208,9 @@
                             placeholder="Search the archive..." type="search" />
                     </div>
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <button
                             class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">Sign
                             In</button>
@@ -340,7 +243,7 @@
                             <span
                                 class="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider">INTERMEDIATE</span>
                         </div>
-                        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+                        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4" data-i18n="education_module_2.researchMethodsForWomensHistory">
                             Research Methods for Women's History
                         </h1>
                         <p class="text-white/90 text-lg leading-relaxed max-w-2xl">
@@ -369,7 +272,7 @@
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
                 <div class="grid lg:grid-cols-3 gap-12">
                     <div class="lg:col-span-2">
-                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6">What You'll Learn</h2>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6" data-i18n="education_module_2.whatYoullLearn">What You'll Learn</h2>
                         <p class="text-text-secondary leading-relaxed mb-8">
                             This intermediate module builds on foundational knowledge to develop advanced research
                             skills
@@ -385,7 +288,7 @@
                                     <span class="material-symbols-outlined text-accent-teal">folder_open</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1">Navigate Archives</h3>
+                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1" data-i18n="education_module_2.navigateArchives">Navigate Archives</h3>
                                     <p class="text-text-secondary text-sm">Master techniques for researching across
                                         different types of archives and collections</p>
                                 </div>
@@ -396,7 +299,7 @@
                                     <span class="material-symbols-outlined text-primary">record_voice_over</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1">Conduct Oral History
+                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1" data-i18n="education_module_2.conductOralHistory">Conduct Oral History
                                     </h3>
                                     <p class="text-text-secondary text-sm">Learn ethical and methodological approaches
                                         to
@@ -409,7 +312,7 @@
                                     <span class="material-symbols-outlined text-accent-gold">analytics</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1">Evaluate Sources</h3>
+                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1" data-i18n="education_module_2.evaluateSources">Evaluate Sources</h3>
                                     <p class="text-text-secondary text-sm">Critically assess primary and secondary
                                         sources
                                         for reliability and bias</p>
@@ -421,7 +324,7 @@
                                     <span class="material-symbols-outlined text-accent-teal">merge</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1">Synthesize Evidence
+                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1" data-i18n="education_module_2.synthesizeEvidence">Synthesize Evidence
                                     </h3>
                                     <p class="text-text-secondary text-sm">Combine fragmented evidence into coherent
                                         biographical narratives</p>
@@ -433,7 +336,7 @@
                     <!-- Progress Card -->
                     <div class="lg:col-span-1">
                         <div class="bg-white rounded-2xl p-6 border border-border-light shadow-lg sticky top-24">
-                            <h3 class="font-serif text-lg font-bold text-text-main mb-4">Your Progress</h3>
+                            <h3 class="font-serif text-lg font-bold text-text-main mb-4" data-i18n="education_module_2.yourProgress">Your Progress</h3>
 
                             <!-- Progress Bar -->
                             <div class="mb-6">
@@ -495,7 +398,7 @@
         <!-- Course Content -->
         <section class="py-16 lg:py-20 bg-lavender-soft/40" id="course-content">
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
-                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-8">Course Content</h2>
+                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-8" data-i18n="education_module_2.courseContent">Course Content</h2>
 
                 <div class="space-y-4">
                     <!-- Unit 1 -->
@@ -507,7 +410,7 @@
                                     <span class="material-symbols-outlined text-accent-teal">explore</span>
                                 </div>
                                 <div class="text-left">
-                                    <h3 class="font-serif text-lg font-bold text-text-main">Unit 1: Research Foundations
+                                    <h3 class="font-serif text-lg font-bold text-text-main" data-i18n="education_module_2.unit1ResearchFoundations">Unit 1: Research Foundations
                                     </h3>
                                     <p class="text-text-secondary text-sm">4 Lessons • 1.5 Hours</p>
                                 </div>
@@ -552,7 +455,7 @@
                                     <span class="material-symbols-outlined text-primary">archive</span>
                                 </div>
                                 <div class="text-left">
-                                    <h3 class="font-serif text-lg font-bold text-text-main">Unit 2: Archival Research
+                                    <h3 class="font-serif text-lg font-bold text-text-main" data-i18n="education_module_2.unit2ArchivalResearch">Unit 2: Archival Research
                                     </h3>
                                     <p class="text-text-secondary text-sm">4 Lessons • 1.5 Hours</p>
                                 </div>
@@ -597,7 +500,7 @@
                                     <span class="material-symbols-outlined text-accent-gold">mic</span>
                                 </div>
                                 <div class="text-left">
-                                    <h3 class="font-serif text-lg font-bold text-text-main">Unit 3: Oral History</h3>
+                                    <h3 class="font-serif text-lg font-bold text-text-main" data-i18n="education_module_2.unit3OralHistory">Unit 3: Oral History</h3>
                                     <p class="text-text-secondary text-sm">4 Lessons • 2 Hours</p>
                                 </div>
                             </div>
@@ -640,7 +543,7 @@
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
                 <div class="grid lg:grid-cols-2 gap-12">
                     <div>
-                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6">Key Concepts</h2>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6" data-i18n="education_module_2.keyConcepts">Key Concepts</h2>
                         <p class="text-text-secondary leading-relaxed mb-8">
                             This module introduces essential research terminology and methodological approaches specific
                             to
@@ -679,9 +582,9 @@
                     </div>
 
                     <div>
-                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6">Prerequisites</h2>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6" data-i18n="education_module_2.prerequisites">Prerequisites</h2>
                         <div class="bg-white rounded-2xl p-6 border border-border-light">
-                            <h3 class="font-serif text-lg font-bold text-text-main mb-4">Recommended Preparation</h3>
+                            <h3 class="font-serif text-lg font-bold text-text-main mb-4" data-i18n="education_module_2.recommendedPreparation">Recommended Preparation</h3>
                             <p class="text-text-secondary text-sm leading-relaxed mb-6">
                                 This intermediate module assumes completion of Module 1: Foundations of Symbolic Power
                                 or
@@ -718,7 +621,7 @@
         <!-- CTA Section -->
         <section class="py-16 lg:py-24 bg-gradient-to-br from-accent-teal to-accent-teal-dark">
             <div class="mx-auto max-w-[900px] px-4 sm:px-6 lg:px-12 text-center">
-                <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6">Advance Your Research
+                <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6" data-i18n="education_module_2.advanceYourResearchSkills">Advance Your Research
                     Skills</h2>
                 <p class="text-white/90 text-lg max-w-2xl mx-auto mb-10">
                     Build on your foundational knowledge and develop advanced research skills essential for uncovering
@@ -812,13 +715,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -848,8 +751,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -904,6 +807,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

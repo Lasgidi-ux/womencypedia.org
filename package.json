@@ -1,21 +1,31 @@
 {
   "name": "womencypedia-frontend",
   "version": "1.0.0",
-  "description": "",
+  "description": "The world's first interpretive encyclopedia of women",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:css:prod",
+    "build": "npm run build:css:prod && npm run build:js",
     "build:css": "npx tailwindcss -i ./src/input.css -o ./css/tailwind.css",
     "build:css:prod": "npx tailwindcss -i ./src/input.css -o ./css/tailwind.css --minify",
+    "build:js": "npm run build:js:core && npm run build:js:pages",
+    "build:js:core": "node scripts/bundle.js",
+    "build:js:pages": "node scripts/minify-pages.js",
     "watch:css": "npx tailwindcss -i ./src/input.css -o ./css/tailwind.css --watch",
+    "dev": "npx concurrently \"npm run watch:css\" \"npx live-server --port=3000 --no-browser\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Lasgidi-ux/womencypedia.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "women",
+    "encyclopedia",
+    "history",
+    "culture",
+    "heritage"
+  ],
+  "author": "Womencypedia Foundation",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
@@ -25,6 +35,9 @@
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.11",
-    "tailwindcss": "^3.4.19"
+    "concurrently": "^9.1.2",
+    "live-server": "^1.2.2",
+    "tailwindcss": "^3.4.19",
+    "terser": "^5.37.0"
   }
 }

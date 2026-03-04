@@ -1,0 +1,102 @@
+{
+    "kind": "collectionType",
+    "collectionName": "nominations",
+    "info": {
+        "singularName": "nomination",
+        "pluralName": "nominations",
+        "displayName": "Nomination",
+        "description": "Nominations for women to be featured on Womencypedia"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "nomineeName": {
+            "type": "string",
+            "required": true
+        },
+        "nomineeRegion": {
+            "type": "enumeration",
+            "enum": [
+                "Africa",
+                "Europe",
+                "Asia",
+                "Middle East",
+                "North America",
+                "South America",
+                "Oceania",
+                "Global"
+            ],
+            "required": true
+        },
+        "nomineeEra": {
+            "type": "enumeration",
+            "enum": [
+                "Ancient",
+                "Pre-colonial",
+                "Colonial",
+                "Post-colonial",
+                "Contemporary"
+            ]
+        },
+        "nomineeCategory": {
+            "type": "enumeration",
+            "enum": [
+                "Leadership",
+                "Culture & Arts",
+                "Spirituality & Faith",
+                "Politics & Governance",
+                "Science & Innovation",
+                "Community Builders",
+                "Activism & Justice",
+                "Education",
+                "Diaspora Stories"
+            ]
+        },
+        "reason": {
+            "type": "text",
+            "required": true
+        },
+        "additionalInfo": {
+            "type": "text"
+        },
+        "sources": {
+            "type": "json"
+        },
+        "nominatorName": {
+            "type": "string",
+            "required": true
+        },
+        "nominatorEmail": {
+            "type": "email",
+            "required": true
+        },
+        "nominatorOrganization": {
+            "type": "string"
+        },
+        "nominator": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.user"
+        },
+        "status": {
+            "type": "enumeration",
+            "enum": [
+                "pending",
+                "under_review",
+                "approved",
+                "rejected",
+                "converted"
+            ],
+            "default": "pending"
+        },
+        "reviewNotes": {
+            "type": "text"
+        },
+        "resultingBiography": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::biography.biography"
+        }
+    }
+}

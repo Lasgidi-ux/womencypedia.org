@@ -47,6 +47,7 @@
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#E8A6A6">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -59,10 +60,11 @@
     <!-- Mobile Search Sheet -->
     <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
         <div class="flex items-center gap-3">
+            <div id="language-switcher"></div>
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search content..."
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -80,7 +82,7 @@
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="controlled_contributions.explore">
                 Explore</h3>
             <a href="index.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Home</a>
             <a href="browse.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Browse</a>
@@ -211,7 +213,7 @@
                         class="inline-block bg-primary/10 text-primary text-sm font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
                         Controlled Contributions
                     </span>
-                    <h1 class="font-heading text-4xl lg:text-5xl font-bold text-text-main mb-6">
+                    <h1 class="font-heading text-4xl lg:text-5xl font-bold text-text-main mb-6" data-i18n="controlled_contributions.submitYourContent">
                         Submit Your Content
                     </h1>
                     <p class="text-lg lg:text-xl text-text-secondary mb-8">
@@ -230,7 +232,7 @@
                         <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="material-symbols-outlined text-primary text-2xl">article</span>
                         </div>
-                        <h3 class="font-heading text-lg font-bold text-text-main mb-2">Articles</h3>
+                        <h3 class="font-heading text-lg font-bold text-text-main mb-2" data-i18n="controlled_contributions.articles">Articles</h3>
                         <p class="text-sm text-text-secondary">In-depth analysis and thought leadership on women-led
                             organizations and leadership.</p>
                     </div>
@@ -239,7 +241,7 @@
                             class="w-14 h-14 bg-accent-teal/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="material-symbols-outlined text-accent-teal text-2xl">menu_book</span>
                         </div>
-                        <h3 class="font-heading text-lg font-bold text-text-main mb-2">Case Studies</h3>
+                        <h3 class="font-heading text-lg font-bold text-text-main mb-2" data-i18n="controlled_contributions.caseStudies">Case Studies</h3>
                         <p class="text-sm text-text-secondary">Detailed examinations of successful women-led initiatives
                             and programs.</p>
                     </div>
@@ -248,7 +250,7 @@
                             class="w-14 h-14 bg-accent-gold/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="material-symbols-outlined text-accent-gold text-2xl">assessment</span>
                         </div>
-                        <h3 class="font-heading text-lg font-bold text-text-main mb-2">Reports</h3>
+                        <h3 class="font-heading text-lg font-bold text-text-main mb-2" data-i18n="controlled_contributions.reports">Reports</h3>
                         <p class="text-sm text-text-secondary">Research findings, annual reports, and policy
                             recommendations.</p>
                     </div>
@@ -262,7 +264,7 @@
                 <form id="contribution-form" class="space-y-8">
                     <!-- Content Type Selection -->
                     <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light">
-                        <h2 class="font-heading text-xl font-bold text-text-main mb-6">Content Type</h2>
+                        <h2 class="font-heading text-xl font-bold text-text-main mb-6" data-i18n="controlled_contributions.contentType">Content Type</h2>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <label class="cursor-pointer">
                                 <input type="radio" name="contentType" value="article" checked class="peer sr-only">
@@ -293,7 +295,7 @@
 
                     <!-- Basic Information -->
                     <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light">
-                        <h2 class="font-heading text-xl font-bold text-text-main mb-6">Basic Information</h2>
+                        <h2 class="font-heading text-xl font-bold text-text-main mb-6" data-i18n="controlled_contributions.basicInformation">Basic Information</h2>
 
                         <div class="space-y-6">
                             <div>
@@ -359,7 +361,7 @@
 
                     <!-- Content -->
                     <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light">
-                        <h2 class="font-heading text-xl font-bold text-text-main mb-6">Content</h2>
+                        <h2 class="font-heading text-xl font-bold text-text-main mb-6" data-i18n="controlled_contributions.content">Content</h2>
 
                         <div class="space-y-6">
                             <div>
@@ -378,7 +380,7 @@
 
                     <!-- Author Information -->
                     <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light">
-                        <h2 class="font-heading text-xl font-bold text-text-main mb-6">Author Information</h2>
+                        <h2 class="font-heading text-xl font-bold text-text-main mb-6" data-i18n="controlled_contributions.authorInformation">Author Information</h2>
 
                         <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -414,7 +416,7 @@
 
                     <!-- Related Organization -->
                     <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light">
-                        <h2 class="font-heading text-xl font-bold text-text-main mb-6">Related Organization</h2>
+                        <h2 class="font-heading text-xl font-bold text-text-main mb-6" data-i18n="controlled_contributions.relatedOrganization">Related Organization</h2>
 
                         <div>
                             <label for="relatedLeader" class="block text-sm font-medium text-text-main mb-2">
@@ -440,8 +442,8 @@
                                 class="mt-1 w-4 h-4 text-primary border-border-light rounded focus:ring-primary">
                             <label for="terms" class="text-sm text-text-secondary">
                                 I confirm that this content is original and I have the right to submit it. I agree to
-                                the <a href="terms-of-use.html" class="text-primary underline">Terms of Use</a> and <a
-                                    href="privacy-policy.html" class="text-primary underline">Privacy Policy</a>. All
+                                the <a href="terms-of-use.html" class="text-primary underline"><span data-i18n="termsOfUse">Terms of Use</span></a> and <a
+                                    href="privacy-policy.html" class="text-primary underline"><span data-i18n="privacyPolicy">Privacy Policy</span></a>. All
                                 submissions undergo editorial review and may take 5-10 business days for processing.
                             </label>
                         </div>
@@ -464,7 +466,7 @@
                     <div class="w-20 h-20 bg-accent-teal/10 rounded-full flex items-center justify-center mx-auto mb-6">
                         <span class="material-symbols-outlined text-accent-teal text-4xl">check_circle</span>
                     </div>
-                    <h2 class="font-heading text-3xl font-bold text-text-main mb-4">Submission Received!</h2>
+                    <h2 class="font-heading text-3xl font-bold text-text-main mb-4" data-i18n="controlled_contributions.submissionReceived">Submission Received!</h2>
                     <p class="text-text-secondary mb-8">
                         Thank you for your contribution. Our editorial team will review your submission within 5-10
                         business days. You will receive an email notification with the outcome.
@@ -486,7 +488,7 @@
         <!-- Guidelines -->
         <section class="py-12 bg-white border-t border-border-light">
             <div class="mx-auto max-w-4xl px-4 sm:px-6">
-                <h2 class="font-heading text-2xl font-bold text-text-main mb-6 text-center">Submission Guidelines</h2>
+                <h2 class="font-heading text-2xl font-bold text-text-main mb-6 text-center" data-i18n="controlled_contributions.submissionGuidelines">Submission Guidelines</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                         <h3 class="font-heading text-lg font-bold text-text-main mb-3 flex items-center gap-2">
@@ -595,6 +597,8 @@
             document.getElementById('success-message').classList.remove('hidden');
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

@@ -17,42 +17,113 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 
-    <!-- Tailwind CSS (Production Build) -->
-    <link rel="stylesheet" href="css/tailwind.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#e8a6a6",
+                        "primary-hover": "#D98F8F",
+                        "accent-gold": "#D4AF37",
+                        "accent-teal": "#4DB6AC",
+                        "accent-teal-dark": "#2F8F86",
+                        "divider": "#B48CB8",
+                        "lavender": "#C8A2C8",
+                        "lavender-soft": "#EDE3F1",
+                        "background-cream": "#F5F5F0",
+                        "background-dark": "#1f1313",
+                        "text-main": "#191010",
+                        "text-secondary": "#6B6B6B",
+                        "border-light": "#DDD8CF",
+                    },
+                    fontFamily: {
+                        "display": ["Lato", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/womencypedia-logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/womencypedia-logo.png">
+        ::-webkit-scrollbar-track {
+            background: #F5F5F0;
+        }
 
-    <!-- Open Graph / SEO -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://womencypedia.org/founders.html">
-    <meta property="og:title" content="Founders — Womencypedia">
-    <meta property="og:description" content="Meet the founders who envisioned and built Womencypedia.">
-    <meta property="og:image" content="https://womencypedia.org/images/womencypedia-logo.png">
-    <meta property="og:site_name" content="Womencypedia">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Founders — Womencypedia">
-    <meta name="twitter:description" content="Meet the founders who envisioned and built Womencypedia.">
-    <meta name="twitter:image" content="https://womencypedia.org/images/womencypedia-logo.png">
-    <link rel="canonical" href="https://womencypedia.org/founders.html">
+        ::-webkit-scrollbar-thumb {
+            background: #B48CB8;
+            border-radius: 4px;
+        }
 
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#E8A6A6">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .mobile-menu {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .mobile-menu.hidden {
+            transform: translateY(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .search-sheet {
+            transition: transform 0.3s ease;
+        }
+
+        .search-sheet.hidden {
+            transform: translateY(-100%);
+        }
+
+        .search-sheet.active {
+            transform: translateY(0);
+        }
+
+        .overlay {
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drop-cap::first-letter {
+            float: left;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            line-height: 0.8;
+            font-weight: 700;
+            margin-right: 0.5rem;
+            margin-top: 0.2rem;
+            color: #e8a6a6;
+        }
+    </style>
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
-<body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
-
-    <!-- Skip Link -->
-    <a href="#main-content"
-        class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
-        Skip to main content
-    </a>
+<body
+    class="bg-background-cream dark:bg-background-dark text-text-main antialiased font-display selection:bg-primary/30">
 
     <!-- Mobile Search Sheet -->
     <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
@@ -76,42 +147,25 @@
     <nav id="mobileMenu"
         class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
-
-        <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
                 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                Explore</h3>
+                Primary Navigation</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
-            <a href="browse.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
-            <a href="featured.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
+            <a href="about.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
+                Womencypedia</a>
             <a href="collections.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Collections</a>
-            <a href="timelines.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
-        </div>
-
-        <!-- Learn -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                Learn</h3>
-            <a href="education.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
-            <a href="enterprises.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Enterprises</a>
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured
+                Collections</a>
+            <a href="browse.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse
+                Stories</a>
             <a href="research.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Research</a>
-            <a href="publications.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Publications</a>
-            <a href="resources.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Resources</a>
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Research
+                & Method</a>
         </div>
-
-        <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
                 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
@@ -119,51 +173,9 @@
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
                 a Woman</a>
-            <a href="share-story.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share
+            <a href="share-story.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Share
                 Your Story</a>
-            <a href="contributor-guidelines.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
-                Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
         </div>
-
-        <!-- About -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                About</h3>
-            <a href="about.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
-                Us</a>
-            <a href="founders.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Founders</a>
-            <a href="contributors.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
-            <a href="methodology.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
-            <a href="editorial-standards.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial
-                Standards</a>
-            <a href="contact.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
-        </div>
-
-        <!-- My Profile -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                My Profile</h3>
-            <a href="profile.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">My
-                Profile</a>
-            <a data-auth="admin-only" href="admin.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" style="display:none">Admin</a>
-            <a href="biography.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Sample
-                Biography</a>
-        </div>
-
-        <!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
                 class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
@@ -174,147 +186,52 @@
 
     <!-- Header -->
     <header id="navbar"
-        class="w-full border-b border-divider bg-background-cream  sticky top-0 z-50 transition-transform duration-300">
+        class="w-full border-b border-divider bg-background-cream dark:bg-background-dark sticky top-0 z-50 transition-transform duration-300">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
                 <div class="flex items-center gap-8 lg:gap-12">
-                    <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
-                        <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
-                        <span class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
+                    <a class="flex items-center gap-2 lg:gap-3 group" href="index.html">
+                        <div
+                            class="flex items-center justify-center size-9 lg:size-10 rounded-full bg-primary/20 text-text-main group-hover:bg-primary/40 transition-colors">
+                            <span class="material-symbols-outlined text-[20px] lg:text-[24px]">history_edu</span>
+                        </div>
+                        <h2 class="text-text-main text-xl lg:text-2xl font-bold font-serif tracking-tight">Womencypedia
+                        </h2>
                     </a>
-                    <nav class="hidden lg:flex items-center gap-6">
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Explore<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="index.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a><a
-                                        href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a><a
-                                        href="featured.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a><a
-                                        href="collections.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a><a
-                                        href="timelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Learn<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="education.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a><a
-                                        href="enterprises.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a><a
-                                        href="research.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a><a
-                                        href="publications.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a><a
-                                        href="resources.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Participate<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="nominate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
-                                        a Woman</a><a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
-                                        Your Story</a><a href="contributor-guidelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
-                                        Guidelines</a><a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">About<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="about.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
-                                        Us</a><a href="founders.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Founders</a><a
-                                        href="contributors.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a><a
-                                        href="methodology.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a><a
-                                        href="editorial-standards.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
-                                        Standards</a><a href="contact.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">My
-                                Profile<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="profile.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">My
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" style="display:none">Admin</a><a
-                                        href="biography.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
+                    <nav class="hidden lg:flex items-center gap-8">
+                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
+                            href="index.html">Home</a>
+                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
+                            href="browse.html">Browse</a>
+                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
+                            href="featured.html">Featured</a>
+                        <a class="text-primary text-sm font-medium uppercase tracking-wider border-b-2 border-primary"
+                            href="about.html">About</a>
+                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
+                            href="resources.html">Resources</a>
                     </nav>
                 </div>
                 <div class="flex items-center gap-3 lg:gap-6">
                     <div
-                        class="hidden md:flex items-center bg-white/50  border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
+                        class="hidden md:flex items-center bg-white/50 dark:bg-white/5 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
                         <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                         <input
                             class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
                             placeholder="Search the archive..." type="search" />
                     </div>
-                    
-
                     <button onclick="toggleSearch()"
                         class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
                         aria-label="Open search">
                         <span class="material-symbols-outlined text-accent-teal">search</span>
                     </button>
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
                             href="donate.html">Donate</a>
-                        <a data-auth="admin-only" href="admin.html"
-                            class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide">
-                            Admin
-                        </a>
-                        <button data-auth="signin"
+                        <button
                             class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
                             Sign In
                         </button>
-                        <div data-auth="signout" class="hidden flex items-center gap-3">
-                            <span data-auth="user-info" class="text-sm text-text-secondary"></span>
-                            <button
-                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
-                                Sign Out
-                            </button>
-                        </div>
                     </div>
                     <button onclick="toggleMenu()"
                         class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
@@ -430,11 +347,241 @@
                                 Founder</h3>
                         </div>
 
-                        <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
-                        <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
-                        <span class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
-                    </a>
+                        <article class="text-lg leading-relaxed text-text-main space-y-6">
+                            <p class="drop-cap">
+                                Welcome to Womencypedia. This institution was created from a simple but profound
+                                conviction: The world cannot understand itself without understanding the women who
+                                shaped it.
+                            </p>
+                            <p>
+                                For too long, women's stories have been scattered across archives, whispered in
+                                communities, or held quietly in memory. Their contributions have been foundational, yet
+                                their narratives remain fragmented.
+                            </p>
+                            <p>
+                                My journey into this work deepened during my postgraduate studies at The University of
+                                Edinburgh, where I learned to interrogate history not only for what it says, but for
+                                what it omits. That training sharpened my awareness of the silences surrounding women's
+                                lives — silences that demanded to be addressed.
+                            </p>
+                            <p>
+                                Womencypedia is my response to that demand. It is a global home for women's histories —
+                                a place where their stories are gathered, interpreted, and preserved with dignity. Built
+                                on rigorous scholarship, ethical storytelling, and cultural truth, this institution
+                                exists to restore women to the center of the world's memory.
+                            </p>
+                            <p>
+                                Whether you are a contributor, editor, researcher, or reader, you are now part of a
+                                community committed to honoring women with the fullness they deserve.
+                            </p>
+                            <p class="font-semibold">
+                                Thank you for joining us.<br>
+                                Thank you for believing in this work.<br>
+                                And thank you for helping build an institution that will outlive us all.
+                            </p>
+                            <p class="font-serif text-xl italic text-text-main mt-8">
+                                — Atim Utuk, Founder, Womencypedia
+                            </p>
+                        </article>
+                    </div>
+
+                    <!-- Right Column: Key Details -->
+                    <div class="lg:col-span-4">
+                        <div class="bg-white border border-lavender-soft p-6 rounded-lg shadow-sm sticky top-24">
+                            <h4
+                                class="font-serif text-xl font-bold mb-6 text-text-main border-b border-primary/20 pb-4">
+                                Key Achievements</h4>
+                            <div class="flex flex-col gap-6">
+                                <div class="flex gap-4 items-start">
+                                    <div class="p-2 rounded bg-background-cream text-primary">
+                                        <span class="material-symbols-outlined">school</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-sm">Master's, University of Edinburgh</h5>
+                                        <p class="text-sm text-text-secondary mt-1">Research on women in the
+                                            Presbyterian Church of Nigeria.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 items-start">
+                                    <div class="p-2 rounded bg-background-cream text-primary">
+                                        <span class="material-symbols-outlined">history_edu</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-sm">Editorial Excellence</h5>
+                                        <p class="text-sm text-text-secondary mt-1">Curating over 5,000 verified
+                                            biographies.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 items-start">
+                                    <div class="p-2 rounded bg-background-cream text-primary">
+                                        <span class="material-symbols-outlined">public</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-sm">Global Vision</h5>
+                                        <p class="text-sm text-text-secondary mt-1">Building the world's central home
+                                            for women's stories.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <!-- Origin Story -->
+        <section class="py-12 lg:py-16 bg-lavender-soft">
+            <div class="mx-auto max-w-[800px] px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <span class="material-symbols-outlined text-accent-gold text-3xl mb-4">auto_stories</span>
+                    <h2 class="font-serif text-2xl lg:text-3xl font-bold text-text-main">Our Origin Story</h2>
+                </div>
+
+                <div class="text-lg leading-relaxed text-text-main space-y-6">
+                    <p>
+                        Womencypedia began long before it had a name. It began with a question: <strong>Why is it so
+                            hard to find women in the historical record?</strong>
+                    </p>
+                    <p>
+                        Not because they were absent — but because their stories were scattered, buried, fragmented, or
+                        held in places where only the determined could reach them.
+                    </p>
+                    <p>
+                        This truth confronted me fully during my Master's dissertation at The University of Edinburgh,
+                        where I researched: <em>"The Historical Development of the Involvement of Women in the
+                            Presbyterian Church of Nigeria: An Examination of Mary Mitchell Slessor and Rev. Mgbeke
+                            George Okore."</em>
+                    </p>
+                    <p>
+                        I expected the research to be challenging. <strong>I did not expect the silence.</strong>
+                    </p>
+                    <p>
+                        Their contributions were everywhere in practice, but nowhere in writing. Their leadership was
+                        felt, but rarely named. Their impact was profound, but their histories were scattered like
+                        pieces of a puzzle no one had bothered to assemble.
+                    </p>
+                    <p>
+                        And yet, despite the difficulty, something beautiful happened. Piece by piece, story by story,
+                        the women emerged. <strong>Mary Slessor</strong> — complex, courageous, culturally embedded.
+                        <strong>Rev. Mgbeke George Okore</strong> — a pioneer whose leadership reshaped the Presbyterian
+                        Church of Nigeria.
+                    </p>
+                    <p>
+                        As I gathered their stories, something shifted in me. The dissertation became a revelation.
+                        <strong>It proved that when we search for women, we find them — and when we write them, we
+                            restore them.</strong>
+                    </p>
+                    <p class="font-semibold text-xl text-center mt-8 text-primary">
+                        That was the moment Womencypedia was born.
+                    </p>
+                    <p>
+                        If it was this difficult to gather the stories of two influential women in one denomination,
+                        then countless women across cultures and histories were still waiting — unheard, undocumented,
+                        unrecognized.
+                    </p>
+                    <p>
+                        Womencypedia is the institution built to change that.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Section -->
+        <section class="py-12 lg:py-16">
+            <div class="mx-auto max-w-[1024px] px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-xl p-8 md:p-12 border border-primary/10 shadow-sm">
+                    <div class="flex flex-col items-center text-center gap-8 mb-12">
+                        <span class="material-symbols-outlined text-accent-gold text-4xl">balance</span>
+                        <h2 class="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-text-main">Vision
+                            Statement</h2>
+                        <p class="max-w-2xl text-text-secondary text-lg">
+                            Womencypedia envisions a world where women's stories are no longer scattered, forgotten, or
+                            diminished, but recognized as essential to humanity's collective memory. We are building the
+                            world's most comprehensive, culturally grounded, ethically governed
+                            archive of women's lives — an archive that interprets meaning, contextualizes leadership,
+                            and reveals the symbolic power women have carried across generations.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">verified</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">Every woman's story is preserved with
+                                dignity</p>
+                        </div>
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">diversity_1</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">Every culture sees its foremothers
+                                reflected with accuracy and respect</p>
+                        </div>
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">menu_book</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">Scholars and communities can access a
+                                unified repository</p>
+                        </div>
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">edit_note</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">Interpretive biography becomes a
+                                global standard</p>
+                        </div>
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">account_balance</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">Institutions draw on Womencypedia as
+                                an authoritative source</p>
+                        </div>
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">public</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">A permanent, evolving archive that
+                                honors women worldwide</p>
+                        </div>
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">verified</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">Symbolic power analysis</p>
+                        </div>
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">verified</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">Ethical storytelling</p>
+                        </div>
+                        <div
+                            class="p-6 rounded-lg bg-background-cream border border-transparent hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">verified</span>
+                            <p class="text-text-secondary text-sm leading-relaxed">Open-access for educators &
+                                researchers</p>
+                        </div>
+                    </div>
+
+                    <!-- Signature -->
+                    <div class="flex flex-col items-end gap-2 pr-4 md:pr-12">
+                        <div class="font-serif italic text-3xl text-text-main">Atim Utuk</div>
+                        <span class="text-xs uppercase tracking-widest text-text-secondary">Founder, Womencypedia</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
+        <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                        <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
+                            <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
+                            <span
+                                class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
+                        </a>
+                    </div>
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">The world's first interpretive encyclopedia of
                         women.</p>
                     <div class="flex gap-4">
@@ -493,13 +640,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -522,125 +669,20 @@
 
             <!-- Quick Links Row -->
             <div class="border-t border-gray-800 pt-8 mt-8">
-                    <a href="profile.html" class="text-gray-400 hover:text-white text-sm transition-colors">My
-                        Profile</a>
-                        Biography</a>
-                </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Login Modal -->
-    <div id="login-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative">
-            <button onclick="document.getElementById('login-modal').classList.add('hidden')"
-                class="absolute top-4 right-4 size-8 flex items-center justify-center rounded-full hover:bg-border-light transition-colors">
-                <span class="material-symbols-outlined text-text-secondary">close</span>
-            </button>
-
-            <div class="text-center mb-6">
-                <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <span class="material-symbols-outlined text-primary text-3xl">login</span>
-                </div>
-                <h2 class="font-serif text-2xl font-bold text-text-main">Welcome Back</h2>
-                <p class="text-text-secondary text-sm mt-2">Sign in to access your account</p>
-            </div>
-
-            <form id="login-form" class="space-y-4">
-                <div id="login-error" class="hidden bg-red-100 text-red-600 px-4 py-3 rounded-lg text-sm"></div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-text-main mb-2" for="login-email">Email</label>
-                    <div class="relative">
-                        <span
-                            class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-secondary text-[20px]">mail</span>
-                        <input type="email" id="login-email" name="email" required placeholder="you@example.com"
-                            class="w-full h-12 pl-12 pr-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-text-main mb-2" for="login-password">Password</label>
-                    <div class="relative">
-                        <span
-                            class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-secondary text-[20px]">lock</span>
-                        <input type="password" id="login-password" name="password" required placeholder="••••••••"
-                            class="w-full h-12 pl-12 pr-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" name="remember"
-                            class="size-4 rounded border-border-light text-primary focus:ring-primary">
-                        <span class="text-sm text-text-secondary">Remember me</span>
-                    </label>
-                    <a href="forgot-password.html" class="text-sm text-primary hover:underline">Forgot password?</a>
-                </div>
-
-                <button type="submit"
-                    class="w-full h-12 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined text-[20px]">login</span>
-                    Sign In
-                </button>
-            </form>
-
-            <div class="flex items-center gap-4 my-6">
-                <div class="flex-1 h-px bg-border-light"></div>
-                <span class="text-xs text-text-secondary uppercase tracking-wider">New here?</span>
-                <div class="flex-1 h-px bg-border-light"></div>
-            </div>
-
-            <a href="signup.html"
-                class="w-full h-12 flex items-center justify-center gap-2 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary/10 transition-colors">
-                <span class="material-symbols-outlined text-[20px]">person_add</span>
-                Create an Account
-            </a>
-        </div>
-    </div>
-
     <!-- JavaScript -->
-    <script src="js/config.js"></script>
-    <script src="js/i18n.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/auth.js"></script>
     <script src="js/navigation.js"></script>
-
-    <!-- Global Search -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInputs = document.querySelectorAll('input[type="search"]');
-            searchInputs.forEach(input => {
-                input.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        const query = this.value.trim();
-                        if (query) {
-                            window.location.href = 'browse.html?search=' + encodeURIComponent(query);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-
-
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('SW registered:', reg.scope))
-                    .catch(err => console.log('SW registration failed:', err));
-            });
-        }
-    </script>
+    <script src="js/i18n.js"></script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>
-

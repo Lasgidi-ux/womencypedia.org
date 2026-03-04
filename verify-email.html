@@ -125,6 +125,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="gradient-bg min-h-screen flex flex-col text-text-main antialiased">
@@ -152,7 +153,7 @@
                             stroke-dasharray="31.4 31.4" stroke-linecap="round"></circle>
                     </svg>
                 </div>
-                <h2 class="text-2xl font-bold text-text-main mb-4">Verifying Your Email</h2>
+                <h2 class="text-2xl font-bold text-text-main mb-4" data-i18n="verify_email.verifyingYourEmail">Verifying Your Email</h2>
                 <p class="text-text-secondary">Please wait while we verify your email address...</p>
             </div>
 
@@ -169,7 +170,7 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="font-serif-display text-3xl font-bold text-text-main mb-4">Email Verified!</h2>
+                <h2 class="font-serif-display text-3xl font-bold text-text-main mb-4" data-i18n="verify_email.emailVerified">Email Verified!</h2>
                 <p class="text-text-secondary mb-8">Your email has been successfully verified. You now have full access
                     to all
                     Womencypedia features.</p>
@@ -204,7 +205,7 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="font-serif-display text-3xl font-bold text-text-main mb-4">Verification Failed</h2>
+                <h2 class="font-serif-display text-3xl font-bold text-text-main mb-4" data-i18n="verify_email.verificationFailed">Verification Failed</h2>
                 <p id="error-message" class="text-text-secondary mb-8">The verification link is invalid or has expired.
                     Please
                     request a new verification email.</p>
@@ -232,7 +233,7 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="font-serif-display text-3xl font-bold text-text-main mb-4">Link Expired</h2>
+                <h2 class="font-serif-display text-3xl font-bold text-text-main mb-4" data-i18n="verify_email.linkExpired">Link Expired</h2>
                 <p class="text-text-secondary mb-8">This verification link has expired. Verification links are valid for
                     24
                     hours. Please request a new one.</p>
@@ -261,7 +262,7 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="font-serif-display text-3xl font-bold text-text-main mb-4">Verify Your Email</h2>
+                <h2 class="font-serif-display text-3xl font-bold text-text-main mb-4" data-i18n="verify_email.verifyYourEmail">Verify Your Email</h2>
                 <p class="text-text-secondary mb-8">We've sent a verification link to your email address. Please check
                     your
                     inbox and click the link to verify your account.</p>
@@ -296,6 +297,7 @@
                 <!-- Brand -->
                 <div class="col-span-2 md:col-span-1">
                     <div class="flex items-center justify-center gap-3 mb-4">
+                <div id="language-switcher"></div>
                         <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                             <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
                             <span
@@ -360,13 +362,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -396,8 +398,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -531,6 +533,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

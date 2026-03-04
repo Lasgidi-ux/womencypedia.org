@@ -1,0 +1,28 @@
+/**
+ * Womencypedia — Frontend Environment Variables
+ * 
+ * This file provides client-side "env vars" by setting window globals
+ * BEFORE config.js loads. Place this script tag BEFORE js/config.js.
+ * 
+ * For production, replace the placeholder values with your real keys.
+ * 
+ * Payment Gateway Setup:
+ *   Paystack:     https://dashboard.paystack.com/#/settings/developers
+ *   Flutterwave:  https://app.flutterwave.com/dashboard/settings/apis
+ * 
+ * Usage in HTML:
+ *   <script src="js/env.js"></script>
+ *   <script src="js/config.js"></script>
+ */
+
+(function () {
+    // Strapi CMS URL
+    // Change this if your Strapi instance runs at a different URL
+    window.API_STRAPI_URL = 'https://womencypedia-cms.onrender.com';
+
+    // Payment Gateway Keys
+    // Replace with your LIVE/TEST public keys
+    window.PAYSTACK_PUBLIC_KEY = '';      // pk_live_xxx or pk_test_xxx
+    window.FLUTTERWAVE_PUBLIC_KEY = '';   // FLWPUBK-xxx
+    window.PAYSTACK_MONTHLY_PLAN = '';    // PLN_xxx (Paystack subscription plan code)
+})();

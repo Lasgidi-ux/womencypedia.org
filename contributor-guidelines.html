@@ -44,6 +44,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -59,7 +60,7 @@
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -79,7 +80,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="contributor_guidelines.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -96,7 +97,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="contributor_guidelines.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -113,7 +114,7 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="contributor_guidelines.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
@@ -124,13 +125,13 @@
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="contributor_guidelines.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -147,27 +148,10 @@
             <a href="contact.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
         </div>
-
-        <!-- My Profile -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                My Profile</h3>
-            <a href="profile.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">My
-                Profile</a>
-            <a data-auth="admin-only" href="admin.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" style="display:none">Admin</a>
-            <a href="biography.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Sample
-                Biography</a>
-        </div>
-
-        <!-- CTA -->
+<!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Share Your Story
-            </a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
@@ -184,103 +168,7 @@
                         <span class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
                     <nav class="hidden lg:flex items-center gap-6">
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Explore<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="index.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a><a
-                                        href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a><a
-                                        href="featured.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a><a
-                                        href="collections.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a><a
-                                        href="timelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Learn<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="education.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a><a
-                                        href="enterprises.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a><a
-                                        href="research.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a><a
-                                        href="publications.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a><a
-                                        href="resources.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">Participate<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="nominate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
-                                        a Woman</a><a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
-                                        Your Story</a><a href="contributor-guidelines.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Contributor
-                                        Guidelines</a><a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">About<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="about.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
-                                        Us</a><a href="founders.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Founders</a><a
-                                        href="contributors.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a><a
-                                        href="methodology.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a><a
-                                        href="editorial-standards.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
-                                        Standards</a><a href="contact.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">My
-                                Profile<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="profile.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">My
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" style="display:none">Admin</a><a
-                                        href="biography.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </nav>
                 </div>
                 <div class="flex items-center gap-3 lg:gap-6">
@@ -294,7 +182,6 @@
                     </div>
 
                     <!-- Mobile Search Button -->
-                    
 
                     <button onclick="toggleSearch()"
                         class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
@@ -304,14 +191,15 @@
 
                     <!-- Desktop Actions -->
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <a data-auth="admin-only" href="admin.html"
                             class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide">
                             Admin
                         </a>
                         <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-i18n="signIn">
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
@@ -342,7 +230,7 @@
             <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12 text-center">
                 <span class="text-primary text-sm font-bold uppercase tracking-widest mb-3 block">Join Our
                     Community</span>
-                <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">
+                <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="contributor_guidelines.contributorGuidelines">
                     Contributor Guidelines
                 </h1>
                 <p class="text-text-secondary text-lg max-w-2xl mx-auto">
@@ -358,7 +246,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-gold text-sm font-bold uppercase tracking-widest mb-3 block">Our
                         Commitment</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">The
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="contributor_guidelines.theContributorsOath">The
                         Contributor's Oath</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">Every contributor affirms this formal
                         commitment to dignity, accuracy, and cultural respect.</p>
@@ -367,7 +255,7 @@
                 <div class="bg-white rounded-2xl p-8 md:p-12 border border-primary/20 shadow-sm">
                     <div class="text-center mb-8">
                         <span class="material-symbols-outlined text-primary text-4xl mb-4">handshake</span>
-                        <h3 class="font-serif text-2xl font-bold text-text-main mb-6">I solemnly affirm my commitment
+                        <h3 class="font-serif text-2xl font-bold text-text-main mb-6" data-i18n="contributor_guidelines.iSolemnlyAffirmMyCommitmentTo">I solemnly affirm my commitment
                             to:</h3>
                     </div>
 
@@ -451,7 +339,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-3 block">Open to
                         All</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Who Can
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="contributor_guidelines.whoCanContribute">Who Can
                         Contribute</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">You don't need to be a professional
                         historian to participate. What matters is your commitment to accuracy, respect, and cultural
@@ -464,7 +352,7 @@
                         <div class="size-12 rounded-xl bg-accent-gold/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-accent-gold text-2xl">school</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Scholars & Researchers</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.scholarsResearchers">Scholars & Researchers</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Those with academic training in history, gender studies, anthropology, theology, or related
                             fields.
@@ -481,7 +369,7 @@
                         <div class="size-12 rounded-xl bg-accent-teal/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-accent-teal text-2xl">groups</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Community Historians</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.communityHistorians">Community Historians</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Individuals who carry the stories of their communities, families, or cultural groups.
                         </p>
@@ -497,7 +385,7 @@
                         <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-primary text-2xl">diversity_3</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Cultural Custodians</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.culturalCustodians">Cultural Custodians</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Keepers of oral traditions and cultural memory from diverse backgrounds.
                         </p>
@@ -513,7 +401,7 @@
                         <div class="size-12 rounded-xl bg-divider/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-divider text-2xl">edit</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Students & Writers</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.studentsWriters">Students & Writers</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Those developing their research and writing skills, from beginners to advanced.
                         </p>
@@ -529,7 +417,7 @@
                         <div class="size-12 rounded-xl bg-lavender/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-lavender text-2xl">person</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Everyday People</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.everydayPeople">Everyday People</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Anyone who knows a woman whose story deserves to be preserved and shared.
                         </p>
@@ -545,7 +433,7 @@
                         <div class="size-12 rounded-xl bg-accent-gold/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-accent-gold text-2xl">account_balance</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Institutions</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.institutions">Institutions</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Universities, archives, cultural centers, and organizations with research expertise.
                         </p>
@@ -565,7 +453,7 @@
                 <div class="text-center mb-16">
                     <span class="text-primary text-sm font-bold uppercase tracking-widest mb-3 block">Research
                         Standards</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Research
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="contributor_guidelines.researchGuidelines">Research
                         Guidelines</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">Building biographies on solid foundations
                         of evidence and cultural respect.</p>
@@ -574,7 +462,7 @@
                 <div class="grid md:grid-cols-2 gap-12">
                     <!-- Types of Sources -->
                     <div>
-                        <h3 class="font-serif text-2xl font-bold text-text-main mb-6">Types of Sources</h3>
+                        <h3 class="font-serif text-2xl font-bold text-text-main mb-6" data-i18n="contributor_guidelines.typesOfSources">Types of Sources</h3>
                         <div class="space-y-6">
                             <div class="bg-white rounded-xl p-6 border border-border-light">
                                 <h4 class="font-bold text-text-main mb-3 flex items-center gap-2">
@@ -619,7 +507,7 @@
 
                     <!-- Research Best Practices -->
                     <div>
-                        <h3 class="font-serif text-2xl font-bold text-text-main mb-6">Research Best Practices</h3>
+                        <h3 class="font-serif text-2xl font-bold text-text-main mb-6" data-i18n="contributor_guidelines.researchBestPractices">Research Best Practices</h3>
                         <div class="bg-white rounded-xl p-6 border border-border-light">
                             <div class="space-y-4">
                                 <div class="flex items-start gap-3">
@@ -680,7 +568,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-gold text-sm font-bold uppercase tracking-widest mb-3 block">Writing
                         Standards</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Writing
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="contributor_guidelines.writingGuidelines">Writing
                         Guidelines</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">Crafting biographies with dignity, clarity,
                         and cultural sensitivity.</p>
@@ -692,7 +580,7 @@
                         <div class="size-12 rounded-xl bg-accent-gold/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-accent-gold text-2xl">record_voice_over</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Tone & Voice</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.toneVoice">Tone & Voice</h3>
                         <ul class="space-y-2 text-sm text-text-secondary">
                             <li>• Dignified and respectful</li>
                             <li>• Clear and accessible</li>
@@ -707,7 +595,7 @@
                         <div class="size-12 rounded-xl bg-accent-teal/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-accent-teal text-2xl">list</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Structure & Format</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.structureFormat">Structure & Format</h3>
                         <ul class="space-y-2 text-sm text-text-secondary">
                             <li>• Follow the 8-section biography format</li>
                             <li>• Include proper citations</li>
@@ -722,7 +610,7 @@
                         <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-primary text-2xl">balance</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Ethical Considerations</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.ethicalConsiderations">Ethical Considerations</h3>
                         <ul class="space-y-2 text-sm text-text-secondary">
                             <li>• Avoid sensationalism</li>
                             <li>• Respect privacy boundaries</li>
@@ -741,7 +629,7 @@
                 <div class="text-center mb-16">
                     <span class="text-primary text-sm font-bold uppercase tracking-widest mb-3 block">How to
                         Contribute</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Submission
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="contributor_guidelines.submissionProcess">Submission
                         Process</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">A clear pathway from research to
                         publication.</p>
@@ -811,7 +699,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-3 block">Get
                         Help</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Support &
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="contributor_guidelines.supportResources">Support &
                         Resources</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">We provide comprehensive support for
                         contributors at every stage.</p>
@@ -823,7 +711,7 @@
                         <div class="size-12 rounded-xl bg-accent-gold/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-accent-gold text-2xl">description</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Templates</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.templates">Templates</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Download biography templates, citation guides, and formatting tools to get started.
                         </p>
@@ -836,7 +724,7 @@
                         <div class="size-12 rounded-xl bg-accent-teal/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-accent-teal text-2xl">school</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Training & Workshops</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.trainingWorkshops">Training & Workshops</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Join our workshops on research methods, ethical writing, and cultural sensitivity.
                         </p>
@@ -849,7 +737,7 @@
                         <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-primary text-2xl">support</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Editorial Support</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.editorialSupport">Editorial Support</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Get guidance from our editorial team throughout the research and writing process.
                         </p>
@@ -862,7 +750,7 @@
                         <div class="size-12 rounded-xl bg-divider/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-divider text-2xl">groups</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Contributor Community</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.contributorCommunity">Contributor Community</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Connect with other contributors, share experiences, and learn from the community.
                         </p>
@@ -874,7 +762,7 @@
                         <div class="size-12 rounded-xl bg-lavender/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-lavender text-2xl">diversity_3</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Cultural Consultation</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.culturalConsultation">Cultural Consultation</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Access cultural experts and community consultants for sensitive topics.
                         </p>
@@ -887,7 +775,7 @@
                         <div class="size-12 rounded-xl bg-accent-gold/10 flex items-center justify-center mb-4">
                             <span class="material-symbols-outlined text-accent-gold text-2xl">verified</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Quality Assurance</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="contributor_guidelines.qualityAssurance">Quality Assurance</h3>
                         <p class="text-sm text-text-secondary leading-relaxed mb-4">
                             Our review process ensures every biography meets the highest standards.
                         </p>
@@ -969,13 +857,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -1004,8 +892,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -1022,7 +910,7 @@
                 <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-primary text-3xl">login</span>
                 </div>
-                <h2 class="font-serif text-2xl font-bold text-text-main">Welcome Back</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="contributor_guidelines.welcomeBack">Welcome Back</h2>
                 <p class="text-text-secondary text-sm mt-2">Sign in to access your account</p>
             </div>
             <form id="login-form" class="space-y-4">
@@ -1098,7 +986,6 @@
         });
     </script>
 
-
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -1109,6 +996,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

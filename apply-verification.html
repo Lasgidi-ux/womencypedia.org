@@ -56,6 +56,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -68,10 +69,11 @@
     <!-- Mobile Search Sheet -->
     <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
         <div class="flex items-center gap-3">
+            <div id="language-switcher"></div>
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search leaders, organizations..."
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -91,7 +93,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="apply_verification.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -108,7 +110,7 @@
         <!-- Registry -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="apply_verification.registry">
                 Registry</h3>
             <a href="browse-leaders.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse
@@ -130,7 +132,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="apply_verification.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -147,7 +149,7 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="apply_verification.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
@@ -158,13 +160,13 @@
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="apply_verification.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -352,7 +354,7 @@
                         class="inline-block bg-primary/10 text-primary text-sm font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
                         Institutional Registry
                     </span>
-                    <h1 class="font-heading text-4xl lg:text-5xl font-bold text-text-main mb-6">
+                    <h1 class="font-heading text-4xl lg:text-5xl font-bold text-text-main mb-6" data-i18n="apply_verification.applyForVerification">
                         Apply for Verification
                     </h1>
                     <p class="text-lg lg:text-xl text-text-secondary mb-8">
@@ -412,7 +414,7 @@
                     <!-- Step 1: Organization Information -->
                     <div class="form-step bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light"
                         data-step="1">
-                        <h2 class="font-heading text-2xl font-bold text-text-main mb-6">Organization Information</h2>
+                        <h2 class="font-heading text-2xl font-bold text-text-main mb-6" data-i18n="apply_verification.organizationInformation">Organization Information</h2>
 
                         <div class="space-y-6">
                             <div>
@@ -520,7 +522,7 @@
                     <!-- Step 2: Leadership Information -->
                     <div class="form-step bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light hidden"
                         data-step="2">
-                        <h2 class="font-heading text-2xl font-bold text-text-main mb-6">Leadership Information</h2>
+                        <h2 class="font-heading text-2xl font-bold text-text-main mb-6" data-i18n="apply_verification.leadershipInformation">Leadership Information</h2>
 
                         <div class="space-y-6">
                             <div>
@@ -561,7 +563,7 @@
                     <!-- Step 3: Impact Metrics -->
                     <div class="form-step bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light hidden"
                         data-step="3">
-                        <h2 class="font-heading text-2xl font-bold text-text-main mb-6">Impact Metrics</h2>
+                        <h2 class="font-heading text-2xl font-bold text-text-main mb-6" data-i18n="apply_verification.impactMetrics">Impact Metrics</h2>
 
                         <div class="space-y-6">
                             <p class="text-text-secondary">Provide quantitative data about your organization's impact.
@@ -623,7 +625,7 @@
                     <!-- Step 4: Contact & Review -->
                     <div class="form-step bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-border-light hidden"
                         data-step="4">
-                        <h2 class="font-heading text-2xl font-bold text-text-main mb-6">Applicant Information & Review
+                        <h2 class="font-heading text-2xl font-bold text-text-main mb-6" data-i18n="apply_verification.applicantInformationReview">Applicant Information & Review
                         </h2>
 
                         <div class="space-y-6">
@@ -658,7 +660,7 @@
 
                             <!-- Review Summary -->
                             <div class="bg-background-cream rounded-xl p-6">
-                                <h3 class="font-heading text-lg font-bold text-text-main mb-4">Application Summary</h3>
+                                <h3 class="font-heading text-lg font-bold text-text-main mb-4" data-i18n="apply_verification.applicationSummary">Application Summary</h3>
                                 <div id="application-summary" class="space-y-3 text-sm">
                                     <p class="text-text-secondary">Complete all steps to see your application summary.
                                     </p>
@@ -671,8 +673,8 @@
                                 <label for="terms" class="text-sm text-text-secondary">
                                     I confirm that all information provided is accurate and I am authorized to submit
                                     this application on behalf of my organization. I agree to the <a
-                                        href="terms-of-use.html" class="text-primary underline">Terms of Use</a> and <a
-                                        href="privacy-policy.html" class="text-primary underline">Privacy Policy</a>.
+                                        href="terms-of-use.html" class="text-primary underline"><span data-i18n="termsOfUse">Terms of Use</span></a> and <a
+                                        href="privacy-policy.html" class="text-primary underline"><span data-i18n="privacyPolicy">Privacy Policy</span></a>.
                                 </label>
                             </div>
                         </div>
@@ -711,7 +713,7 @@
                     <div class="w-20 h-20 bg-accent-teal/10 rounded-full flex items-center justify-center mx-auto mb-6">
                         <span class="material-symbols-outlined text-accent-teal text-4xl">check_circle</span>
                     </div>
-                    <h2 class="font-heading text-3xl font-bold text-text-main mb-4">Application Submitted!</h2>
+                    <h2 class="font-heading text-3xl font-bold text-text-main mb-4" data-i18n="apply_verification.applicationSubmitted">Application Submitted!</h2>
                     <p class="text-text-secondary mb-8">
                         Thank you for applying to the Womencypedia Institutional Registry. Our team will review your
                         application within 5-7 business days. You will receive an email notification with the outcome.
@@ -738,7 +740,7 @@
                         <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="material-symbols-outlined text-primary text-2xl">verified</span>
                         </div>
-                        <h3 class="font-heading text-lg font-bold text-text-main mb-2">Verified Badge</h3>
+                        <h3 class="font-heading text-lg font-bold text-text-main mb-2" data-i18n="apply_verification.verifiedBadge">Verified Badge</h3>
                         <p class="text-sm text-text-secondary">Organizations that pass our verification process receive
                             a distinguished badge.</p>
                     </div>
@@ -746,7 +748,7 @@
                         <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="material-symbols-outlined text-primary text-2xl">visibility</span>
                         </div>
-                        <h3 class="font-heading text-lg font-bold text-text-main mb-2">Increased Visibility</h3>
+                        <h3 class="font-heading text-lg font-bold text-text-main mb-2" data-i18n="apply_verification.increasedVisibility">Increased Visibility</h3>
                         <p class="text-sm text-text-secondary">Get featured in our directory and reach a global audience
                             interested in women-led organizations.</p>
                     </div>
@@ -754,7 +756,7 @@
                         <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="material-symbols-outlined text-primary text-2xl">group</span>
                         </div>
-                        <h3 class="font-heading text-lg font-bold text-text-main mb-2">Network Access</h3>
+                        <h3 class="font-heading text-lg font-bold text-text-main mb-2" data-i18n="apply_verification.networkAccess">Network Access</h3>
                         <p class="text-sm text-text-secondary">Connect with other verified leaders and access exclusive
                             partnership opportunities.</p>
                     </div>
@@ -812,12 +814,12 @@
                         <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
                         <li><a href="founders.html" class="hover:text-white transition-colors">Founders</a></li>
                         <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
-                        <li><a href="donate.html" class="hover:text-white transition-colors">Donate</a></li>
+                        <li><a href="donate.html" class="hover:text-white transition-colors" data-i18n="donate">Donate</a></li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-sm text-white/50">&copy; 2024 Womencypedia. All rights reserved.</p>
+                <p class="text-sm text-white/50" data-i18n="copyright">&copy; 2024 Womencypedia. All rights reserved.</p>
                 <div class="flex gap-6 text-sm">
                     <a href="privacy-policy.html" class="text-white/50 hover:text-white transition-colors">Privacy
                         Policy</a>
@@ -1053,6 +1055,8 @@
             updateProgress();
         });
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

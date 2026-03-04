@@ -35,6 +35,7 @@
 
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#E8A6A6">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display min-h-screen">
@@ -48,10 +49,11 @@
     <!-- Mobile Search -->
     <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
         <div class="flex items-center gap-3">
+            <div id="language-switcher"></div>
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search reports..."
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -68,7 +70,7 @@
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="reports.explore">
                 Explore</h3>
             <a href="index.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Home</a>
             <a href="browse-leaders.html"
@@ -182,7 +184,7 @@
                         class="inline-block bg-primary/10 text-primary text-sm font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
                         Research & Reports
                     </span>
-                    <h1 class="font-heading text-4xl lg:text-5xl font-bold text-text-main mb-6">
+                    <h1 class="font-heading text-4xl lg:text-5xl font-bold text-text-main mb-6" data-i18n="reports.publicationsResearch">
                         Publications & Research
                     </h1>
                     <p class="text-lg lg:text-xl text-text-secondary">
@@ -233,7 +235,7 @@
                             <span
                                 class="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded mb-4">2024
                                 ANNUAL REPORT</span>
-                            <h3 class="font-heading text-2xl lg:text-3xl font-bold text-text-main mb-4">
+                            <h3 class="font-heading text-2xl lg:text-3xl font-bold text-text-main mb-4" data-i18n="reports.stateOfWomenledOrganizationsInAfrica">
                                 State of Women-Led Organizations in Africa
                             </h3>
                             <p class="text-text-secondary mb-6">
@@ -268,7 +270,7 @@
         <section class="py-12 lg:py-16 bg-white border-t border-border-light">
             <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
                 <div class="mb-8">
-                    <h2 class="font-heading text-2xl font-bold text-text-main">All Publications</h2>
+                    <h2 class="font-heading text-2xl font-bold text-text-main" data-i18n="reports.allPublications">All Publications</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="reports-grid">
@@ -281,7 +283,7 @@
                         </div>
                         <div class="p-5">
                             <span class="text-xs font-bold text-primary">RESEARCH PAPER</span>
-                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2">Women in STEM Leadership</h3>
+                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2" data-i18n="reports.womenInStemLeadership">Women in STEM Leadership</h3>
                             <p class="text-sm text-text-secondary mb-4">Analysis of women leaders in science and
                                 technology across developing nations.</p>
                             <a href="#"
@@ -300,7 +302,7 @@
                         </div>
                         <div class="p-5">
                             <span class="text-xs font-bold text-accent-gold">ANNUAL REPORT</span>
-                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2">2023 Impact Report</h3>
+                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2" data-i18n="reports.2023ImpactReport">2023 Impact Report</h3>
                             <p class="text-sm text-text-secondary mb-4">Our yearly review of programs, growth, and
                                 community impact.</p>
                             <a href="#"
@@ -319,7 +321,7 @@
                         </div>
                         <div class="p-5">
                             <span class="text-xs font-bold text-accent-teal">CASE STUDY</span>
-                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2">Cooperative Model Success</h3>
+                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2" data-i18n="reports.cooperativeModelSuccess">Cooperative Model Success</h3>
                             <p class="text-sm text-text-secondary mb-4">How women agricultural cooperatives are
                                 transforming rural economies.</p>
                             <a href="#"
@@ -338,7 +340,7 @@
                         </div>
                         <div class="p-5">
                             <span class="text-xs font-bold text-primary">POLICY BRIEF</span>
-                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2">Gender Parity in Governance</h3>
+                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2" data-i18n="reports.genderParityInGovernance">Gender Parity in Governance</h3>
                             <p class="text-sm text-text-secondary mb-4">Recommendations for achieving gender balance in
                                 organizational leadership.</p>
                             <a href="#"
@@ -357,7 +359,7 @@
                         </div>
                         <div class="p-5">
                             <span class="text-xs font-bold text-primary">RESEARCH PAPER</span>
-                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2">Funding Gap Analysis</h3>
+                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2" data-i18n="reports.fundingGapAnalysis">Funding Gap Analysis</h3>
                             <p class="text-sm text-text-secondary mb-4">Understanding the funding landscape for
                                 women-led organizations.</p>
                             <a href="#"
@@ -376,7 +378,7 @@
                         </div>
                         <div class="p-5">
                             <span class="text-xs font-bold text-accent-gold">CASE STUDY</span>
-                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2">Tech Incubator Model</h3>
+                            <h3 class="font-heading font-bold text-text-main mt-2 mb-2" data-i18n="reports.techIncubatorModel">Tech Incubator Model</h3>
                             <p class="text-sm text-text-secondary mb-4">How a women-led tech incubator is scaling across
                                 East Africa.</p>
                             <a href="#"
@@ -392,15 +394,13 @@
         <!-- Newsletter -->
         <section class="py-12 lg:py-16">
             <div class="mx-auto max-w-2xl px-4 sm:px-6 text-center">
-                <h2 class="font-heading text-2xl font-bold text-text-main mb-4">Stay Informed</h2>
+                <h2 class="font-heading text-2xl font-bold text-text-main mb-4" data-i18n="reports.stayInformed">Stay Informed</h2>
                 <p class="text-text-secondary mb-6">Subscribe to receive our latest reports and publications.</p>
                 <form class="flex gap-3 max-w-md mx-auto">
                     <input type="email" placeholder="Enter your email"
                         class="flex-1 px-4 py-3 border border-border-light rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
                     <button type="submit"
-                        class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-hover">
-                        Subscribe
-                    </button>
+                        class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-hover"><span data-i18n="subscribe">Subscribe</span></button>
                 </form>
             </div>
         </section>
@@ -448,6 +448,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

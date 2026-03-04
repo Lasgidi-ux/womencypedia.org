@@ -29,6 +29,7 @@
     <link rel="canonical" href="https://womencypedia.org/careers.html">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#E8A6A6">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -127,7 +128,7 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
                                         Guidelines</a>
                                     <a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" data-i18n="donate">Donate</a>
                                 </div>
                             </div>
                         </div>
@@ -162,32 +163,6 @@
                             </div>
                         </div>
 
-                        <!-- My Profile Dropdown -->
-                        <div class="relative group">
-                            <button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                My Profile
-                                <span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
-                            </button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="profile.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">My
-                                        Profile</a>
-                                    <a data-auth="admin-only" href="admin.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
-                                        style="display:none">Admin</a>
-                                    <a href="biography.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
 
                 <!-- Actions -->
                 <div class="flex items-center gap-3 lg:gap-6">
@@ -209,14 +184,15 @@
 
                     <!-- Desktop Actions -->
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <a data-auth="admin-only" href="admin.html"
                             class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide">
                             Admin
                         </a>
                         <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-i18n="signIn">
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
@@ -248,7 +224,7 @@
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="careers.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -270,31 +246,31 @@
         <!-- Hero -->
         <div class="text-center mb-12">
             <span class="material-symbols-outlined text-5xl text-primary mb-4">work</span>
-            <h1 class="font-heading text-4xl md:text-5xl font-semibold text-text-main mb-4">Join Our Team</h1>
+            <h1 class="font-heading text-4xl md:text-5xl font-semibold text-text-main mb-4" data-i18n="careers.joinOurTeam">Join Our Team</h1>
             <p class="text-lg text-text-secondary max-w-2xl mx-auto">Help us close the gender knowledge gap. Join a
                 global team dedicated to preserving and celebrating women's stories.</p>
         </div>
 
         <!-- Why Work Here -->
         <div class="mb-12">
-            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6 text-center">Why Work at Womencypedia?
+            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6 text-center" data-i18n="careers.whyWorkAtWomencypedia">Why Work at Womencypedia?
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white p-6 rounded-xl border border-border-light text-center">
                     <span class="material-symbols-outlined text-3xl text-primary mb-3">public</span>
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2">Remote-First</h3>
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2" data-i18n="careers.remotefirst">Remote-First</h3>
                     <p class="text-sm text-text-secondary">Work from anywhere in the world. We're a globally distributed
                         team across 20+ countries.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl border border-border-light text-center">
                     <span class="material-symbols-outlined text-3xl text-primary mb-3">volunteer_activism</span>
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2">Mission-Driven</h3>
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2" data-i18n="careers.missiondriven">Mission-Driven</h3>
                     <p class="text-sm text-text-secondary">Every day, you'll contribute to closing the gender knowledge
                         gap and amplifying women's voices.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl border border-border-light text-center">
                     <span class="material-symbols-outlined text-3xl text-primary mb-3">diversity_3</span>
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2">Inclusive Culture</h3>
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2" data-i18n="careers.inclusiveCulture">Inclusive Culture</h3>
                     <p class="text-sm text-text-secondary">We celebrate diversity and are committed to creating an
                         equitable workplace for all.</p>
                 </div>
@@ -303,7 +279,7 @@
 
         <!-- Benefits -->
         <div class="bg-primary/5 p-8 rounded-xl mb-12">
-            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6 text-center">Benefits & Perks</h2>
+            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6 text-center" data-i18n="careers.benefitsPerks">Benefits & Perks</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">check_circle</span>
@@ -342,12 +318,12 @@
 
         <!-- Open Positions -->
         <div class="mb-12">
-            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6">Open Positions</h2>
+            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6" data-i18n="careers.openPositions">Open Positions</h2>
             <div class="space-y-4">
                 <div class="bg-white p-6 rounded-xl border border-border-light">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
-                            <h3 class="font-heading text-lg font-semibold text-text-main">Senior Full-Stack Developer
+                            <h3 class="font-heading text-lg font-semibold text-text-main" data-i18n="careers.seniorFullstackDeveloper">Senior Full-Stack Developer
                             </h3>
                             <div class="flex flex-wrap gap-2 mt-2">
                                 <span
@@ -359,15 +335,13 @@
                             </div>
                         </div>
                         <a href="mailto:careers@womencypedia.org?subject=Application: Senior Full-Stack Developer"
-                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors">
-                            Apply Now
-                        </a>
+                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors"><span data-i18n="applyNow">Apply Now</span></a>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-xl border border-border-light">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
-                            <h3 class="font-heading text-lg font-semibold text-text-main">Content Editor</h3>
+                            <h3 class="font-heading text-lg font-semibold text-text-main" data-i18n="careers.contentEditor">Content Editor</h3>
                             <div class="flex flex-wrap gap-2 mt-2">
                                 <span
                                     class="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded">Editorial</span>
@@ -378,15 +352,13 @@
                             </div>
                         </div>
                         <a href="mailto:careers@womencypedia.org?subject=Application: Content Editor"
-                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors">
-                            Apply Now
-                        </a>
+                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors"><span data-i18n="applyNow">Apply Now</span></a>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-xl border border-border-light">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
-                            <h3 class="font-heading text-lg font-semibold text-text-main">Research Analyst</h3>
+                            <h3 class="font-heading text-lg font-semibold text-text-main" data-i18n="careers.researchAnalyst">Research Analyst</h3>
                             <div class="flex flex-wrap gap-2 mt-2">
                                 <span
                                     class="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded">Research</span>
@@ -397,15 +369,13 @@
                             </div>
                         </div>
                         <a href="mailto:careers@womencypedia.org?subject=Application: Research Analyst"
-                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors">
-                            Apply Now
-                        </a>
+                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors"><span data-i18n="applyNow">Apply Now</span></a>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-xl border border-border-light">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
-                            <h3 class="font-heading text-lg font-semibold text-text-main">Community Manager</h3>
+                            <h3 class="font-heading text-lg font-semibold text-text-main" data-i18n="careers.communityManager">Community Manager</h3>
                             <div class="flex flex-wrap gap-2 mt-2">
                                 <span
                                     class="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded">Community</span>
@@ -416,9 +386,7 @@
                             </div>
                         </div>
                         <a href="mailto:careers@womencypedia.org?subject=Application: Community Manager"
-                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors">
-                            Apply Now
-                        </a>
+                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors"><span data-i18n="applyNow">Apply Now</span></a>
                     </div>
                 </div>
             </div>
@@ -427,7 +395,7 @@
         <!-- General Application -->
         <div class="bg-white p-8 rounded-xl border border-border-light text-center">
             <span class="material-symbols-outlined text-4xl text-primary mb-4">send</span>
-            <h2 class="font-heading text-2xl font-semibold text-text-main mb-2">Don't See a Fit?</h2>
+            <h2 class="font-heading text-2xl font-semibold text-text-main mb-2" data-i18n="careers.dontSeeAFit">Don't See a Fit?</h2>
             <p class="text-text-secondary mb-6 max-w-xl mx-auto">We're always looking for talented individuals who share
                 our mission. Send us your resume and we'll keep you in mind for future opportunities.</p>
             <a href="mailto:careers@womencypedia.org?subject=General Application"
@@ -509,13 +477,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -544,8 +512,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -561,6 +529,9 @@
             overlay.classList.toggle('hidden');
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
+    <script src="js/i18n.js"></script>
 </body>
 
 </html>

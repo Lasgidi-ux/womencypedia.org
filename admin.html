@@ -54,6 +54,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -66,10 +67,11 @@
     <!-- Mobile Search Sheet -->
     <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
         <div class="flex items-center gap-3">
+            <div id="language-switcher"></div>
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -89,7 +91,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="admin.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -106,7 +108,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="admin.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -123,7 +125,7 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="admin.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
@@ -134,13 +136,13 @@
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="admin.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -157,28 +159,10 @@
             <a href="contact.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
         </div>
-
-        <!-- My Profile -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                My Profile</h3>
-            <a href="profile.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">My
-                Profile</a>
-            <a data-auth="admin-only" href="admin.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
-                style="display:none">Admin</a>
-            <a href="biography.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Sample
-                Biography</a>
-        </div>
-
-        <!-- CTA -->
+<!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Share Your Story
-            </a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
@@ -254,7 +238,7 @@
         <main class="flex-1 p-6 lg:p-8">
             <!-- Dashboard Tab -->
             <section id="tab-dashboard" class="admin-content">
-                <h1 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6">Dashboard</h1>
+                <h1 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6" data-i18n="admin.dashboard">Dashboard</h1>
 
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -299,7 +283,7 @@
                 <!-- Recent Activity -->
                 <div class="bg-white rounded-xl border border-border-light overflow-hidden">
                     <div class="p-6 border-b border-border-light">
-                        <h2 class="font-serif text-xl font-bold text-text-main">Recent Activity</h2>
+                        <h2 class="font-serif text-xl font-bold text-text-main" data-i18n="admin.recentActivity">Recent Activity</h2>
                     </div>
                     <div id="recent-activity" class="p-6">
                         <p class="text-text-secondary text-sm">Loading recent activity...</p>
@@ -310,7 +294,7 @@
             <!-- All Entries Tab -->
             <section id="tab-entries" class="admin-content hidden">
                 <div class="flex items-center justify-between mb-6">
-                    <h1 class="font-serif text-2xl lg:text-3xl font-bold text-text-main">All Entries</h1>
+                    <h1 class="font-serif text-2xl lg:text-3xl font-bold text-text-main" data-i18n="admin.allEntries">All Entries</h1>
                     <button onclick="switchTab('add')"
                         class="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors">
                         <span class="material-symbols-outlined text-[18px]">add</span>
@@ -326,7 +310,7 @@
                                 <span
                                     class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">search</span>
                                 <input type="search" id="admin-search" placeholder="Search entries..."
-                                    class="w-full h-11 pl-10 pr-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                                    class="w-full h-11 pl-10 pr-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal" data-i18n-placeholder="search">
                             </div>
                         </div>
                         <select id="admin-filter-region"
@@ -390,7 +374,7 @@
 
             <!-- Pending Approval Tab -->
             <section id="tab-pending" class="admin-content hidden">
-                <h1 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6">Pending Approval</h1>
+                <h1 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6" data-i18n="admin.pendingApproval">Pending Approval</h1>
 
                 <!-- Pending Items -->
                 <div id="pending-items" class="space-y-4">
@@ -400,7 +384,7 @@
 
             <!-- Add/Edit Entry Tab -->
             <section id="tab-add" class="admin-content hidden">
-                <h1 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6" id="form-title">Add New Entry
+                <h1 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6" id="form-title" data-i18n="admin.addNewEntry">Add New Entry
                 </h1>
 
                 <form id="entry-form" class="bg-white rounded-xl p-6 lg:p-8 border border-border-light space-y-6">
@@ -475,7 +459,7 @@
 
                     <!-- Biography Sections -->
                     <div class="border-t border-border-light pt-6">
-                        <h3 class="font-serif text-lg font-bold text-text-main mb-4">Biography Content</h3>
+                        <h3 class="font-serif text-lg font-bold text-text-main mb-4" data-i18n="admin.biographyContent">Biography Content</h3>
 
                         <div class="space-y-6">
                             <div>
@@ -523,9 +507,7 @@
                     <!-- Submit Buttons -->
                     <div class="flex flex-col sm:flex-row justify-end gap-4 pt-6 border-t border-border-light">
                         <button type="button" onclick="resetForm()"
-                            class="px-6 py-3 border border-border-light rounded-lg font-bold text-sm hover:bg-background-cream transition-colors">
-                            Cancel
-                        </button>
+                            class="px-6 py-3 border border-border-light rounded-lg font-bold text-sm hover:bg-background-cream transition-colors"><span data-i18n="cancel">Cancel</span></button>
                         <button type="submit"
                             class="px-8 py-3 bg-primary text-white rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
                             <span class="material-symbols-outlined text-[18px]">save</span>
@@ -583,13 +565,12 @@
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
     </footer>
-
 
     <!-- Login Modal (for when session expires) -->
     <div id="login-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
@@ -598,7 +579,7 @@
                 <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-primary text-3xl">login</span>
                 </div>
-                <h2 class="font-serif text-2xl font-bold text-text-main">Admin Login</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="admin.adminLogin">Admin Login</h2>
                 <p class="text-text-secondary text-sm mt-2">Sign in to access the admin dashboard</p>
             </div>
 
@@ -631,7 +612,7 @@
     <script src="js/ui.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/strapi-api.js"></script>
-    <script src="js/api.js"></script>
+    
     <script>
         // Admin Dashboard Logic
         let adminState = {
@@ -887,7 +868,7 @@
                 container.innerHTML = `
                     <div class="bg-white rounded-xl p-8 border border-border-light text-center">
                         <span class="material-symbols-outlined text-4xl text-text-secondary/50 mb-4">inbox</span>
-                        <h3 class="font-serif text-lg font-bold text-text-main mb-2">No Pending Items</h3>
+                        <h3 class="font-serif text-lg font-bold text-text-main mb-2" data-i18n="admin.noPendingItems">No Pending Items</h3>
                         <p class="text-text-secondary text-sm">All submissions have been reviewed.</p>
                     </div>
                 `;
@@ -902,7 +883,7 @@
                 container.innerHTML = `
                     <div class="bg-white rounded-xl p-8 border border-border-light text-center">
                         <span class="material-symbols-outlined text-4xl text-text-secondary/50 mb-4">inbox</span>
-                        <h3 class="font-serif text-lg font-bold text-text-main mb-2">No Pending Items</h3>
+                        <h3 class="font-serif text-lg font-bold text-text-main mb-2" data-i18n="admin.noPendingItems">No Pending Items</h3>
                         <p class="text-text-secondary text-sm">All submissions have been reviewed.</p>
                     </div>
                 `;
@@ -916,7 +897,7 @@
                             <span class="px-2 py-1 ${item.type === 'nomination' ? 'bg-accent-gold/20 text-accent-gold' : 'bg-accent-teal/20 text-accent-teal'} text-xs font-bold uppercase rounded">
                                 ${item.type}
                             </span>
-                            <h3 class="font-serif text-lg font-bold text-text-main mt-2">${item.name || item.subjectName}</h3>
+                            <h3 class="font-serif text-lg font-bold text-text-main mt-2" data-i18n="admin.itemnameItemsubjectname">${item.name || item.subjectName}</h3>
                             <p class="text-sm text-text-secondary">${item.region || item.storyRegion || 'Region not specified'}</p>
                         </div>
                         <p class="text-xs text-text-secondary">${UI.formatDate(item.submittedAt || item.createdAt)}</p>
@@ -1153,6 +1134,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

@@ -44,6 +44,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -57,10 +58,11 @@
     <!-- Mobile Search Sheet -->
     <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-gold/10 p-4">
         <div class="flex items-center gap-3">
+            <div id="language-switcher"></div>
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-gold text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -80,7 +82,7 @@
         <!-- Modules Section -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="education_module_3.modules">
                 Modules</h3>
             <a href="education-module-1.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Module
@@ -124,7 +126,7 @@
                         <a href="resources.html"
                             class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Resources</a>
                         <a href="donate.html"
-                            class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide">Donate</a>
+                            class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide" data-i18n="donate">Donate</a>
                     </nav>
                 </div>
                 <button onclick="toggleMenu()"
@@ -154,7 +156,7 @@
                             <span
                                 class="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider">INTERMEDIATE</span>
                         </div>
-                        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">Cultural
+                        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4" data-i18n="education_module_3.culturalContextGrounding">Cultural
                             Context & Grounding</h1>
                         <p class="text-white/90 text-lg leading-relaxed max-w-2xl">Learn to interpret women's lives
                             within their own cultural frameworks, avoiding Western-centric assumptions and developing
@@ -180,7 +182,7 @@
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
                 <div class="grid lg:grid-cols-3 gap-12">
                     <div class="lg:col-span-2">
-                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6">What You'll Learn</h2>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6" data-i18n="education_module_3.whatYoullLearn">What You'll Learn</h2>
                         <p class="text-text-secondary leading-relaxed mb-8">This intermediate module focuses on
                             developing cultural competence in biographical research. You'll learn to recognize and avoid
                             Eurocentric biases while interpreting women's lives within their own cultural contexts.</p>
@@ -191,7 +193,7 @@
                                     <span class="material-symbols-outlined text-accent-gold">public</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1">Recognize Bias</h3>
+                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1" data-i18n="education_module_3.recognizeBias">Recognize Bias</h3>
                                     <p class="text-text-secondary text-sm">Identify Eurocentric assumptions in
                                         historical interpretation</p>
                                 </div>
@@ -202,7 +204,7 @@
                                     <span class="material-symbols-outlined text-primary">account_tree</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1">Apply Indigenous
+                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1" data-i18n="education_module_3.applyIndigenousFrameworks">Apply Indigenous
                                         Frameworks</h3>
                                     <p class="text-text-secondary text-sm">Use cultural frameworks appropriate to each
                                         society</p>
@@ -214,7 +216,7 @@
                                     <span class="material-symbols-outlined text-accent-teal">family_restroom</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1">Analyze Social
+                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1" data-i18n="education_module_3.analyzeSocialStructures">Analyze Social
                                         Structures</h3>
                                     <p class="text-text-secondary text-sm">Understand kinship and social systems in
                                         context</p>
@@ -226,7 +228,7 @@
                                     <span class="material-symbols-outlined text-accent-gold">edit_note</span>
                                 </div>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1">Write
+                                    <h3 class="font-serif text-lg font-bold text-text-main mb-1" data-i18n="education_module_3.writeCulturallygroundedBiographies">Write
                                         Culturally-Grounded Biographies</h3>
                                     <p class="text-text-secondary text-sm">Create interpretations that honor cultural
                                         context</p>
@@ -238,7 +240,7 @@
                     <!-- Progress Card -->
                     <div class="lg:col-span-1">
                         <div class="bg-white rounded-2xl p-6 border border-border-light shadow-lg sticky top-24">
-                            <h3 class="font-serif text-lg font-bold text-text-main mb-4">Your Progress</h3>
+                            <h3 class="font-serif text-lg font-bold text-text-main mb-4" data-i18n="education_module_3.yourProgress">Your Progress</h3>
                             <div class="mb-6">
                                 <div class="flex items-center justify-between text-sm mb-2">
                                     <span class="text-text-secondary">Course Completion</span>
@@ -289,7 +291,7 @@
         <!-- Course Content -->
         <section class="py-16 lg:py-20 bg-lavender-soft/40" id="course-content">
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
-                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-8">Course Content</h2>
+                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-8" data-i18n="education_module_3.courseContent">Course Content</h2>
                 <div class="space-y-4">
                     <div class="bg-white rounded-xl border border-border-light overflow-hidden">
                         <button onclick="toggleUnit(this)"
@@ -299,7 +301,7 @@
                                     <span class="material-symbols-outlined text-accent-gold">explore</span>
                                 </div>
                                 <div class="text-left">
-                                    <h3 class="font-serif text-lg font-bold text-text-main">Unit 1: Foundations of
+                                    <h3 class="font-serif text-lg font-bold text-text-main" data-i18n="education_module_3.unit1FoundationsOfCulturalGrounding">Unit 1: Foundations of
                                         Cultural Grounding</h3>
                                     <p class="text-text-secondary text-sm">4 Lessons • 1.5 Hours</p>
                                 </div>
@@ -343,7 +345,7 @@
                                     <span class="material-symbols-outlined text-primary">account_tree</span>
                                 </div>
                                 <div class="text-left">
-                                    <h3 class="font-serif text-lg font-bold text-text-main">Unit 2: Social Structures
+                                    <h3 class="font-serif text-lg font-bold text-text-main" data-i18n="education_module_3.unit2SocialStructures">Unit 2: Social Structures
                                     </h3>
                                     <p class="text-text-secondary text-sm">4 Lessons • 1.5 Hours</p>
                                 </div>
@@ -387,7 +389,7 @@
                                     <span class="material-symbols-outlined text-accent-teal">auto_stories</span>
                                 </div>
                                 <div class="text-left">
-                                    <h3 class="font-serif text-lg font-bold text-text-main">Unit 3: Case Studies</h3>
+                                    <h3 class="font-serif text-lg font-bold text-text-main" data-i18n="education_module_3.unit3CaseStudies">Unit 3: Case Studies</h3>
                                     <p class="text-text-secondary text-sm">4 Lessons • 3 Hours</p>
                                 </div>
                             </div>
@@ -428,7 +430,7 @@
         <!-- CTA Section -->
         <section class="py-16 lg:py-24 bg-gradient-to-br from-accent-gold to-accent-gold-dark">
             <div class="mx-auto max-w-[900px] px-4 sm:px-6 lg:px-12 text-center">
-                <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6">Develop Cultural
+                <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6" data-i18n="education_module_3.developCulturalCompetence">Develop Cultural
                     Competence</h2>
                 <p class="text-white/90 text-lg max-w-2xl mx-auto mb-10">Learn to interpret women's lives within their
                     own cultural frameworks and avoid the pitfalls of Eurocentric historical interpretation.</p>
@@ -519,13 +521,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -555,8 +557,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -610,6 +612,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

@@ -56,6 +56,7 @@
             transform: rotate(180deg);
         }
     </style>
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -153,7 +154,7 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
                                         Guidelines</a>
                                     <a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" data-i18n="donate">Donate</a>
                                 </div>
                             </div>
                         </div>
@@ -188,32 +189,6 @@
                             </div>
                         </div>
 
-                        <!-- My Profile Dropdown -->
-                        <div class="relative group">
-                            <button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                My Profile
-                                <span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
-                            </button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="profile.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">My
-                                        Profile</a>
-                                    <a data-auth="admin-only" href="admin.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
-                                        style="display:none">Admin</a>
-                                    <a href="biography.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
 
                 <!-- Actions -->
                 <div class="flex items-center gap-3 lg:gap-6">
@@ -235,14 +210,15 @@
 
                     <!-- Desktop Actions -->
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <a data-auth="admin-only" href="admin.html"
                             class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide">
                             Admin
                         </a>
                         <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-i18n="signIn">
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
@@ -269,7 +245,7 @@
     <main id="main-content" class="max-w-[1440px] mx-auto px-4 md:px-6 py-12">
         <!-- Hero -->
         <div class="text-center mb-12">
-            <h1 class="font-heading text-4xl md:text-5xl font-semibold text-text-main mb-4">Frequently Asked Questions
+            <h1 class="font-heading text-4xl md:text-5xl font-semibold text-text-main mb-4" data-i18n="faq.frequentlyAskedQuestions">Frequently Asked Questions
             </h1>
             <p class="text-lg text-text-secondary max-w-2xl mx-auto">Find answers to common questions about
                 Womencypedia, our mission, and how you can get involved.</p>
@@ -281,7 +257,7 @@
                 class="flex items-center bg-white border border-border-light rounded-lg px-4 h-12 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" id="faq-search" placeholder="Search questions..."
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
         </div>
 
@@ -440,7 +416,7 @@
                                 We take privacy seriously. Your personal information is never sold to third parties. We
                                 use industry-standard encryption to protect your data, and you can delete your account
                                 at any time. Read our <a href="privacy-policy.html"
-                                    class="text-accent-teal hover:text-primary">Privacy Policy</a> for complete details
+                                    class="text-accent-teal hover:text-primary"><span data-i18n="privacyPolicy">Privacy Policy</span></a> for complete details
                                 on how we collect, use, and protect your information.
                             </div>
                         </div>
@@ -550,13 +526,11 @@
         <!-- Still Have Questions -->
         <div class="max-w-2xl mx-auto text-center mt-12 p-8 bg-white rounded-xl border border-border-light">
             <span class="material-symbols-outlined text-4xl text-primary mb-4">contact_support</span>
-            <h2 class="font-heading text-2xl font-semibold text-text-main mb-2">Still Have Questions?</h2>
+            <h2 class="font-heading text-2xl font-semibold text-text-main mb-2" data-i18n="faq.stillHaveQuestions">Still Have Questions?</h2>
             <p class="text-text-secondary mb-6">Can't find what you're looking for? Our team is here to help.</p>
             <a href="contact.html"
                 class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-hover transition-colors">
-                <span class="material-symbols-outlined text-[20px]">mail</span>
-                Contact Us
-            </a>
+                <span class="material-symbols-outlined text-[20px]">mail</span><span data-i18n="contactUs">Contact Us</span></a>
         </div>
     </main>
 
@@ -630,13 +604,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -665,8 +639,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -707,6 +681,9 @@
         });
     </script>
 
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
+    <script src="js/i18n.js"></script>
 </body>
 
 </html>

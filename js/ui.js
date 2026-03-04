@@ -97,11 +97,12 @@ const UI = {
         const safeMessage = typeof Security !== 'undefined' ? Security.escapeHtml(message) : message;
         const safeActionText = actionText && typeof Security !== 'undefined' ? Security.escapeHtml(actionText) : actionText;
         const safeActionUrl = actionUrl && typeof Security !== 'undefined' ? Security.sanitizeUrl(actionUrl) : actionUrl;
+        const safeIcon = typeof Security !== 'undefined' ? Security.escapeHtml(icon) : icon;
 
         el.innerHTML = `
             <div class="col-span-full flex flex-col items-center justify-center py-16 text-center">
                 <div class="size-16 rounded-full bg-lavender-soft/50 flex items-center justify-center mb-4">
-                    <span class="material-symbols-outlined text-text-secondary/50 text-3xl">${icon}</span>
+                    <span class="material-symbols-outlined text-text-secondary/50 text-3xl">${safeIcon}</span>
                 </div>
                 <h3 class="font-serif text-xl font-bold text-text-main mb-2">${safeTitle}</h3>
                 <p class="text-text-secondary text-sm mb-6 max-w-md">${safeMessage}</p>
@@ -146,9 +147,20 @@ const UI = {
 
         const toast = document.createElement('div');
         toast.className = `${colors[type]} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 transform translate-x-full transition-transform duration-300`;
+        // Use Security for XSS protection - sanitize message before inserting into DOM
+        const safeMessage = typeof Security !== 'undefined' && typeof Security.sanitize === 'function'
+            ? Security.sanitize(message)
+            : (message
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;')
+                .replace(/`/g, '&#96;')
+                .replace(/\//g, '&#x2F;'));
         toast.innerHTML = `
             <span class="material-symbols-outlined">${icons[type]}</span>
-            <span class="text-sm font-medium">${message}</span>
+            <span class="text-sm font-medium">${safeMessage}</span>
         `;
 
         container.appendChild(toast);
@@ -181,18 +193,25 @@ const UI = {
                 danger = false
             } = options;
 
+            // Sanitize user-controlled inputs to prevent XSS
+            const safeTitle = typeof Security !== 'undefined' ? Security.escapeHtml(title) : title;
+            const safeMessage = typeof Security !== 'undefined' ? Security.escapeHtml(message) : message;
+            const safeConfirmText = typeof Security !== 'undefined' ? Security.escapeHtml(confirmText) : confirmText;
+            const safeCancelText = typeof Security !== 'undefined' ? Security.escapeHtml(cancelText) : cancelText;
+            const safeConfirmClass = typeof Security !== 'undefined' ? Security.escapeHtml(confirmClass) : confirmClass;
+
             const overlay = document.createElement('div');
             overlay.className = 'fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4';
             overlay.innerHTML = `
                 <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-xl">
-                    <h3 class="font-serif text-xl font-bold text-text-main mb-2">${title}</h3>
-                    <p class="text-text-secondary mb-6">${message}</p>
+                    <h3 class="font-serif text-xl font-bold text-text-main mb-2">${safeTitle}</h3>
+                    <p class="text-text-secondary mb-6">${safeMessage}</p>
                     <div class="flex justify-end gap-3">
                         <button id="confirm-cancel" class="px-5 py-2.5 border border-border-light rounded-lg font-bold text-sm hover:bg-background-cream transition-colors">
-                            ${cancelText}
+                            ${safeCancelText}
                         </button>
-                        <button id="confirm-ok" class="${danger ? 'bg-red-500 hover:bg-red-600' : confirmClass + ' hover:opacity-90'} text-white px-5 py-2.5 rounded-lg font-bold text-sm transition-colors">
-                            ${confirmText}
+                        <button id="confirm-ok" class="${danger ? 'bg-red-500 hover:bg-red-600' : safeConfirmClass + ' hover:opacity-90'} text-white px-5 py-2.5 rounded-lg font-bold text-sm transition-colors">
+                            ${safeConfirmText}
                         </button>
                     </div>
                 </div>
@@ -298,6 +317,11 @@ const UI = {
 
         if (totalPages <= 1) return '';
 
+        // Validate onPageChangeFn to prevent XSS - must be a valid JS identifier and not a dangerous function
+        const dangerousFunctions = ['eval', 'exec', 'constructor', '__proto__', 'prototype', 'globalThis', 'window', 'document', 'location'];
+        const isValidIdentifier = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(onPageChangeFn);
+        const validFnName = (isValidIdentifier && !dangerousFunctions.includes(onPageChangeFn)) ? onPageChangeFn : 'changePage';
+
         let pages = [];
         const range = 2;
 
@@ -312,7 +336,7 @@ const UI = {
         return `
             <div class="flex items-center justify-center gap-2 mt-12">
                 <button 
-                    onclick="${onPageChangeFn}(${page - 1})" 
+                    onclick="${validFnName}(${page - 1})" 
                     ${page === 1 ? 'disabled' : ''}
                     class="size-10 rounded-lg border border-border-light flex items-center justify-center hover:bg-lavender-soft disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
@@ -325,7 +349,7 @@ const UI = {
             }
             return `
                         <button 
-                            onclick="${onPageChangeFn}(${p})"
+                            onclick="${validFnName}(${p})"
                             class="size-10 rounded-lg border ${p === page ? 'bg-primary text-white border-primary' : 'border-border-light hover:bg-lavender-soft'} flex items-center justify-center font-bold text-sm transition-colors"
                         >
                             ${p}
@@ -334,7 +358,7 @@ const UI = {
         }).join('')}
                 
                 <button 
-                    onclick="${onPageChangeFn}(${page + 1})" 
+                    onclick="${validFnName}(${page + 1})" 
                     ${page === totalPages ? 'disabled' : ''}
                     class="size-10 rounded-lg border border-border-light flex items-center justify-center hover:bg-lavender-soft disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >

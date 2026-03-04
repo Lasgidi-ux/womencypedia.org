@@ -224,7 +224,7 @@ const Search = {
                     if (this._state.filters.region) url += `&filters[region][$eq]=${encodeURIComponent(this._state.filters.region)}`;
                     if (this._state.filters.category) url += `&filters[category][$eq]=${encodeURIComponent(this._state.filters.category)}`;
 
-                    const resp = await fetch(url, { headers: { 'Cache-Control': 'no-cache' }, cache: 'no-store' });
+                    const resp = await fetch(url, { cache: 'no-store' });
                     if (resp.ok) {
                         const data = await resp.json();
                         results = (data.data || []).map(item => ({ id: item.id, ...(item.attributes || item) }));
@@ -327,37 +327,106 @@ const Search = {
     },
 
     /**
+     * Escape HTML special characters to prevent XSS
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped text
+     */
+    escapeHtml(text) {
+        if (typeof text !== 'string') return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    },
+
+    /**
+     * Sanitize image URL to prevent XSS via src attribute
+     * @param {string} url - URL to sanitize
+     * @returns {string} Sanitized URL or placeholder
+     */
+    sanitizeImageUrl(url) {
+        if (!url || typeof url !== 'string') return null;
+
+        // Allow data URIs
+        if (url.startsWith('data:')) return url;
+
+        // Only allow http, https, and relative URLs
+        const allowedProtocols = ['http:', 'https:'];
+        try {
+            const urlObj = new URL(url, window.location.origin);
+            if (allowedProtocols.includes(urlObj.protocol)) {
+                return url;
+            }
+        } catch (e) {
+            // If URL parsing fails, check if it's a relative path
+            if (url.startsWith('/') || url.startsWith('./') || url.startsWith('../')) {
+                return url;
+            }
+        }
+
+        // Return null for invalid URLs - will use placeholder
+        return null;
+    },
+
+    /**
+     * Encode ID for safe embedding in URL
+     * @param {string|number} id - ID to encode
+     * @returns {string} Encoded ID
+     */
+    encodeId(id) {
+        if (id === null || id === undefined) return '';
+        return encodeURIComponent(String(id));
+    },
+
+    /**
      * Render single result card
      * @param {Object} entry - Entry data
      * @returns {string} HTML string
      */
     renderResultCard(entry) {
-        const imageHtml = entry.image
-            ? `<img src="${entry.image}" alt="${entry.name}" class="w-full h-full object-cover">`
+        // Sanitize all user-controlled text fields
+        const safeName = this.escapeHtml(entry.name || entry.title || '');
+        const safeCategory = this.escapeHtml(entry.category || '');
+        const safeRegion = this.escapeHtml(entry.region || '');
+        const safeEra = this.escapeHtml(entry.era || '');
+        const safeIntroduction = this.escapeHtml(entry.introduction || '');
+
+        // Sanitize image URL
+        const safeImage = this.sanitizeImageUrl(entry.image);
+
+        // Encode ID for URL
+        const safeId = this.encodeId(entry.id);
+
+        const imageHtml = safeImage
+            ? `<img src="${safeImage}" alt="${safeName}" class="w-full h-full object-cover">`
             : `<div class="w-full h-full flex items-center justify-center bg-primary/10">
                 <span class="material-symbols-outlined text-4xl text-primary/40">person</span>
                </div>`;
 
-        const categoryHtml = entry.category
-            ? `<span class="absolute top-3 left-3 px-2 py-1 bg-white/90 rounded text-xs font-medium text-text-main">${entry.category}</span>`
+        const categoryHtml = safeCategory
+            ? `<span class="absolute top-3 left-3 px-2 py-1 bg-white/90 rounded text-xs font-medium text-text-main">${safeCategory}</span>`
             : '';
 
-        const metaHtml = (entry.region || entry.era)
-            ? `<p class="text-sm text-text-secondary mb-2">${entry.region || ''}${entry.region && entry.era ? ' • ' : ''}${entry.era || ''}</p>`
+        const metaHtml = (safeRegion || safeEra)
+            ? `<p class="text-sm text-text-secondary mb-2">${safeRegion}${safeRegion && safeEra ? ' • ' : ''}${safeEra}</p>`
             : '';
 
-        const descriptionHtml = entry.introduction
-            ? `<p class="text-sm text-text-secondary line-clamp-2">${entry.introduction.substring(0, 120)}...</p>`
+        // Trim introduction after escaping (limit to 120 characters)
+        const truncatedIntro = safeIntroduction.length > 120
+            ? safeIntroduction.substring(0, 120) + '...'
+            : safeIntroduction;
+
+        const descriptionHtml = truncatedIntro
+            ? `<p class="text-sm text-text-secondary line-clamp-2">${truncatedIntro}</p>`
             : '';
 
         return `
-            <a href="biography.html?id=${entry.id}" class="search-result-card block bg-white rounded-xl border border-border-light overflow-hidden hover:shadow-lg transition-shadow">
+            <a href="biography.html?id=${safeId}" class="search-result-card block bg-white rounded-xl border border-border-light overflow-hidden hover:shadow-lg transition-shadow">
                 <div class="aspect-[4/3] bg-primary/10 relative overflow-hidden">
                     ${imageHtml}
                     ${categoryHtml}
                 </div>
                 <div class="p-4">
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-1">${entry.name || entry.title}</h3>
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-1">${safeName}</h3>
                     ${metaHtml}
                     ${descriptionHtml}
                 </div>

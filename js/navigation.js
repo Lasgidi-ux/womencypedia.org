@@ -38,13 +38,21 @@ function createMobileNavigation() {
                 <input type="search" placeholder="Search women, cultures, eras…"
                     class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
             </div>
-            <button onclick="toggleSearch()"
-                class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg hover:bg-primary/10 transition-colors">
+            <button class="search-close-btn size-12 flex items-center justify-center bg-white border border-border-light rounded-lg hover:bg-primary/10 transition-colors" aria-label="Close search">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
     `;
     document.body.insertBefore(searchSheet, document.body.firstChild);
+
+    // Add event listener for close search button (using consistent event listener pattern)
+    const closeSearchBtn = searchSheet.querySelector('.search-close-btn');
+    if (closeSearchBtn) {
+        closeSearchBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            toggleSearch();
+        });
+    }
 
     // Create menu overlay
     const menuOverlay = document.createElement('div');
@@ -417,6 +425,16 @@ function initKeyboardNavigation() {
     });
 }
 
+/**
+ * Escape HTML to prevent XSS
+ */
+function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = String(str);
+    return div.innerHTML;
+}
+
 // Make functions globally available
 window.toggleMenu = toggleMenu;
 window.toggleSearch = toggleSearch;
@@ -430,11 +448,18 @@ function handleMobileLogout() {
 
     // Use Auth.logout() if available, otherwise do basic logout
     if (typeof Auth !== 'undefined' && typeof Auth.logout === 'function') {
-        Auth.logout().then(() => {
-            window.location.href = 'index.html';
-        });
-    } else {
-        // Fallback: clear storage and redirect
+        Auth.logout()
+            .then(() => {
+                window.location.href = 'index.html';
+            })
+            .catch(() => {
+                // Fallback: clear storage and redirect even on error
+                localStorage.removeItem('womencypedia_access_token');
+                localStorage.removeItem('womencypedia_refresh_token');
+                localStorage.removeItem('womencypedia_user');
+                window.location.href = 'index.html';
+            });
+    } else {        // Fallback: clear storage and redirect
         localStorage.removeItem('womencypedia_access_token');
         localStorage.removeItem('womencypedia_refresh_token');
         localStorage.removeItem('womencypedia_user');

@@ -25,7 +25,12 @@ womencypedia-cms/.cache/
 womencypedia-cms/exports/
 
 # Build artifacts
+dist/
 css/tailwind.css.map
+
+# Script-generated reports
+scripts/*.json
+!scripts/translation-keys.json
 
 # Python helper scripts (dev-only)
 __pycache__/
@@ -35,3 +40,6 @@ __pycache__/
 cms_setup.log
 strapi_install.log
 strapi_setup_log.txt
+
+# Gemini/AI agent files
+.gemini/

@@ -1,0 +1,66 @@
+{
+    "kind": "collectionType",
+    "collectionName": "contact_submissions",
+    "info": {
+        "singularName": "contact-submission",
+        "pluralName": "contact-submissions",
+        "displayName": "Contact Submission",
+        "description": "Contact form submissions, legacy circle applications, and partnership inquiries"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "email": {
+            "type": "email",
+            "required": true
+        },
+        "subject": {
+            "type": "string"
+        },
+        "message": {
+            "type": "text",
+            "required": true
+        },
+        "organization": {
+            "type": "string"
+        },
+        "phone": {
+            "type": "string"
+        },
+        "type": {
+            "type": "enumeration",
+            "enum": [
+                "contact",
+                "legacy_circle",
+                "partnership",
+                "press",
+                "fellowship_inquiry",
+                "general"
+            ],
+            "default": "contact"
+        },
+        "status": {
+            "type": "enumeration",
+            "enum": [
+                "new",
+                "in_progress",
+                "resolved",
+                "archived"
+            ],
+            "default": "new"
+        },
+        "assignedTo": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "plugin::users-permissions.user"
+        },
+        "internalNotes": {
+            "type": "text"
+        }
+    }
+}

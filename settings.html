@@ -99,6 +99,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream min-h-screen text-text-main antialiased">
@@ -178,10 +179,11 @@
                 <!-- Profile Section -->
                 <section id="section-profile"
                     class="settings-section bg-white rounded-2xl border border-border-light p-6 md:p-8">
-                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6">Profile Settings</h2>
+                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6" data-i18n="settings.profileSettings">Profile Settings</h2>
 
                     <!-- Avatar Upload -->
                     <div class="flex items-center gap-6 mb-8 pb-8 border-b border-border-light">
+                <div id="language-switcher"></div>
                         <div class="relative">
                             <div id="user-avatar"
                                 class="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent-teal flex items-center justify-center text-white text-3xl font-bold overflow-hidden">
@@ -193,7 +195,7 @@
                             </button>
                         </div>
                         <div>
-                            <h3 class="text-text-main font-semibold mb-1">Profile Photo</h3>
+                            <h3 class="text-text-main font-semibold mb-1" data-i18n="settings.profilePhoto">Profile Photo</h3>
                             <p class="text-text-secondary text-sm mb-3">Upload a photo to personalize your profile</p>
                             <div class="flex gap-3">
                                 <button
@@ -245,9 +247,7 @@
                         </div>
                         <div class="flex justify-end">
                             <button type="submit"
-                                class="px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary-hover transition-colors shadow-lg shadow-primary/25">
-                                Save Changes
-                            </button>
+                                class="px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary-hover transition-colors shadow-lg shadow-primary/25"><span data-i18n="saveChanges">Save Changes</span></button>
                         </div>
                     </form>
                 </section>
@@ -255,11 +255,11 @@
                 <!-- Security Section -->
                 <section id="section-security"
                     class="settings-section bg-white rounded-2xl border border-border-light p-6 md:p-8 hidden">
-                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6">Security Settings</h2>
+                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6" data-i18n="settings.securitySettings">Security Settings</h2>
 
                     <!-- Change Password -->
                     <div class="mb-8 pb-8 border-b border-border-light">
-                        <h3 class="text-lg font-semibold text-text-main mb-4">Change Password</h3>
+                        <h3 class="text-lg font-semibold text-text-main mb-4" data-i18n="settings.changePassword">Change Password</h3>
                         <form id="password-form" class="space-y-4">
                             <div>
                                 <label class="block text-text-main text-sm font-medium mb-2">Current Password</label>
@@ -293,7 +293,7 @@
                     <div class="mb-8 pb-8 border-b border-border-light">
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <h3 class="text-lg font-semibold text-text-main">Two-Factor Authentication</h3>
+                                <h3 class="text-lg font-semibold text-text-main" data-i18n="settings.twofactorAuthentication">Two-Factor Authentication</h3>
                                 <p class="text-text-secondary text-sm">Add an extra layer of security to your account
                                 </p>
                             </div>
@@ -306,7 +306,7 @@
 
                     <!-- Active Sessions -->
                     <div>
-                        <h3 class="text-lg font-semibold text-text-main mb-4">Active Sessions</h3>
+                        <h3 class="text-lg font-semibold text-text-main mb-4" data-i18n="settings.activeSessions">Active Sessions</h3>
                         <div class="space-y-4">
                             <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                                 <div class="flex items-center gap-4">
@@ -332,12 +332,12 @@
                 <!-- Notifications Section -->
                 <section id="section-notifications"
                     class="settings-section bg-white rounded-2xl border border-border-light p-6 md:p-8 hidden">
-                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6">Notification Preferences</h2>
+                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6" data-i18n="settings.notificationPreferences">Notification Preferences</h2>
 
                     <div class="space-y-6">
                         <!-- Email Notifications -->
                         <div class="pb-6 border-b border-border-light">
-                            <h3 class="text-lg font-semibold text-text-main mb-4">Email Notifications</h3>
+                            <h3 class="text-lg font-semibold text-text-main mb-4" data-i18n="settings.emailNotifications">Email Notifications</h3>
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
                                     <div>
@@ -388,7 +388,7 @@
 
                         <!-- Push Notifications -->
                         <div>
-                            <h3 class="text-lg font-semibold text-text-main mb-4">Push Notifications</h3>
+                            <h3 class="text-lg font-semibold text-text-main mb-4" data-i18n="settings.pushNotifications">Push Notifications</h3>
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
                                     <div>
@@ -409,7 +409,7 @@
                 <!-- Privacy Section -->
                 <section id="section-privacy"
                     class="settings-section bg-white rounded-2xl border border-border-light p-6 md:p-8 hidden">
-                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6">Privacy Settings</h2>
+                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6" data-i18n="settings.privacySettings">Privacy Settings</h2>
 
                     <div class="space-y-6">
                         <div class="flex items-center justify-between pb-6 border-b border-border-light">
@@ -468,11 +468,11 @@
                 <!-- Appearance Section -->
                 <section id="section-appearance"
                     class="settings-section bg-white rounded-2xl border border-border-light p-6 md:p-8 hidden">
-                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6">Appearance Settings</h2>
+                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6" data-i18n="settings.appearanceSettings">Appearance Settings</h2>
 
                     <div class="space-y-6">
                         <div>
-                            <h3 class="text-lg font-semibold text-text-main mb-4">Theme</h3>
+                            <h3 class="text-lg font-semibold text-text-main mb-4" data-i18n="settings.theme">Theme</h3>
                             <div class="grid grid-cols-3 gap-4">
                                 <button class="p-4 bg-gray-900 border-2 border-primary rounded-xl text-center">
                                     <div class="w-full h-12 bg-gray-800 rounded-lg mb-2"></div>
@@ -493,7 +493,7 @@
                         </div>
 
                         <div class="pb-6 border-b border-border-light">
-                            <h3 class="text-lg font-semibold text-text-main mb-4">Font Size</h3>
+                            <h3 class="text-lg font-semibold text-text-main mb-4" data-i18n="settings.fontSize">Font Size</h3>
                             <input type="range" min="12" max="20" value="16" class="w-full accent-primary">
                             <div class="flex justify-between text-text-secondary text-sm mt-2">
                                 <span>Small</span>
@@ -507,7 +507,7 @@
                 <!-- Connected Accounts Section -->
                 <section id="section-connected"
                     class="settings-section bg-white rounded-2xl border border-border-light p-6 md:p-8 hidden">
-                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6">Connected Accounts</h2>
+                    <h2 class="font-serif-display text-2xl font-bold text-text-main mb-6" data-i18n="settings.connectedAccounts">Connected Accounts</h2>
 
                     <div class="space-y-4">
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
@@ -565,7 +565,7 @@
                 <!-- Danger Zone Section -->
                 <section id="section-danger"
                     class="settings-section bg-white rounded-2xl border border-red-200 p-6 md:p-8 hidden">
-                    <h2 class="font-serif-display text-2xl font-bold text-red-500 mb-6">Danger Zone</h2>
+                    <h2 class="font-serif-display text-2xl font-bold text-red-500 mb-6" data-i18n="settings.dangerZone">Danger Zone</h2>
 
                     <div class="space-y-6">
                         <div class="flex items-center justify-between p-4 bg-red-50 rounded-xl border border-red-200">
@@ -656,13 +656,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -692,8 +692,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -872,6 +872,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

@@ -69,6 +69,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream min-h-screen flex flex-col text-text-main antialiased">
@@ -102,7 +103,7 @@
             <h1 class="font-serif-display text-8xl md:text-9xl font-bold text-primary mb-4">
                 404
             </h1>
-            <h2 class="font-serif-display text-3xl md:text-4xl font-bold text-text-main mb-4">Page Not Found</h2>
+            <h2 class="font-serif-display text-3xl md:text-4xl font-bold text-text-main mb-4" data-i18n="404.pageNotFound">Page Not Found</h2>
             <p class="text-text-secondary text-lg mb-8 max-w-md mx-auto">The page you're looking for doesn't exist or
                 has been moved to a new location.</p>
 
@@ -121,7 +122,7 @@
             </div>
 
             <div class="mt-12 p-6 bg-white rounded-2xl border border-border-light shadow-sm">
-                <h3 class="text-text-main font-bold mb-3">Looking for something?</h3>
+                <h3 class="text-text-main font-bold mb-3" data-i18n="404.lookingForSomething">Looking for something?</h3>
                 <div class="flex flex-wrap justify-center gap-3">
                     <a href="featured.html"
                         class="px-4 py-2 bg-gray-100 text-text-secondary rounded-lg hover:bg-primary hover:text-white transition-colors">Featured
@@ -207,13 +208,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -243,8 +244,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -283,6 +284,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

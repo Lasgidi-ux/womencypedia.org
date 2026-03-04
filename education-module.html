@@ -41,6 +41,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -57,7 +58,7 @@
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-primary text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -75,7 +76,7 @@
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="education_module.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -90,7 +91,7 @@
         </div>
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="education_module.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-primary border-b border-border-light/50">Education</a>
@@ -105,9 +106,7 @@
         </div>
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Share Your Story
-            </a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
@@ -188,7 +187,7 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
                                         Guidelines</a>
                                     <a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" data-i18n="donate">Donate</a>
                                 </div>
                             </div>
                         </div>
@@ -267,7 +266,7 @@
         <div id="module-error" class="hidden py-20">
             <div class="mx-auto max-w-[600px] px-4 text-center">
                 <span class="material-symbols-outlined text-6xl text-text-secondary/40 mb-4">school</span>
-                <h2 class="font-serif text-2xl font-bold text-text-main mb-3">Module Not Found</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main mb-3" data-i18n="education_module.moduleNotFound">Module Not Found</h2>
                 <p class="text-text-secondary mb-6">We couldn't find this education module. It may have been moved or is
                     currently being updated.</p>
                 <a href="education.html"
@@ -315,14 +314,14 @@
 
                         <!-- Main Content -->
                         <div class="lg:col-span-2">
-                            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6">What You'll Learn
+                            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-text-main mb-6" data-i18n="education_module.whatYoullLearn">What You'll Learn
                             </h2>
                             <div id="module-body"
                                 class="prose prose-lg max-w-none text-text-secondary leading-relaxed mb-12"></div>
 
                             <!-- Lessons -->
                             <div id="lessons-section" class="hidden">
-                                <h2 class="font-serif text-2xl font-bold text-text-main mb-6">Lessons</h2>
+                                <h2 class="font-serif text-2xl font-bold text-text-main mb-6" data-i18n="education_module.lessons">Lessons</h2>
                                 <div id="lessons-list" class="space-y-4"></div>
                             </div>
 
@@ -338,7 +337,7 @@
 
                             <!-- Related Biographies -->
                             <div id="related-section" class="hidden mt-12">
-                                <h2 class="font-serif text-2xl font-bold text-text-main mb-6">Related Biographies</h2>
+                                <h2 class="font-serif text-2xl font-bold text-text-main mb-6" data-i18n="education_module.relatedBiographies">Related Biographies</h2>
                                 <div id="related-biographies" class="grid sm:grid-cols-2 gap-6"></div>
                             </div>
                         </div>
@@ -346,7 +345,7 @@
                         <!-- Sidebar -->
                         <div class="lg:col-span-1">
                             <div class="bg-white rounded-2xl p-6 border border-border-light shadow-lg sticky top-24">
-                                <h3 class="font-serif text-lg font-bold text-text-main mb-4">Module Navigation</h3>
+                                <h3 class="font-serif text-lg font-bold text-text-main mb-4" data-i18n="education_module.moduleNavigation">Module Navigation</h3>
                                 <nav id="lesson-nav" class="space-y-2 mb-6"></nav>
 
                                 <div class="border-t border-border-light pt-6">
@@ -412,7 +411,7 @@
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="share-story.html">Share Story</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
                 <div>
                     <h4 class="font-serif text-lg font-bold text-white mb-4">About</h4>
@@ -429,8 +428,8 @@
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -530,7 +529,7 @@
                             <div class="flex items-center gap-4">
                                 <span class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold flex-shrink-0">${i + 1}</span>
                                 <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main">${lesson.title || `Lesson ${i + 1}`}</h3>
+                                    <h3 class="font-serif text-lg font-bold text-text-main" data-i18n="education_module.lessontitleLessonI1">${lesson.title || `Lesson ${i + 1}`}</h3>
                                     ${lesson.duration ? `<p class="text-sm text-text-secondary mt-1">${lesson.duration}</p>` : ''}
                                 </div>
                             </div>
@@ -690,6 +689,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

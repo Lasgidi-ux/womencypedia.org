@@ -33,9 +33,9 @@ const Security = {
     loadDOMPurify() {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js';
-            script.integrity = 'sha512-H+rg1ff8pOgG6z5v6jzLwQ6k1lUj5p6PqM+L1jLb6b7/7P6jLb6b7/7P6jLb6b7/7P6jLb6b7=';
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.4/purify.min.js';
             script.crossOrigin = 'anonymous';
+            script.referrerPolicy = 'no-referrer';
             script.onload = resolve;
             script.onerror = reject;
             document.head.appendChild(script);
@@ -317,4 +317,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = Security;
+}
+
+// Expose Security globally for browser usage
+if (typeof window !== 'undefined') {
+    window.Security = Security;
 }

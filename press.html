@@ -32,6 +32,7 @@
     <link href="https://womencypedia.org/press.html" rel="canonical" />
     <link href="manifest.json" rel="manifest" />
     <meta content="#E8A6A6" name="theme-color" />
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -127,7 +128,7 @@
                                         href="contributor-guidelines.html">Contributor
                                         Guidelines</a>
                                     <a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
-                                        href="donate.html">Donate</a>
+                                        href="donate.html" data-i18n="donate">Donate</a>
                                 </div>
                             </div>
                         </div>
@@ -160,32 +161,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- My Profile Dropdown -->
-                        <div class="relative group">
-                            <button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                My Profile
-                                <span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
-                            </button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
-                                        href="profile.html">My
-                                        Profile</a>
-                                    <a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
-                                    <a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
-                                        data-auth="admin-only" href="admin.html" style="display:none">Admin</a>
-                                    <a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
-                                        href="biography.html">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
                 <!-- Actions -->
                 <div class="flex items-center gap-3 lg:gap-6">
                     <!-- Desktop Search -->
@@ -204,15 +179,16 @@
                     </button>
                     <!-- Desktop Actions -->
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <a class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide"
                             data-auth="admin-only" href="admin.html">
                             Admin
                         </a>
                         <button
                             class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
-                            data-auth="signin">
+                            data-auth="signin" data-i18n="signIn">
                             Sign In
                         </button>
                         <div class="hidden flex items-center gap-3" data-auth="signout">
@@ -242,7 +218,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="press.explore">
                 Explore</h3>
             <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
                 href="index.html">Home</a>
@@ -258,7 +234,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="press.learn">
                 Learn</h3>
             <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
                 href="education.html">Education</a>
@@ -274,7 +250,7 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="press.participate">
                 Participate</h3>
             <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
                 href="nominate.html">Nominate
@@ -285,12 +261,12 @@
             <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
                 href="contributor-guidelines.html">Contributor
                 Guidelines</a>
-            <a class="block py-3 text-base font-medium text-text-main hover:text-primary" href="donate.html">Donate</a>
+            <a class="block py-3 text-base font-medium text-text-main hover:text-primary" href="donate.html" data-i18n="donate">Donate</a>
         </div>
         <!-- About -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="press.about">
                 About</h3>
             <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
                 href="about.html">About
@@ -307,26 +283,10 @@
             <a class="block py-3 text-base font-medium text-text-main hover:text-primary"
                 href="contact.html">Contact</a>
         </div>
-        <!-- My Profile -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                My Profile</h3>
-            <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
-                href="profile.html">My
-                Profile</a>
-            <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
-            <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
-                data-auth="admin-only" href="admin.html" style="display:none">Admin</a>
-            <a class="block py-3 text-base font-medium text-text-main hover:text-primary" href="biography.html">Sample
-                Biography</a>
-        </div>
-        <!-- CTA -->
+<!-- CTA -->
         <div class="px-6 pb-8">
             <a class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"
-                href="share-story.html">
-                Share Your Story
-            </a>
+                href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
     <!-- Main Content -->
@@ -334,13 +294,13 @@
         <!-- Hero -->
         <div class="text-center mb-12">
             <span class="material-symbols-outlined text-5xl text-primary mb-4">campaign</span>
-            <h1 class="font-heading text-4xl md:text-5xl font-semibold text-text-main mb-4">Press &amp; Media</h1>
+            <h1 class="font-heading text-4xl md:text-5xl font-semibold text-text-main mb-4" data-i18n="press.pressAmpMedia">Press &amp; Media</h1>
             <p class="text-lg text-text-secondary max-w-2xl mx-auto">Resources for journalists, media professionals, and
                 content creators covering Womencypedia.</p>
         </div>
         <!-- Quick Facts -->
         <div class="bg-white p-6 rounded-xl border border-border-light mb-12">
-            <h2 class="font-heading text-xl font-semibold text-text-main mb-4">Quick Facts</h2>
+            <h2 class="font-heading text-xl font-semibold text-text-main mb-4" data-i18n="press.quickFacts">Quick Facts</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
                     <p class="text-text-secondary">Founded</p>
@@ -362,11 +322,11 @@
         </div>
         <!-- Press Kit -->
         <div class="mb-12">
-            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6">Press Kit</h2>
+            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6" data-i18n="press.pressKit">Press Kit</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white p-6 rounded-xl border border-border-light">
                     <span class="material-symbols-outlined text-3xl text-primary mb-3">image</span>
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2">Logos &amp; Brand Assets</h3>
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2" data-i18n="press.logosAmpBrandAssets">Logos &amp; Brand Assets</h3>
                     <p class="text-sm text-text-secondary mb-4">Download official Womencypedia logos, icons, and brand
                         guidelines.</p>
                     <div class="flex gap-2">
@@ -384,7 +344,7 @@
                 </div>
                 <div class="bg-white p-6 rounded-xl border border-border-light">
                     <span class="material-symbols-outlined text-3xl text-primary mb-3">description</span>
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2">Fact Sheet</h3>
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2" data-i18n="press.factSheet">Fact Sheet</h3>
                     <p class="text-sm text-text-secondary mb-4">Key facts, statistics, and background information about
                         Womencypedia.</p>
                     <a class="inline-flex items-center gap-1 px-3 py-2 bg-primary/10 text-primary text-sm font-medium rounded-lg hover:bg-primary/20 transition-colors"
@@ -397,25 +357,25 @@
         </div>
         <!-- Recent News -->
         <div class="mb-12">
-            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6">Recent News</h2>
+            <h2 class="font-heading text-2xl font-semibold text-text-main mb-6" data-i18n="press.recentNews">Recent News</h2>
             <div class="space-y-4">
                 <article class="bg-white p-6 rounded-xl border border-border-light">
                     <p class="text-sm text-accent-teal mb-2">February 2026</p>
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2">Womencypedia Reaches 15,000
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2" data-i18n="press.womencypediaReaches15000BiographiesMilestone">Womencypedia Reaches 15,000
                         Biographies Milestone</h3>
                     <p class="text-sm text-text-secondary">The platform celebrates a major milestone in documenting
                         women's stories from around the world.</p>
                 </article>
                 <article class="bg-white p-6 rounded-xl border border-border-light">
                     <p class="text-sm text-accent-teal mb-2">January 2026</p>
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2">New Education Modules Launch for
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2" data-i18n="press.newEducationModulesLaunchForSchools">New Education Modules Launch for
                         Schools</h3>
                     <p class="text-sm text-text-secondary">Free educational resources now available for K-12 educators
                         worldwide.</p>
                 </article>
                 <article class="bg-white p-6 rounded-xl border border-border-light">
                     <p class="text-sm text-accent-teal mb-2">December 2025</p>
-                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2">Partnership Announced with Global
+                    <h3 class="font-heading text-lg font-semibold text-text-main mb-2" data-i18n="press.partnershipAnnouncedWithGlobalUniversities">Partnership Announced with Global
                         Universities</h3>
                     <p class="text-sm text-text-secondary">Academic institutions join forces to expand research on
                         women's contributions.</p>
@@ -425,7 +385,7 @@
         <!-- Media Contact -->
         <div class="bg-primary/5 p-8 rounded-xl text-center">
             <span class="material-symbols-outlined text-4xl text-primary mb-4">mail</span>
-            <h2 class="font-heading text-2xl font-semibold text-text-main mb-2">Media Inquiries</h2>
+            <h2 class="font-heading text-2xl font-semibold text-text-main mb-2" data-i18n="press.mediaInquiries">Media Inquiries</h2>
             <p class="text-text-secondary mb-6 max-w-xl mx-auto">For press inquiries, interview requests, or media
                 partnerships, please contact our communications team.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -513,13 +473,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
                 <!-- About -->
                 <div>
@@ -547,8 +507,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            class="text-gray-400 hover:text-white" href="privacy-policy.html">Privacy Policy</a> | <a
-                            class="text-gray-400 hover:text-white" href="terms-of-use.html">Terms of Use</a></p>
+                            class="text-gray-400 hover:text-white" href="privacy-policy.html"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            class="text-gray-400 hover:text-white" href="terms-of-use.html"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -563,6 +523,9 @@
             overlay.classList.toggle('hidden');
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
+    <script src="js/i18n.js"></script>
 </body>
 
 </html>

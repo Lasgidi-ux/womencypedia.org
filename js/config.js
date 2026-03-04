@@ -18,8 +18,9 @@
 // Priority: 1. window.API_STRAPI_URL (JavaScript environment variable)
 //           2. window.API_BASE_URL (alternative variable name)
 //           3. Production URL fallback
-const API_BASE_URL = window.API_STRAPI_URL ||
-    window.API_BASE_URL ||
+// Note: Added window check for SSR environment compatibility
+const API_BASE_URL = (typeof window !== 'undefined' ? window.API_STRAPI_URL : undefined) ||
+    (typeof window !== 'undefined' ? window.API_BASE_URL : undefined) ||
     'https://womencypedia-cms.onrender.com';  // production (Render)
 
 const CONFIG = {
@@ -237,9 +238,9 @@ const CONFIG = {
     // Replace with your live keys in production
     // For Paystack: https://dashboard.paystack.com/#/settings/developers
     // For Flutterwave: https://app.flutterwave.com/dashboard/settings/apis
-    PAYSTACK_PUBLIC_KEY: window.PAYSTACK_PUBLIC_KEY || '',
-    FLUTTERWAVE_PUBLIC_KEY: window.FLUTTERWAVE_PUBLIC_KEY || '',
-    PAYSTACK_MONTHLY_PLAN: window.PAYSTACK_MONTHLY_PLAN || ''
+    PAYSTACK_PUBLIC_KEY: (typeof window !== 'undefined' ? window.PAYSTACK_PUBLIC_KEY : undefined) || '',
+    FLUTTERWAVE_PUBLIC_KEY: (typeof window !== 'undefined' ? window.FLUTTERWAVE_PUBLIC_KEY : undefined) || '',
+    PAYSTACK_MONTHLY_PLAN: (typeof window !== 'undefined' ? window.PAYSTACK_MONTHLY_PLAN : undefined) || ''
 };
 
 // Freeze configuration to prevent accidental modifications

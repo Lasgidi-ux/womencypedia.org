@@ -35,6 +35,7 @@
 <meta content="#E8A6A6" name="theme-color"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
 <!-- Skip Link -->
@@ -60,7 +61,7 @@
 <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
 <!-- Explore -->
 <div class="px-6 pb-4">
-<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="privacy_policy.explore">
                 Explore</h3>
 <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" href="index.html">Home</a>
 <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" href="browse.html">Browse</a>
@@ -70,7 +71,7 @@
 </div>
 <!-- Learn -->
 <div class="px-6 pb-4">
-<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="privacy_policy.learn">
                 Learn</h3>
 <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" href="education.html">Education</a>
 <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" href="enterprises.html">Enterprises</a>
@@ -80,7 +81,7 @@
 </div>
 <!-- Participate -->
 <div class="px-6 pb-4">
-<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="privacy_policy.participate">
                 Participate</h3>
 <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" href="nominate.html">Nominate
                 a Woman</a>
@@ -88,11 +89,11 @@
                 Your Story</a>
 <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" href="contributor-guidelines.html">Contributor
                 Guidelines</a>
-<a class="block py-3 text-base font-medium text-text-main hover:text-primary" href="donate.html">Donate</a>
+<a class="block py-3 text-base font-medium text-text-main hover:text-primary" href="donate.html" data-i18n="donate">Donate</a>
 </div>
 <!-- About -->
 <div class="px-6 pb-4">
-<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="privacy_policy.about">
                 About</h3>
 <a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" href="about.html">About
                 Us</a>
@@ -103,21 +104,9 @@
                 Standards</a>
 <a class="block py-3 text-base font-medium text-text-main hover:text-primary" href="contact.html">Contact</a>
 </div>
-<!-- My Profile -->
-<div class="px-6 pb-4">
-<h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                My Profile</h3>
-<a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" href="profile.html">My
-                Profile</a>
-<a class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" data-auth="admin-only" href="admin.html" style="display:none">Admin</a>
-<a class="block py-3 text-base font-medium text-text-main hover:text-primary" href="biography.html">Sample
-                Biography</a>
-</div>
 <!-- CTA -->
 <div class="px-6 pb-8">
-<a class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors" href="share-story.html">
-                Share Your Story
-            </a>
+<a class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors" href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
 </div>
 </nav>
 <!-- Header -->
@@ -178,7 +167,7 @@
                                         Your Story</a>
 <a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" href="contributor-guidelines.html">Contributor
                                         Guidelines</a>
-<a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" href="donate.html">Donate</a>
+<a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" href="donate.html" data-i18n="donate">Donate</a>
 </div>
 </div>
 </div>
@@ -201,24 +190,6 @@
 </div>
 </div>
 </div>
-<!-- My Profile Dropdown -->
-<div class="relative group">
-<button class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                My Profile
-                                <span class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
-</button>
-<div class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-<div class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-<a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" href="profile.html">My
-                                        Profile</a>
-<a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" data-auth="admin-only" href="admin.html" style="display:none">Admin</a>
-<a class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" href="biography.html">Sample
-                                        Biography</a>
-</div>
-</div>
-</div>
-</nav>
-</div>
 <!-- Actions -->
 <div class="flex items-center gap-3 lg:gap-6">
 <!-- Desktop Search -->
@@ -232,11 +203,12 @@
 </button>
 <!-- Desktop Actions -->
 <div class="hidden sm:flex items-center gap-4">
-<a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide" href="donate.html">Donate</a>
+                        <div id="language-switcher"></div>
+<a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide" href="donate.html" data-i18n="donate">Donate</a>
 <a class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide" data-auth="admin-only" href="admin.html">
                             Admin
                         </a>
-<button class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-auth="signin">
+<button class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-auth="signin" data-i18n="signIn">
                             Sign In
                         </button>
 <div class="hidden flex items-center gap-3" data-auth="signout">
@@ -259,7 +231,7 @@
 <section class="bg-gradient-to-br from-primary/10 via-background-cream to-lavender-soft/30 py-16 lg:py-20">
 <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12 text-center">
 <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-3 block">Legal</span>
-<h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">
+<h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="privacy_policy.privacyPolicy">
                     Privacy Policy
                 </h1>
 <p class="text-text-secondary text-lg max-w-2xl mx-auto mb-6">
@@ -328,7 +300,7 @@
                             Information We Collect
                         </h2>
 <div class="prose prose-lg text-text-secondary leading-relaxed space-y-4">
-<h3 class="text-lg font-bold text-text-main mt-6">Personal Information You Provide</h3>
+<h3 class="text-lg font-bold text-text-main mt-6" data-i18n="privacy_policy.personalInformationYouProvide">Personal Information You Provide</h3>
 <p>We may collect personal information that you voluntarily provide to us when you:</p>
 <ul class="list-disc pl-6 space-y-2">
 <li>Register for an account</li>
@@ -342,7 +314,7 @@
 <p>This information may include: name, email address, mailing address, phone number, payment
                                 information (processed securely through third-party payment processors), and any other
                                 information you choose to provide.</p>
-<h3 class="text-lg font-bold text-text-main mt-6">Automatically Collected Information</h3>
+<h3 class="text-lg font-bold text-text-main mt-6" data-i18n="privacy_policy.automaticallyCollectedInformation">Automatically Collected Information</h3>
 <p>When you visit our website, we automatically collect certain information about your
                                 device and your visit, including:</p>
 <ul class="list-disc pl-6 space-y-2">
@@ -525,7 +497,7 @@
 <!-- Related Links -->
 <section class="py-12 bg-lavender-soft/30">
 <div class="mx-auto max-w-[900px] px-4 sm:px-6 lg:px-12">
-<h2 class="font-serif text-xl font-bold text-text-main mb-6 text-center">Related Legal Documents</h2>
+<h2 class="font-serif text-xl font-bold text-text-main mb-6 text-center" data-i18n="privacy_policy.relatedLegalDocuments">Related Legal Documents</h2>
 <div class="flex flex-wrap justify-center gap-4">
 <a class="flex items-center gap-2 px-6 py-3 bg-white border border-border-light rounded-lg hover:border-primary hover:shadow-md transition-all" href="terms-of-use.html">
 <span class="material-symbols-outlined text-primary">gavel</span>
@@ -596,10 +568,10 @@
 <!-- Participate -->
 <div>
 <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
-<a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="nominate.html">Nominate a Woman</a>
-<a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="share-story.html">Share Your Story</a>
+<a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
+<a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
 <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="contributor-guidelines.html">Contributor Guidelines</a>
-<a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html">Donate</a>
+<a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html" data-i18n="donate">Donate</a>
 </div>
 <!-- About -->
 <div>
@@ -619,7 +591,7 @@
                         Biography</a>
 </div>
 <div class="text-center">
-<p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a class="text-gray-400 hover:text-white" href="privacy-policy.html">Privacy Policy</a> | <a class="text-gray-400 hover:text-white" href="terms-of-use.html">Terms of Use</a></p>
+<p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a class="text-gray-400 hover:text-white" href="privacy-policy.html"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a class="text-gray-400 hover:text-white" href="terms-of-use.html"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
 </div>
 </div>
 </div>
@@ -629,7 +601,7 @@
 <script src="js/ui.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/strapi-api.js"></script>
-<script src="js/api.js"></script>
+
 <script src="js/navigation.js"></script>
 <!-- Global Search -->
 <script>
@@ -659,5 +631,7 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 </html>

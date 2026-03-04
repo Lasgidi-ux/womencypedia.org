@@ -44,6 +44,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -60,7 +61,7 @@
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -80,7 +81,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="about.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -97,7 +98,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="about.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -114,7 +115,7 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="about.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
@@ -125,13 +126,13 @@
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="about.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -148,27 +149,10 @@
             <a href="contact.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
         </div>
-
-        <!-- My Profile -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                My Profile</h3>
-            <a href="profile.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">My
-                Profile</a>
-            <a data-auth="admin-only" href="admin.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" style="display:none">Admin</a>
-            <a href="biography.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Sample
-                Biography</a>
-        </div>
-
-        <!-- CTA -->
+<!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Share Your Story
-            </a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
@@ -256,7 +240,7 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
                                         Guidelines</a>
                                     <a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" data-i18n="donate">Donate</a>
                                 </div>
                             </div>
                         </div>
@@ -291,31 +275,6 @@
                             </div>
                         </div>
 
-                        <!-- My Profile Dropdown -->
-                        <div class="relative group">
-                            <button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                My Profile
-                                <span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
-                            </button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="profile.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">My
-                                        Profile</a>
-                                    <a data-auth="admin-only" href="admin.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" style="display:none">Admin</a>
-                                    <a href="biography.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
                 <div class="flex items-center gap-3 lg:gap-6">
                     <div
                         class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
@@ -330,14 +289,15 @@
                         <span class="material-symbols-outlined text-accent-teal">search</span>
                     </button>
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <a data-auth="admin-only" href="admin.html"
                             class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide">
                             Admin
                         </a>
                         <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-i18n="signIn">
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
@@ -369,7 +329,7 @@
                     class="absolute inset-0 bg-gradient-to-br from-primary/30 via-lavender-soft/50 to-accent-gold/20 z-10">
                 </div>
                 <div
-                    class="absolute inset-0 bg-[url('images/placeholders/hyper_realistic_vision_bg.png')] bg-cover bg-center opacity-20">
+                    class="absolute inset-0 bg-[url('../images/placeholders/hyper_realistic_vision_bg.png')] bg-cover bg-center opacity-20">
                 </div>
             </div>
 
@@ -443,7 +403,7 @@
                 <div class="text-center mb-16">
                     <span class="text-primary text-sm font-bold uppercase tracking-widest mb-3 block">Our
                         Foundation</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Why
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.whyWomencypediaExists">Why
                         Womencypedia Exists</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">The historical context and urgent need that
                         gave birth to this institution.</p>
@@ -459,7 +419,7 @@
                                 Problem</span>
                         </div>
 
-                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6">
+                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6" data-i18n="about.aWorldWithoutWomensStories">
                             A World Without Women's Stories
                         </h3>
 
@@ -531,7 +491,7 @@
                 <div class="bg-gradient-to-r from-primary/5 to-accent-gold/5 rounded-2xl p-8 lg:p-12">
                     <div class="text-center mb-8">
                         <span class="material-symbols-outlined text-primary text-4xl mb-4">lightbulb</span>
-                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-4">Our Revolutionary
+                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-4" data-i18n="about.ourRevolutionaryApproach">Our Revolutionary
                             Approach</h3>
                     </div>
 
@@ -577,7 +537,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-3 block">Growing
                         Archive</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Latest
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.latestAdditions">Latest
                         Additions</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">New biographies and collections added to
                         our growing encyclopedia of women's stories.</p>
@@ -591,7 +551,7 @@
                         <div
                             class="aspect-[4/3] bg-gradient-to-br from-accent-gold/20 to-primary/20 relative overflow-hidden">
                             <div
-                                class="absolute inset-0 bg-[url('images/placeholders/hyper_realistic_portrait_1.png')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-500">
+                                class="absolute inset-0 bg-[url('../images/placeholders/hyper_realistic_portrait_1.png')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-500">
                             </div>
                             <div class="absolute top-4 left-4">
                                 <span
@@ -625,7 +585,7 @@
                         <div
                             class="aspect-[4/3] bg-gradient-to-br from-accent-teal/20 to-primary/20 relative overflow-hidden">
                             <div
-                                class="absolute inset-0 bg-[url('images/placeholders/hyper_realistic_portrait_2.png')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-500">
+                                class="absolute inset-0 bg-[url('../images/placeholders/hyper_realistic_portrait_2.png')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-500">
                             </div>
                             <div class="absolute top-4 left-4">
                                 <span
@@ -659,7 +619,7 @@
                         <div
                             class="aspect-[4/3] bg-gradient-to-br from-primary/20 to-accent-gold/20 relative overflow-hidden">
                             <div
-                                class="absolute inset-0 bg-[url('images/placeholders/hyper_realistic_portrait_3.png')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-500">
+                                class="absolute inset-0 bg-[url('../images/placeholders/hyper_realistic_portrait_3.png')] bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-500">
                             </div>
                             <div class="absolute top-4 left-4">
                                 <span
@@ -708,7 +668,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-3 block">Our
                         Purpose</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Mission &
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.missionVision">Mission &
                         Vision</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">The driving force behind every biography we
                         research, every story we restore.</p>
@@ -728,7 +688,7 @@
                             <span class="material-symbols-outlined text-primary text-4xl">rocket_launch</span>
                         </div>
 
-                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-4">Our Mission</h3>
+                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-4" data-i18n="about.ourMission">Our Mission</h3>
 
                         <p class="text-text-secondary text-lg leading-relaxed mb-6">
                             To be the <strong class="text-text-main">definitive global repository</strong> for the
@@ -770,7 +730,7 @@
                             <span class="material-symbols-outlined text-accent-gold text-4xl">visibility</span>
                         </div>
 
-                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-4">Our Vision</h3>
+                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-4" data-i18n="about.ourVision">Our Vision</h3>
 
                         <p class="text-text-secondary text-lg leading-relaxed mb-6">
                             A world where <strong class="text-text-main">every woman's story</strong> — from empresses
@@ -812,7 +772,7 @@
                                 Story</span>
                         </div>
 
-                        <h2 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6">
+                        <h2 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-6" data-i18n="about.fromVisionToReality">
                             From Vision to Reality
                         </h2>
 
@@ -837,7 +797,7 @@
                             </p>
                         </div>
 
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-4">Problems Solved</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-4" data-i18n="about.problemsSolved">Problems Solved</h3>
                         <ul class="space-y-3 mb-8">
                             <li class="flex items-start gap-3">
                                 <span
@@ -864,7 +824,7 @@
                             </li>
                         </ul>
 
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-4">Why Stories Matter</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-4" data-i18n="about.whyStoriesMatter">Why Stories Matter</h3>
                         <p class="text-lg text-text-secondary leading-relaxed">
                             Every woman's story is a lens through which we can better understand human civilization. By
                             documenting these narratives with scholarly rigor and cultural sensitivity, we create a more
@@ -906,7 +866,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-gold text-sm font-bold uppercase tracking-widest mb-3 block">Our
                         Journey</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">The
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.theWomencypediaStory">The
                         Womencypedia Story</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">From a vision to a global archive — the
                         milestones that shaped our mission.</p>
@@ -994,7 +954,7 @@
                 <!-- Section Header -->
                 <div class="text-center mb-12">
                     <span class="text-primary text-sm font-bold uppercase tracking-widest mb-3 block">Discover</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Understanding
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.understandingWomencypedia">Understanding
                         Womencypedia</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">Watch our introduction or explore our
                         visual guide to the archive.</p>
@@ -1028,7 +988,7 @@
 
                     <!-- Title Overlay -->
                     <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-text-main to-transparent">
-                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-white mb-2">
+                        <h3 class="font-serif text-2xl lg:text-3xl font-bold text-white mb-2" data-i18n="about.restoringWomensStories">
                             Restoring Women's Stories
                         </h3>
                         <p class="text-white/80 text-sm lg:text-base max-w-xl">
@@ -1083,7 +1043,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-3 block">Our
                         Approach</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Research &
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.researchEditorialMethod">Research &
                         Editorial Method</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">
                         Every entry meets the highest standards of historical accuracy and cultural sensitivity.
@@ -1102,7 +1062,7 @@
                             <span class="text-accent-teal text-xs font-bold uppercase tracking-wider mb-1">Step 1</span>
                             <span class="material-symbols-outlined text-accent-teal text-4xl">search</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Rigorous Research</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="about.rigorousResearch">Rigorous Research</h3>
                         <p class="text-sm text-text-secondary max-w-[250px]">Primary documents, verified archives, oral
                             histories, and peer-reviewed academic journals.</p>
                     </div>
@@ -1114,7 +1074,7 @@
                             <span class="text-accent-teal text-xs font-bold uppercase tracking-wider mb-1">Step 2</span>
                             <span class="material-symbols-outlined text-accent-teal text-4xl">history_edu</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Interpretive Analysis</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="about.interpretiveAnalysis">Interpretive Analysis</h3>
                         <p class="text-sm text-text-secondary max-w-[250px]">Historians contextualize facts within
                             specific eras, cultures, and social frameworks.</p>
                     </div>
@@ -1126,7 +1086,7 @@
                             <span class="text-accent-teal text-xs font-bold uppercase tracking-wider mb-1">Step 3</span>
                             <span class="material-symbols-outlined text-accent-teal text-4xl">verified</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3">Scholarly Publication</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="about.scholarlyPublication">Scholarly Publication</h3>
                         <p class="text-sm text-text-secondary max-w-[250px]">Peer-reviewed by our editorial board and
                             published as open-access resources.</p>
                     </div>
@@ -1151,7 +1111,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-gold text-sm font-bold uppercase tracking-widest mb-3 block">Our
                         Structure</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Governance &
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.governanceLeadership">Governance &
                         Leadership</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">The dedicated team and governing bodies
                         that
@@ -1167,7 +1127,7 @@
                                 <span class="material-symbols-outlined text-accent-gold text-2xl">groups</span>
                             </div>
                             <div>
-                                <h3 class="font-serif text-xl font-bold text-text-main">Board of Directors</h3>
+                                <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="about.boardOfDirectors">Board of Directors</h3>
                                 <p class="text-sm text-text-secondary">Strategic oversight and governance</p>
                             </div>
                         </div>
@@ -1190,7 +1150,7 @@
                                 <span class="material-symbols-outlined text-accent-teal text-2xl">history_edu</span>
                             </div>
                             <div>
-                                <h3 class="font-serif text-xl font-bold text-text-main">Editorial Board</h3>
+                                <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="about.editorialBoard">Editorial Board</h3>
                                 <p class="text-sm text-text-secondary">Content quality and scholarly standards</p>
                             </div>
                         </div>
@@ -1214,7 +1174,7 @@
                                 <span class="material-symbols-outlined text-primary text-2xl">lightbulb</span>
                             </div>
                             <div>
-                                <h3 class="font-serif text-xl font-bold text-text-main">Advisory Council</h3>
+                                <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="about.advisoryCouncil">Advisory Council</h3>
                                 <p class="text-sm text-text-secondary">Global expertise and guidance</p>
                             </div>
                         </div>
@@ -1234,7 +1194,7 @@
                 <!-- Leadership Commitment -->
                 <div class="bg-gradient-to-r from-lavender-soft to-primary/5 rounded-2xl p-8 lg:p-12 text-center">
                     <span class="material-symbols-outlined text-primary text-4xl mb-4">verified</span>
-                    <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-4">Our Commitment to
+                    <h3 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-4" data-i18n="about.ourCommitmentToExcellence">Our Commitment to
                         Excellence</h3>
                     <p class="text-text-secondary text-lg max-w-3xl mx-auto">
                         Womencypedia's governance structure ensures that every decision — from content inclusion to
@@ -1254,7 +1214,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-3 block">Our
                         Network</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">Institutional
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.institutionalPartners">Institutional
                         Partners</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">Universities, research institutions, and
                         cultural organizations that collaborate with us to advance women's history scholarship.</p>
@@ -1266,7 +1226,7 @@
                     <div>
                         <div class="flex items-center gap-3 mb-8">
                             <span class="material-symbols-outlined text-accent-teal text-3xl">school</span>
-                            <h3 class="font-serif text-2xl font-bold text-text-main">Academic Institutions</h3>
+                            <h3 class="font-serif text-2xl font-bold text-text-main" data-i18n="about.academicInstitutions">Academic Institutions</h3>
                         </div>
                         <div class="space-y-6">
                             <div
@@ -1308,7 +1268,7 @@
                     <div>
                         <div class="flex items-center gap-3 mb-8">
                             <span class="material-symbols-outlined text-primary text-3xl">museum</span>
-                            <h3 class="font-serif text-2xl font-bold text-text-main">Cultural Organizations</h3>
+                            <h3 class="font-serif text-2xl font-bold text-text-main" data-i18n="about.culturalOrganizations">Cultural Organizations</h3>
                         </div>
                         <div class="space-y-6">
                             <div
@@ -1382,7 +1342,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-gold text-sm font-bold uppercase tracking-widest mb-3 block">Founder's
                         Welcome</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4">A Letter from
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="about.aLetterFromOurFounder">A Letter from
                         Our Founder</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">The vision and dedication that birthed
                         Womencypedia</p>
@@ -1473,7 +1433,7 @@
         <!-- ============================================ -->
         <section class="py-20 lg:py-24 bg-gradient-to-br from-primary to-primary-hover">
             <div class="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-12 text-center">
-                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6" data-i18n="about.joinTheMovement">
                     Join the Movement
                 </h2>
                 <p class="text-white/90 text-lg max-w-2xl mx-auto mb-10">
@@ -1484,14 +1444,10 @@
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="share-story.html"
                         class="inline-flex items-center justify-center h-14 px-8 bg-white text-primary font-bold rounded-lg hover:bg-background-cream transition-colors gap-2">
-                        <span class="material-symbols-outlined">edit_note</span>
-                        Share Your Story
-                    </a>
+                        <span class="material-symbols-outlined">edit_note</span><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a href="nominate.html"
                         class="inline-flex items-center justify-center h-14 px-8 bg-transparent text-white font-bold rounded-lg border-2 border-white hover:bg-white/10 transition-colors gap-2">
-                        <span class="material-symbols-outlined">person_add</span>
-                        Nominate a Woman
-                    </a>
+                        <span class="material-symbols-outlined">person_add</span><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a href="donate.html"
                         class="inline-flex items-center justify-center h-14 px-8 bg-accent-gold text-white font-bold rounded-lg hover:bg-accent-gold/90 transition-colors gap-2">
                         <span class="material-symbols-outlined">favorite</span>
@@ -1572,13 +1528,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -1607,8 +1563,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -1649,7 +1605,7 @@
                 <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-primary text-3xl">login</span>
                 </div>
-                <h2 class="font-serif text-2xl font-bold text-text-main">Welcome Back</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="about.welcomeBack">Welcome Back</h2>
                 <p class="text-text-secondary text-sm mt-2">Sign in to access your account</p>
             </div>
 
@@ -1741,6 +1697,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

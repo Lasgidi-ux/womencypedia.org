@@ -44,6 +44,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -59,7 +60,7 @@
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -79,7 +80,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="biography_maria_sabina.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -96,7 +97,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="biography_maria_sabina.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -113,7 +114,7 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="biography_maria_sabina.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
@@ -124,13 +125,13 @@
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="biography_maria_sabina.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -147,27 +148,10 @@
             <a href="contact.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
         </div>
-
-        <!-- My Profile -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                My Profile</h3>
-            <a href="profile.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">My
-                Profile</a>
-            <a data-auth="admin-only" href="admin.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" style="display:none">Admin</a>
-            <a href="biography.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Sample
-                Biography</a>
-        </div>
-
-        <!-- CTA -->
+<!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Share Your Story
-            </a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
@@ -183,103 +167,7 @@
                         <span class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
                     <nav class="hidden lg:flex items-center gap-6">
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Explore<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="index.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a><a
-                                        href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a><a
-                                        href="featured.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a><a
-                                        href="collections.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a><a
-                                        href="timelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Learn<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="education.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a><a
-                                        href="enterprises.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a><a
-                                        href="research.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a><a
-                                        href="publications.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a><a
-                                        href="resources.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Participate<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="nominate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
-                                        a Woman</a><a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
-                                        Your Story</a><a href="contributor-guidelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
-                                        Guidelines</a><a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">About<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="about.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
-                                        Us</a><a href="founders.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Founders</a><a
-                                        href="contributors.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a><a
-                                        href="methodology.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a><a
-                                        href="editorial-standards.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
-                                        Standards</a><a href="contact.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">My
-                                Profile<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="profile.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">My
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" style="display:none">Admin</a><a
-                                        href="biography.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </nav>
                 </div>
                 <div class="flex items-center gap-3 lg:gap-6">
@@ -291,14 +179,15 @@
                             placeholder="Search the archive..." type="search" />
                     </div>
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <a data-auth="admin-only" href="admin.html"
                             class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide">
                             Admin
                         </a>
                         <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-i18n="signIn">
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
@@ -365,7 +254,7 @@
                             <span class="px-3 py-1 bg-accent-teal/20 text-accent-teal text-xs font-bold uppercase tracking-wider rounded-full">Spirituality</span>
                         </div>
 
-                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-text-main mb-4">
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-text-main mb-4" data-i18n="biography_maria_sabina.maraSabina">
                             María Sabina
                         </h1>
 
@@ -440,28 +329,28 @@
                             </p>
                         </div>
 
-                        <h2 id="early-life">Early Life and Calling</h2>
+                        <h2 id="early-life" data-i18n="biography_maria_sabina.earlyLifeAndCalling">Early Life and Calling</h2>
 <p>María Sabina Magdalena García was born on July 22, 1894, in Huautla de Jiménez, a remote mountain town in the Sierra Mazateca of Oaxaca, Mexico. She was born into a family of <em>curanderos</em> (healers); both her grandfather and great-grandfather were known practitioners of the sacred mushroom ceremonies.<sup class="footnote">[1]</sup></p>
 <p>Orphaned at a young age after her father's death, María Sabina grew up in poverty, working to help support her family. According to her own account, she first consumed the sacred mushrooms (<em>nti si tho</em>, "little saints that spring forth") at the age of seven or eight, along with her sister María Ana, when they stumbled upon them while tending to their family's crops. She described the experience as profoundly spiritual, claiming that the mushrooms spoke to her and revealed healing knowledge.<sup class="footnote">[2]</sup></p>
 <blockquote>"There is a world beyond ours, a world that is far away, nearby, and invisible. And there is where God lives, where the dead live, the spirits and the saints, a world where everything has already happened and everything is known."<cite>— María Sabina</cite></blockquote>
 
-                        <h2 id="healing-practice">The Velada: Sacred Healing Practice</h2>
+                        <h2 id="healing-practice" data-i18n="biography_maria_sabina.theVeladaSacredHealingPractice">The Velada: Sacred Healing Practice</h2>
 <p>María Sabina's healing practice centered on the <em>velada</em>, an all-night ceremonial session in which she would ingest psilocybin mushrooms (primarily <em>Psilocybe caerulescens</em> and <em>Psilocybe mexicana</em>) and enter a trance state to diagnose and treat illness. The ceremonies combined prayer, chanting, rhythmic clapping, and the ingestion of mushrooms in a darkened room.<sup class="footnote">[3]</sup></p>
 <p>During the velada, María Sabina would chant elaborate poetic verses known as <em>cantos</em>, which blended Catholic imagery with pre-Columbian Mazatec cosmology. Her chants invoked Christ, the Virgin Mary, and various Catholic saints alongside Mazatec spiritual entities. These chants have been recognized by scholars and poets as remarkable works of oral literature.<sup class="footnote">[4]</sup></p>
 <p>She viewed the mushrooms not as drugs but as sacred intermediaries between the human and divine worlds. She used them strictly for healing purposes — to cure physical ailments, resolve emotional distress, find lost objects, and divine the future. Her practice was deeply embedded in the Mazatec worldview, where illness was understood as a spiritual as well as physical condition.</p>
 
-                        <h2 id="western-encounter">Encounter with the Western World</h2>
+                        <h2 id="western-encounter" data-i18n="biography_maria_sabina.encounterWithTheWesternWorld">Encounter with the Western World</h2>
 <p>In 1955, American ethnomycologist R. Gordon Wasson and photographer Allan Richardson traveled to Huautla de Jiménez and participated in one of María Sabina's veladas. Wasson published an account of the experience in <em>Life</em> magazine in 1957, titled "Seeking the Magic Mushroom," which introduced psilocybin mushrooms to Western audiences for the first time.<sup class="footnote">[5]</sup></p>
 <p>The publication had profound and largely negative consequences for María Sabina and her community. Thousands of Westerners — hippies, researchers, artists, and thrill-seekers — descended upon Huautla de Jiménez hoping to experience the mushrooms. Notable visitors included Timothy Leary, Bob Dylan, John Lennon, and Aldous Huxley, among others.</p>
 <p>María Sabina later expressed deep regret about sharing the sacred ceremonies with outsiders. She believed that the foreigners' recreational use of the mushrooms desecrated their spiritual purpose and diminished their healing power. Her community blamed her for the disruption, and she was ostracized. Her house was burned down, and she spent her final years in poverty.<sup class="footnote">[6]</sup></p>
 <blockquote>"Before Wasson, I felt that the saint children elevated me. I don't feel like that anymore. The force has been diminished. If Cayetano García had not brought the foreigners… the saint children would have kept their power."<cite>— María Sabina, as recorded by Álvaro Estrada</cite></blockquote>
 
-                        <h2 id="symbolic-power">Cultural Significance and Legacy</h2>
+                        <h2 id="symbolic-power" data-i18n="biography_maria_sabina.culturalSignificanceAndLegacy">Cultural Significance and Legacy</h2>
 <p>Despite the personal suffering she endured, María Sabina's legacy is immense. She is recognized as having single-handedly preserved and transmitted ancient Mazatec spiritual knowledge to a global audience. Her ceremonial chants, documented by researchers including Álvaro Estrada and Henry Munn, are considered masterpieces of indigenous oral literature.<sup class="footnote">[7]</sup></p>
 <p>Octavio Paz, the Nobel Prize-winning Mexican poet, compared her chants to the great works of world poetry. Her verses demonstrate a sophisticated cosmological vision and an extraordinary capacity for spontaneous poetic composition during altered states of consciousness.</p>
 <p>In Mexico, she has become a symbol of indigenous wisdom and cultural resilience. Her image appears on murals throughout Oaxaca, and she is honored as a cultural icon by indigenous rights movements across Latin America. The Mexican government posthumously recognized her contribution to the preservation of intangible cultural heritage.</p>
 
-                        <h2 id="death">Death and Commemoration</h2>
+                        <h2 id="death" data-i18n="biography_maria_sabina.deathAndCommemoration">Death and Commemoration</h2>
 <p>María Sabina died on November 22, 1985, in Huautla de Jiménez at the age of 91, living in poverty. Despite the global fame her ceremonies had brought, she received no financial benefit from the international interest in psilocybin mushrooms.</p>
 <p>Today, she is commemorated through numerous cultural works, including Álvaro Estrada's biography <em>María Sabina: Her Life and Chants</em> (1977), documentary films, and artistic tributes. The Mazatec community in Huautla de Jiménez has reclaimed her legacy, and she is honored as one of the most important women in Mexican indigenous history. In 2019, the Mexican Senate paid tribute to her as a symbol of resistance and indigenous knowledge.</p>
                     </article>
@@ -542,7 +431,7 @@
 
                 <!-- References Section -->
                 <div class="mt-16 pt-12 border-t border-border-light">
-                    <h2 id="references" class="font-serif text-2xl font-bold text-text-main mb-6">References & Sources</h2>
+                    <h2 id="references" class="font-serif text-2xl font-bold text-text-main mb-6" data-i18n="biography_maria_sabina.referencesSources">References & Sources</h2>
                     <div class="bg-white rounded-xl p-8 border border-border-light">
                         <ol class="space-y-4 text-sm text-text-secondary">
                             <li class="flex gap-3">
@@ -589,7 +478,7 @@
                                 <span
                                     class="text-xs font-bold uppercase tracking-wider text-accent-teal block">Editorial
                                     Framework</span>
-                                <h3 class="font-serif text-xl font-bold text-text-main">Interpretive Biography &
+                                <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="biography_maria_sabina.interpretiveBiographySymbolicPowerAnalysis">Interpretive Biography &
                                     Symbolic Power Analysis</h3>
                             </div>
                         </div>
@@ -669,7 +558,7 @@
                             <div>
                                 <span class="text-xs font-bold uppercase tracking-wider text-primary block">Writing
                                     Standards</span>
-                                <h3 class="font-serif text-xl font-bold text-text-main">Structure of Each Biography</h3>
+                                <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="biography_maria_sabina.structureOfEachBiography">Structure of Each Biography</h3>
                             </div>
                         </div>
 
@@ -759,7 +648,7 @@
                             <div>
                                 <span class="text-xs font-bold uppercase tracking-wider text-accent-gold block">Ethical
                                     Framework</span>
-                                <h3 class="font-serif text-xl font-bold text-text-main">Trauma-Informed & Culturally
+                                <h3 class="font-serif text-xl font-bold text-text-main" data-i18n="biography_maria_sabina.traumainformedCulturallySensitiveStorytelling">Trauma-Informed & Culturally
                                     Sensitive Storytelling</h3>
                             </div>
                         </div>
@@ -898,7 +787,7 @@
         <!-- Read More -->
         <section class="py-12 lg:py-16 bg-lavender-soft/20">
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
-                <h2 class="font-serif text-2xl font-bold text-text-main mb-8">Explore More</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main mb-8" data-i18n="biography_maria_sabina.exploreMore">Explore More</h2>
                 <div class="grid sm:grid-cols-3 gap-6">
                     
                     <a href="browse.html"
@@ -908,7 +797,7 @@
                         </div>
                         <div class="p-4">
                             <span class="text-xs font-bold text-accent-teal uppercase">Modern • Americas</span>
-                            <h3 class="font-serif text-lg font-bold text-text-main mt-1 group-hover:text-primary">Rigoberta Menchú</h3>
+                            <h3 class="font-serif text-lg font-bold text-text-main mt-1 group-hover:text-primary" data-i18n="biography_maria_sabina.rigobertaMench">Rigoberta Menchú</h3>
                         </div>
                     </a>
                     <a href="browse.html"
@@ -918,7 +807,7 @@
                         </div>
                         <div class="p-4">
                             <span class="text-xs font-bold text-accent-teal uppercase">Modern • Americas</span>
-                            <h3 class="font-serif text-lg font-bold text-text-main mt-1 group-hover:text-primary">Frida Kahlo</h3>
+                            <h3 class="font-serif text-lg font-bold text-text-main mt-1 group-hover:text-primary" data-i18n="biography_maria_sabina.fridaKahlo">Frida Kahlo</h3>
                         </div>
                     </a>
                     <a href="browse.html"
@@ -928,7 +817,7 @@
                         </div>
                         <div class="p-4">
                             <span class="text-xs font-bold text-accent-teal uppercase">Colonial • Americas</span>
-                            <h3 class="font-serif text-lg font-bold text-text-main mt-1 group-hover:text-primary">Sor Juana Inés de la Cruz</h3>
+                            <h3 class="font-serif text-lg font-bold text-text-main mt-1 group-hover:text-primary" data-i18n="biography_maria_sabina.sorJuanaInsDeLaCruz">Sor Juana Inés de la Cruz</h3>
                         </div>
                     </a>
                 </div>
@@ -1006,13 +895,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -1041,8 +930,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -1052,7 +941,7 @@
     <script src="js/ui.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/strapi-api.js"></script>
-    <script src="js/api.js"></script>
+    
     <script src="js/navigation.js"></script>
     <script>
         // Current biography data
@@ -1096,7 +985,7 @@
                             <div class="size-20 rounded-full bg-lavender-soft/50 flex items-center justify-center mb-6">
                                 <span class="material-symbols-outlined text-text-secondary/50 text-4xl">person_off</span>
                             </div>
-                            <h1 class="font-serif text-2xl font-bold text-text-main mb-4">Biography Not Found</h1>
+                            <h1 class="font-serif text-2xl font-bold text-text-main mb-4" data-i18n="biography_maria_sabina.biographyNotFound">Biography Not Found</h1>
                             <p class="text-text-secondary mb-8">The biography you're looking for doesn't exist or has been removed.</p>
                             <a href="browse.html" class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors">
                                 Browse All Entries
@@ -1252,7 +1141,7 @@
                 <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-primary text-3xl">login</span>
                 </div>
-                <h2 class="font-serif text-2xl font-bold text-text-main">Welcome Back</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="biography_maria_sabina.welcomeBack">Welcome Back</h2>
                 <p class="text-text-secondary text-sm mt-2">Sign in to access your account</p>
             </div>
             <form id="login-form" class="space-y-4">
@@ -1302,7 +1191,6 @@
         </div>
     </div>
 
-
     <!-- Global Search -->
     <script>
         // Enhanced global search across all pages
@@ -1332,6 +1220,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

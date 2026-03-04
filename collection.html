@@ -38,6 +38,7 @@
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#E8A6A6">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -69,6 +70,7 @@
                     </nav>
                 </div>
                 <!-- Actions -->
+                <div id="language-switcher"></div>
                 <div class="flex items-center gap-3 lg:gap-6">
                     <a href="collections.html"
                         class="hidden sm:block text-sm font-medium text-text-secondary hover:text-primary transition-colors">←
@@ -98,7 +100,7 @@
                     Featured Collection
                 </span>
                 <h1 id="collection-title"
-                    class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-text-main mb-6">
+                    class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-text-main mb-6" data-i18n="collection.loadingCollection">
                     Loading Collection...
                 </h1>
                 <p id="collection-description"
@@ -155,7 +157,7 @@
         <!-- Related Collections -->
         <section class="py-16 bg-lavender-soft/30 border-t border-border-light">
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
-                <h2 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-8 text-center">Explore More
+                <h2 class="font-serif text-2xl lg:text-3xl font-bold text-text-main mb-8 text-center" data-i18n="collection.exploreMoreCollections">Explore More
                     Collections</h2>
                 <div id="related-collections-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     <!-- Dynamically loaded from Strapi -->
@@ -218,13 +220,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -249,8 +251,8 @@
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -262,7 +264,7 @@
     <script src="js/ui.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/strapi-api.js"></script>
-    <script src="js/api.js"></script>
+    
     <script src="js/navigation.js"></script>
 
     <script>
@@ -401,7 +403,7 @@
                         : `<span class="material-symbols-outlined text-primary/30 text-6xl">person</span>`}
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-lg font-bold text-text-main group-hover:text-primary transition-colors mb-2">
+                            <h3 class="font-serif text-lg font-bold text-text-main group-hover:text-primary transition-colors mb-2" data-i18n="collection.escapehtmlentryname">
                                 ${escapeHtml(entry.name)}
                             </h3>
                             <p class="text-text-secondary text-sm line-clamp-2 mb-4">
@@ -485,6 +487,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

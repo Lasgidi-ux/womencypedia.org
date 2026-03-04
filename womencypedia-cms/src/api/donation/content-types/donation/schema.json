@@ -1,0 +1,83 @@
+{
+    "kind": "collectionType",
+    "collectionName": "donations",
+    "info": {
+        "singularName": "donation",
+        "pluralName": "donations",
+        "displayName": "Donation",
+        "description": "Donation records and payment intents"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "donorName": {
+            "type": "string",
+            "required": true
+        },
+        "donorEmail": {
+            "type": "email",
+            "required": true
+        },
+        "amount": {
+            "type": "decimal",
+            "required": true
+        },
+        "currency": {
+            "type": "enumeration",
+            "enum": [
+                "USD",
+                "NGN",
+                "EUR",
+                "GBP",
+                "KES",
+                "ZAR",
+                "GHS"
+            ],
+            "default": "USD"
+        },
+        "type": {
+            "type": "enumeration",
+            "enum": [
+                "one-time",
+                "monthly",
+                "legacy"
+            ],
+            "required": true
+        },
+        "status": {
+            "type": "enumeration",
+            "enum": [
+                "pending",
+                "completed",
+                "failed",
+                "refunded"
+            ],
+            "default": "pending"
+        },
+        "reference": {
+            "type": "string"
+        },
+        "gateway": {
+            "type": "enumeration",
+            "enum": [
+                "paystack",
+                "flutterwave",
+                "manual",
+                "bank_transfer"
+            ]
+        },
+        "message": {
+            "type": "text"
+        },
+        "isAnonymous": {
+            "type": "boolean",
+            "default": false
+        },
+        "donor": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.user"
+        }
+    }
+}

@@ -44,6 +44,7 @@
     <meta name="theme-color" content="#E8A6A6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
@@ -59,7 +60,7 @@
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -79,7 +80,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="enterprises.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -96,7 +97,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="enterprises.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -113,7 +114,7 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="enterprises.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
@@ -124,13 +125,13 @@
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
             <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="enterprises.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -147,27 +148,10 @@
             <a href="contact.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
         </div>
-
-        <!-- My Profile -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                My Profile</h3>
-            <a href="profile.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">My
-                Profile</a>
-            <a data-auth="admin-only" href="admin.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary" style="display:none">Admin</a>
-            <a href="biography.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Sample
-                Biography</a>
-        </div>
-
-        <!-- CTA -->
+<!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Share Your Story
-            </a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
@@ -183,103 +167,7 @@
                         <span class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
                     <nav class="hidden lg:flex items-center gap-6">
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Explore<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="index.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a><a
-                                        href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a><a
-                                        href="featured.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a><a
-                                        href="collections.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a><a
-                                        href="timelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">Learn<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="education.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a><a
-                                        href="enterprises.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Enterprises</a><a
-                                        href="research.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a><a
-                                        href="publications.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a><a
-                                        href="resources.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">Participate<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="nominate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
-                                        a Woman</a><a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
-                                        Your Story</a><a href="contributor-guidelines.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
-                                        Guidelines</a><a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Donate</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">About<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
-                                    <a href="about.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
-                                        Us</a><a href="founders.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Founders</a><a
-                                        href="contributors.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a><a
-                                        href="methodology.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a><a
-                                        href="editorial-standards.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
-                                        Standards</a><a href="contact.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group"><button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">My
-                                Profile<span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span></button>
-                            <div
-                                class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
-                                    <a href="profile.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">My
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" style="display:none">Admin</a><a
-                                        href="biography.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Sample
-                                        Biography</a>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </nav>
                 </div>
                 <div class="flex items-center gap-3 lg:gap-6">
@@ -291,14 +179,15 @@
                             placeholder="Search the archive..." type="search" />
                     </div>
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <a data-auth="admin-only" href="admin.html"
                             class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide">
                             Admin
                         </a>
                         <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-i18n="signIn">
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
@@ -330,7 +219,7 @@
                 <span class="text-accent-gold text-sm font-bold uppercase tracking-widest mb-3 block">Economic
                     Heritage</span>
                 <h1
-                    class="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-text-main mb-6 leading-tight">
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-text-main mb-6 leading-tight" data-i18n="enterprises.womensEnterprises">
                     Women's Enterprises
                 </h1>
                 <p class="text-xl sm:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
@@ -343,7 +232,7 @@
         <section class="py-16 lg:py-24 bg-background-cream">
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
                 <div class="text-center mb-16">
-                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4">Browse by
+                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4" data-i18n="enterprises.browseByCategory">Browse by
                         Category</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">Explore women's economic contributions
                         across different sectors and industries.</p>
@@ -357,7 +246,7 @@
                             class="size-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                             <span class="material-symbols-outlined text-primary text-3xl">local_shipping</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2">Trade & Commerce</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.tradeCommerce">Trade & Commerce</h3>
                         <p class="text-text-secondary text-sm leading-relaxed mb-4">Market traders, merchants, and
                             long-distance traders who built economic networks.</p>
                         <span class="text-primary text-sm font-bold group-hover:underline">View 127 Entries →</span>
@@ -370,7 +259,7 @@
                             class="size-16 rounded-2xl bg-accent-teal/10 flex items-center justify-center mb-4 group-hover:bg-accent-teal/20 transition-colors">
                             <span class="material-symbols-outlined text-accent-teal text-3xl">agriculture</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2">Agriculture & Food</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.agricultureFood">Agriculture & Food</h3>
                         <p class="text-text-secondary text-sm leading-relaxed mb-4">Farmers, food producers, and
                             agricultural innovators who fed communities.</p>
                         <span class="text-accent-teal text-sm font-bold group-hover:underline">View 98 Entries →</span>
@@ -383,7 +272,7 @@
                             class="size-16 rounded-2xl bg-accent-gold/10 flex items-center justify-center mb-4 group-hover:bg-accent-gold/20 transition-colors">
                             <span class="material-symbols-outlined text-accent-gold text-3xl">factory</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2">Manufacturing</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.manufacturing">Manufacturing</h3>
                         <p class="text-text-secondary text-sm leading-relaxed mb-4">Artisans, weavers, pottery makers,
                             and manufacturing pioneers.</p>
                         <span class="text-accent-gold text-sm font-bold group-hover:underline">View 76 Entries →</span>
@@ -396,7 +285,7 @@
                             class="size-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                             <span class="material-symbols-outlined text-primary text-3xl">medical_services</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2">Healthcare & Medicine</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.healthcareMedicine">Healthcare & Medicine</h3>
                         <p class="text-text-secondary text-sm leading-relaxed mb-4">Healers, midwives, physicians, and
                             medical innovators.</p>
                         <span class="text-primary text-sm font-bold group-hover:underline">View 112 Entries →</span>
@@ -409,7 +298,7 @@
                             class="size-16 rounded-2xl bg-accent-teal/10 flex items-center justify-center mb-4 group-hover:bg-accent-teal/20 transition-colors">
                             <span class="material-symbols-outlined text-accent-teal text-3xl">account_balance</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2">Finance & Banking</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.financeBanking">Finance & Banking</h3>
                         <p class="text-text-secondary text-sm leading-relaxed mb-4">Early bankers, money lenders, and
                             financial innovators.</p>
                         <span class="text-accent-teal text-sm font-bold group-hover:underline">View 45 Entries →</span>
@@ -422,7 +311,7 @@
                             class="size-16 rounded-2xl bg-accent-gold/10 flex items-center justify-center mb-4 group-hover:bg-accent-gold/20 transition-colors">
                             <span class="material-symbols-outlined text-accent-gold text-3xl">school</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2">Education</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.education">Education</h3>
                         <p class="text-text-secondary text-sm leading-relaxed mb-4">Educators, school founders, and
                             learning institution leaders.</p>
                         <span class="text-accent-gold text-sm font-bold group-hover:underline">View 134 Entries →</span>
@@ -435,7 +324,7 @@
                             class="size-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                             <span class="material-symbols-outlined text-primary text-3xl">palette</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2">Arts & Crafts</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.artsCrafts">Arts & Crafts</h3>
                         <p class="text-text-secondary text-sm leading-relaxed mb-4">Artists, craftswomen, and creative
                             entrepreneurs.</p>
                         <span class="text-primary text-sm font-bold group-hover:underline">View 189 Entries →</span>
@@ -448,7 +337,7 @@
                             class="size-16 rounded-2xl bg-accent-teal/10 flex items-center justify-center mb-4 group-hover:bg-accent-teal/20 transition-colors">
                             <span class="material-symbols-outlined text-accent-teal text-3xl">memory</span>
                         </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2">Technology</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.technology">Technology</h3>
                         <p class="text-text-secondary text-sm leading-relaxed mb-4">Inventors, engineers, and tech
                             pioneers throughout history.</p>
                         <span class="text-accent-teal text-sm font-bold group-hover:underline">View 67 Entries →</span>
@@ -463,7 +352,7 @@
                 <div class="text-center mb-16">
                     <span
                         class="text-accent-gold text-sm font-bold uppercase tracking-widest mb-3 block">Highlights</span>
-                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4">Featured
+                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4" data-i18n="enterprises.featuredEnterprises">Featured
                         Enterprises</h2>
                     <p class="text-text-secondary text-lg max-w-2xl mx-auto">Highlighting pioneering women who
                         transformed their economies and communities.</p>
@@ -486,7 +375,7 @@
                                     class="px-2 py-1 bg-lavender-soft text-text-secondary text-xs font-medium rounded">15th
                                     Century</span>
                             </div>
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2">The Sanyuan Brokerage House
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.theSanyuanBrokerageHouse">The Sanyuan Brokerage House
                             </h3>
                             <p class="text-text-secondary text-sm leading-relaxed mb-4">
                                 Zheng Yi Sao (China, 1765-1844) built the largest pirate fleet in history and
@@ -513,7 +402,7 @@
                                     class="px-2 py-1 bg-lavender-soft text-text-secondary text-xs font-medium rounded">19th
                                     Century</span>
                             </div>
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2">Mary Seacole's British Hotel
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.marySeacolesBritishHotel">Mary Seacole's British Hotel
                             </h3>
                             <p class="text-text-secondary text-sm leading-relaxed mb-4">
                                 Mary Seacole (Jamaica/UK, 1805-1881) operated a successful hospitality business serving
@@ -540,7 +429,7 @@
                                     class="px-2 py-1 bg-lavender-soft text-text-secondary text-xs font-medium rounded">20th
                                     Century</span>
                             </div>
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2">Madam C.J. Walker's Empire</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="enterprises.madamCjWalkersEmpire">Madam C.J. Walker's Empire</h3>
                             <p class="text-text-secondary text-sm leading-relaxed mb-4">
                                 Madam C.J. Walker (USA, 1867-1919) built America's first female self-made millionaire
                                 status through her hair care empire.
@@ -568,7 +457,7 @@
                     <div>
                         <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-3 block">Global
                             Impact</span>
-                        <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-6">Women's
+                        <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-6" data-i18n="enterprises.womensEconomicPowerWorldwide">Women's
                             Economic Power Worldwide</h2>
                         <p class="text-text-secondary text-lg leading-relaxed mb-6">
                             From ancient market women in West Africa to tech entrepreneurs in modern Asia, women have
@@ -596,7 +485,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-2xl p-8 border border-border-light">
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-6">Explore by Region</h3>
+                        <h3 class="font-serif text-xl font-bold text-text-main mb-6" data-i18n="enterprises.exploreByRegion">Explore by Region</h3>
                         <div class="space-y-4">
                             <a href="education.html"
                                 class="flex items-center gap-4 p-4 rounded-lg hover:bg-lavender-soft transition-colors group">
@@ -666,7 +555,7 @@
                 <div class="text-center mb-16">
                     <span class="text-accent-gold text-sm font-bold uppercase tracking-widest mb-3 block">Through
                         History</span>
-                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Women's Economic Impact</h2>
+                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold mb-4" data-i18n="enterprises.womensEconomicImpact">Women's Economic Impact</h2>
                     <p class="text-white/70 text-lg max-w-2xl mx-auto">Key moments when women transformed economies and
                         built lasting legacies.</p>
                 </div>
@@ -682,7 +571,7 @@
                                 <div class="bg-white/5 rounded-xl p-6">
                                     <span class="text-accent-gold text-xs font-bold uppercase tracking-wider">3000 BCE -
                                         500 CE</span>
-                                    <h3 class="font-serif text-xl font-bold mt-2 mb-3">Ancient Economies</h3>
+                                    <h3 class="font-serif text-xl font-bold mt-2 mb-3" data-i18n="enterprises.ancientEconomies">Ancient Economies</h3>
                                     <p class="text-white/70 text-sm">Women in ancient Mesopotamia managed temples as
                                         economic centers. Egyptian women owned property, ran businesses, and served as
                                         physicians. Greek women managed household economies and some engaged in trade.
@@ -709,7 +598,7 @@
                                 <div class="bg-white/5 rounded-xl p-6">
                                     <span class="text-primary text-xs font-bold uppercase tracking-wider">500 CE - 1500
                                         CE</span>
-                                    <h3 class="font-serif text-xl font-bold mt-2 mb-3">Medieval Trade Networks</h3>
+                                    <h3 class="font-serif text-xl font-bold mt-2 mb-3" data-i18n="enterprises.medievalTradeNetworks">Medieval Trade Networks</h3>
                                     <p class="text-white/70 text-sm">West African women dominated regional trade.
                                         Chinese women operated pawn shops. European women were members of guilds and ran
                                         family businesses. Islamic world saw women as physicians and merchants.</p>
@@ -723,7 +612,7 @@
                                 <div class="bg-white/5 rounded-xl p-6">
                                     <span class="text-accent-teal text-xs font-bold uppercase tracking-wider">1500 CE -
                                         1900 CE</span>
-                                    <h3 class="font-serif text-xl font-bold mt-2 mb-3">Colonial Economies</h3>
+                                    <h3 class="font-serif text-xl font-bold mt-2 mb-3" data-i18n="enterprises.colonialEconomies">Colonial Economies</h3>
                                     <p class="text-white/70 text-sm">Women navigated changing economic landscapes. Some
                                         built trading empires despite colonial restrictions. Others pioneered in
                                         manufacturing and agriculture. Many preserved traditional economic knowledge.
@@ -750,7 +639,7 @@
                                 <div class="bg-white/5 rounded-xl p-6">
                                     <span class="text-primary text-xs font-bold uppercase tracking-wider">1900 CE -
                                         Present</span>
-                                    <h3 class="font-serif text-xl font-bold mt-2 mb-3">Modern Entrepreneurship</h3>
+                                    <h3 class="font-serif text-xl font-bold mt-2 mb-3" data-i18n="enterprises.modernEntrepreneurship">Modern Entrepreneurship</h3>
                                     <p class="text-white/70 text-sm">From first female millionaires to tech unicorn
                                         founders, women have broken barriers in every sector. Today, women-owned
                                         businesses represent a significant and growing portion of the global economy.
@@ -766,7 +655,7 @@
         <!-- CTA Section -->
         <section class="py-16 lg:py-24 bg-gradient-to-br from-accent-gold to-accent-gold-hover">
             <div class="mx-auto max-w-[900px] px-4 sm:px-6 lg:px-12 text-center">
-                <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6">Document Women's
+                <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6" data-i18n="enterprises.documentWomensEconomicHeritage">Document Women's
                     Economic Heritage</h2>
                 <p class="text-white/90 text-lg max-w-2xl mx-auto mb-10">
                     Do you know of a woman whose business or enterprise made a lasting impact? Help us preserve her
@@ -775,9 +664,7 @@
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="nominate.html"
                         class="inline-flex items-center justify-center h-14 px-8 bg-white text-accent-gold font-bold rounded-lg hover:bg-background-cream transition-colors gap-2">
-                        <span class="material-symbols-outlined text-[20px]">person_add</span>
-                        Nominate a Woman
-                    </a>
+                        <span class="material-symbols-outlined text-[20px]">person_add</span><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a href="contributor-guidelines.html"
                         class="inline-flex items-center justify-center h-14 px-8 bg-transparent text-white font-bold rounded-lg border-2 border-white hover:bg-white/10 transition-colors gap-2">
                         <span class="material-symbols-outlined text-[20px]">edit</span>
@@ -858,13 +745,13 @@
                 <div>
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate a Woman</a>
+                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Your Story</a>
+                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
                         href="contributor-guidelines.html">Contributor Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="donate.html">Donate</a>
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
@@ -893,8 +780,8 @@
                 </div>
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white">Terms of Use</a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
+                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
                 </div>
             </div>
         </div>
@@ -911,7 +798,7 @@
                 <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-primary text-3xl">login</span>
                 </div>
-                <h2 class="font-serif text-2xl font-bold text-text-main">Welcome Back</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="enterprises.welcomeBack">Welcome Back</h2>
                 <p class="text-text-secondary text-sm mt-2">Sign in to access your account</p>
             </div>
             <form id="login-form" class="space-y-4">
@@ -996,6 +883,8 @@
             });
         }
     </script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 
 </html>

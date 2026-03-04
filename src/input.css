@@ -2,7 +2,143 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom scrollbar styles */
+/* ─── Dark Mode Tokens ─────────────────────────── */
+:root {
+    --bg-primary: #F5F5F0;
+    --bg-secondary: #EDE3F1;
+    --text-primary: #191010;
+    --text-secondary: #6B6B6B;
+    --border-color: #DDD8CF;
+    --card-bg: #FFFFFF;
+    --nav-bg: rgba(245, 245, 240, 0.95);
+}
+
+.dark {
+    --bg-primary: #0F0F14;
+    --bg-secondary: #1A1A24;
+    --text-primary: #F0EDE8;
+    --text-secondary: #A0A0A0;
+    --border-color: #2A2A38;
+    --card-bg: #16161F;
+    --nav-bg: rgba(15, 15, 20, 0.95);
+}
+
+.dark body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.dark .bg-background-cream {
+    background-color: var(--bg-primary) !important;
+}
+
+.dark .bg-white {
+    background-color: var(--card-bg) !important;
+}
+
+.dark .bg-lavender-soft {
+    background-color: var(--bg-secondary) !important;
+}
+
+.dark .text-text-main {
+    color: var(--text-primary) !important;
+}
+
+.dark .text-text-secondary {
+    color: var(--text-secondary) !important;
+}
+
+.dark .border-border-light {
+    border-color: var(--border-color) !important;
+}
+
+.dark .border-divider {
+    border-color: var(--border-color) !important;
+}
+
+.dark .navbar {
+    background-color: var(--nav-bg) !important;
+}
+
+.dark .shadow-sm,
+.dark .shadow-md,
+.dark .shadow-lg,
+.dark .shadow-xl {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ─── Loading Skeleton / Shimmer ──────────────── */
+@layer components {
+    .skeleton {
+        background: linear-gradient(90deg, #EDE3F1 25%, #F5F5F0 50%, #EDE3F1 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s ease-in-out infinite;
+        border-radius: 0.5rem;
+    }
+
+    .dark .skeleton {
+        background: linear-gradient(90deg, #1A1A24 25%, #252535 50%, #1A1A24 75%);
+        background-size: 200% 100%;
+    }
+
+    .skeleton-text {
+        height: 1em;
+        margin-bottom: 0.5em;
+        width: 100%;
+    }
+
+    .skeleton-title {
+        height: 1.5em;
+        margin-bottom: 0.75em;
+        width: 70%;
+    }
+
+    .skeleton-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 9999px;
+    }
+
+    .skeleton-card {
+        height: 280px;
+        width: 100%;
+    }
+
+    .skeleton-image {
+        height: 200px;
+        width: 100%;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ─── Lazy Load Images ────────────────────────── */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+}
+
+img[loading="lazy"].loaded,
+img[loading="lazy"][complete] {
+    opacity: 1;
+}
+
+/* Fallback: show immediately if JS doesn't run */
+@supports not (loading: lazy) {
+    img[loading="lazy"] {
+        opacity: 1;
+    }
+}
+
+/* ─── Custom Scrollbar ────────────────────────── */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -11,17 +147,25 @@
     background: #F5F5F0;
 }
 
+.dark ::-webkit-scrollbar-track {
+    background: #0F0F14;
+}
+
 ::-webkit-scrollbar-thumb {
     background: #B48CB8;
     border-radius: 4px;
 }
 
-/* Smooth scroll */
+.dark ::-webkit-scrollbar-thumb {
+    background: #6B4D72;
+}
+
+/* ─── Smooth Scroll ───────────────────────────── */
 html {
     scroll-behavior: smooth;
 }
 
-/* Mobile menu animation */
+/* ─── Mobile Menu Animation ───────────────────── */
 .mobile-menu {
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -38,7 +182,7 @@ html {
     pointer-events: auto;
 }
 
-/* Search sheet animation */
+/* ─── Search Sheet Animation ──────────────────── */
 .search-sheet {
     transition: transform 0.3s ease;
 }
@@ -51,7 +195,7 @@ html {
     transform: translateY(0);
 }
 
-/* Overlay */
+/* ─── Overlay ─────────────────────────────────── */
 .overlay {
     transition: opacity 0.3s ease;
 }
@@ -64,4 +208,35 @@ html {
 .overlay.active {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* ─── RTL Layout Support ──────────────────────── */
+.rtl .border-l-4 {
+    border-left: none;
+    border-right: 4px solid;
+}
+
+.rtl .pl-4,
+.rtl .pl-6 {
+    padding-left: 0;
+    padding-right: 1.5rem;
+}
+
+.rtl .text-left {
+    text-align: right;
+}
+
+.rtl .ml-2 {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+/* ─── Dark Mode Toggle Button ─────────────────── */
+.dark-mode-toggle {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    transform: rotate(30deg);
 }
