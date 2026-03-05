@@ -793,9 +793,10 @@ const I18N = {
         if (jsonData[key]) return true;
         const enJsonData = this._localeData['en'] || {};
         if (enJsonData[key]) return true;
+        // Check stored original texts
+        if (this._originalTexts[key]) return true;
         return false;
     },
-
     /**
      * Get a translated UI string.
      * Priority: locale JSON → inline translations → original page text → raw key (last resort)
