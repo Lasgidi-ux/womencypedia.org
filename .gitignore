@@ -1,7 +1,6 @@
 # ============================================
 # Womencypedia — .gitignore
-# SECURITY: This file MUST be the first file in every project
-# ============================================
+# SECURITY: Ensure secrets are never committed to version control# ============================================
 
 # ─── ENVIRONMENT & SECRETS (CRITICAL) ───────
 # NEVER commit secrets to version control

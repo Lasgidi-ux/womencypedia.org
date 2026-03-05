@@ -2,14 +2,11 @@
 User-agent: *
 Allow: /
 
-# Disallow admin and private pages
-Disallow: /admin.html
-Disallow: /profile.html
-Disallow: /analytics.html
-Disallow: /settings.html
-Disallow: /403.html
-Disallow: /404.html
-Disallow: /500.html
+# Disallow private/utility pages
+Disallow: /403
+Disallow: /404
+Disallow: /500
+Disallow: /scripts/
 
 # Sitemap
 Sitemap: https://womencypedia.org/sitemap.xml

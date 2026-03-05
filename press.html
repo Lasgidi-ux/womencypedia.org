@@ -3,7 +3,11 @@
 <html class="light" lang="en">
 
 <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io; frame-src https://js.paystack.co https://checkout.flutterwave.com;">
     <meta charset="utf-8" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Press &amp; Media — Womencypedia</title>
     <meta
@@ -182,10 +186,6 @@
                         <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
                             href="donate.html" data-i18n="donate">Donate</a>
-                        <a class="hidden text-sm font-bold text-accent-teal hover:text-accent-teal-dark uppercase tracking-wide"
-                            data-auth="admin-only" href="admin.html">
-                            Admin
-                        </a>
                         <button
                             class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
                             data-auth="signin" data-i18n="signIn">

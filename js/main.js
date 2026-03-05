@@ -3,6 +3,37 @@
  * Enterprise-grade Editorial Knowledge Platform
  */
 
+/**
+ * Global logout handler — used by all pages via onclick="handleLogout()"
+ * Replaces previous inline onclick handlers for security (CSP compliance)
+ */
+function handleLogout() {
+    if (confirm('Are you sure you want to sign out?')) {
+        // Use Auth module if available
+        if (typeof Auth !== 'undefined' && Auth.logout) {
+            Auth.logout().then(() => {
+                if (typeof UI !== 'undefined' && UI.showToast) {
+                    UI.showToast('You have been signed out successfully', 'success');
+                }
+                setTimeout(() => { window.location.href = 'index.html'; }, 500);
+            }).catch(() => {
+                // Fallback: clear storage manually
+                localStorage.removeItem('womencypedia_access_token');
+                localStorage.removeItem('womencypedia_refresh_token');
+                localStorage.removeItem('womencypedia_user');
+                window.location.href = 'index.html';
+            });
+        } else {
+            // No Auth module — manual cleanup
+            localStorage.removeItem('womencypedia_access_token');
+            localStorage.removeItem('womencypedia_refresh_token');
+            localStorage.removeItem('womencypedia_user');
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     // Initialize all components
     initNavigation();

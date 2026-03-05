@@ -8,6 +8,14 @@ const Auth = {
     // Current user state
     _currentUser: null,
 
+    // Rate limiting for brute-force protection
+    _loginAttempts: 0,
+    _lastAttemptTime: 0,
+    _lockoutUntil: 0,
+    MAX_LOGIN_ATTEMPTS: 5,
+    LOCKOUT_DURATION: 5 * 60 * 1000, // 5 minutes
+    ATTEMPT_WINDOW: 15 * 60 * 1000,  // 15 minutes
+
     /**
      * Initialize authentication state from stored tokens
      */
@@ -44,19 +52,88 @@ const Auth = {
     },
 
     /**
+     * Check if login is rate-limited
+     * @returns {Object} {limited: boolean, remainingSeconds: number}
+     */
+    _checkRateLimit() {
+        const now = Date.now();
+
+        // Restore lockout from sessionStorage (survives page refreshes)
+        const storedLockout = sessionStorage.getItem('womencypedia_login_lockout');
+        if (storedLockout) {
+            this._lockoutUntil = parseInt(storedLockout, 10);
+        }
+
+        // Check if currently locked out
+        if (this._lockoutUntil > now) {
+            const remainingMs = this._lockoutUntil - now;
+            return { limited: true, remainingSeconds: Math.ceil(remainingMs / 1000) };
+        }
+
+        // Reset attempt counter if outside the attempt window
+        if (now - this._lastAttemptTime > this.ATTEMPT_WINDOW) {
+            this._loginAttempts = 0;
+        }
+
+        return { limited: false, remainingSeconds: 0 };
+    },
+
+    /**
+     * Record a failed login attempt
+     */
+    _recordFailedAttempt() {
+        this._loginAttempts++;
+        this._lastAttemptTime = Date.now();
+
+        if (this._loginAttempts >= this.MAX_LOGIN_ATTEMPTS) {
+            this._lockoutUntil = Date.now() + this.LOCKOUT_DURATION;
+            sessionStorage.setItem('womencypedia_login_lockout', this._lockoutUntil.toString());
+            this._loginAttempts = 0;
+            console.warn('[Auth] Too many failed login attempts. Locked out for 5 minutes.');
+        }
+    },
+
+    /**
+     * Reset login attempts on successful login
+     */
+    _resetRateLimit() {
+        this._loginAttempts = 0;
+        this._lastAttemptTime = 0;
+        this._lockoutUntil = 0;
+        sessionStorage.removeItem('womencypedia_login_lockout');
+    },
+
+    /**
      * Login user
      * @param {string} email - User email
      * @param {string} password - User password
      * @returns {Promise<Object>} - User data
      */
     async login(email, password) {
-        // Use Strapi authentication
-        if (CONFIG.USE_STRAPI) {
-            return this._strapiLogin(email, password);
+        // Check rate limit before attempting login
+        const rateCheck = this._checkRateLimit();
+        if (rateCheck.limited) {
+            const mins = Math.ceil(rateCheck.remainingSeconds / 60);
+            throw new Error(`Too many failed login attempts. Please try again in ${mins} minute${mins > 1 ? 's' : ''}.`);
         }
 
-        // Fallback to generic API request
-        return this._genericLogin(email, password);
+        try {
+            let result;
+            // Use Strapi authentication
+            if (CONFIG.USE_STRAPI) {
+                result = await this._strapiLogin(email, password);
+            } else {
+                // Fallback to generic API request
+                result = await this._genericLogin(email, password);
+            }
+            // Success — reset rate limiter
+            this._resetRateLimit();
+            return result;
+        } catch (error) {
+            // Record failed attempt
+            this._recordFailedAttempt();
+            throw error;
+        }
     },
 
     /**

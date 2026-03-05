@@ -164,10 +164,6 @@ function createMobileNavigation() {
             <a href="${pathPrefix}profile.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">My
                 Profile</a>
-            <a href="${pathPrefix}analytics.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Analytics</a>
-            <a href="${pathPrefix}admin.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Admin</a>
             <a href="${pathPrefix}biography.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Sample
                 Biography</a>
             <!-- Sign Out - shown when authenticated -->
