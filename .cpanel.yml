@@ -1,0 +1,6 @@
+# .cpanel.yml - Configuration file for GoDaddy cPanel Git deployment
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/ndso7dj6uvkq/public_html/
+    - /bin/cp -r * $DEPLOYPATH/
