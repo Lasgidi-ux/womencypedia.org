@@ -38,11 +38,11 @@ const config: Core.Config.Middlewares = [
         'http://127.0.0.1:3000',
         'https://womencypedia.org',
         'https://www.womencypedia.org',
-        'http://womencypedia.org',
-        'http://www.womencypedia.org',
         'https://kehindeisa.onrender.com',
         'https://womencypedia-org.onrender.com',
       ],
+      // Note: HTTPS is enforced at the routing/proxy level. HTTP requests should be redirected to HTTPS.
+      // Only HTTPS origins are allowed in production to ensure secure communications.
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
       keepHeaderOnError: true,
