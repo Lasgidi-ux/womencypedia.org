@@ -65,7 +65,7 @@ function addCspMetaTag(filePath, hashes) {
     const hashStrings = hashes.map(h => `'sha256-${computeHash(h)}'`).join(' ');
 
     // Add CSP meta tag after <head>
-    const cspMeta = `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' ${hashStrings} https://img1.wsimg.com https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://cdn.tailwindcss.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://d3js.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;">`;
+    const cspMeta = `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' ${hashStrings} https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://cdn.tailwindcss.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://d3js.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;">`;
 
     // Insert after <head>
     content = content.replace('<head>', '<head>\n    ' + cspMeta);

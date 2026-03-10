@@ -34,7 +34,12 @@ const Homepage = {
                 cache: 'no-store'
             });
             clearTimeout(timeout);
-            this._cmsAvailable = res.ok;
+            if (res.status === 404) {
+                console.info('[Homepage] CMS homepage content type not found (404). This is expected if the homepage single type has not been created/published in Strapi admin, or if public find permission is not enabled. Using static HTML fallback.');
+                this._cmsAvailable = false;
+            } else {
+                this._cmsAvailable = res.ok;
+            }
         } catch {
             this._cmsAvailable = false;
         }
