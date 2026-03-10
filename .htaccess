@@ -2,44 +2,85 @@
     # Content Security Policy for Womencypedia
     #
     # IMPORTANT SECURITY NOTES:
-    # - Tailwind CDN (cdn.tailwindcss.com) REQUIRES 'unsafe-eval' because it compiles
-    #   Tailwind classes at runtime using JavaScript. For production, consider pre-compiling
-    #   Tailwind to static CSS to eliminate this requirement.
-    # - Inline scripts/styles have been replaced with CSP hashes where possible.
-    #   For pages with unique inline scripts, per-page CSP meta tags with specific hashes are used.
+    # - This is the AUTHORITATIVE CSP for GoDaddy cPanel deployments.
+    # - HTML meta CSP tags have been removed; this server header is the single source.
+    # - https://img1.wsimg.com (GoDaddy tracker) is intentionally BLOCKED.
     #
     # Third-party scripts and their purposes:
-    # - https://plausible.io - Privacy-friendly analytics (needs script-src entry)
-    # - https://cdn.tailwindcss.com - CSS framework (requires unsafe-eval)
+    # - https://plausible.io - Privacy-friendly analytics
     # - https://js.paystack.co - Payment processing (Nigeria)
     # - https://checkout.flutterwave.com - Payment processing (Africa)
     # - https://fonts.googleapis.com - Google Fonts
     # - https://d3js.org - Data visualization
     # - https://app.launchdarkly.com - Feature flags
     #
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' https://img1.wsimg.com https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://unpkg.com https://app.launchdarkly.com https://d3js.org; style-src 'self' https://fonts.googleapis.com https://unpkg.com; img-src 'self' https: data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://app.launchdarkly.com https://unpkg.com https://d3js.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;"
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://unpkg.com https://app.launchdarkly.com https://d3js.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; img-src 'self' https: data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://app.launchdarkly.com https://unpkg.com https://d3js.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;"
     
-    # X-Content-Type-Options
+    # Prevent MIME-type sniffing
     Header set X-Content-Type-Options "nosniff"
     
-    # X-Frame-Options
+    # Prevent clickjacking
     Header set X-Frame-Options "DENY"
     
-    # Referrer-Policy
+    # Control referrer information
     Header set Referrer-Policy "strict-origin-when-cross-origin"
     
-    # X-XSS-Protection
+    # Legacy XSS protection (still useful for older browsers)
     Header set X-XSS-Protection "1; mode=block"
+
+    # HSTS - Force HTTPS for 1 year (includeSubDomains for full coverage)
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Permissions Policy - Block invasive browser APIs you don't use
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(self), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
 </IfModule>
 
-# Enable RewriteEngine
+# ─── BLOCK ACCESS TO SENSITIVE FILES ────────────────────
+# Block access to .git directory (CRITICAL - prevents source code theft)
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    
+
+    # Block .git directory and files
+    RewriteRule ^\.git(/|$) - [F,L]
+
+    # Block .env files
+    RewriteRule ^\.env - [F,L]
+
+    # Block .cpanel.yml
+    RewriteRule ^\.cpanel\.yml$ - [F,L]
+
+    # Block .htaccess itself from being read
+    RewriteRule ^\.htaccess$ - [F,L]
+
+    # Block scripts directory from direct access
+    RewriteRule ^scripts/ - [F,L]
+
+    # Block node_modules if accidentally deployed
+    RewriteRule ^node_modules/ - [F,L]
+
+    # Block docs directory (internal documentation)
+    RewriteRule ^docs/ - [F,L]
+
+    # Block womencypedia-cms directory on frontend
+    RewriteRule ^womencypedia-cms/ - [F,L]
+
     # Redirect HTTP to HTTPS
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
+
+# Block direct access to sensitive file types
+<FilesMatch "\.(env|git|yml|yaml|json|md|log|sql|bak|orig|tmp)$">
+    # Allow manifest.json and sitemap.xml through
+    <If "%{REQUEST_URI} !~ m#/(manifest\.json|sitemap\.xml|locales/.+\.json)$#">
+        Require all denied
+    </If>
+</FilesMatch>
+
+# Block access to package files
+<FilesMatch "^(package|package-lock|tailwind\.config|\.gitignore)">
+    Require all denied
+</FilesMatch>
 
 # Enable GZIP compression
 <IfModule mod_deflate.c>
@@ -54,6 +95,20 @@
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
 </IfModule>
+
+# ─── HOTLINK PROTECTION ─────────────────────────────────
+# Prevent other sites from embedding your images (bandwidth theft)
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?womencypedia\.org [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?google\. [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?bing\. [NC]
+    RewriteRule \.(jpg|jpeg|png|gif|webp|svg)$ - [F,NC,L]
+</IfModule>
+
