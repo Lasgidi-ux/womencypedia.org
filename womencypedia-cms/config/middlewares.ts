@@ -31,18 +31,33 @@ const config: Core.Config.Middlewares = [
   {
     name: 'strapi::cors',
     config: {
-      origin: [
-        'http://localhost:5500',
-        'http://127.0.0.1:5500',
-        'http://localhost:3000',
-        'http://127.0.0.1:3000',
-        'https://womencypedia.org',
-        'https://www.womencypedia.org',
-        'https://kehindeisa.onrender.com',
-        'https://womencypedia-org.onrender.com',
-      ],
+      origin: (() => {
+        const isProduction = process.env.NODE_ENV === 'production';
+        const baseOrigins = [
+          'https://womencypedia.org',
+          'https://www.womencypedia.org',
+          'https://kehindeisa.onrender.com',
+          'https://womencypedia-org.onrender.com',
+          'https://womencypedia-cms.onrender.com',
+        ];
+
+        // Add HTTP origins only in non-production environments
+        if (!isProduction) {
+          baseOrigins.push(
+            'http://localhost:5500',
+            'http://127.0.0.1:5500',
+            'http://localhost:3000',
+            'http://127.0.0.1:3000',
+            'http://womencypedia.org',
+            'http://www.womencypedia.org'
+          );
+        }
+
+        return baseOrigins;
+      })(),
       // Note: HTTPS is enforced at the routing/proxy level. HTTP requests should be redirected to HTTPS.
-      // Only HTTPS origins are allowed in production to ensure secure communications.
+      // HTTP origins are only included in non-production environments (development/staging).
+      // Production builds only contain HTTPS origins to ensure secure communications.
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
       keepHeaderOnError: true,

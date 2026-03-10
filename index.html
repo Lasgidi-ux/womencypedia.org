@@ -1656,13 +1656,11 @@
 
     <script src="js/homepage.js"></script>
     <script src="js/navigation.js"></script>
-    <script>
-        // Initialize global map
-        document.addEventListener('DOMContentLoaded', function () {
-            initializeGlobalMap();
-        });
+    <script src="js/inline-common.js"></script>
 
-        function initializeGlobalMap() {
+    <!-- Map Initialization (page-specific) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
             const mapContainer = document.getElementById('global-map');
             if (!mapContainer) return;
 
@@ -1763,37 +1761,9 @@
                     }
                 });
             }
-        }
-    </script>
-
-    <!-- Global Search -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchInputs = document.querySelectorAll('input[type="search"]');
-            searchInputs.forEach(input => {
-                input.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        const query = this.value.trim();
-                        if (query) {
-                            window.location.href = 'browse.html?search=' + encodeURIComponent(query);
-                        }
-                    }
-                });
-            });
         });
     </script>
 
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('SW registered:', reg.scope))
-                    .catch(err => console.log('SW registration failed:', err));
-            });
-        }
-    </script>
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
 </body>

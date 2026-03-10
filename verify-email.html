@@ -593,35 +593,7 @@
         });
     </script>
 
-    <!-- Global Search -->
-    <script>
-        // Enhanced global search across all pages
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchInputs = document.querySelectorAll('input[type="search"]');
-            searchInputs.forEach(input => {
-                input.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        const query = this.value.trim();
-                        if (query) {
-                            window.location.href = 'browse.html?search=' + encodeURIComponent(query);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('SW registered:', reg.scope))
-                    .catch(err => console.log('SW registration failed:', err));
-            });
-        }
-    </script>
+        <script src="js/inline-common.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
 </body>
