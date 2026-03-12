@@ -4,7 +4,7 @@ services:
     name: womencypedia-cms
     runtime: node
     region: oregon
-    plan: starter                     # ← Web services can still use starter
+    plan: starter
     rootDir: womencypedia-cms
     buildCommand: npm install && npm run build
     startCommand: npm run start
@@ -93,7 +93,7 @@ services:
 
 databases:
   - name: womencypedia-db
-    plan: free                    # ←←← THIS IS THE ONLY CHANGE NEEDED
+    plan: basic-256mb          # ←←← CHANGED FROM "free" TO THIS
     region: oregon
     databaseName: womencypedia
     user: womencypedia
