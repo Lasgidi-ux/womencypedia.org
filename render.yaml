@@ -1,6 +1,3 @@
-Blueprint ID:
-exs-d6gijrea2pns73fv2oh0
-
 services:
   # ─── Strapi CMS Backend ────────────────────────────────
   - type: web 
