@@ -150,9 +150,8 @@ const FormHandler = {
                 const errorData = await response.json().catch(() => ({}));
                 // Provide more helpful error messages for common issues
                 if (response.status === 404) {
-                    throw new Error('Unable to submit nomination. The server appears to be unavailable. Please try again later or contact support.');
-                }
-                if (response.status === 401) {
+                    throw new Error('Unable to submit nomination. The submission endpoint was not found. Please contact support.');
+                } if (response.status === 401) {
                     throw new Error('Please sign in to submit a nomination.');
                 }
                 if (response.status === 403) {
@@ -238,6 +237,11 @@ const FormHandler = {
         `;
 
         try {
+            // Validate CONFIG first - fail fast before any API calls
+            if (typeof CONFIG === 'undefined' || !CONFIG.API_BASE_URL) {
+                throw new Error('Configuration not loaded. Please refresh the page and try again.');
+            }
+
             const token = (typeof Auth !== 'undefined' && Auth.isAuthenticated()) ? Auth.getAccessToken() : null;
 
             const headers = { 'Content-Type': 'application/json' };
@@ -284,11 +288,6 @@ const FormHandler = {
                 <span class="material-symbols-outlined animate-spin">refresh</span>
                 Saving story...
             `;
-
-            // Check if CONFIG is available
-            if (typeof CONFIG === 'undefined' || !CONFIG.API_BASE_URL) {
-                throw new Error('Configuration not loaded. Please refresh the page and try again.');
-            }
 
             const response = await fetch(`${CONFIG.API_BASE_URL}/api/contributions`, {
                 method: 'POST',
