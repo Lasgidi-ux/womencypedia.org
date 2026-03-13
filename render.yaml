@@ -4,7 +4,7 @@ services:
     name: womencypedia-cms
     runtime: node
     region: oregon
-    plan: starter
+    plan: standard
     rootDir: womencypedia-cms
     buildCommand: npm install && npm run build
     startCommand: npm run start
