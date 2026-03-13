@@ -27,9 +27,10 @@
 
     // Strapi CMS URL
     // Use local Strapi for development, remote for production
+    // Production Strapi is hosted on Render: https://womencypedia-cms.onrender.com
     window.API_STRAPI_URL = isDevelopment
         ? 'http://localhost:1337'
-        : 'https://www.womencypedia.org';
+        : 'https://womencypedia-cms.onrender.com';
 
     // Payment Gateway Keys
     // Replace with your LIVE/TEST public keys
