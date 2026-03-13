@@ -135,6 +135,11 @@ const FormHandler = {
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
+            // Check if CONFIG is available
+            if (typeof CONFIG === 'undefined' || !CONFIG.API_BASE_URL) {
+                throw new Error('Configuration not loaded. Please refresh the page and try again.');
+            }
+
             const response = await fetch(`${CONFIG.API_BASE_URL}/api/nominations`, {
                 method: 'POST',
                 headers,
@@ -143,7 +148,17 @@ const FormHandler = {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error?.message || `Server error (${response.status})`);
+                // Provide more helpful error messages for common issues
+                if (response.status === 404) {
+                    throw new Error('Unable to submit nomination. The server appears to be unavailable. Please try again later or contact support.');
+                }
+                if (response.status === 401) {
+                    throw new Error('Please sign in to submit a nomination.');
+                }
+                if (response.status === 403) {
+                    throw new Error('You do not have permission to submit nominations. Please contact support.');
+                }
+                throw new Error(errorData.error?.message || errorData.message || `Server error (${response.status})`);
             }
 
             // Show success message
@@ -158,8 +173,20 @@ const FormHandler = {
 
         } catch (error) {
             console.error('Nomination submission error:', error);
+
+            // Show user-friendly error message
+            let errorMessage = error.message || 'Failed to submit nomination. Please try again.';
+
+            // Check for network errors
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                errorMessage = 'Unable to connect to the server. Please check your internet connection and try again.';
+            }
+
             if (typeof UI !== 'undefined' && UI.showToast) {
-                UI.showToast('Failed to submit nomination: ' + error.message, 'error');
+                UI.showToast(errorMessage, 'error');
+            } else {
+                // Fallback to alert if UI is not available
+                alert('Error: ' + errorMessage);
             }
 
             // Restore button
@@ -258,6 +285,11 @@ const FormHandler = {
                 Saving story...
             `;
 
+            // Check if CONFIG is available
+            if (typeof CONFIG === 'undefined' || !CONFIG.API_BASE_URL) {
+                throw new Error('Configuration not loaded. Please refresh the page and try again.');
+            }
+
             const response = await fetch(`${CONFIG.API_BASE_URL}/api/contributions`, {
                 method: 'POST',
                 headers,
@@ -266,7 +298,17 @@ const FormHandler = {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error?.message || `Server error (${response.status})`);
+                // Provide more helpful error messages for common issues
+                if (response.status === 404) {
+                    throw new Error('Unable to submit story. The server appears to be unavailable. Please try again later or contact support.');
+                }
+                if (response.status === 401) {
+                    throw new Error('Please sign in to submit your story.');
+                }
+                if (response.status === 403) {
+                    throw new Error('You do not have permission to submit stories. Please contact support.');
+                }
+                throw new Error(errorData.error?.message || errorData.message || `Server error (${response.status})`);
             }
 
             // Show success message
@@ -284,8 +326,20 @@ const FormHandler = {
 
         } catch (error) {
             console.error('Story submission error:', error);
+
+            // Show user-friendly error message
+            let errorMessage = error.message || 'Failed to submit story. Please try again.';
+
+            // Check for network errors
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                errorMessage = 'Unable to connect to the server. Please check your internet connection and try again.';
+            }
+
             if (typeof UI !== 'undefined' && UI.showToast) {
-                UI.showToast('Failed to submit story: ' + error.message, 'error');
+                UI.showToast(errorMessage, 'error');
+            } else {
+                // Fallback to alert if UI is not available
+                alert('Error: ' + errorMessage);
             }
 
             // Restore button

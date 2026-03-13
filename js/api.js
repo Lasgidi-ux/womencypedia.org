@@ -516,7 +516,7 @@ const API = {
         }
 
         // Server error (5xx) - when server returns 500+ status
-        if (error.status >= 500) {
+        if (error && typeof error.status === 'number' && error.status >= 500) {
             return {
                 error: true,
                 message: 'Server temporarily unavailable. Please try again later.',
@@ -526,10 +526,11 @@ const API = {
         }
 
         // Auth error (401) - when authentication fails or tokens expire
-        if (error.status === 401) {
-            // Clear invalid tokens
-            localStorage.removeItem('womencypedia_access_token');
-            localStorage.removeItem('womencypedia_refresh_token');
+        if (error && error.status === 401) {
+            // Clear invalid tokens using Auth module for consistency
+            if (typeof Auth !== 'undefined' && Auth.logout) {
+                Auth.logout();
+            }
 
             return {
                 error: true,
@@ -539,12 +540,11 @@ const API = {
                 action: 'redirect_to_login'
             };
         }
-
-        // Default error - catch-all for unexpected errors
+        
         return {
             error: true,
-            message: error.message || 'An unexpected error occurred.',
-            status: error.status || 500,
+            message: (error && error.message) || 'An unexpected error occurred.',
+            status: (error && error.status) || 500,
             recoverable: true
         };
     }
