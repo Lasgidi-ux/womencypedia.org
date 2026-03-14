@@ -346,45 +346,6 @@ export default {
           }
         }
 
-        // ── Add explicit upload permissions for public role ──
-        const uploadActions = [
-          'upload',
-          'plugin::upload.content-api.upload',
-          'plugin::upload.assets.create',
-        ];
-
-        for (const action of uploadActions) {
-          const existingPerm = publicPermissions.find(
-            (p: any) => p.action === action
-          );
-          if (!existingPerm) {
-            await strapi.query('plugin::users-permissions.permission').create({
-              data: {
-                action: action,
-                subject: null,
-                role: publicRole.id,
-                enabled: true,
-              },
-            });
-            strapi.log.info(`[Bootstrap] Added explicit upload permission: ${action} for public`);
-          }
-        }
-
-        const existingUploadPermission = publicPermissions.find(
-          (p: any) => p.action === 'upload' || p.action === 'plugin::upload.content-api.upload'
-        );
-        if (!existingUploadPermission) {
-          await strapi.query('plugin::users-permissions.permission').create({
-            data: {
-              action: 'upload',
-              subject: null,
-              role: publicRole.id,
-              enabled: true,
-            },
-          });
-          strapi.log.info('[Bootstrap] Added upload permission for public');
-        }
-
         const authenticatedRole = await strapi.query('plugin::users-permissions.role').findOne({
           where: { type: 'authenticated' },
         });
