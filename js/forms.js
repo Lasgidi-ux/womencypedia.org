@@ -271,7 +271,19 @@ const FormHandler = {
             console.log('[StoryForm] CONFIG.API_BASE_URL:', CONFIG?.API_BASE_URL);
 
             if (typeof CONFIG === 'undefined' || !CONFIG.API_BASE_URL) {
-                throw new Error('Configuration not loaded. Please refresh the page and try again.');
+                const errorMsg = 'Configuration not loaded. Please refresh the page and try again.';
+                console.error('[StoryForm]', errorMsg);
+                if (typeof UI !== 'undefined' && UI.showToast) {
+                    UI.showToast(errorMsg, 'error');
+                } else {
+                    alert('Error: ' + errorMsg);
+                }
+                return;
+            }
+
+            // Ensure global API object exists for compatibility
+            if (typeof API === 'undefined') {
+                console.warn('[StoryForm] API object not found, using fetch() directly');
             }
 
             const token = (typeof Auth !== 'undefined' && Auth.isAuthenticated()) ? Auth.getAccessToken() : null;
