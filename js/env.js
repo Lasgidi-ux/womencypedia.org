@@ -21,9 +21,7 @@
     const isDevelopment =
         window.location.hostname === 'localhost' ||
         window.location.hostname === '127.0.0.1' ||
-        window.location.port === '5500' ||
-        window.location.port === '3000' ||
-        window.location.port === '8080';
+        window.location.hostname.endsWith('.local');
 
     // Strapi CMS URL
     // Use local Strapi for development, remote for production
