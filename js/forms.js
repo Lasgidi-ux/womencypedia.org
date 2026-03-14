@@ -11,6 +11,8 @@ const FormHandler = {
      * Initialize form handlers
      */
     init() {
+        console.log('[Forms] init() called');
+        console.log('[Forms] story-form exists:', !!document.getElementById('story-form'));
         this.setupNominationForm();
         this.setupStoryForm();
     },
@@ -33,7 +35,11 @@ const FormHandler = {
      */
     setupStoryForm() {
         const form = document.getElementById('story-form');
-        if (!form) return;
+        console.log('[Forms] setupStoryForm called, form element:', form);
+        if (!form) {
+            console.log('[Forms] story-form not found on this page');
+            return;
+        }
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -216,6 +222,9 @@ const FormHandler = {
      * @param {HTMLFormElement} form
      */
     async handleStorySubmit(form) {
+        console.log('[StoryForm] handleStorySubmit called');
+        console.log('[StoryForm] form element:', form);
+
         const submitBtn = form.querySelector('[type="submit"]');
         const originalText = submitBtn.innerHTML;
 
@@ -470,7 +479,12 @@ const FormHandler = {
 
 // Initialize form handlers when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    FormHandler.init();
+    console.log('[Forms] DOMContentLoaded fired');
+    try {
+        FormHandler.init();
+    } catch (e) {
+        console.error('[Forms] Error initializing:', e);
+    }
 });
 
 // Also check for forms that might be dynamically loaded
