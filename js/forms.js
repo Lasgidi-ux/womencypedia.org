@@ -6,6 +6,10 @@
  * Optional: strapi-api.js (StrapiAPI), api.js (API)
  */
 
+// DEBUG: Alert to verify script is loading
+alert('DEBUG: forms.js is loading');
+console.log('[Forms] Script loaded at top');
+
 const FormHandler = {
     /**
      * Initialize form handlers
