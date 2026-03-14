@@ -11,7 +11,8 @@ const customRoutes = [
     path: '/api/contributions',
     handler: async (ctx: any, next: any) => {
       try {
-        const body = ctx.request.body;
+        const rawBody = ctx.request.body || {};
+        const body = rawBody.data ? rawBody.data : rawBody;
 
         const title = body.subjectName || body.title || 'Untitled Story';
         const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + Date.now();
@@ -156,16 +157,21 @@ const customRoutes = [
     path: '/api/nominations',
     handler: async (ctx: any, next: any) => {
       try {
-        const body = ctx.request.body;
+        const rawBody = ctx.request.body || {};
+        const body = rawBody.data ? rawBody.data : rawBody;
 
         const entryData = {
-          name: body.name || body.nomineeName,
-          email: body.email || body.nomineeEmail,
-          phone: body.phone,
-          country: body.country,
-          category: body.category,
-          reason: body.reason || body.nominationReason,
-          status: 'pending_review',
+          nomineeName: body.name || body.nomineeName,
+          nomineeEmail: body.email || body.nomineeEmail,
+          nomineePhone: body.phone || body.nomineePhone,
+          nomineeRegion: body.region || body.nomineeRegion || 'Global',
+          nomineeCategory: body.category || body.collection || body.nomineeCategory || 'Other',
+          nomineeEra: body.era || body.nomineeEra || 'Contemporary',
+          reason: body.reason || body.nominationReason || body.bio,
+          sources: body.sources || [],
+          nominatorName: body.nominatorName || body.yourName,
+          nominatorEmail: body.nominatorEmail || body.yourEmail,
+          status: 'pending',
           submittedAt: new Date().toISOString(),
         };
 
