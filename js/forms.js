@@ -6,9 +6,15 @@
  * Optional: strapi-api.js (StrapiAPI), api.js (API)
  */
 
-// DEBUG: Alert to verify script is loading
-alert('DEBUG: forms.js is loading');
-console.log('[Forms] Script loaded at top');
+// Ensure API object exists - define a fallback if not loaded
+if (typeof API === 'undefined') {
+    console.warn('[Forms] API object not found - defining fallback');
+    window.API = {
+        isUsingStrapi: () => false,
+        isUsingMockAPI: () => false,
+        request: async () => { throw new Error('API not initialized'); }
+    };
+}
 
 const FormHandler = {
     /**
@@ -278,9 +284,10 @@ const FormHandler = {
                 } else {
                     alert('Error: ' + errorMsg);
                 }
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
                 return;
             }
-
             // Ensure global API object exists for compatibility
             if (typeof API === 'undefined') {
                 console.warn('[StoryForm] API object not found, using fetch() directly');
