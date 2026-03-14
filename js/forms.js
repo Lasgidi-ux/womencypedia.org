@@ -504,16 +504,13 @@ const FormHandler = {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[Forms] DOMContentLoaded fired');
     try {
-        FormHandler.init();
+        if (typeof FormHandler !== 'undefined') {
+            FormHandler.init();
+        }
     } catch (e) {
         console.error('[Forms] Error initializing:', e);
     }
 });
-
-// Also check for forms that might be dynamically loaded
-if (document.getElementById('nomination-form') || document.getElementById('story-form')) {
-    FormHandler.init();
-}
 
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {
