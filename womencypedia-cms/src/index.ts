@@ -340,6 +340,30 @@ export default {
           }
         }
 
+        // ── Add explicit upload permissions for public role ──
+        const uploadActions = [
+          'upload',
+          'plugin::upload.content-api.upload',
+          'plugin::upload.assets.create',
+        ];
+
+        for (const action of uploadActions) {
+          const existingPerm = publicPermissions.find(
+            (p: any) => p.action === action
+          );
+          if (!existingPerm) {
+            await strapi.query('plugin::users-permissions.permission').create({
+              data: {
+                action: action,
+                subject: action.startsWith('plugin::') ? null : null,
+                role: publicRole.id,
+                enabled: true,
+              },
+            });
+            strapi.log.info(`[Bootstrap] Added explicit upload permission: ${action} for public`);
+          }
+        }
+
         const existingUploadPermission = publicPermissions.find(
           (p: any) => p.action === 'upload' || p.action === 'plugin::upload.content-api.upload'
         );
@@ -387,6 +411,30 @@ export default {
                 },
               });
               strapi.log.info(`[Bootstrap] Added create permission for ${contentType} (authenticated)`);
+            }
+          }
+
+          // Add upload permissions for authenticated role
+          const authUploadActions = [
+            'upload',
+            'plugin::upload.content-api.upload',
+            'plugin::upload.assets.create',
+          ];
+
+          for (const action of authUploadActions) {
+            const existingPerm = authPermissions.find(
+              (p: any) => p.action === action
+            );
+            if (!existingPerm) {
+              await strapi.query('plugin::users-permissions.permission').create({
+                data: {
+                  action: action,
+                  subject: null,
+                  role: authenticatedRole.id,
+                  enabled: true,
+                },
+              });
+              strapi.log.info(`[Bootstrap] Added upload permission: ${action} for authenticated`);
             }
           }
         }

@@ -32,7 +32,7 @@ const getApiBaseUrl = () => {
             return 'http://localhost:1337'; // Local development CMS
         }
     }
-    return 'https://www.womencypedia.org'; // Production CMS
+    return 'https://womencypedia-cms.onrender.com'; // Production CMS
 };
 
 const API_BASE_URL = getApiBaseUrl();

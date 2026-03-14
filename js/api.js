@@ -557,8 +557,7 @@ const API = {
         return {
             error: true,
             message: (error && error.message) || 'An unexpected error occurred.',
-            status: (error && error.status) || (error && error.code) || 500,
-            recoverable: true
+            status: (error && typeof error.status === 'number') ? error.status : 500, recoverable: true
         };
     }
 };
