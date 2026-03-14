@@ -3,7 +3,7 @@
  * Provides offline caching and PWA support
  */
 
-const CACHE_NAME = 'womencypedia-v2';
+const CACHE_NAME = 'womencypedia-v3';
 const OFFLINE_URL = '404.html';
 
 const PRECACHE_ASSETS = [

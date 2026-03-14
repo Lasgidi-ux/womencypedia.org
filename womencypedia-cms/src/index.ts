@@ -355,7 +355,7 @@ export default {
             await strapi.query('plugin::users-permissions.permission').create({
               data: {
                 action: action,
-                subject: action.startsWith('plugin::') ? null : null,
+                subject: null,
                 role: publicRole.id,
                 enabled: true,
               },
