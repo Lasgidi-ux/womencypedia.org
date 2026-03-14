@@ -66,9 +66,27 @@ const FormHandler = {
     async uploadMediaFiles(files, token) {
         if (!files || files.length === 0) return [];
 
+        // Allowed MIME types for images
+        const allowedTypes = [
+            'image/jpeg',
+            'image/png',
+            'image/gif',
+            'image/webp',
+            'image/svg+xml'
+        ];
+
         const uploadedIds = [];
 
         for (const file of files) {
+            // Validate file type (MIME type) - security measure
+            if (!allowedTypes.includes(file.type)) {
+                console.warn(`File "${file.name}" has invalid type "${file.type}". Allowed: jpeg, png, gif, webp, svg`);
+                if (typeof UI !== 'undefined' && UI.showToast) {
+                    UI.showToast(`File "${file.name}" has an invalid format. Allowed: JPEG, PNG, GIF, WebP, SVG`, 'warning');
+                }
+                continue;
+            }
+
             // Validate file size (max 10MB)
             if (file.size > 10 * 1024 * 1024) {
                 console.warn(`File "${file.name}" exceeds 10MB limit, skipping`);

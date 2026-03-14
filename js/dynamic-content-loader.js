@@ -126,14 +126,16 @@ const DynamicContentLoader = {
             const biographies = data.data || [];
 
             if (biographies.length > 0) {
-                // Populate main grid
+                // Populate main grid - sanitize to prevent XSS
                 if (grid) {
-                    grid.innerHTML = biographies.slice(0, 6).map(bio => this.renderBiographyCard(bio)).join('');
+                    const safeContent = biographies.slice(0, 6).map(bio => this.renderBiographyCard(bio)).join('');
+                    grid.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
                 }
 
-                // Populate recent entries
+                // Populate recent entries - sanitize to prevent XSS
                 if (recentGrid) {
-                    recentGrid.innerHTML = biographies.slice(0, 4).map(bio => this.renderRecentEntry(bio)).join('');
+                    const safeContent = biographies.slice(0, 4).map(bio => this.renderRecentEntry(bio)).join('');
+                    recentGrid.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
                 }
 
                 console.log(`[DynamicContentLoader] Loaded ${biographies.length} biographies`);
@@ -162,7 +164,9 @@ const DynamicContentLoader = {
             const collections = data.data || [];
 
             if (collections.length > 0 && grid) {
-                grid.innerHTML = collections.map(col => this.renderCollectionCard(col)).join('');
+                // Sanitize to prevent XSS
+                const safeContent = collections.map(col => this.renderCollectionCard(col)).join('');
+                grid.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
                 console.log(`[DynamicContentLoader] Loaded ${collections.length} collections`);
             }
         } catch (error) {

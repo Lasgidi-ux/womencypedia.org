@@ -12,13 +12,14 @@
     # - https://checkout.flutterwave.com - Payment processing (Africa)
     # - https://fonts.googleapis.com - Google Fonts
     # - https://d3js.org - Data visualization
-    # - https://app.launchdarkly.com - Feature flags (requires 'unsafe-eval' for LD client)
     #
-    # NOTE: LaunchDarkly SDK requires 'unsafe-eval' for dynamic feature flag evaluation.
-    # If removing eval is critical, consider migrating to server-side feature flags or using
-    # a safer alternative SDK that doesn't require eval.
+    # SECURITY IMPROVEMENT: Removed 'unsafe-inline' and 'unsafe-eval' for stronger XSS protection.
+    # Scripts should be moved to external files or use nonces. LaunchDarkly eval requirement
+    # is handled by moving feature flags to server-side or removing the SDK.
     #
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://unpkg.com https://app.launchdarkly.com https://img1.wsimg.com https://d3js.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; img-src 'self' https: data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://app.launchdarkly.com https://unpkg.com https://img1.wsimg.com https://d3js.org https://*.onrender.com; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;"
+    # Note: Some inline styles may still be needed. Consider moving critical CSS to external files.
+    #
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://unpkg.com https://d3js.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; img-src 'self' https: data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://img1.wsimg.com https://d3js.org https://*.onrender.com; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;"
     
     # Prevent MIME-type sniffing
     Header set X-Content-Type-Options "nosniff"

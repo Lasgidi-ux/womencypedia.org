@@ -315,7 +315,8 @@ const Search = {
         }
 
         const html = this._state.results.map(entry => this.renderResultCard(entry)).join('');
-        container.innerHTML = html;
+        // Sanitize content before rendering to prevent XSS
+        container.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(html) : html;
 
         // Update results count
         const countEl = document.querySelector('[data-search-count]');

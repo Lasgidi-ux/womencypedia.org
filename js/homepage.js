@@ -176,7 +176,9 @@ const Homepage = {
 
             if (entries.length === 0) return;
 
-            container.innerHTML = entries.map(entry => this.biographyCard(entry)).join('');
+            // Sanitize content before rendering to prevent XSS
+            const safeContent = entries.map(entry => this.biographyCard(entry)).join('');
+            container.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
         } catch {
             // CMS unavailable — static content remains
         }
@@ -207,7 +209,9 @@ const Homepage = {
 
             if (collections.length === 0) return;
 
-            container.innerHTML = collections.map(col => this.collectionCard(col)).join('');
+            // Sanitize content before rendering to prevent XSS
+            const safeContent = collections.map(col => this.collectionCard(col)).join('');
+            container.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
         } catch {
             // CMS unavailable — static content remains
         }
@@ -238,7 +242,9 @@ const Homepage = {
 
             if (entries.length === 0) return;
 
-            container.innerHTML = entries.map(entry => this.biographyCard(entry)).join('');
+            // Sanitize content before rendering to prevent XSS
+            const safeContent = entries.map(entry => this.biographyCard(entry)).join('');
+            container.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
         } catch {
             // CMS unavailable — static content remains
         }
@@ -305,13 +311,15 @@ const Homepage = {
         const container = document.getElementById('why-stats-grid');
         if (!container) return;
 
-        container.innerHTML = stats.map(stat => `
+        // Sanitize content before rendering to prevent XSS
+        const safeContent = stats.map(stat => `
             <div class="text-center p-6">
                 <div class="text-3xl md:text-4xl font-bold text-primary mb-2">${this.escapeHtml(stat.value || '')}</div>
                 <h3 class="font-serif text-lg font-bold text-text-main mb-2">${this.escapeHtml(stat.title || '')}</h3>
                 <p class="text-sm text-text-secondary">${this.escapeHtml(stat.description || '')}</p>
             </div>
         `).join('');
+        container.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
     },
 
     /**
@@ -321,7 +329,8 @@ const Homepage = {
         const container = document.getElementById('audience-cards-grid');
         if (!container) return;
 
-        container.innerHTML = cards.map(card => `
+        // Sanitize content before rendering to prevent XSS
+        const safeContent = cards.map(card => `
             <div class="bg-white rounded-xl border border-border-light p-6 hover:shadow-lg transition-shadow">
                 <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     <span class="material-symbols-outlined text-primary text-2xl">${this.escapeHtml(card.icon || 'person')}</span>
@@ -330,6 +339,7 @@ const Homepage = {
                 <p class="text-sm text-text-secondary">${this.escapeHtml(card.description || '')}</p>
             </div>
         `).join('');
+        container.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
     },
 
     /**
@@ -339,11 +349,13 @@ const Homepage = {
         const container = document.getElementById('credibility-partners');
         if (!container) return;
 
-        container.innerHTML = partners.map(p => `
+        // Sanitize content before rendering to prevent XSS
+        const safeContent = partners.map(p => `
             <div class="flex items-center gap-2 text-gray-400">
                 <span class="text-sm font-medium">${this.escapeHtml(p.name || '')}</span>
             </div>
         `).join('');
+        container.innerHTML = typeof Security !== 'undefined' ? Security.sanitize(safeContent) : safeContent;
     },
 
     // ─── Utility Methods ─────────────────────────────────────
