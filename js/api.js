@@ -20,6 +20,9 @@ class APIError extends Error {
 }
 
 const API = {
+    // Base URL for direct API calls
+    baseURL: "https://womencypedia-cms.onrender.com",
+
     // Track if using Strapi CMS
     _useStrapi: true,
 
@@ -448,6 +451,51 @@ const API = {
     // ============================================
     // CONVENIENCE METHODS
     // ============================================
+
+    /**
+     * Submit a story (contribution) directly to Strapi
+     * @param {Object} formData - Form data for the story
+     * @returns {Promise<Object>} - Response from the API
+     */
+    async submitStory(formData) {
+        try {
+            const token = localStorage.getItem("womencypedia_access_token");
+
+            const response = await fetch(`${this.baseURL}/api/contributions`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(token && { Authorization: `Bearer ${token}` })
+                },
+                body: JSON.stringify({
+                    data: {
+                        storyType: formData.storyType || "other",
+                        subjectName: formData.subjectName,
+                        relationship: formData.relationship || "",
+                        storyRegion: formData.storyRegion || "",
+                        theme: formData.theme,
+                        story: formData.story,
+                        lessons: formData.lessons || "",
+                        contactName: formData.contactName,
+                        contactEmail: formData.contactEmail,
+                        permission: formData.permission === true
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText || `HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("✅ Story successfully submitted to Strapi:", result);
+            return result;
+        } catch (err) {
+            console.error("❌ Story submission failed:", err);
+            throw err;
+        }
+    },
 
     /**
      * Get all entries (biographies)
