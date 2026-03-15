@@ -33,16 +33,21 @@ const API = {
                 },
                 body: JSON.stringify({
                     data: {
+                        // Required fields
+                        title: formData.subjectName,
+                        type: "story",
+                        content: formData.story,
+
+                        // Optional fields (matching Strapi schema)
                         storyType: formData.storyType || "other",
                         subjectName: formData.subjectName,
                         relationship: formData.relationship || "",
-                        storyRegion: formData.storyRegion || "",
+                        region: formData.storyRegion || "",
                         theme: formData.theme,
-                        story: formData.story,
                         lessons: formData.lessons || "",
                         contactName: formData.contactName,
                         contactEmail: formData.contactEmail,
-                        permission: formData.permission === true
+                        permissionGranted: formData.permission === true
                     }
                 })
             });
@@ -144,5 +149,8 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = API;
     module.exports.APIError = APIError;
 }
+
+// Expose API to window for global access (required for HTML forms)
+window.API = API;
 
 console.log("✅ Womencypedia API service (with fixed submitStory) loaded successfully");
