@@ -3,9 +3,12 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Share Your Story — Womencypedia</title>
+    <meta name="description"
+        content="Share your story of resilience, courage, and triumph. Help Womencypedia preserve women's stories that history overlooked.">
 
     <!-- Auth state pre-check -->
     <script>
@@ -17,14 +20,16 @@
         })();
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/tailwind.css" />
     <link rel="stylesheet" href="css/styles.css" />
 
@@ -38,34 +43,318 @@
     <meta property="og:url" content="https://womencypedia.org/share-story.html">
     <meta property="og:title" content="Share Your Story — Womencypedia">
     <meta property="og:description"
-        content="Share your story or the story of a woman in your life. Every story matters.">
+        content="Share your story of resilience, courage, and triumph. Help preserve women's stories that history overlooked.">
     <meta property="og:image" content="https://womencypedia.org/images/womencypedia-logo.png">
     <meta property="og:site_name" content="Womencypedia">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Share Your Story — Womencypedia">
+    <meta name="twitter:description"
+        content="Share your story of resilience, courage, and triumph. Help preserve women's stories that history overlooked.">
+    <meta name="twitter:image" content="https://womencypedia.org/images/womencypedia-logo.png">
+    <link rel="canonical" href="https://womencypedia.org/share-story.html">
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#D67D7D">
-
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 
-    <script>
-        function updateFileName(input) {
-            const display = document.getElementById('file-name-display');
-            if (input.files && input.files.length > 0) {
-                if (input.files.length === 1) {
-                    display.textContent = 'Selected: ' + input.files[0].name;
-                } else {
-                    display.textContent = input.files.length + ' files selected';
-                }
-            } else {
-                display.textContent = '';
+    <style>
+        /* Share Story Page Specific Styles */
+        .story-hero {
+            background: linear-gradient(135deg, rgba(214, 125, 125, 0.08) 0%, rgba(250, 248, 243, 1) 40%, rgba(200, 162, 200, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(214, 125, 125, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .story-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200, 162, 200, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #DDD8CF;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .form-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .form-input {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            border: 1px solid #DDD8CF;
+            border-radius: 8px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9375rem;
+            color: #1A1414;
+            background: #FAF8F3;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2F8F86;
+            box-shadow: 0 0 0 3px rgba(47, 143, 134, 0.1);
+            background: white;
+        }
+
+        .form-input::placeholder {
+            color: #5A5454;
+            opacity: 0.6;
+        }
+
+        .form-textarea {
+            height: auto;
+            min-height: 140px;
+            padding: 12px 16px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235A5454' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1A1414;
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: #D67D7D;
+            margin-left: 2px;
+        }
+
+        .form-hint {
+            font-size: 0.8125rem;
+            color: #5A5454;
+            margin-top: 4px;
+        }
+
+        .radio-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .radio-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .radio-card .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 2px solid #DDD8CF;
+            border-radius: 10px;
+            background: #FAF8F3;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .radio-card input[type="radio"]:checked + .radio-label {
+            border-color: #D67D7D;
+            background: rgba(214, 125, 125, 0.06);
+            box-shadow: 0 0 0 3px rgba(214, 125, 125, 0.1);
+        }
+
+        .radio-card .radio-label:hover {
+            border-color: #C46868;
+            background: rgba(214, 125, 125, 0.03);
+        }
+
+        .radio-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #DDD8CF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .radio-card input[type="radio"]:checked + .radio-label .radio-dot {
+            border-color: #D67D7D;
+        }
+
+        .radio-card input[type="radio"]:checked + .radio-label .radio-dot::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #D67D7D;
+            border-radius: 50%;
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: 56px;
+            background: linear-gradient(135deg, #D67D7D 0%, #C46868 100%);
+            color: white;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.0625rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(214, 125, 125, 0.3);
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #C46868 0%, #B05555 100%);
+            box-shadow: 0 6px 20px rgba(214, 125, 125, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .word-counter {
+            font-size: 0.8125rem;
+            color: #5A5454;
+            text-align: right;
+            margin-top: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .word-counter.warning {
+            color: #9A7D25;
+        }
+
+        .word-counter.good {
+            color: #2F8F86;
+        }
+
+        .step-indicator {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .guidelines-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+        }
+
+        .guidelines-item + .guidelines-item {
+            border-top: 1px solid rgba(221, 216, 207, 0.5);
+        }
+
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 400px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: #2F8F86;
+            color: white;
+        }
+
+        .toast.error {
+            background: #C46868;
+            color: white;
+        }
+
+        .permission-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #D67D7D;
+            cursor: pointer;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-    </script>
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    </style>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
-
     <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
@@ -79,7 +368,7 @@
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
                     class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
-                    data-i18n-placeholder="search" />
+                    data-i18n-placeholder="search">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -91,140 +380,69 @@
     <!-- Mobile Menu Overlay -->
     <div id="menuOverlay" class="overlay hidden fixed inset-0 z-[140] bg-black/40" onclick="toggleMenu()"></div>
 
-
     <!-- Mobile Bottom Sheet Menu -->
     <nav id="mobileMenu"
         class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
-
-        <!-- Explore -->
         <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="share_story.explore">
-                Explore</h3>
-            <a href="index.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
-            <a href="browse.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
-            <a href="featured.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
-            <a href="collections.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Collections</a>
-            <a href="timelines.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">Explore</h3>
+            <a href="index.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
+            <a href="browse.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
+            <a href="featured.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
+            <a href="collections.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Collections</a>
+            <a href="timelines.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
         </div>
-
-        <!-- Learn -->
         <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="share_story.learn">
-                Learn</h3>
-            <a href="education.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
-            <a href="enterprises.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Enterprises</a>
-            <a href="research.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Research</a>
-            <a href="publications.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Publications</a>
-            <a href="resources.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Resources</a>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">Participate</h3>
+            <a href="nominate.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate a Woman</a>
+            <a href="share-story.html" class="block py-3 text-base font-medium text-primary border-b border-border-light/50 font-bold">Share Your Story</a>
+            <a href="contributor-guidelines.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor Guidelines</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
         </div>
-
-        <!-- Participate -->
         <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="share_story.participate">
-                Participate</h3>
-            <a href="nominate.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
-                a Woman</a>
-            <a href="share-story.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share
-                Your Story</a>
-            <a href="contributor-guidelines.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
-                Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary"
-                data-i18n="donate">Donate</a>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">About</h3>
+            <a href="about.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About Us</a>
+            <a href="contributors.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
+            <a href="methodology.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
+            <a href="editorial-standards.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial Standards</a>
+            <a href="contact.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
         </div>
-
-        <!-- About -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="share_story.about">
-                About</h3>
-            <a href="about.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
-                Us</a>
-            <a href="contributors.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
-            <a href="methodology.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
-            <a href="editorial-standards.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial
-                Standards</a>
-            <a href="contact.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
-        </div>
-        <!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span
-                    data-i18n="shareYourStory">Share Your Story</span></a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
+                <span data-i18n="shareYourStory">Share Your Story</span>
+            </a>
         </div>
     </nav>
 
     <!-- Header -->
-    <!-- Header -->
-    <header id="navbar"
-        class="w-full border-b border-divider bg-background-cream dark:bg-background-dark sticky top-0 z-50 transition-transform duration-300">
+    <header class="w-full border-b border-divider bg-background-cream sticky top-0 z-50">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
                 <div class="flex items-center gap-8 lg:gap-12">
                     <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                         <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
-                        <span
-                            class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
+                        <span class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
-                    <nav class="hidden lg:flex items-center gap-8">
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="index.html">Home</a>
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="browse.html">Browse</a>
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="featured.html">Featured</a>
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="about.html">About</a>
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="resources.html">Resources</a>
-                    </nav>
+                    <nav class="hidden lg:flex items-center gap-6"></nav>
                 </div>
                 <div class="flex items-center gap-3 lg:gap-6">
-                    <div
-                        class="hidden md:flex items-center bg-white/50 dark:bg-white/5 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
+                    <div class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
                         <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                        <input
-                            class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                            placeholder="Search the archive..." type="search" />
+                        <input class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
+                            placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
                     </div>
-                    <button onclick="toggleSearch()"
-                        class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
-                        aria-label="Open search">
+                    <button class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors" aria-label="Open search">
                         <span class="material-symbols-outlined text-accent-teal">search</span>
                     </button>
                     <div class="hidden sm:flex items-center gap-4">
                         <div id="language-switcher"></div>
-                        <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html" data-i18n="donate">Donate</a>
+                        <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide" href="donate.html" data-i18n="donate">Donate</a>
                         <button data-auth="signin"
                             class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
-                            data-i18n="signIn">
-                            Sign In
-                        </button>
+                            data-i18n="signIn">Sign In</button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
-                            <a href="profile.html"
-                                class="flex items-center gap-2 text-sm text-text-secondary hover:text-primary">
+                            <a href="profile.html" class="flex items-center gap-2 text-sm text-text-secondary hover:text-primary">
                                 <span class="material-symbols-outlined text-[18px]">account_circle</span>
                                 <span data-auth="user-info"></span>
                             </a>
@@ -236,7 +454,7 @@
                     </div>
                     <button onclick="toggleMenu()"
                         class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
-                        aria-label="Menu">
+                        aria-label="Open menu">
                         <span class="material-symbols-outlined text-text-main">menu</span>
                     </button>
                 </div>
@@ -244,204 +462,309 @@
         </div>
     </header>
 
-    <main id="main-content">
-        <!-- Hero -->
-        <div class="bg-gradient-to-br from-primary/10 via-background-cream to-primary/5 py-16 lg:py-20 text-center">
-            <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
-                <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-2 block">Participate</span>
-                <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4"
-                    data-i18n="share_story.shareYourStory">Share Your Story
-                </h1>
-                <p class="text-text-secondary text-lg max-w-2xl mx-auto">Do you have a story of resilience, lament,
-                    challenge, or victory? Tell it now — before the world tells it its own way.</p>
-                <div class="w-24 h-1 bg-primary rounded-full mx-auto mt-6"></div>
-            </div>
-        </div>
+    <!-- Main Content -->
+    <main id="main-content" role="main">
 
-        <!-- Quote -->
-        <section class="py-12 bg-lavender-soft/40">
-            <div class="mx-auto max-w-[800px] px-4 text-center">
-                <h3 class="sr-only">Featured Quote</h3>
-                <span class="material-symbols-outlined text-accent-gold text-4xl mb-4">format_quote</span>
-                <blockquote class="font-serif text-xl lg:text-2xl italic text-text-main leading-relaxed">
-                    "For every woman whose story was ever overlooked, minimized, or forgotten — we are coming for
-                    you."
-                </blockquote>
-                <p class="text-text-secondary mt-4">— Atim Utuk, Founder</p>
+        <!-- Hero Section -->
+        <section class="story-hero py-16 lg:py-20 text-center">
+            <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12 relative z-10">
+                <div class="animate-in">
+                    <span class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-2 block">Participate</span>
+                    <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4"
+                        data-i18n="shareStory.title">
+                        Share Your Story
+                    </h1>
+                    <p class="text-text-secondary text-lg max-w-2xl mx-auto mb-2">
+                        Every woman carries a story worth preserving. Share yours — a testimony of resilience,
+                        challenges overcome, cultural legacy, or quiet triumph.
+                    </p>
+                    <p class="text-text-secondary text-base max-w-xl mx-auto">
+                        Your story becomes part of the world's most comprehensive archive of women's lives.
+                    </p>
+                    <div class="w-24 h-1 bg-primary rounded-full mx-auto mt-6"></div>
+                </div>
             </div>
         </section>
 
         <!-- Form Section -->
-        <section class="py-16 lg:py-24 bg-background-cream">
-            <div class="mx-auto max-w-[700px] px-4 sm:px-6 lg:px-12">
-                <div class="bg-white rounded-xl p-8 md:p-12 shadow-sm border border-border-light">
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-primary text-2xl">auto_stories</span>
+        <section class="py-12 lg:py-20 bg-background-cream">
+            <div class="mx-auto max-w-[780px] px-4 sm:px-6 lg:px-12">
+
+                <!-- Form Card -->
+                <div class="form-card p-6 sm:p-8 md:p-12 animate-in animate-delay-1">
+
+                    <!-- Form Header -->
+                    <div class="flex items-center gap-4 mb-8 pb-6 border-b border-border-light">
+                        <div class="size-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">edit_note</span>
                         </div>
                         <div>
-                            <h2 class="font-serif text-2xl font-bold text-text-main"
-                                data-i18n="share_story.yourStoryMatters">Your Story Matters</h2>
-                            <p class="text-text-secondary text-sm">Share your story or the story of a woman in your
-                                life
-                            </p>
+                            <h2 class="font-serif text-2xl font-bold text-text-main">Story Submission Form</h2>
+                            <p class="text-text-secondary text-sm mt-1">Fields marked with <span class="text-primary font-bold">*</span> are required</p>
                         </div>
                     </div>
 
-                    <form id="story-form" class="space-y-6" enctype="multipart/form-data">
+                    <form id="story-form" novalidate>
+
                         <!-- Story Type -->
-                        <div>
-                            <label class="block text-sm font-semibold text-text-main mb-2">This story is about:
-                                *</label>
-                            <div class="flex gap-4">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="radio" name="storyType" value="myself"
-                                        class="w-4 h-4 text-primary border-border-light focus:ring-primary" />
-                                    <span>Myself</span>
+                        <div class="mb-8">
+                            <label class="form-label">What type of story are you sharing? <span class="required">*</span></label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <label class="radio-card">
+                                    <input type="radio" name="storyType" value="personal" checked>
+                                    <div class="radio-label">
+                                        <span class="radio-dot"></span>
+                                        <div>
+                                            <span class="font-semibold text-sm">Personal Story</span>
+                                            <span class="block text-xs text-text-secondary mt-0.5">Your own experience</span>
+                                        </div>
+                                    </div>
                                 </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="radio" name="storyType" value="other"
-                                        class="w-4 h-4 text-primary border-border-light focus:ring-primary" />
-                                    <span>Another Woman</span>
+                                <label class="radio-card">
+                                    <input type="radio" name="storyType" value="biographical">
+                                    <div class="radio-label">
+                                        <span class="radio-dot"></span>
+                                        <div>
+                                            <span class="font-semibold text-sm">Biographical</span>
+                                            <span class="block text-xs text-text-secondary mt-0.5">About another woman</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="storyType" value="historical">
+                                    <div class="radio-label">
+                                        <span class="radio-dot"></span>
+                                        <div>
+                                            <span class="font-semibold text-sm">Historical</span>
+                                            <span class="block text-xs text-text-secondary mt-0.5">A historical account</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="storyType" value="other">
+                                    <div class="radio-label">
+                                        <span class="radio-dot"></span>
+                                        <div>
+                                            <span class="font-semibold text-sm">Other</span>
+                                            <span class="block text-xs text-text-secondary mt-0.5">Cultural, oral tradition, etc.</span>
+                                        </div>
+                                    </div>
                                 </label>
                             </div>
                         </div>
 
                         <!-- Subject Name -->
-                        <div>
-                            <label class="block text-sm font-semibold text-text-main mb-2" for="subjectName">Name of
-                                the
-                                Woman *</label>
+                        <div class="mb-6">
+                            <label class="form-label" for="subjectName">Name of the Woman in the Story <span class="required">*</span></label>
                             <input type="text" id="subjectName" name="subjectName" required
-                                class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal"
-                                placeholder="Full name" />
+                                class="form-input" placeholder="e.g., Funmilayo Ransome-Kuti" />
                         </div>
 
                         <!-- Relationship -->
-                        <div>
-                            <label class="block text-sm font-semibold text-text-main mb-2"
-                                for="relationship">Relationship to You (if applicable)</label>
+                        <div class="mb-6">
+                            <label class="form-label" for="relationship">Your Relationship to the Subject</label>
                             <input type="text" id="relationship" name="relationship"
-                                class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal"
-                                placeholder="e.g., Mother, Grandmother, Mentor, Self" />
+                                class="form-input" placeholder="e.g., Granddaughter, Researcher, Self" />
                         </div>
 
-                        <!-- Region -->
-                        <div>
-                            <label class="block text-sm font-semibold text-text-main mb-2" for="storyRegion">Region
-                                /
-                                Country</label>
-                            <input type="text" id="storyRegion" name="storyRegion"
-                                class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal"
-                                placeholder="e.g., Nigeria, United States" />
-                        </div>
-
-                        <!-- Story Theme -->
-                        <div>
-                            <label class="block text-sm font-semibold text-text-main mb-2" for="theme">Story Theme
-                                *</label>
-                            <select id="theme" name="theme" required
-                                class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal bg-white">
-                                <option value="">Select a theme...</option>
-                                <option value="resilience">Resilience & Overcoming</option>
-                                <option value="leadership">Leadership & Achievement</option>
-                                <option value="innovation">Innovation & Discovery</option>
-                                <option value="faith">Faith & Spirituality</option>
-                                <option value="education">Education & Mentorship</option>
-                                <option value="community">Community & Service</option>
-                                <option value="family">Family & Legacy</option>
-                                <option value="justice">Justice & Advocacy</option>
-                                <option value="arts">Arts & Culture</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <!-- The Story -->
-                        <div>
-                            <label class="block text-sm font-semibold text-text-main mb-2" for="story">Tell the
-                                Story
-                                *</label>
-                            <textarea id="story" name="story" rows="8" required
-                                class="w-full px-4 py-3 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal resize-none"
-                                placeholder="Share the story in your own words. Include details that made this woman unique: her challenges, her victories, her impact on those around her..."></textarea>
-                            <p class="text-xs text-text-secondary mt-2">Minimum 5000 words recommended for a
-                                complete
-                                story.</p>
-                        </div>
-
-                        <!-- Lessons -->
-                        <div>
-                            <label class="block text-sm font-semibold text-text-main mb-2" for="lessons">What
-                                lessons
-                                does this story teach?</label>
-                            <textarea id="lessons" name="lessons" rows="3"
-                                class="w-full px-4 py-3 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal resize-none"
-                                placeholder="What wisdom or lessons can others learn from this story?"></textarea>
-                        </div>
-
-                        <!-- Media Upload -->
-                        <div>
-                            <label class="block text-sm font-semibold text-text-main mb-2">Upload Media
-                                (Optional)</label>
-                            <div
-                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-border-light border-dashed rounded-lg bg-white hover:bg-background-cream transition-colors">
-                                <div class="space-y-1 text-center w-full">
-                                    <span
-                                        class="material-symbols-outlined text-4xl text-text-secondary mb-2 block">cloud_upload</span>
-                                    <div class="flex flex-col sm:flex-row text-sm justify-center items-center gap-2">
-                                        <label for="mediaUpload"
-                                            class="cursor-pointer rounded-md font-bold text-primary hover:text-primary-hover focus-within:outline-none">
-                                            <span>Upload a file</span>
-                                            <input id="mediaUpload" name="mediaUpload" type="file" class="sr-only"
-                                                accept="image/*,video/*,application/pdf" multiple
-                                                onchange="updateFileName(this)">
-                                        </label>
-                                        <span class="text-text-secondary">or drag and drop</span>
-                                    </div>
-                                    <p class="text-xs text-text-secondary mt-2">PNG, JPG, PDF, or MP4 up to 10MB</p>
-                                    <p id="file-name-display" class="text-sm text-primary mt-2 font-medium"></p>
-                                </div>
+                        <!-- Region & Theme (2-column) -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="form-label" for="storyRegion">Region / Country <span class="required">*</span></label>
+                                <input type="text" id="storyRegion" name="storyRegion" required
+                                    class="form-input" placeholder="e.g., Nigeria, West Africa" />
+                            </div>
+                            <div>
+                                <label class="form-label" for="theme">Theme <span class="required">*</span></label>
+                                <select id="theme" name="theme" required class="form-input form-select">
+                                    <option value="">Select a theme...</option>
+                                    <option value="resilience">Resilience & Survival</option>
+                                    <option value="leadership">Leadership & Power</option>
+                                    <option value="cultural-heritage">Cultural Heritage</option>
+                                    <option value="education">Education & Knowledge</option>
+                                    <option value="activism">Activism & Advocacy</option>
+                                    <option value="entrepreneurship">Entrepreneurship & Innovation</option>
+                                    <option value="motherhood">Motherhood & Family</option>
+                                    <option value="spiritual">Spiritual & Faith</option>
+                                    <option value="arts">Arts & Creative Expression</option>
+                                    <option value="science">Science & Discovery</option>
+                                    <option value="resistance">Resistance & Liberation</option>
+                                    <option value="oral-tradition">Oral Tradition & Storytelling</option>
+                                    <option value="other">Other</option>
+                                </select>
                             </div>
                         </div>
 
-                        <!-- Contact -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Story Content -->
+                        <div class="mb-6">
+                            <label class="form-label" for="story">Your Story <span class="required">*</span></label>
+                            <p class="form-hint mb-2">Share the story in as much detail as possible. We recommend at least 500 words for a meaningful contribution, and up to 5,000 words for a complete narrative.</p>
+                            <textarea id="story" name="story" rows="10" required
+                                class="form-input form-textarea"
+                                placeholder="Tell the story... Begin with context — who she is, where she comes from, and what makes her story worth preserving..."></textarea>
+                            <div class="word-counter" id="wordCounter">0 words</div>
+                        </div>
+
+                        <!-- Lessons / Significance -->
+                        <div class="mb-6">
+                            <label class="form-label" for="lessons">Lessons or Significance</label>
+                            <p class="form-hint mb-2">What can the world learn from this story?</p>
+                            <textarea id="lessons" name="lessons" rows="4"
+                                class="form-input form-textarea"
+                                placeholder="What cultural, historical, or personal significance does this story carry?"></textarea>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="border-t border-border-light my-8"></div>
+
+                        <!-- Contact Info -->
+                        <div class="mb-6">
+                            <h3 class="font-serif text-lg font-bold text-text-main mb-1">
+                                <span class="material-symbols-outlined text-accent-teal text-xl align-middle mr-2">person</span>
+                                Your Details
+                            </h3>
+                            <p class="text-text-secondary text-sm mb-4">We may contact you for verification or follow-up questions.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
-                                <label class="block text-sm font-semibold text-text-main mb-2" for="contactName">Your
-                                    Name *</label>
+                                <label class="form-label" for="contactName">Your Name <span class="required">*</span></label>
                                 <input type="text" id="contactName" name="contactName" required
-                                    class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal" />
+                                    class="form-input" placeholder="Full name" />
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-text-main mb-2" for="contactEmail">Your
-                                    Email *</label>
+                                <label class="form-label" for="contactEmail">Your Email <span class="required">*</span></label>
                                 <input type="email" id="contactEmail" name="contactEmail" required
-                                    class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal" />
+                                    class="form-input" placeholder="you@example.com" />
                             </div>
                         </div>
 
                         <!-- Permission -->
-                        <div class="pt-4 border-t border-border-light">
+                        <div class="mb-8 p-4 bg-lavender-soft/30 rounded-xl border border-border-light">
                             <label class="flex items-start gap-3 cursor-pointer">
-                                <input type="checkbox" name="permission" required
-                                    class="w-5 h-5 mt-0.5 text-primary border-border-light rounded focus:ring-primary" />
-                                <span class="text-sm text-text-secondary">I confirm that this story is true to the
-                                    best
-                                    of my knowledge and I give permission for Womencypedia to publish, edit, and
-                                    archive
-                                    this story for educational purposes.</span>
+                                <input type="checkbox" name="permission" required class="permission-checkbox mt-0.5">
+                                <span class="text-sm text-text-main leading-relaxed">
+                                    I confirm that the information provided is accurate to the best of my knowledge,
+                                    and I grant Womencypedia permission to publish this story with appropriate editorial review.
+                                    <span class="text-primary font-bold">*</span>
+                                </span>
                             </label>
                         </div>
 
                         <!-- Submit -->
-                        <div class="pt-4">
-                            <button type="submit"
-                                class="w-full h-14 bg-primary text-white font-bold text-lg rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined">send</span>
-                                Submit Your Story
-                            </button>
-                        </div>
+                        <button type="submit" id="submitBtn" class="submit-btn">
+                            <span class="material-symbols-outlined text-[22px]">send</span>
+                            Submit Your Story
+                        </button>
+
+                        <p class="text-xs text-text-secondary text-center mt-4">
+                            Your story will be reviewed by our editorial team within 4-6 weeks.
+                            You'll receive email updates on its status.
+                        </p>
                     </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Writing Guidelines -->
+        <section class="py-16 lg:py-24 bg-lavender-soft/40">
+            <div class="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-12">
+                <div class="text-center mb-12 animate-in animate-delay-2">
+                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4">
+                        Tips for a Great Story
+                    </h2>
+                    <p class="text-text-secondary text-lg max-w-2xl mx-auto">
+                        Follow these guidelines to make your submission as impactful as possible.
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-in animate-delay-3">
+                    <div class="bg-white rounded-xl p-6 border border-border-light hover:shadow-md transition-shadow">
+                        <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary text-2xl">history_edu</span>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-text-main mb-2">Start with Context</h3>
+                        <p class="text-sm text-text-secondary">Who is the woman? When and where did she live? What era or cultural moment shaped her life?</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 border border-border-light hover:shadow-md transition-shadow">
+                        <div class="size-12 rounded-lg bg-accent-teal/10 flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-accent-teal text-2xl">auto_stories</span>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-text-main mb-2">Tell the Journey</h3>
+                        <p class="text-sm text-text-secondary">Include challenges, turning points, and achievements. The richness of detail matters.</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 border border-border-light hover:shadow-md transition-shadow">
+                        <div class="size-12 rounded-lg bg-accent-gold/10 flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-accent-gold text-2xl">psychology</span>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-text-main mb-2">Share the Meaning</h3>
+                        <p class="text-sm text-text-secondary">What can others learn from this story? Why does it matter for future generations?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submission Process -->
+        <section class="py-16 lg:py-24 bg-background-cream">
+            <div class="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-12">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4">
+                        What Happens Next?
+                    </h2>
+                    <p class="text-text-secondary text-lg max-w-2xl mx-auto">
+                        Our thorough review process ensures every story receives proper care and attention.
+                    </p>
+                </div>
+
+                <div class="relative">
+                    <div class="hidden lg:block absolute top-8 left-[12%] right-[12%] h-1 bg-primary/20"></div>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="relative text-center">
+                            <div class="step-indicator bg-primary text-white mx-auto mb-4 shadow-lg">
+                                <span class="material-symbols-outlined">send</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-bold text-text-main mb-2">1. Received</h3>
+                            <p class="text-text-secondary text-sm">Your story is sent to our editorial team for initial review</p>
+                        </div>
+                        <div class="relative text-center">
+                            <div class="step-indicator bg-accent-teal text-white mx-auto mb-4 shadow-lg">
+                                <span class="material-symbols-outlined">search</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-bold text-text-main mb-2">2. Research</h3>
+                            <p class="text-text-secondary text-sm">We verify details and conduct additional research as needed</p>
+                        </div>
+                        <div class="relative text-center">
+                            <div class="step-indicator bg-accent-gold text-white mx-auto mb-4 shadow-lg">
+                                <span class="material-symbols-outlined">fact_check</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-bold text-text-main mb-2">3. Review</h3>
+                            <p class="text-text-secondary text-sm">Senior editors review for accuracy and cultural sensitivity</p>
+                        </div>
+                        <div class="relative text-center">
+                            <div class="step-indicator bg-primary-hover text-white mx-auto mb-4 shadow-lg">
+                                <span class="material-symbols-outlined">celebration</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-bold text-text-main mb-2">4. Published</h3>
+                            <p class="text-text-secondary text-sm">Published with full attribution to you as the contributor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-white rounded-xl p-6 border border-border-light">
+                    <div class="flex flex-wrap items-center justify-center gap-8 text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">schedule</span>
+                            <span><strong>Review Time:</strong> 4-6 weeks</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">notifications</span>
+                            <span><strong>Updates:</strong> Email notifications sent</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">person</span>
+                            <span><strong>Attribution:</strong> Your name credited</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -451,177 +774,267 @@
     <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
         <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-                <!-- Brand -->
                 <div class="col-span-2 md:col-span-1">
                     <div class="flex items-center justify-center gap-3 mb-4">
                         <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                             <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
-                            <span
-                                class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
+                            <span class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                         </a>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">The world's first interpretive encyclopedia of
-                        women.</p>
-                    <div class="flex gap-4">
-                        <a href="https://www.facebook.com/womencypedia" class="text-gray-400 hover:text-primary"
-                            aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg>
-                        </a>
-                        <a href="https://x.com/womencypedia" class="text-gray-400 hover:text-primary"
-                            aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                            </svg>
-                        </a>
-                        <a href="https://www.instagram.com/womencypedia" class="text-gray-400 hover:text-primary"
-                            aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                            </svg>
-                        </a>
-                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">The world's first interpretive encyclopedia of women.</p>
                 </div>
-
-                <!-- Explore -->
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Explore</h3>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="index.html">Home</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="browse.html">Browse</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="featured.html">Featured</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="collections.html">Collections</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="timelines.html">Timelines</a>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Explore</h4>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="index.html">Home</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="browse.html">Browse</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="featured.html">Featured</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="collections.html">Collections</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="timelines.html">Timelines</a>
                 </div>
-
-                <!-- Learn -->
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Learn</h3>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="education.html">Education</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="enterprises.html">Enterprises</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="research.html">Research</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="publications.html">Publications</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="resources.html">Resources</a>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Learn</h4>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="education.html">Education</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="enterprises.html">Enterprises</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="research.html">Research</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="publications.html">Publications</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="resources.html">Resources</a>
                 </div>
-
-                <!-- Participate -->
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h3>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributor-guidelines.html">Contributor Guidelines</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html"
-                        data-i18n="donate">Donate</a>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="nominate.html">Nominate a Woman</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="share-story.html">Share Your Story</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="contributor-guidelines.html">Contributor Guidelines</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html" data-i18n="donate">Donate</a>
                 </div>
-
-                <!-- About -->
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">About</h3>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="about.html">About Us</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributors.html">Contributors</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="methodology.html">Methodology</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="editorial-standards.html">Editorial Standards</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contact.html">Contact</a>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">About</h4>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="about.html">About Us</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="contributors.html">Contributors</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="methodology.html">Methodology</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="editorial-standards.html">Editorial Standards</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="contact.html">Contact</a>
                 </div>
             </div>
-
-            <!-- Quick Links Row -->
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="text-center">
-                    <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span
-                                data-i18n="privacyPolicy">Privacy Policy</span></a> | <a href="terms-of-use.html"
-                            class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a>
+                    <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. |
+                        <a href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> |
+                        <a href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a>
                     </p>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- ==================== SCRIPTS - CLEAN & CORRECT ORDER ==================== -->
-    <script src="js/env.js?v=20260317"></script>
-    <script src="js/config.js?v=20260317"></script>
-    <script src="js/i18n.js?v=20260317"></script>
-    <script src="js/ui.js?v=20260317"></script>
-    <script src="js/auth.js?v=20260317"></script>
-    <script src="js/page-protection.js?v=20260317"></script>
-    <script src="js/strapi-api.js?v=20260317"></script>
-    <script src="js/api.js?v=20260317"></script> <!-- ← MUST BE BEFORE FORM HANDLER -->
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="js/env.js?v=20260318"></script>
+    <script src="js/config.js?v=20260318"></script>
+    <script src="js/i18n.js?v=20260318"></script>
+    <script src="js/ui.js?v=20260318"></script>
+    <script src="js/auth.js?v=20260318"></script>
+    <script src="js/page-protection.js?v=20260318"></script>
+    <script src="js/strapi-api.js?v=20260318"></script>
+    <script src="js/api.js?v=20260318"></script>
 
     <script>
-        // ==================== STORY FORM SUBMISSION ====================
-        const storyForm = document.getElementById("story-form");
+        // ==================== SHARE STORY FORM LOGIC ====================
+        // Direct Strapi CMS submission — no dependency on window.API
+        const STRAPI_URL = 'https://womencypedia-cms.onrender.com';
 
-        if (storyForm) {
-            storyForm.addEventListener("submit", async function (e) {
-                e.preventDefault();
+        // Word counter
+        const storyTextarea = document.getElementById('story');
+        const wordCounter = document.getElementById('wordCounter');
 
-                const submitBtn = this.querySelector("button[type='submit']");
-                const originalText = submitBtn.innerHTML;
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = "Submitting...";
+        if (storyTextarea && wordCounter) {
+            storyTextarea.addEventListener('input', function () {
+                const words = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+                wordCounter.textContent = `${words} word${words !== 1 ? 's' : ''}`;
 
-                try {
-                    // Verify API is available before attempting submission
-                    if (typeof API === 'undefined' && typeof window.API === 'undefined') {
-                        throw new Error("API service not loaded. Please refresh the page and try again.");
-                    }
-
-                    const apiObj = window.API || API;
-
-                    const formData = {
-                        storyType: document.querySelector('input[name="storyType"]:checked')?.value || "other",
-                        subjectName: document.getElementById("subjectName").value.trim(),
-                        relationship: document.getElementById("relationship").value.trim(),
-                        storyRegion: document.getElementById("storyRegion").value.trim(),
-                        theme: document.getElementById("theme").value,
-                        story: document.getElementById("story").value.trim(),
-                        lessons: document.getElementById("lessons").value.trim(),
-                        contactName: document.getElementById("contactName").value.trim(),
-                        contactEmail: document.getElementById("contactEmail").value.trim(),
-                        permission: document.querySelector('input[name="permission"]').checked
-                    };
-
-                    await apiObj.submitStory(formData);
-                    alert("✅ Your story has been submitted successfully! Thank you.");
-                    this.reset();
-                } catch (error) {
-                    console.error(error);
-                    alert("❌ Failed to submit story: " + (error.message || "Unknown error"));
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
+                if (words >= 500) {
+                    wordCounter.className = 'word-counter good';
+                    wordCounter.textContent += ' ✓ Great length!';
+                } else if (words >= 200) {
+                    wordCounter.className = 'word-counter warning';
+                    wordCounter.textContent += ` — ${500 - words} more recommended`;
+                } else {
+                    wordCounter.className = 'word-counter';
                 }
             });
         }
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => { toast.classList.remove('show'); }, 5000);
+        }
+
+        // Form submission
+        const storyForm = document.getElementById('story-form');
+
+        if (storyForm) {
+            storyForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const submitBtn = document.getElementById('submitBtn');
+                const originalHTML = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="material-symbols-outlined text-[22px] animate-spin">progress_activity</span> Submitting...';
+
+                try {
+                    // Collect form data
+                    const formData = {
+                        storyType: document.querySelector('input[name="storyType"]:checked')?.value || 'other',
+                        subjectName: document.getElementById('subjectName').value.trim(),
+                        relationship: document.getElementById('relationship').value.trim(),
+                        storyRegion: document.getElementById('storyRegion').value.trim(),
+                        theme: document.getElementById('theme').value,
+                        story: document.getElementById('story').value.trim(),
+                        lessons: document.getElementById('lessons').value.trim(),
+                        contactName: document.getElementById('contactName').value.trim(),
+                        contactEmail: document.getElementById('contactEmail').value.trim(),
+                        permissionGranted: document.querySelector('input[name="permission"]').checked
+                    };
+
+                    // Validate required fields
+                    if (!formData.subjectName || !formData.storyRegion || !formData.theme || !formData.story || !formData.contactName || !formData.contactEmail) {
+                        throw new Error('Please fill in all required fields.');
+                    }
+
+                    if (!formData.permissionGranted) {
+                        throw new Error('Please confirm the permission checkbox before submitting.');
+                    }
+
+                    // Try window.API first, then direct fetch as fallback
+                    let result;
+
+                    if (typeof window.API !== 'undefined' && typeof window.API.submitStory === 'function') {
+                        console.log('[ShareStory] Using API.submitStory()');
+                        result = await window.API.submitStory(formData);
+                    } else {
+                        // Direct fetch to Strapi — no dependency on api.js
+                        console.log('[ShareStory] Using direct fetch to Strapi');
+                        const apiUrl = (typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL) ? CONFIG.API_BASE_URL : STRAPI_URL;
+                        const token = localStorage.getItem('womencypedia_access_token');
+
+                        const response = await fetch(`${apiUrl}/api/contributions`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                ...(token && { Authorization: `Bearer ${token}` })
+                            },
+                            body: JSON.stringify({
+                                data: {
+                                    storyType: formData.storyType,
+                                    subjectName: formData.subjectName,
+                                    relationship: formData.relationship,
+                                    storyRegion: formData.storyRegion,
+                                    theme: formData.theme,
+                                    story: formData.story,
+                                    lessons: formData.lessons,
+                                    contactName: formData.contactName,
+                                    contactEmail: formData.contactEmail,
+                                    permissionGranted: formData.permissionGranted
+                                }
+                            })
+                        });
+
+                        if (!response.ok) {
+                            const errText = await response.text();
+                            throw new Error(errText || `Server error: ${response.status}`);
+                        }
+
+                        result = await response.json();
+                    }
+
+                    console.log('✅ Story submitted successfully:', result);
+                    showToast('✅ Your story has been submitted successfully! Thank you.', 'success');
+                    storyForm.reset();
+
+                    // Re-check the default radio
+                    const defaultRadio = document.querySelector('input[name="storyType"][value="personal"]');
+                    if (defaultRadio) defaultRadio.checked = true;
+
+                    // Reset word counter
+                    if (wordCounter) {
+                        wordCounter.textContent = '0 words';
+                        wordCounter.className = 'word-counter';
+                    }
+
+                } catch (error) {
+                    console.error('❌ Story submission failed:', error);
+                    showToast('❌ ' + (error.message || 'Failed to submit story. Please try again.'), 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalHTML;
+                }
+            });
+        }
+
+        // Service Worker registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(function (reg) {
+                console.log('SW registered:', reg.scope);
+            }).catch(function () { /* SW not available */ });
+        }
     </script>
 
-    <script src="js/forms.js?v=20260317"></script>
-    <script src="js/navigation.js?v=20260317"></script>
-    <script src="js/inline-common.js?v=20260317"></script>
-    <script src="js/darkmode.js?v=20260317"></script>
-    <script src="js/main.js?v=20260317"></script>
-    <script src="js/performance.js?v=20260317"></script>
+    <script src="js/forms.js?v=20260318"></script>
+    <script src="js/navigation.js?v=20260318"></script>
+    <script src="js/inline-common.js?v=20260318"></script>
+    <script src="js/darkmode.js?v=20260318"></script>
+    <script src="js/main.js?v=20260318"></script>
+    <script src="js/performance.js?v=20260318"></script>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative">
+            <button onclick="document.getElementById('login-modal').classList.add('hidden')"
+                class="absolute top-4 right-4 size-8 flex items-center justify-center rounded-full hover:bg-border-light transition-colors">
+                <span class="material-symbols-outlined text-text-secondary">close</span>
+            </button>
+            <div class="text-center mb-6">
+                <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">login</span>
+                </div>
+                <h2 class="font-serif text-2xl font-bold text-text-main">Welcome Back</h2>
+                <p class="text-text-secondary text-sm mt-2">Sign in to access your account</p>
+            </div>
+            <form id="login-form" class="space-y-4">
+                <div id="login-error" class="hidden bg-red-100 text-red-600 px-4 py-3 rounded-lg text-sm"></div>
+                <div>
+                    <label class="block text-sm font-semibold text-text-main mb-2" for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" required placeholder="you@example.com"
+                        class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-text-main mb-2" for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required placeholder="••••••••"
+                        class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                </div>
+                <button type="submit"
+                    class="w-full h-12 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">login</span>
+                    Sign In
+                </button>
+            </form>
+            <div class="flex items-center gap-4 my-6">
+                <div class="flex-1 h-px bg-border-light"></div>
+                <span class="text-xs text-text-secondary uppercase tracking-wider">New here?</span>
+                <div class="flex-1 h-px bg-border-light"></div>
+            </div>
+            <a href="signup.html"
+                class="w-full h-12 flex items-center justify-center gap-2 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary/10 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">person_add</span>
+                Create an Account
+            </a>
+        </div>
+    </div>
 </body>
 
 </html>
