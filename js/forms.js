@@ -98,14 +98,28 @@ const FormHandler = {
             'text/plain'
         ];
 
+        // Build a friendly format list from allowedTypes for error messages
+        const mimeToFriendly = {
+            'image/jpeg': 'JPEG', 'image/png': 'PNG', 'image/gif': 'GIF',
+            'image/webp': 'WebP', 'image/svg+xml': 'SVG',
+            'video/mp4': 'MP4', 'video/webm': 'WebM',
+            'video/quicktime': 'MOV', 'video/x-msvideo': 'AVI',
+            'audio/mpeg': 'MP3', 'audio/wav': 'WAV', 'audio/ogg': 'OGG',
+            'audio/mp4': 'M4A', 'audio/webm': 'WebM Audio',
+            'application/pdf': 'PDF', 'application/msword': 'DOC',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'DOCX',
+            'text/plain': 'TXT'
+        };
+        const friendlyFormats = [...new Set(allowedTypes.map(t => mimeToFriendly[t] || t))].join(', ');
+
         const uploadedIds = [];
 
         for (const file of files) {
             // Validate file type (MIME type) - security measure
             if (!allowedTypes.includes(file.type)) {
-                console.warn(`File "${file.name}" has invalid type "${file.type}". Allowed: jpeg, png, gif, webp, svg`);
+                console.warn(`File "${file.name}" has invalid type "${file.type}". Allowed: ${friendlyFormats}`);
                 if (typeof UI !== 'undefined' && UI.showToast) {
-                    UI.showToast(`File "${file.name}" has an invalid format. Allowed: JPEG, PNG, GIF, WebP, SVG`, 'warning');
+                    UI.showToast(`File "${file.name}" has an invalid format. Allowed: ${friendlyFormats}`, 'warning');
                 }
                 continue;
             }

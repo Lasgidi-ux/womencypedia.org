@@ -74,25 +74,56 @@
 
 # Block sensitive file types by name (NOT by extension broadly)
 # This avoids blocking manifest.json and locale .json files
+# Using Apache 2.2/2.4 dual-compatible syntax for GoDaddy shared hosting
 <FilesMatch "^\.env">
-    Require all denied
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 <FilesMatch "^\.git">
-    Require all denied
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 <FilesMatch "^(package\.json|package-lock\.json)$">
-    Require all denied
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 <FilesMatch "^(tailwind\.config\.js|\.gitignore)$">
-    Require all denied
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # Block sensitive extensions that have no legitimate web use
 <FilesMatch "\.(sql|bak|orig|tmp|log)$">
-    Require all denied
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # Enable GZIP compression

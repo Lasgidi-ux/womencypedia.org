@@ -609,6 +609,7 @@
                             <div id="dropZone" class="relative border-2 border-dashed border-border-light rounded-xl p-8 text-center transition-all hover:border-primary/50 hover:bg-primary/3 cursor-pointer">
                                 <input type="file" id="mediaUpload" name="mediaUpload" multiple
                                     accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt"
+                                    aria-label="Upload media files: images, videos, audio, or documents. Maximum 10MB per file, up to 5 files."
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
                                 <div class="pointer-events-none">
                                     <span class="material-symbols-outlined text-primary/40 text-5xl mb-3 block">cloud_upload</span>
@@ -883,15 +884,34 @@
             'text/plain': { icon: 'article', label: 'Text' }
         };
 
+        // Track blob URLs for cleanup to prevent memory leaks
+        let activeBlobUrls = [];
+
+        // Escape HTML to prevent XSS from user-controlled filenames
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
         function formatFileSize(bytes) {
             if (bytes < 1024) return bytes + ' B';
             if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
             return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
         }
 
+        // Revoke all tracked blob URLs
+        function revokeAllBlobUrls() {
+            activeBlobUrls.forEach(url => URL.revokeObjectURL(url));
+            activeBlobUrls = [];
+        }
+
         function renderFilePreviews() {
             const list = document.getElementById('filePreviewList');
             if (!list) return;
+
+            // Revoke previous blob URLs before re-rendering
+            revokeAllBlobUrls();
 
             if (selectedFiles.length === 0) {
                 list.classList.add('hidden');
@@ -903,9 +923,15 @@
             list.innerHTML = selectedFiles.map((file, idx) => {
                 const typeInfo = ALLOWED_TYPES[file.type] || { icon: 'insert_drive_file', label: 'File' };
                 const isImage = file.type.startsWith('image/');
-                const thumbHtml = isImage
-                    ? `<img src="${URL.createObjectURL(file)}" alt="${file.name}" class="w-10 h-10 rounded object-cover" />`
-                    : `<span class="material-symbols-outlined text-primary text-2xl">${typeInfo.icon}</span>`;
+                const safeName = escapeHtml(file.name);
+                let thumbHtml;
+                if (isImage) {
+                    const blobUrl = URL.createObjectURL(file);
+                    activeBlobUrls.push(blobUrl);
+                    thumbHtml = `<img src="${blobUrl}" alt="${safeName}" class="w-10 h-10 rounded object-cover" />`;
+                } else {
+                    thumbHtml = `<span class="material-symbols-outlined text-primary text-2xl">${typeInfo.icon}</span>`;
+                }
 
                 return `
                     <div class="flex items-center justify-between p-3 bg-white border border-border-light rounded-lg">
@@ -914,19 +940,22 @@
                                 ${thumbHtml}
                             </div>
                             <div class="min-w-0">
-                                <p class="text-sm font-medium text-text-main truncate">${file.name}</p>
+                                <p class="text-sm font-medium text-text-main truncate">${safeName}</p>
                                 <p class="text-xs text-text-secondary">${typeInfo.label} • ${formatFileSize(file.size)}</p>
                             </div>
                         </div>
                         <button type="button" onclick="removeFile(${idx})"
                             class="flex-shrink-0 size-8 flex items-center justify-center rounded-full hover:bg-red-50 transition-colors text-text-secondary hover:text-red-500"
-                            aria-label="Remove file">
+                            aria-label="Remove ${safeName}">
                             <span class="material-symbols-outlined text-lg">close</span>
                         </button>
                     </div>
                 `;
             }).join('');
         }
+
+        // Cleanup blob URLs on page unload
+        window.addEventListener('beforeunload', revokeAllBlobUrls);
 
         function addFiles(newFiles) {
             for (const file of newFiles) {
