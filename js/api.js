@@ -17,7 +17,10 @@ class APIError extends Error {
 }
 
 const API = {
-    baseURL: "https://womencypedia-cms.onrender.com",
+    // Use CONFIG for dynamic base URL to match environment configuration
+    get baseURL() {
+        return CONFIG?.API_BASE_URL || "https://womencypedia-cms.onrender.com";
+    },
 
     // ============================================
     // CORE SUBMIT STORY - FIXED & WORKING
