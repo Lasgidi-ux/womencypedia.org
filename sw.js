@@ -91,48 +91,16 @@ self.addEventListener('fetch', (event) => {
     // Skip GoDaddy security and external CDN requests that may violate CSP
     if (requestUrl.includes('secureserver.net') || requestUrl.includes('csp.')) return;
 
-    // Skip external font and tile requests - let browser handle them directly
-    if (requestUrl.includes('fonts.gstatic.com') || requestUrl.includes('tile.openstreetmap.org')) return;
-
-    // Special handling for font requests - use network-first strategy
-    const isFontRequest = requestUrl.includes('fonts.gstatic.com') ||
+    // Skip external font, tile, and Google fonts requests - let browser handle them directly
+    const isExternalResource =
+        requestUrl.includes('fonts.gstatic.com') ||
         requestUrl.includes('fonts.googleapis.com') ||
-        requestUrl.match(/\.(woff2?|ttf|otf|eot)$/i);
+        requestUrl.includes('tile.openstreetmap.org') ||
+        /\.(?:woff2?|ttf|otf|eot)(?:[?#]|$)/i.test(requestUrl);
 
-    if (isFontRequest) {
-        event.respondWith(
-            // Network-first for fonts: try network first, fallback to cache
-            fetch(event.request)
-                .then(response => {
-                    // Clone the response for caching
-                    if (response && response.ok) {
-                        const responseClone = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then(cache => {
-                                // Cache both same-origin (basic) and cross-origin (cors) font responses
-                                if (response.type === 'basic' || response.type === 'cors' || response.type === 'opaque') {
-                                    cache.put(event.request, responseClone);
-                                }
-                            })
-                            .catch(() => { /* ignore cache errors */ });
-                    }
-                    return response;
-                })
-                .catch(() => {
-                    // Fallback to cache if network fails
-                    return caches.match(event.request)
-                        .then(cachedResponse => {
-                            if (cachedResponse) {
-                                return cachedResponse;
-                            }
-                            // Return empty response for fonts if nothing in cache
-                            return new Response('', {
-                                status: 408,
-                                statusText: 'Offline'
-                            });
-                        });
-                })
-        );
+    if (isExternalResource) {
+        // Let browser handle these directly without service worker interference
+        // This prevents CSP violations from service worker fetch requests
         return;
     }
 
