@@ -35,84 +35,18 @@
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
-    <!-- Mobile Bottom Sheet Menu -->
-    <nav id="mobileMenu" class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
-        <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
 
-        <!-- Explore -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">Explore</h3>
-            <a href="index.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
-            <a href="browse.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
-            <a href="featured.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
-            <a href="collections.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Collections</a>
-            <a href="timelines.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
-        </div>
-
-        <!-- Registry -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">Registry</h3>
-            <a href="browse-leaders.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse Leaders</a>
-            <a href="apply-verification.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Apply for Verification</a>
-            <a href="controlled-contributions.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Submit Content</a>
-            <a href="partners.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Partners</a>
-            <a href="fellowship.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Fellowships</a>
-            <a href="reports.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Reports</a>
-        </div>
-
-        <!-- Learn -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">Learn</h3>
-            <a href="education.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
-            <a href="enterprises.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Enterprises</a>
-            <a href="research.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Research</a>
-            <a href="publications.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Publications</a>
-            <a href="resources.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Resources</a>
-        </div>
-
-        <!-- Participate -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">Participate</h3>
-            <a href="nominate.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate a Woman</a>
-            <a href="share-story.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share Your Story</a>
-            <a href="contributor-guidelines.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Donate</a>
-        </div>
-
-        <!-- About -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">About</h3>
-            <a href="about.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About Us</a>
-<a href="contributors.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
-            <a href="methodology.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
-            <a href="editorial-standards.html" class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial Standards</a>
-            <a href="contact.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
-        </div>
-
-        <!-- CTA -->
-        <div class="px-6 pb-8">
-            <a href="share-story.html" class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">Share Your Story</a>
-        </div>
-    </nav>
-    <!-- Mobile Menu Overlay -->
-    <div id="menuOverlay" class="overlay hidden fixed inset-0 z-[140] bg-black/40" onclick="toggleMenu()"></div>
-    <!-- Mobile Search Sheet -->
-    <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
-        <div class="flex items-center gap-3">
-            <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
-                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                <input type="search" placeholder="Search women, cultures, eras…" class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
-            </div>
-            <button onclick="toggleSearch()" class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-    </div>
     <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
         Skip to main content
     </a>
+
+    
+
+    
+
+    
 
     <!-- Header -->
     <header id="navbar"
@@ -132,7 +66,7 @@
                         <!-- Explore Dropdown -->
                         <div class="relative group">
                             <button
-                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
                                 Explore
                                 <span
                                     class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
@@ -151,6 +85,38 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a>
                                     <a href="timelines.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Registry Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Registry
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[220px]">
+                                    <a href="browse-leaders.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse
+                                        Leaders</a>
+                                    <a href="apply-verification.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Apply
+                                        for Verification</a>
+                                    <a href="controlled-contributions.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Submit
+                                        Content</a>
+                                    <div class="border-t border-border-light my-1"></div>
+                                    <a href="partners.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Partners</a>
+                                    <a href="fellowship.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Fellowships</a>
+                                    <a href="reports.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Reports</a>
                                 </div>
                             </div>
                         </div>
@@ -224,7 +190,7 @@
                                     <a href="about.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
                                         Us</a>
-<a href="contributors.html"
+                                    <a href="contributors.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
                                     <a href="methodology.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
@@ -239,13 +205,15 @@
 
                         <!-- Actions -->
                         <div class="flex items-center gap-3 lg:gap-6">
+                            <!-- Language Switcher -->
+                            <div id="language-switcher" class="hidden lg:block"></div>
                             <!-- Desktop Search -->
                             <div
                                 class="hidden md:flex items-center bg-white/50  border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
                                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                                 <input
                                     class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                                    placeholder="Search the archive..." type="search" />
+                                    placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
                             </div>
 
                             <!-- Mobile Search Button -->
@@ -257,7 +225,6 @@
 
                             <!-- Desktop Actions -->
                             <div class="hidden sm:flex items-center gap-4">
-                                <div id="language-switcher"></div>
                                 <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
                                     href="donate.html" data-i18n="donate">Donate</a>
                                 <button data-auth="signin"
@@ -265,7 +232,7 @@
                                     data-i18n="signIn">
                                     Sign In
                                 </button>
-                                <div data-auth="signout" class="hidden flex items-center gap-3">
+                                <div data-auth="signout" class="flex items-center gap-3" style="display: none;">
                                     <span data-auth="user-info" class="text-sm text-text-secondary"></span>
                                     <button
                                         class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
@@ -285,7 +252,6 @@
             </div>
     </header>
 
-    <!-- Main Content -->
     <main id="main-content" class="max-w-[1440px] mx-auto px-4 md:px-6 py-12">
         <div class="max-w-3xl mx-auto">
             <!-- Header -->
@@ -657,6 +623,7 @@
     <script src="js/performance.js"></script>
     <script src="js/i18n.js"></script>
 <script src="js/navigation.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>

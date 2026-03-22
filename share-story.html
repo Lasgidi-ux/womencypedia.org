@@ -2,9 +2,7 @@
 <html class="light" lang="en">
 
 <head>
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'sha256-0UNQ+R0mL2azAdirbGwW4Wb0p55MLpy4rRrjuVe9eZI=' 'sha256-/Ai9HPaKKSF9eWNIisU9qZ6YCs/IufiOYjOpkLNoK3I=' 'sha256-eQIH+snrSGqZmXtT03BtIZYUYpXtEmVrbEOio9NzYLY=' 'sha256-bWUkoYfSDlhjVbd9mLJ+GreJXp659BjWze1kUsubc34=' 'sha256-iN7wpJdxHlpujRppkOA8N0+Mzp0ZqZr3lCtxM00Y63c=' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://cdn.tailwindcss.com https://app.launchdarkly.com https://events.launchdarkly.com https://img1.wsimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://fonts.gstatic.com; img-src 'self' data: blob: https: http:; font-src 'self' https://fonts.gstatic.com data: https://fonts.googleapis.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://img1.wsimg.com https://d3js.org https://*.onrender.com https://fonts.googleapis.com https://fonts.gstatic.com https://app.launchdarkly.com https://events.launchdarkly.com https://csp.secureserver.net https://*.secureserver.net https://*.tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
-    <meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -13,14 +11,7 @@
         content="Share your story of resilience, courage, and triumph. Help Womencypedia preserve women's stories that history overlooked.">
 
     <!-- Auth state pre-check -->
-    <script>
-        (function () {
-            const token = localStorage.getItem('womencypedia_access_token');
-            if (token && document.body) {
-                document.body.classList.add('authenticated');
-            }
-        })();
-    </script>
+    <script src="js/share-story-inline-1.js"></script>
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -369,146 +360,223 @@
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
+
     <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
         Skip to main content
     </a>
 
-    <!-- Mobile Search Sheet -->
-    <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
-        <div class="flex items-center gap-3">
-            <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
-                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
-                    data-i18n-placeholder="search">
-            </div>
-            <button onclick="toggleSearch()"
-                class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-    </div>
+    
 
-    <!-- Mobile Menu Overlay -->
-    <div id="menuOverlay" class="overlay hidden fixed inset-0 z-[140] bg-black/40" onclick="toggleMenu()"></div>
+    
 
-    <!-- Mobile Bottom Sheet Menu -->
-    <nav id="mobileMenu"
-        class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
-        <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                Explore</h3>
-            <a href="index.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
-            <a href="browse.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
-            <a href="featured.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
-            <a href="collections.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Collections</a>
-            <a href="timelines.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
-        </div>
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                Participate</h3>
-            <a href="nominate.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
-                a Woman</a>
-            <a href="share-story.html"
-                class="block py-3 text-base font-medium text-primary border-b border-border-light/50 font-bold">Share
-                Your Story</a>
-            <a href="contributor-guidelines.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
-                Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary"
-                data-i18n="donate">Donate</a>
-        </div>
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                About</h3>
-            <a href="about.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
-                Us</a>
-            <a href="contributors.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
-            <a href="methodology.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
-            <a href="editorial-standards.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial
-                Standards</a>
-            <a href="contact.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
-        </div>
-        <div class="px-6 pb-8">
-            <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                <span data-i18n="shareYourStory">Share Your Story</span>
-            </a>
-        </div>
-    </nav>
+    
 
     <!-- Header -->
-    <header class="w-full border-b border-divider bg-background-cream sticky top-0 z-50">
+    <header id="navbar"
+        class="w-full border-b border-divider bg-background-cream  sticky top-0 z-50 transition-transform duration-300">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Logo -->
                 <div class="flex items-center gap-8 lg:gap-12">
                     <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                         <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
                         <span
                             class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
-                    <nav class="hidden lg:flex items-center gap-6"></nav>
-                </div>
-                <div class="flex items-center gap-3 lg:gap-6">
-                    <div
-                        class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
-                        <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                        <input
-                            class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                            placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
-                    </div>
-                    <button
-                        class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
-                        aria-label="Open search">
-                        <span class="material-symbols-outlined text-accent-teal">search</span>
-                    </button>
-                    <div class="hidden sm:flex items-center gap-4">
-                        <div id="language-switcher"></div>
-                        <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html" data-i18n="donate">Donate</a>
-                        <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
-                            data-i18n="signIn">Sign In</button>
-                        <div data-auth="signout" class="hidden flex items-center gap-3">
-                            <a href="profile.html"
-                                class="flex items-center gap-2 text-sm text-text-secondary hover:text-primary">
-                                <span class="material-symbols-outlined text-[18px]">account_circle</span>
-                                <span data-auth="user-info"></span>
-                            </a>
-                            <button onclick="handleLogout()"
-                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
-                                Sign Out
+
+                    <!-- Desktop Nav -->
+                    <nav class="hidden lg:flex items-center gap-6">
+                        <!-- Explore Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Explore
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="index.html"
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Home</a>
+                                    <a href="browse.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a>
+                                    <a href="featured.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
+                                    <a href="collections.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a>
+                                    <a href="timelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Registry Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Registry
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[220px]">
+                                    <a href="browse-leaders.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse
+                                        Leaders</a>
+                                    <a href="apply-verification.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Apply
+                                        for Verification</a>
+                                    <a href="controlled-contributions.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Submit
+                                        Content</a>
+                                    <div class="border-t border-border-light my-1"></div>
+                                    <a href="partners.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Partners</a>
+                                    <a href="fellowship.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Fellowships</a>
+                                    <a href="reports.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Reports</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Learn Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Learn
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="education.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a>
+                                    <a href="enterprises.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a>
+                                    <a href="research.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a>
+                                    <a href="publications.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a>
+                                    <a href="resources.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Participate Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Participate
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="nominate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
+                                        a Woman</a>
+                                    <a href="share-story.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
+                                        Your Story</a>
+                                    <a href="contributor-guidelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
+                                        Guidelines</a>
+                                    <a href="donate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="donate">Donate</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- About Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                About
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="about.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
+                                        Us</a>
+                                    <a href="contributors.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
+                                    <a href="methodology.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
+                                    <a href="editorial-standards.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
+                                        Standards</a>
+                                    <a href="contact.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex items-center gap-3 lg:gap-6">
+                            <!-- Language Switcher -->
+                            <div id="language-switcher" class="hidden lg:block"></div>
+                            <!-- Desktop Search -->
+                            <div
+                                class="hidden md:flex items-center bg-white/50  border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
+                                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
+                                <input
+                                    class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
+                                    placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
+                            </div>
+
+                            <!-- Mobile Search Button -->
+                            <button onclick="toggleSearch()"
+                                class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
+                                aria-label="Open search">
+                                <span class="material-symbols-outlined text-accent-teal">search</span>
+                            </button>
+
+                            <!-- Desktop Actions -->
+                            <div class="hidden sm:flex items-center gap-4">
+                                <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
+                                    href="donate.html" data-i18n="donate">Donate</a>
+                                <button data-auth="signin"
+                                    class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                    data-i18n="signIn">
+                                    Sign In
+                                </button>
+                                <div data-auth="signout" class="flex items-center gap-3" style="display: none;">
+                                    <span data-auth="user-info" class="text-sm text-text-secondary"></span>
+                                    <button
+                                        class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                                        Sign Out
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Menu Button -->
+                            <button onclick="toggleMenu()"
+                                class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
+                                aria-label="Open menu">
+                                <span class="material-symbols-outlined text-text-main">menu</span>
                             </button>
                         </div>
-                    </div>
-                    <button onclick="toggleMenu()"
-                        class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
-                        aria-label="Open menu">
-                        <span class="material-symbols-outlined text-text-main">menu</span>
-                    </button>
                 </div>
             </div>
-        </div>
     </header>
 
-    <!-- Main Content -->
     <main id="main-content" role="main">
 
         <!-- Hero Section -->
@@ -945,369 +1013,7 @@
     <script src="js/strapi-api.js?v=20260318"></script>
     <script src="js/api.js?v=20260318"></script>
 
-    <script>
-        // ==================== SHARE STORY FORM LOGIC ====================
-        // Always use production Strapi URL — never rely on CONFIG which may be localhost
-        const STRAPI_URL = 'https://womencypedia-cms.onrender.com';
-
-        // Mark form as handled so forms.js won't add a second submit handler
-        window.__storyFormHandledByPage = true;
-
-        // ==================== MEDIA UPLOAD SYSTEM ====================
-        const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-        const MAX_FILES = 5;
-        let selectedFiles = [];
-
-        const ALLOWED_TYPES = {
-            'image/jpeg': { icon: 'image', label: 'Image' },
-            'image/png': { icon: 'image', label: 'Image' },
-            'image/gif': { icon: 'gif_box', label: 'GIF' },
-            'image/webp': { icon: 'image', label: 'Image' },
-            'image/svg+xml': { icon: 'image', label: 'SVG' },
-            'video/mp4': { icon: 'videocam', label: 'Video' },
-            'video/webm': { icon: 'videocam', label: 'Video' },
-            'video/quicktime': { icon: 'videocam', label: 'Video' },
-            'video/x-msvideo': { icon: 'videocam', label: 'Video' },
-            'audio/mpeg': { icon: 'audio_file', label: 'Audio' },
-            'audio/wav': { icon: 'audio_file', label: 'Audio' },
-            'audio/ogg': { icon: 'audio_file', label: 'Audio' },
-            'audio/mp4': { icon: 'audio_file', label: 'Audio' },
-            'audio/webm': { icon: 'audio_file', label: 'Audio' },
-            'application/pdf': { icon: 'picture_as_pdf', label: 'PDF' },
-            'application/msword': { icon: 'description', label: 'Document' },
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': { icon: 'description', label: 'Document' },
-            'text/plain': { icon: 'article', label: 'Text' }
-        };
-
-        // Track blob URLs for cleanup to prevent memory leaks
-        let activeBlobUrls = [];
-
-        // Escape HTML to prevent XSS from user-controlled filenames
-        function escapeHtml(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        function formatFileSize(bytes) {
-            if (bytes < 1024) return bytes + ' B';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-        }
-
-        // Revoke all tracked blob URLs
-        function revokeAllBlobUrls() {
-            activeBlobUrls.forEach(url => URL.revokeObjectURL(url));
-            activeBlobUrls = [];
-        }
-
-        function renderFilePreviews() {
-            const list = document.getElementById('filePreviewList');
-            if (!list) return;
-
-            // Revoke previous blob URLs before re-rendering
-            revokeAllBlobUrls();
-
-            if (selectedFiles.length === 0) {
-                list.classList.add('hidden');
-                list.innerHTML = '';
-                return;
-            }
-
-            list.classList.remove('hidden');
-            list.innerHTML = selectedFiles.map((file, idx) => {
-                const typeInfo = ALLOWED_TYPES[file.type] || { icon: 'insert_drive_file', label: 'File' };
-                const isImage = file.type.startsWith('image/');
-                const safeName = escapeHtml(file.name);
-                let thumbHtml;
-                if (isImage) {
-                    const blobUrl = URL.createObjectURL(file);
-                    activeBlobUrls.push(blobUrl);
-                    thumbHtml = `<img src="${blobUrl}" alt="${safeName}" class="w-10 h-10 rounded object-cover" />`;
-                } else {
-                    thumbHtml = `<span class="material-symbols-outlined text-primary text-2xl">${typeInfo.icon}</span>`;
-                }
-
-                return `
-                    <div class="flex items-center justify-between p-3 bg-white border border-border-light rounded-lg">
-                        <div class="flex items-center gap-3 min-w-0">
-                            <div class="flex-shrink-0 w-10 h-10 rounded bg-primary/5 flex items-center justify-center overflow-hidden">
-                                ${thumbHtml}
-                            </div>
-                            <div class="min-w-0">
-                                <p class="text-sm font-medium text-text-main truncate">${safeName}</p>
-                                <p class="text-xs text-text-secondary">${typeInfo.label} • ${formatFileSize(file.size)}</p>
-                            </div>
-                        </div>
-                        <button type="button" onclick="removeFile(${idx})"
-                            class="flex-shrink-0 size-8 flex items-center justify-center rounded-full hover:bg-red-50 transition-colors text-text-secondary hover:text-red-500"
-                            aria-label="Remove ${safeName}">
-                            <span class="material-symbols-outlined text-lg">close</span>
-                        </button>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // Cleanup blob URLs on page unload
-        window.addEventListener('beforeunload', revokeAllBlobUrls);
-
-        function addFiles(newFiles) {
-            for (const file of newFiles) {
-                if (selectedFiles.length >= MAX_FILES) {
-                    showToast(`Maximum ${MAX_FILES} files allowed.`, 'error');
-                    break;
-                }
-                if (!ALLOWED_TYPES[file.type]) {
-                    showToast(`"${file.name}" — unsupported file type.`, 'error');
-                    continue;
-                }
-                if (file.size > MAX_FILE_SIZE) {
-                    showToast(`"${file.name}" exceeds 10MB limit.`, 'error');
-                    continue;
-                }
-                // Prevent duplicates
-                if (selectedFiles.some(f => f.name === file.name && f.size === file.size)) continue;
-                selectedFiles.push(file);
-            }
-            renderFilePreviews();
-        }
-
-        function removeFile(index) {
-            selectedFiles.splice(index, 1);
-            renderFilePreviews();
-        }
-
-        // File input handler
-        const mediaInput = document.getElementById('mediaUpload');
-        if (mediaInput) {
-            mediaInput.addEventListener('change', function () {
-                addFiles(Array.from(this.files));
-                this.value = ''; // clear so same file can be re-selected
-            });
-        }
-
-        // Drag & Drop
-        const dropZone = document.getElementById('dropZone');
-        if (dropZone) {
-            ['dragenter', 'dragover'].forEach(evt => {
-                dropZone.addEventListener(evt, function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.classList.add('border-primary', 'bg-primary/5');
-                });
-            });
-            ['dragleave', 'drop'].forEach(evt => {
-                dropZone.addEventListener(evt, function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.classList.remove('border-primary', 'bg-primary/5');
-                });
-            });
-            dropZone.addEventListener('drop', function (e) {
-                if (e.dataTransfer && e.dataTransfer.files) {
-                    addFiles(Array.from(e.dataTransfer.files));
-                }
-            });
-        }
-
-        // Upload files to Strapi media library
-        async function uploadMediaToStrapi(files, token) {
-            const uploadedIds = [];
-            for (const file of files) {
-                const fd = new FormData();
-                fd.append('files', file);
-                const headers = {};
-                if (token) headers['Authorization'] = `Bearer ${token}`;
-
-                try {
-                    const res = await fetch(`${STRAPI_URL}/api/upload`, {
-                        method: 'POST',
-                        headers,
-                        body: fd
-                    });
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data && data.length > 0) uploadedIds.push(data[0].id);
-                    } else {
-                        console.warn(`[MediaUpload] Failed to upload "${file.name}": ${res.status}`);
-                    }
-                } catch (err) {
-                    console.warn(`[MediaUpload] Error uploading "${file.name}":`, err);
-                }
-            }
-            return uploadedIds;
-        }
-
-        // ==================== WORD COUNTER ====================
-        const storyTextarea = document.getElementById('story');
-        const wordCounter = document.getElementById('wordCounter');
-
-        if (storyTextarea && wordCounter) {
-            storyTextarea.addEventListener('input', function () {
-                const words = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
-                wordCounter.textContent = `${words} word${words !== 1 ? 's' : ''}`;
-
-                if (words >= 500) {
-                    wordCounter.className = 'word-counter good';
-                    wordCounter.textContent += ' ✓ Great length!';
-                } else if (words >= 200) {
-                    wordCounter.className = 'word-counter warning';
-                    wordCounter.textContent += ` — ${500 - words} more recommended`;
-                } else {
-                    wordCounter.className = 'word-counter';
-                }
-            });
-        }
-
-        // ==================== TOAST NOTIFICATION ====================
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            if (!toast) return;
-            toast.textContent = message;
-            toast.className = `toast ${type} show`;
-            setTimeout(() => { toast.classList.remove('show'); }, 5000);
-        }
-
-        // ==================== FORM SUBMISSION ====================
-        const storyForm = document.getElementById('story-form');
-
-        if (storyForm) {
-            storyForm.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                e.stopImmediatePropagation(); // prevent forms.js from also handling this
-
-                const submitBtn = document.getElementById('submitBtn');
-                const originalHTML = submitBtn.innerHTML;
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="material-symbols-outlined text-[22px] animate-spin">progress_activity</span> Submitting...';
-
-                try {
-                    // Collect form data
-                    const formData = {
-                        storyType: document.querySelector('input[name="storyType"]:checked')?.value || 'myself',
-                        subjectName: document.getElementById('subjectName').value.trim(),
-                        relationship: document.getElementById('relationship').value.trim(),
-                        storyRegion: document.getElementById('storyRegion').value.trim(),
-                        theme: document.getElementById('theme').value,
-                        story: document.getElementById('story').value.trim(),
-                        lessons: document.getElementById('lessons').value.trim(),
-                        contactName: document.getElementById('contactName').value.trim(),
-                        contactEmail: document.getElementById('contactEmail').value.trim(),
-                        permissionGranted: document.querySelector('input[name="permission"]').checked
-                    };
-
-                    // Validate required fields
-                    if (!formData.subjectName || !formData.storyRegion || !formData.theme || !formData.story || !formData.contactName || !formData.contactEmail) {
-                        throw new Error('Please fill in all required fields.');
-                    }
-
-                    if (!formData.permissionGranted) {
-                        throw new Error('Please confirm the permission checkbox before submitting.');
-                    }
-
-                    // Upload media files first (if any)
-                    let mediaFileIds = [];
-                    if (selectedFiles.length > 0) {
-                        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[22px] animate-spin">progress_activity</span> Uploading media...';
-                        const token = localStorage.getItem('womencypedia_access_token');
-                        try {
-                            mediaFileIds = await uploadMediaToStrapi(selectedFiles, token);
-                            console.log('[ShareStory] Uploaded media IDs:', mediaFileIds);
-                        } catch (uploadErr) {
-                            console.warn('[ShareStory] Media upload failed, continuing without:', uploadErr);
-                        }
-                        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[22px] animate-spin">progress_activity</span> Saving story...';
-                    }
-
-                    // Build Strapi payload
-                    const payload = {
-                        data: {
-                            title: formData.subjectName ? `Story: ${formData.subjectName}` : 'Untitled Story',
-                            type: 'story',
-                            content: formData.story,
-                            storyType: formData.storyType,
-                            subjectName: formData.subjectName,
-                            relationship: formData.relationship,
-                            region: formData.storyRegion,
-                            theme: formData.theme,
-                            lessons: formData.lessons,
-                            contactName: formData.contactName,
-                            contactEmail: formData.contactEmail,
-                            permissionGranted: formData.permissionGranted,
-                            status: 'draft'
-                        }
-                    };
-
-                    // Attach media if uploaded
-                    if (mediaFileIds.length > 0) {
-                        payload.data.media = mediaFileIds;
-                    }
-
-                    // Always use STRAPI_URL — never CONFIG.API_BASE_URL (may be localhost)
-                    console.log('[ShareStory] Submitting to:', `${STRAPI_URL}/api/contributions`);
-                    const token = localStorage.getItem('womencypedia_access_token');
-
-                    const response = await fetch(`${STRAPI_URL}/api/contributions`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            ...(token && { Authorization: `Bearer ${token}` })
-                        },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        const errData = await response.json().catch(() => ({}));
-                        const msg = errData?.error?.message || errData?.message || `Server error: ${response.status}`;
-                        throw new Error(msg);
-                    }
-
-                    const result = await response.json();
-                    console.log('✅ Story submitted successfully:', result);
-
-                    // Build success message
-                    let successMsg = '✅ Your story has been submitted successfully! Thank you.';
-                    if (selectedFiles.length > 0 && mediaFileIds.length === 0) {
-                        successMsg += ' (Media upload was skipped — your story text was saved.)';
-                    } else if (mediaFileIds.length > 0) {
-                        successMsg += ` (${mediaFileIds.length} file${mediaFileIds.length > 1 ? 's' : ''} attached.)`;
-                    }
-                    showToast(successMsg, 'success');
-
-                    storyForm.reset();
-
-                    // Re-check the default radio
-                    const defaultRadio = document.querySelector('input[name="storyType"][value="myself"]');
-                    if (defaultRadio) defaultRadio.checked = true;
-
-                    // Reset word counter
-                    if (wordCounter) {
-                        wordCounter.textContent = '0 words';
-                        wordCounter.className = 'word-counter';
-                    }
-
-                    // Reset file list
-                    selectedFiles = [];
-                    renderFilePreviews();
-
-                } catch (error) {
-                    console.error('❌ Story submission failed:', error);
-                    showToast('❌ ' + (error.message || 'Failed to submit story. Please try again.'), 'error');
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalHTML;
-                }
-            });
-        }
-
-        // Service Worker registration
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').then(function (reg) {
-                console.log('SW registered:', reg.scope);
-            }).catch(function () { /* SW not available */ });
-        }
-    </script>
+    <script src="js/share-story-inline-2.js"></script>
 
     <script src="js/forms.js?v=20260318"></script>
     <script src="js/navigation.js?v=20260318"></script>
@@ -1360,6 +1066,7 @@
             </a>
         </div>
     </div>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>

@@ -696,6 +696,9 @@ const I18N = {
         // Translate static UI strings on the page
         this.translatePage();
 
+        // Setup MutationObserver to watch for dynamically added elements
+        this._setupMutationObserver();
+
         console.log(`[i18n] Locale set to: ${this.currentLocale}`);
     },
 
@@ -763,6 +766,12 @@ const I18N = {
 
     /** Loaded locale JSON data (from locales/*.json files) */
     _localeData: {},
+
+    /** Timeout for debounced translation */
+    _translateTimeout: null,
+
+    /** MutationObserver instance */
+    _mutationObserver: null,
 
     /**
      * Load locale JSON file from locales/ directory.
@@ -872,6 +881,195 @@ const I18N = {
                 el.setAttribute('title', this.t(key));
             }
         });
+
+        // Auto-translate common UI patterns without explicit data-i18n attributes
+        this._autoTranslateCommonElements();
+    },
+
+    /**
+     * Automatically translate common UI elements that may not have data-i18n attributes
+     * This provides fallback translation for navigation, buttons, and common text
+     */
+    _autoTranslateCommonElements() {
+        // Translate navigation links by their href or text content
+        document.querySelectorAll('nav a, header a, .nav-link').forEach(link => {
+            const text = link.textContent.trim();
+            const href = link.getAttribute('href') || '';
+
+            // Map common navigation texts to translation keys
+            const navTextMap = {
+                'Home': 'home',
+                'Browse': 'browse',
+                'Explore': 'explore',
+                'Learn': 'learn',
+                'Participate': 'participate',
+                'About': 'about',
+                'Donate': 'donate',
+                'Sign In': 'signIn',
+                'Sign Out': 'signOut',
+                'My Profile': 'myProfile',
+                'Profile': 'profile',
+                'Settings': 'settings',
+                'Admin': 'admin',
+                'Featured': 'featured',
+                'Collections': 'collections',
+                'Timelines': 'timelines',
+                'Education': 'education',
+                'Registry': 'registry',
+                'Enterprises': 'enterprises',
+                'Research': 'research',
+                'Publications': 'publications',
+                'Resources': 'resources',
+                'Contact': 'contact',
+                'About Us': 'aboutUs',
+                'Founders': 'founders',
+                'Contributors': 'contributors',
+                'Methodology': 'methodology',
+                'Editorial Standards': 'editorialStandards',
+                'Nominate a Woman': 'nominateWoman',
+                'Share Your Story': 'shareYourStory',
+                'Contributor Guidelines': 'contributorGuidelines',
+                'Browse Leaders': 'browseLeaders',
+                'Apply for Verification': 'applyVerification',
+                'Controlled Contributions': 'controlledContributions',
+                'Partners': 'partners',
+                'Fellowship': 'fellowship',
+                'Reports': 'reports',
+            };
+
+            // Check if text matches a known navigation item
+            for (const [englishText, translationKey] of Object.entries(navTextMap)) {
+                if (text === englishText && this._hasTranslation(translationKey)) {
+                    link.textContent = this.t(translationKey);
+                    break;
+                }
+            }
+        });
+
+        // Translate buttons by their text content
+        document.querySelectorAll('button, .btn, [role="button"]').forEach(btn => {
+            const text = btn.textContent.trim();
+
+            const buttonTextMap = {
+                'Read More': 'readMore',
+                'Learn More': 'learnMore',
+                'Explore the Archive': 'exploreArchive',
+                'Retry': 'retry',
+                'Cancel': 'cancel',
+                'Save Changes': 'saveChanges',
+                'Edit Profile': 'editProfile',
+                'Clear All': 'clearAll',
+                'Clear History': 'clearAll',
+                'Start Reading': 'readMore',
+                'Browse Biographies': 'browse',
+                'Share Your Story': 'shareYourStory',
+            };
+
+            for (const [englishText, translationKey] of Object.entries(buttonTextMap)) {
+                if (text === englishText && this._hasTranslation(translationKey)) {
+                    btn.textContent = this.t(translationKey);
+                    break;
+                }
+            }
+        });
+
+        // Translate common headings
+        document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(heading => {
+            const text = heading.textContent.trim();
+
+            const headingTextMap = {
+                'Why Womencypedia?': 'whyWomencypedia',
+                'Correcting Historical Imbalance': 'correctingImbalance',
+                'Featured Collection': 'featuredCollection',
+                'Voices of the 19th Century': 'voicesOfCentury',
+                'The Global Mission': 'globalMission',
+                'World Regions': 'worldRegions',
+                'Languages': 'languages',
+                'Historical Eras': 'historicalEras',
+                'Categories': 'categories',
+                'Quick Links': 'quickLinks',
+                'Legal': 'legal',
+                'Follow Us': 'followUs',
+                'No Reading History': 'noResults',
+                'No Saved Biographies': 'noResults',
+                'No contributions yet': 'noResults',
+                'No badges yet': 'noResults',
+            };
+
+            for (const [englishText, translationKey] of Object.entries(headingTextMap)) {
+                if (text === englishText && this._hasTranslation(translationKey)) {
+                    heading.textContent = this.t(translationKey);
+                    break;
+                }
+            }
+        });
+
+        // Translate footer content
+        document.querySelectorAll('footer p, footer span, footer div').forEach(el => {
+            const text = el.textContent.trim();
+
+            const footerTextMap = {
+                'The world\'s first interpretive encyclopedia of women.': 'footerAbout',
+                '© 2026 Womencypedia Foundation. All rights reserved.': 'copyright',
+                'Privacy Policy': 'privacyPolicy',
+                'Terms of Use': 'termsOfUse',
+            };
+
+            for (const [englishText, translationKey] of Object.entries(footerTextMap)) {
+                if (text === englishText && this._hasTranslation(translationKey)) {
+                    el.textContent = this.t(translationKey);
+                    break;
+                }
+            }
+        });
+
+        // Translate search placeholders
+        document.querySelectorAll('input[type="search"], input[placeholder*="Search"], input[placeholder*="search"]').forEach(input => {
+            const placeholder = input.getAttribute('placeholder') || '';
+            if (placeholder.includes('Search') && this._hasTranslation('search')) {
+                input.setAttribute('placeholder', this.t('search'));
+            }
+        });
+
+        // Translate loading states
+        document.querySelectorAll('[class*="loading"], [class*="spinner"]').forEach(el => {
+            if (el.textContent.trim() === 'Loading...' && this._hasTranslation('loading')) {
+                el.textContent = this.t('loading');
+            }
+        });
+    },
+
+    /**
+     * Setup MutationObserver to watch for dynamically added elements
+     * This ensures new content is translated even after initial page load
+     */
+    _setupMutationObserver() {
+        if (typeof MutationObserver === 'undefined') return;
+
+        const observer = new MutationObserver((mutations) => {
+            let shouldTranslate = false;
+
+            mutations.forEach(mutation => {
+                if (mutation.addedNodes.length > 0) {
+                    shouldTranslate = true;
+                }
+            });
+
+            if (shouldTranslate) {
+                // Debounce translation to avoid excessive calls
+                clearTimeout(this._translateTimeout);
+                this._translateTimeout = setTimeout(() => {
+                    this.translatePage();
+                }, 100);
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        this._mutationObserver = observer;
     },
 
     /**
@@ -1008,6 +1206,66 @@ const I18N = {
                 this._originalTexts[key] = el.innerHTML.trim();
             }
         });
+    },
+
+    /**
+     * Force re-translation of the entire page
+     * Useful after dynamic content is loaded
+     */
+    forceRetranslate() {
+        this.translatePage();
+    },
+
+    /**
+     * Translate a specific element
+     * @param {Element} element - The element to translate
+     */
+    translateElement(element) {
+        if (!element) return;
+
+        // Check for data-i18n attribute
+        const key = element.getAttribute('data-i18n');
+        if (key && this._hasTranslation(key)) {
+            element.textContent = this.t(key);
+        }
+
+        // Check for data-i18n-html attribute
+        const htmlKey = element.getAttribute('data-i18n-html');
+        if (htmlKey && this._hasTranslation(htmlKey)) {
+            element.innerHTML = this.t(htmlKey);
+        }
+
+        // Check for data-i18n-placeholder attribute
+        const placeholderKey = element.getAttribute('data-i18n-placeholder');
+        if (placeholderKey) {
+            element.setAttribute('placeholder', this.t(placeholderKey));
+        }
+
+        // Check for data-i18n-aria attribute
+        const ariaKey = element.getAttribute('data-i18n-aria');
+        if (ariaKey) {
+            element.setAttribute('aria-label', this.t(ariaKey));
+        }
+
+        // Check for data-i18n-title attribute
+        const titleKey = element.getAttribute('data-i18n-title');
+        if (titleKey) {
+            element.setAttribute('title', this.t(titleKey));
+        }
+    },
+
+    /**
+     * Cleanup resources (disconnect MutationObserver)
+     */
+    destroy() {
+        if (this._mutationObserver) {
+            this._mutationObserver.disconnect();
+            this._mutationObserver = null;
+        }
+        if (this._translateTimeout) {
+            clearTimeout(this._translateTimeout);
+            this._translateTimeout = null;
+        }
     }
 };
 

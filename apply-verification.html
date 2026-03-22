@@ -2,9 +2,7 @@
 <html class="light" lang="en">
 
 <head>
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-YEjdtsd2ETiLUBwblWrQc5o0ieWjc4T1izC66tBawK8=' 'sha256-DWnKb6B+zh7w8aJyXQDDyqMr+dZdPaYfH5xBYKQ+qpA=' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://cdn.tailwindcss.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: blob: https://*.tile.openstreetmap.org; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://img1.wsimg.com https://d3js.org https://*.onrender.com https://fonts.googleapis.com https://fonts.gstatic.com https://app.launchdarkly.com https://csp.secureserver.net https://*.secureserver.net https://*.tile.openstreetmap.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;">
-    <meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -13,14 +11,7 @@
         content="Apply for verification to be included in the Womencypedia Institutional Registry for Women-Led Leadership Systems.">
 
     <!-- Auth state pre-check - prevents flash of wrong auth state -->
-    <script>
-        (function () {
-            const token = localStorage.getItem('womencypedia_access_token');
-            if (token && document.body) {
-                document.body.classList.add('authenticated');
-            }
-        })();
-    </script>
+    <script src="js/apply-verification-inline-1.js"></script>
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -64,142 +55,22 @@
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
+
     <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
         Skip to main content
     </a>
 
-    <!-- Mobile Search Sheet -->
-    <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
-        <div class="flex items-center gap-3">
-            <div id="language-switcher"></div>
-            <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
-                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                <input type="search" placeholder="Search leaders, organizations..."
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
-                    / data-i18n-placeholder="search">
-            </div>
-            <button onclick="toggleSearch()"
-                class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-    </div>
+    
 
-    <!-- Mobile Menu Overlay -->
-    <div id="menuOverlay" class="overlay hidden fixed inset-0 z-[140] bg-black/40" onclick="toggleMenu()"></div>
+    
 
-    <!-- Mobile Bottom Sheet Menu -->
-    <nav id="mobileMenu"
-        class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
-        <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
-
-        <!-- Explore -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="apply_verification.explore">
-                Explore</h3>
-            <a href="index.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
-            <a href="browse.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
-            <a href="featured.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
-            <a href="collections.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Collections</a>
-            <a href="timelines.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
-        </div>
-
-        <!-- Registry -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="apply_verification.registry">
-                Registry</h3>
-            <a href="browse-leaders.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse
-                Leaders</a>
-            <a href="apply-verification.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Apply
-                for Verification</a>
-            <a href="controlled-contributions.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Submit
-                Content</a>
-            <a href="partners.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Partners</a>
-            <a href="fellowship.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Fellowships</a>
-            <a href="reports.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Reports</a>
-        </div>
-
-        <!-- Learn -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="apply_verification.learn">
-                Learn</h3>
-            <a href="education.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
-            <a href="enterprises.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Enterprises</a>
-            <a href="research.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Research</a>
-            <a href="publications.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Publications</a>
-            <a href="resources.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Resources</a>
-        </div>
-
-        <!-- Participate -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="apply_verification.participate">
-                Participate</h3>
-            <a href="nominate.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
-                a Woman</a>
-            <a href="share-story.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share
-                Your Story</a>
-            <a href="contributor-guidelines.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
-                Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary"
-                data-i18n="donate">Donate</a>
-        </div>
-
-        <!-- About -->
-        <div class="px-6 pb-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="apply_verification.about">
-                About</h3>
-            <a href="about.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
-                Us</a>
-            <a href="contributors.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
-            <a href="methodology.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
-            <a href="editorial-standards.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial
-                Standards</a>
-            <a href="contact.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
-        </div>
-
-        <!-- CTA -->
-        <div class="px-6 pb-8">
-            <a href="browse-leaders.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Explore Registry
-            </a>
-        </div>
-    </nav>
+    
 
     <!-- Header -->
     <header id="navbar"
-        class="w-full border-b border-divider bg-background-cream sticky top-0 z-50 transition-transform duration-300">
+        class="w-full border-b border-divider bg-background-cream  sticky top-0 z-50 transition-transform duration-300">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
                 <!-- Logo -->
@@ -217,14 +88,15 @@
                             <button
                                 class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
                                 Explore
-                                <span class="material-symbols-outlined text-[16px]">expand_more</span>
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
                             <div
                                 class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
                                     <a href="index.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a>
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Home</a>
                                     <a href="browse.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a>
                                     <a href="featured.html"
@@ -240,19 +112,20 @@
                         <!-- Registry Dropdown -->
                         <div class="relative group">
                             <button
-                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
                                 Registry
-                                <span class="material-symbols-outlined text-[16px]">expand_more</span>
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
                             <div
                                 class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[220px]">
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[220px]">
                                     <a href="browse-leaders.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse
                                         Leaders</a>
                                     <a href="apply-verification.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Apply
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Apply
                                         for Verification</a>
                                     <a href="controlled-contributions.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Submit
@@ -273,12 +146,13 @@
                             <button
                                 class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
                                 Learn
-                                <span class="material-symbols-outlined text-[16px]">expand_more</span>
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
                             <div
                                 class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
                                     <a href="education.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a>
                                     <a href="enterprises.html"
@@ -293,17 +167,46 @@
                             </div>
                         </div>
 
+                        <!-- Participate Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Participate
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="nominate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
+                                        a Woman</a>
+                                    <a href="share-story.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
+                                        Your Story</a>
+                                    <a href="contributor-guidelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
+                                        Guidelines</a>
+                                    <a href="donate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="donate">Donate</a>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- About Dropdown -->
                         <div class="relative group">
                             <button
                                 class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
                                 About
-                                <span class="material-symbols-outlined text-[16px]">expand_more</span>
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
                             <div
                                 class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
                                     <a href="about.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
                                         Us</a>
@@ -311,42 +214,64 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
                                     <a href="methodology.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
+                                    <a href="editorial-standards.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
+                                        Standards</a>
                                     <a href="contact.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
                                 </div>
                             </div>
                         </div>
-                    </nav>
-                </div>
 
-                <!-- Right Side -->
-                <div class="flex items-center gap-4">
-                    <!-- Search Button -->
-                    <button onclick="toggleSearch()" aria-label="Open search"
-                        class="p-2 hover:bg-primary/10 rounded-lg transition-colors">
-                        <span class="material-symbols-outlined text-text-main">search</span>
-                    </button>
+                        <!-- Actions -->
+                        <div class="flex items-center gap-3 lg:gap-6">
+                            <!-- Language Switcher -->
+                            <div id="language-switcher" class="hidden lg:block"></div>
+                            <!-- Desktop Search -->
+                            <div
+                                class="hidden md:flex items-center bg-white/50  border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
+                                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
+                                <input
+                                    class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
+                                    placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
+                            </div>
 
-                    <!-- Sign In / Profile -->
-                    <div class="hidden lg:flex items-center gap-3" id="auth-buttons">
-                        <a href="login.html"
-                            class="px-4 py-2 text-sm font-medium text-text-main hover:text-primary transition-colors">Sign
-                            In</a>
-                        <a href="signup.html"
-                            class="px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-hover transition-colors">Join</a>
-                    </div>
+                            <!-- Mobile Search Button -->
+                            <button onclick="toggleSearch()"
+                                class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
+                                aria-label="Open search">
+                                <span class="material-symbols-outlined text-accent-teal">search</span>
+                            </button>
 
-                    <!-- Mobile Menu Button -->
-                    <button onclick="toggleMenu()" aria-label="Open menu"
-                        class="lg:hidden p-2 hover:bg-primary/10 rounded-lg transition-colors">
-                        <span class="material-symbols-outlined text-text-main">menu</span>
-                    </button>
+                            <!-- Desktop Actions -->
+                            <div class="hidden sm:flex items-center gap-4">
+                                <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
+                                    href="donate.html" data-i18n="donate">Donate</a>
+                                <button data-auth="signin"
+                                    class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                    data-i18n="signIn">
+                                    Sign In
+                                </button>
+                                <div data-auth="signout" class="flex items-center gap-3" style="display: none;">
+                                    <span data-auth="user-info" class="text-sm text-text-secondary"></span>
+                                    <button
+                                        class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                                        Sign Out
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Menu Button -->
+                            <button onclick="toggleMenu()"
+                                class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
+                                aria-label="Open menu">
+                                <span class="material-symbols-outlined text-text-main">menu</span>
+                            </button>
+                        </div>
                 </div>
             </div>
-        </div>
     </header>
 
-    <!-- Main Content -->
     <main id="main-content" class="min-h-screen">
         <!-- Hero Section -->
         <section class="bg-gradient-to-br from-primary/10 via-background-cream to-accent-teal/10 py-16 lg:py-24">
@@ -855,226 +780,10 @@
     <script src="js/i18n.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/auth.js"></script>
-    <script>
-        // Multi-step form functionality
-        let currentStep = 1;
-        const totalSteps = 4;
-
-        function updateProgress() {
-            // Update step indicators
-            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
-                const stepNum = index + 1;
-                const circle = indicator.querySelector('div');
-                const label = indicator.querySelector('span');
-
-                if (stepNum === currentStep) {
-                    circle.classList.add('bg-primary', 'text-white');
-                    circle.classList.remove('bg-border-light', 'text-text-secondary');
-                    if (label) {
-                        label.classList.add('text-primary');
-                        label.classList.remove('text-text-secondary');
-                    }
-                } else if (stepNum < currentStep) {
-                    circle.classList.add('bg-accent-teal', 'text-white');
-                    circle.classList.remove('bg-border-light', 'text-text-secondary', 'bg-primary');
-                    if (label) {
-                        label.classList.add('text-accent-teal');
-                        label.classList.remove('text-text-secondary', 'text-primary');
-                    }
-                } else {
-                    circle.classList.add('bg-border-light', 'text-text-secondary');
-                    circle.classList.remove('bg-primary', 'bg-accent-teal', 'text-white');
-                    if (label) {
-                        label.classList.add('text-text-secondary');
-                        label.classList.remove('text-primary', 'text-accent-teal');
-                    }
-                }
-            });
-
-            // Update progress bars
-            for (let i = 1; i < totalSteps; i++) {
-                const progressBar = document.getElementById(`progress-${i}`);
-                if (progressBar) {
-                    if (i < currentStep) {
-                        progressBar.style.width = '100%';
-                    } else if (i === currentStep) {
-                        progressBar.style.width = '50%';
-                    } else {
-                        progressBar.style.width = '0%';
-                    }
-                }
-            }
-
-            // Show/hide form steps
-            document.querySelectorAll('.form-step').forEach((step, index) => {
-                if (index + 1 === currentStep) {
-                    step.classList.remove('hidden');
-                } else {
-                    step.classList.add('hidden');
-                }
-            });
-
-            // Update buttons
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const submitBtn = document.getElementById('submit-btn');
-
-            if (currentStep === 1) {
-                prevBtn.classList.add('hidden');
-            } else {
-                prevBtn.classList.remove('hidden');
-            }
-
-            if (currentStep === totalSteps) {
-                nextBtn.classList.add('hidden');
-                submitBtn.classList.remove('hidden');
-                updateSummary();
-            } else {
-                nextBtn.classList.remove('hidden');
-                submitBtn.classList.add('hidden');
-            }
-        }
-
-        function nextStep() {
-            // Validate current step
-            const currentFormStep = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-            const requiredFields = currentFormStep.querySelectorAll('[required]');
-            let isValid = true;
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.classList.add('border-red-500');
-                } else {
-                    field.classList.remove('border-red-500');
-                }
-            });
-
-            if (!isValid) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            if (currentStep < totalSteps) {
-                currentStep++;
-                updateProgress();
-            }
-        }
-
-        function prevStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                updateProgress();
-            }
-        }
-
-        function updateSummary() {
-            const summary = document.getElementById('application-summary');
-            const form = document.getElementById('verification-form');
-            const formData = new FormData(form);
-
-            summary.innerHTML = `
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <span class="text-text-secondary">Organization:</span>
-                        <p class="font-medium text-text-main">${formData.get('organizationName') || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <span class="text-text-secondary">Country:</span>
-                        <p class="font-medium text-text-main">${formData.get('country') || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <span class="text-text-secondary">Sector:</span>
-                        <p class="font-medium text-text-main">${formData.get('sector') || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <span class="text-text-secondary">Type:</span>
-                        <p class="font-medium text-text-main">${formData.get('organizationType') || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <span class="text-text-secondary">Applicant:</span>
-                        <p class="font-medium text-text-main">${formData.get('applicantName') || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <span class="text-text-secondary">Email:</span>
-                        <p class="font-medium text-text-main">${formData.get('applicantEmail') || 'N/A'}</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Form submission
-        document.getElementById('verification-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const form = e.target;
-            const formData = new FormData(form);
-
-            const submissionData = {
-                applicantName: formData.get('applicantName'),
-                applicantEmail: formData.get('applicantEmail'),
-                applicantRole: formData.get('applicantRole'),
-                organizationName: formData.get('organizationName'),
-                organizationWebsite: formData.get('organizationWebsite'),
-                country: formData.get('country'),
-                sector: formData.get('sector'),
-                organizationType: formData.get('organizationType'),
-                foundingYear: formData.get('foundingYear'),
-                leadershipDescription: formData.get('leadershipDescription'),
-                missionStatement: formData.get('missionStatement'),
-                impactMetrics: {
-                    employees: formData.get('employees'),
-                    womenInLeadership: formData.get('womenInLeadership'),
-                    beneficiaries: formData.get('beneficiaries'),
-                    annualBudget: formData.get('annualBudget'),
-                    impactDescription: formData.get('impactDescription')
-                },
-                status: 'pending',
-                submittedAt: new Date().toISOString()
-            };
-
-            try {
-                // Try to submit to API
-                if (typeof CONFIG !== 'undefined' && CONFIG.USE_STRAPI) {
-                    const response = await fetch(`${CONFIG.API_BASE_URL}/api/verification-applications`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ data: submissionData })
-                    });
-
-                    if (response.ok) {
-                        showSuccess();
-                        return;
-                    }
-                }
-
-                // Fallback: Store locally and show success
-                console.log('Application submitted:', submissionData);
-                localStorage.setItem('verification_application', JSON.stringify(submissionData));
-                showSuccess();
-
-            } catch (error) {
-                console.error('Submission error:', error);
-                // Show success anyway for demo purposes
-                showSuccess();
-            }
-        });
-
-        function showSuccess() {
-            document.getElementById('verification-form').classList.add('hidden');
-            document.getElementById('success-message').classList.remove('hidden');
-            document.getElementById('progress-steps').classList.add('hidden');
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function () {
-            updateProgress();
-        });
-    </script>
+    <script src="js/apply-verification-inline-2.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>

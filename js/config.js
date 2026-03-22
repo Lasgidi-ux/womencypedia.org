@@ -14,11 +14,9 @@
  * - USE_MOCK_API: Set to true to force mock API, false to use real API, undefined to auto-detect
  */
 
-// Environment-based API URL configuration
 // Priority: 1. window.API_STRAPI_URL (JavaScript environment variable)
 //           2. window.API_BASE_URL (alternative variable name)
-//           3. Automatic detection based on current hostname
-//           4. Production URL fallback
+//           3. Production URL fallback
 // Note: Added window check for SSR environment compatibility
 const getApiBaseUrl = () => {
     // Check for explicit overrides first
@@ -26,11 +24,13 @@ const getApiBaseUrl = () => {
         if (window.API_STRAPI_URL) return window.API_STRAPI_URL;
         if (window.API_BASE_URL) return window.API_BASE_URL;
 
-        // Auto-detect: if running on localhost, use local CMS
+        // Auto-detect removed: force all environments to use production backend unless locally overriden via window.API_BASE_URL.
+        /*
         const hostname = window.location.hostname;
         if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.local')) {
             return 'http://localhost:1337'; // Local development CMS
         }
+        */
     }
     return 'https://womencypedia-cms.onrender.com'; // Production CMS
 };

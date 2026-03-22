@@ -2,23 +2,14 @@
 <html class="light" lang="en">
 
 <head>
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-YEjdtsd2ETiLUBwblWrQc5o0ieWjc4T1izC66tBawK8=' 'sha256-YgD1LKg/KnxwtC0hXS8z1uWnM+aObkAeAU5ZtC2ZN4o=' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://cdn.tailwindcss.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: blob: https://*.tile.openstreetmap.org; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://img1.wsimg.com https://d3js.org https://*.onrender.com https://fonts.googleapis.com https://fonts.gstatic.com https://app.launchdarkly.com https://csp.secureserver.net https://*.secureserver.net https://*.tile.openstreetmap.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;">
-    <meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Nominate a Woman — Womencypedia</title>
 
     <!-- Auth state pre-check - prevents flash of wrong auth state -->
-    <script>
-        (function () {
-            const token = localStorage.getItem('womencypedia_access_token');
-            if (token && document.body) {
-                document.body.classList.add('authenticated');
-            }
-        })();
-    </script>
+    <script src="js/nominate-inline-1.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -59,615 +50,410 @@
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
+
     <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
         Skip to main content
     </a>
 
-    <!-- Mobile Search Sheet -->
-    <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
-        <div class="flex items-center gap-3">
-            <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
-                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
-                    data-i18n-placeholder="search">
-            </div>
-            <button onclick="toggleSearch()"
-                class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
+    
 
-        <!-- Mobile Menu Overlay -->
-        <div id="menuOverlay" class="overlay hidden fixed inset-0 z-[140] bg-black/40" onclick="toggleMenu()"></div>
+    
 
-        <!-- Mobile Bottom Sheet Menu -->
-        <nav id="mobileMenu"
-            class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
-            <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
+    
 
-            <!-- Explore -->
-            <div class="px-6 pb-4">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                    data-i18n="nominate.explore">
-                    Explore</h3>
-                <a href="index.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
-                <a href="browse.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
-                <a href="featured.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
-                <a href="collections.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Collections</a>
-                <a href="timelines.html"
-                    class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
-            </div>
+    <!-- Header -->
+    <header id="navbar"
+        class="w-full border-b border-divider bg-background-cream  sticky top-0 z-50 transition-transform duration-300">
+        <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-8 lg:gap-12">
+                    <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
+                        <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
+                        <span
+                            class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
+                    </a>
 
-            <!-- Learn -->
-            <div class="px-6 pb-4">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                    data-i18n="nominate.learn">
-                    Learn</h3>
-                <a href="education.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
-                <a href="enterprises.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Enterprises</a>
-                <a href="research.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Research</a>
-                <a href="publications.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Publications</a>
-                <a href="resources.html"
-                    class="block py-3 text-base font-medium text-text-main hover:text-primary">Resources</a>
-            </div>
-
-            <!-- Participate -->
-            <div class="px-6 pb-4">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                    data-i18n="nominate.participate">
-                    Participate</h3>
-                <a href="nominate.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
-                    a Woman</a>
-                <a href="share-story.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share
-                    Your Story</a>
-                <a href="contributor-guidelines.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
-                    Guidelines</a>
-                <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary"
-                    data-i18n="donate">Donate</a>
-            </div>
-
-            <!-- About -->
-            <div class="px-6 pb-4">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                    data-i18n="nominate.about">
-                    About</h3>
-                <a href="about.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
-                    Us</a>
-                <a href="contributors.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
-                <a href="methodology.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
-                <a href="editorial-standards.html"
-                    class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial
-                    Standards</a>
-                <a href="contact.html"
-                    class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
-            </div>
-            <!-- CTA -->
-            <div class="px-6 pb-8">
-                <a href="share-story.html"
-                    class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span
-                        data-i18n="shareYourStory">Share Your Story</span></a>
-            </div>
-        </nav>
-
-        <!-- Header -->
-        <!-- Header -->
-        <header class="w-full border-b border-divider bg-background-cream sticky top-0 z-50">
-            <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
-                <div class="flex items-center justify-between h-16 lg:h-20">
-                    <div class="flex items-center gap-8 lg:gap-12">
-                        <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
-                            <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
-                            <span
-                                class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
-                        </a>
-                        <nav class="hidden lg:flex items-center gap-6">
-
-                        </nav>
-                    </div>
-                    <div class="flex items-center gap-3 lg:gap-6">
-                        <div
-                            class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
-                            <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                            <input
-                                class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                                placeholder="Search the archive..." type="search" />
-                        </div>
-                        <button
-                            class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
-                            aria-label="Open search">
-                            <span class="material-symbols-outlined text-accent-teal">search</span>
-                        </button>
-                        <div class="hidden sm:flex items-center gap-4">
-                            <div id="language-switcher"></div>
-                            <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                                href="donate.html" data-i18n="donate">Donate</a>
-                            <button data-auth="signin"
-                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
-                                data-i18n="signIn">
-                                Sign In
+                    <!-- Desktop Nav -->
+                    <nav class="hidden lg:flex items-center gap-6">
+                        <!-- Explore Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Explore
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
-                            <div data-auth="signout" class="hidden flex items-center gap-3">
-                                <a href="profile.html"
-                                    class="flex items-center gap-2 text-sm text-text-secondary hover:text-primary">
-                                    <span class="material-symbols-outlined text-[18px]">account_circle</span>
-                                    <span data-auth="user-info"></span>
-                                </a>
-                                <button onclick="handleLogout()"
-                                    class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
-                                    Sign Out
-                                </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="index.html"
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Home</a>
+                                    <a href="browse.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a>
+                                    <a href="featured.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
+                                    <a href="collections.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a>
+                                    <a href="timelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
+                                </div>
                             </div>
                         </div>
-                        <button onclick="toggleMenu()"
-                            class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
-                            aria-label="Open menu">
-                            <span class="material-symbols-outlined text-text-main">menu</span>
-                        </button>
+
+                        <!-- Registry Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Registry
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[220px]">
+                                    <a href="browse-leaders.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse
+                                        Leaders</a>
+                                    <a href="apply-verification.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Apply
+                                        for Verification</a>
+                                    <a href="controlled-contributions.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Submit
+                                        Content</a>
+                                    <div class="border-t border-border-light my-1"></div>
+                                    <a href="partners.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Partners</a>
+                                    <a href="fellowship.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Fellowships</a>
+                                    <a href="reports.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Reports</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Learn Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Learn
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="education.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a>
+                                    <a href="enterprises.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a>
+                                    <a href="research.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a>
+                                    <a href="publications.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a>
+                                    <a href="resources.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Participate Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Participate
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="nominate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
+                                        a Woman</a>
+                                    <a href="share-story.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
+                                        Your Story</a>
+                                    <a href="contributor-guidelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
+                                        Guidelines</a>
+                                    <a href="donate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="donate">Donate</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- About Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                About
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="about.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
+                                        Us</a>
+                                    <a href="contributors.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
+                                    <a href="methodology.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
+                                    <a href="editorial-standards.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
+                                        Standards</a>
+                                    <a href="contact.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex items-center gap-3 lg:gap-6">
+                            <!-- Language Switcher -->
+                            <div id="language-switcher" class="hidden lg:block"></div>
+                            <!-- Desktop Search -->
+                            <div
+                                class="hidden md:flex items-center bg-white/50  border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
+                                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
+                                <input
+                                    class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
+                                    placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
+                            </div>
+
+                            <!-- Mobile Search Button -->
+                            <button onclick="toggleSearch()"
+                                class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
+                                aria-label="Open search">
+                                <span class="material-symbols-outlined text-accent-teal">search</span>
+                            </button>
+
+                            <!-- Desktop Actions -->
+                            <div class="hidden sm:flex items-center gap-4">
+                                <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
+                                    href="donate.html" data-i18n="donate">Donate</a>
+                                <button data-auth="signin"
+                                    class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                    data-i18n="signIn">
+                                    Sign In
+                                </button>
+                                <div data-auth="signout" class="flex items-center gap-3" style="display: none;">
+                                    <span data-auth="user-info" class="text-sm text-text-secondary"></span>
+                                    <button
+                                        class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                                        Sign Out
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Menu Button -->
+                            <button onclick="toggleMenu()"
+                                class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
+                                aria-label="Open menu">
+                                <span class="material-symbols-outlined text-text-main">menu</span>
+                            </button>
+                        </div>
+                </div>
+            </div>
+    </header>
+
+    <main id="main-content" role="main" class="relative bg-background-cream overflow-hidden">
+
+            <!-- Decorative Background Elements -->
+            <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent-teal/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 pointer-events-none"></div>
+
+            <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12 py-12 lg:py-24 relative z-10 w-full">
+                <div class="grid lg:grid-cols-12 gap-12 xl:gap-20 items-stretch">
+                    
+                    <!-- Left Column: Inspiring Sticky Brand Panel -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="sticky top-32 rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-gradient-to-br from-primary via-[#b85a5a] to-[#7f2e2e] text-white p-10 lg:p-14 transition-transform hover:scale-[1.01] duration-500">
+                            <!-- Subtle noise texture overlay -->
+                            <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg')"></div>
+                            
+                            <div class="relative z-10">
+                                <span class="inline-block py-1.5 px-4 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-widest mb-6">Contribute</span>
+                                <h1 class="font-serif text-4xl lg:text-5xl tracking-tight font-bold mb-6 leading-tight" data-i18n="nominate.nominateAWoman">Nominate a Woman</h1>
+                                <p class="text-white/90 text-lg lg:text-xl font-light leading-relaxed mb-12">
+                                    Help us write Herstory. Nominate a woman whose legacy deserves to be preserved in the world's most interpretive encyclopedia of women.
+                                </p>
+                                
+                                <div class="space-y-8">
+                                    <div class="flex items-start gap-4">
+                                        <div class="size-12 shrink-0 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                                            <span class="material-symbols-outlined text-white">edit_document</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-lg mb-1">Tell Her Story</h3>
+                                            <p class="text-white/80 text-sm leading-relaxed">Fill out the detailed biography ensuring historical accuracy.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="size-12 shrink-0 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                                            <span class="material-symbols-outlined text-white">verified_user</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-lg mb-1">Editorial Verification</h3>
+                                            <p class="text-white/80 text-sm leading-relaxed">Our experts review and verify your submission within 4 weeks.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="size-12 shrink-0 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                                            <span class="material-symbols-outlined text-white">public</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-lg mb-1">Global Publication</h3>
+                                            <p class="text-white/80 text-sm leading-relaxed">Once published, she becomes a permanent part of the global archive.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: The Premium Form -->
+                    <div class="lg:col-span-7 pb-12">
+                        <div class="bg-white/80 backdrop-blur-xl rounded-[2rem] p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white relative z-20">
+                            
+                            <div class="flex items-center gap-4 mb-10 pb-6 border-b border-border-light/50">
+                                <div class="size-14 rounded-2xl bg-gradient-to-br from-accent-gold/20 to-accent-gold/5 flex items-center justify-center border border-accent-gold/10">
+                                    <span class="material-symbols-outlined text-accent-gold text-2xl">person_add</span>
+                                </div>
+                                <div>
+                                    <h2 class="font-serif text-3xl font-bold text-text-main" data-i18n="nominate.nominationForm">Nomination Form</h2>
+                                    <p class="text-text-secondary mt-1">Fields marked with <span class="text-primary">*</span> are required.</p>
+                                </div>
+                            </div>
+
+                            <form id="nomination-form" class="space-y-8">
+                                
+                                <!-- Nominee Name -->
+                                <div class="relative group">
+                                    <label class="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase" for="nomineeName">Full Name of Nominee <span class="text-primary">*</span></label>
+                                    <input type="text" id="nomineeName" name="nomineeName" required
+                                        class="w-full h-14 px-5 bg-background-cream/50 border border-border-light rounded-xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-lg placeholder:text-gray-400"
+                                        placeholder="e.g., Mary Mitchell Slessor" />
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <!-- Era/Time Period -->
+                                    <div class="relative group">
+                                        <label class="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase" for="era">Era / Time Period <span class="text-primary">*</span></label>
+                                        <input type="text" id="era" name="era" required
+                                            class="w-full h-14 px-5 bg-background-cream/50 border border-border-light rounded-xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-base placeholder:text-gray-400"
+                                            placeholder="e.g., 19th Century" />
+                                    </div>
+
+                                    <!-- Region/Country -->
+                                    <div class="relative group">
+                                        <label class="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase" for="region">Region / Origin <span class="text-primary">*</span></label>
+                                        <input type="text" id="region" name="region" required
+                                            class="w-full h-14 px-5 bg-background-cream/50 border border-border-light rounded-xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-base placeholder:text-gray-400"
+                                            placeholder="e.g., Nigeria, Scotland" />
+                                    </div>
+                                </div>
+
+                                <!-- Collection Category -->
+                                <div class="relative group mt-6">
+                                    <label class="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase" for="collection">Suggested Collection</label>
+                                    <p class="text-sm text-text-secondary mb-3">Select the most accurate category from the global taxonomy.</p>
+                                    <div class="relative">
+                                        <select id="collection" name="collection"
+                                            class="w-full h-14 pl-5 pr-10 appearance-none bg-background-cream/50 border border-border-light rounded-xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-base cursor-pointer">
+                                            <option value="">Choose a taxonomy classification...</option>
+                                            <optgroup label="I. IDENTITY & SOCIAL LOCATION">
+                                                <option value="indigenous-women">Indigenous Women</option>
+                                                <option value="diaspora-women">Diaspora Women</option>
+                                            </optgroup>
+                                            <optgroup label="II. ECONOMIC & PROFESSIONAL ROLE">
+                                                <option value="agriculture-food">Agriculture & Food Systems</option>
+                                                <option value="medicine-health">Medicine & Health Sciences</option>
+                                                <option value="tech-founders">Tech Founders</option>
+                                            </optgroup>
+                                            <optgroup label="III. LEADERSHIP & INFLUENCE">
+                                                <option value="elected-officials">Elected Officials</option>
+                                                <option value="peacebuilders">Peacebuilders</option>
+                                            </optgroup>
+                                            <optgroup label="LEGACY COLLECTIONS">
+                                                <option value="african-queens">African Queens & Kingdom Mothers</option>
+                                                <option value="resistance">Resistance Movements</option>
+                                                <option value="environment">Environmental Stewardship</option>
+                                                <option value="other">Other / General Archive</option>
+                                            </optgroup>
+                                        </select>
+                                        <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none">
+                                            <span class="material-symbols-outlined text-text-secondary">keyboard_arrow_down</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Brief Bio -->
+                                <div class="relative group pt-4">
+                                    <label class="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase" for="bio">Biography / Impact <span class="text-primary">*</span></label>
+                                    <textarea id="bio" name="bio" rows="6" required
+                                        class="w-full p-5 bg-background-cream/50 border border-border-light rounded-xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-base placeholder:text-gray-400 resize-y"
+                                        placeholder="Detail her life story, achievements, and why her legacy matters..."></textarea>
+                                </div>
+
+                                <!-- Sources -->
+                                <div class="relative group">
+                                    <label class="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase" for="sources">Primary Sources <span class="text-text-secondary font-normal normal-case">(Optional)</span></label>
+                                    <textarea id="sources" name="sources" rows="3"
+                                        class="w-full p-5 bg-background-cream/50 border border-border-light rounded-xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-base placeholder:text-gray-400 resize-y"
+                                        placeholder="List books, articles, online archives, or oral tradition references..."></textarea>
+                                </div>
+
+                                <!-- Your Information Container -->
+                                <div class="bg-gray-50/50 p-6 rounded-2xl border border-border-light/50 mt-10">
+                                    <h3 class="font-serif text-xl font-bold text-text-main mb-6 flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-primary">account_circle</span> Your Information
+                                    </h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="relative">
+                                            <label class="block text-xs font-bold text-text-secondary mb-2 tracking-wide uppercase" for="yourName">Your Name <span class="text-primary">*</span></label>
+                                            <input type="text" id="yourName" name="yourName" required
+                                                class="w-full h-12 px-4 bg-white border border-border-light rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                                        </div>
+                                        <div class="relative">
+                                            <label class="block text-xs font-bold text-text-secondary mb-2 tracking-wide uppercase" for="yourEmail">Your Email <span class="text-primary">*</span></label>
+                                            <input type="email" id="yourEmail" name="yourEmail" required
+                                                class="w-full h-12 px-4 bg-white border border-border-light rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit -->
+                                <div class="pt-8 relative overflow-hidden group">
+                                    <button type="submit"
+                                        class="relative w-full h-16 bg-primary text-white font-bold text-lg rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 z-10">
+                                        <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:block transition-all duration-1000 group-hover:translate-x-full"></div>
+                                        <div class="relative flex items-center justify-center gap-3">
+                                            <span class="tracking-wide">Submit Nomination to Archive</span>
+                                            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <p class="text-sm text-text-secondary text-center font-medium mt-6">
+                                    Protected by reCAPTCHA. We respect your <a href="privacy-policy.html" class="text-primary hover:underline">privacy</a>.
+                                </p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </header>
-
-        <main id="main-content" role="main">
-            <!-- Hero -->
-            <section
-                class="bg-gradient-to-br from-primary/10 via-background-cream to-primary/5 py-16 lg:py-20 text-center">
-                <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
-                    <span
-                        class="text-accent-teal text-sm font-bold uppercase tracking-widest mb-2 block">Participate</span>
-                    <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4"
-                        data-i18n="nominate.nominateAWoman">Nominate a Woman
-                    </h1>
-                    <p class="text-text-secondary text-lg max-w-2xl mx-auto">Help us restore the stories history
-                        overlooked.
-                        Nominate a woman whose life deserves to be preserved and celebrated.</p>
-                    <div class="w-24 h-1 bg-primary rounded-full mx-auto mt-6"></div>
-                </div>
-            </section>
-
-            <!-- Form Section -->
-            <section class="py-16 lg:py-24 bg-background-cream">
-                <div class="mx-auto max-w-[700px] px-4 sm:px-6 lg:px-12">
-                    <div class="bg-white rounded-xl p-8 md:p-12 shadow-sm border border-border-light">
-                        <div class="flex items-center gap-4 mb-8">
-                            <div class="size-12 rounded-lg bg-accent-gold/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-accent-gold text-2xl">person_add</span>
-                            </div>
-                            <div>
-                                <h2 class="font-serif text-2xl font-bold text-text-main"
-                                    data-i18n="nominate.nominationForm">Nomination Form</h2>
-                                <p class="text-text-secondary text-sm">All fields marked with * are required</p>
-                            </div>
-                        </div>
-
-                        <form id="nomination-form" class="space-y-6">
-                            <!-- Nominee Name -->
-                            <div>
-                                <label class="block text-sm font-semibold text-text-main mb-2" for="nomineeName">Full
-                                    Name
-                                    of Nominee *</label>
-                                <input type="text" id="nomineeName" name="nomineeName" required
-                                    class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal"
-                                    placeholder="e.g., Mary Mitchell Slessor" />
-                            </div>
-
-                            <!-- Era/Time Period -->
-                            <div>
-                                <label class="block text-sm font-semibold text-text-main mb-2" for="era">Era / Time
-                                    Period
-                                    *</label>
-                                <input type="text" id="era" name="era" required
-                                    class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal"
-                                    placeholder="e.g., 19th Century, 1848-1915" />
-                            </div>
-
-                            <!-- Region/Country -->
-                            <div>
-                                <label class="block text-sm font-semibold text-text-main mb-2" for="region">Region /
-                                    Country
-                                    of Origin *</label>
-                                <input type="text" id="region" name="region" required
-                                    class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal"
-                                    placeholder="e.g., Nigeria, Scotland" />
-                            </div>
-
-                            <!-- Collection Category -->
-                            <div>
-                                <label class="block text-sm font-semibold text-text-main mb-2"
-                                    for="collection">Suggested
-                                    Collection</label>
-                                <p class="text-xs text-text-secondary mb-2">Select from the Womencypedia Global Taxonomy
-                                    of
-                                    Women — A formal classification system for profiles, enterprises, and legacies</p>
-                                <select id="collection" name="collection"
-                                    class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal bg-white">
-                                    <option value="">Select a collection...</option>
-
-                                    <!-- I. IDENTITY & SOCIAL LOCATION -->
-                                    <optgroup label="I. IDENTITY & SOCIAL LOCATION">
-                                        <option value="cultural-ethnic" disabled class="font-bold">— Cultural & Ethnic
-                                            Identity</option>
-                                        <option value="indigenous-women">Indigenous Women</option>
-                                        <option value="tribal-women">Tribal Women</option>
-                                        <option value="minority-ethnic-women">Minority Ethnic Women</option>
-                                        <option value="diaspora-women">Diaspora Women</option>
-                                        <option value="multicultural-women">Multicultural Women</option>
-
-                                        <option value="geographic-context" disabled class="font-bold">— Geographic
-                                            Context
-                                        </option>
-                                        <option value="rural-women">Rural Women</option>
-                                        <option value="urban-women">Urban Women</option>
-                                        <option value="coastal-women">Coastal Women</option>
-                                        <option value="island-women">Island Women</option>
-                                        <option value="remote-region-women">Women in Remote or Hard-to-Reach Regions
-                                        </option>
-
-                                        <option value="migration-mobility" disabled class="font-bold">— Migration &
-                                            Mobility
-                                        </option>
-                                        <option value="immigrant-women">Immigrant Women</option>
-                                        <option value="refugee-women">Refugee Women</option>
-                                        <option value="asylum-seeking-women">Asylum-Seeking Women</option>
-                                        <option value="transnational-women">Transnational Women</option>
-                                        <option value="expatriate-women">Expatriate Women</option>
-                                    </optgroup>
-
-                                    <!-- II. ECONOMIC & PROFESSIONAL ROLE -->
-                                    <optgroup label="II. ECONOMIC & PROFESSIONAL ROLE">
-                                        <option value="employment-sector" disabled class="font-bold">— Employment Sector
-                                        </option>
-                                        <option value="agriculture-food">Agriculture & Food Systems</option>
-                                        <option value="manufacturing-industrial">Manufacturing & Industrial Labour
-                                        </option>
-                                        <option value="service-sector">Service Sector Workers</option>
-                                        <option value="domestic-care">Domestic & Care Workers</option>
-                                        <option value="informal-economy">Informal Economy Workers</option>
-                                        <option value="gig-economy">Gig-Economy Workers</option>
-
-                                        <option value="professional-fields" disabled class="font-bold">— Professional
-                                            Fields
-                                        </option>
-                                        <option value="medicine-health">Medicine & Health Sciences</option>
-                                        <option value="law-justice">Law & Justice</option>
-                                        <option value="engineering-tech">Engineering & Technology</option>
-                                        <option value="education-academia">Education & Academia</option>
-                                        <option value="finance-economics">Finance & Economics</option>
-                                        <option value="media-communications">Media & Communications</option>
-                                        <option value="arts-culture">Arts & Culture</option>
-                                        <option value="sports-athletics">Sports & Athletics</option>
-
-                                        <option value="entrepreneurship" disabled class="font-bold">— Entrepreneurship &
-                                            Enterprise</option>
-                                        <option value="micro-enterprise">Micro-Enterprise Founders</option>
-                                        <option value="small-business">Small Business Owners</option>
-                                        <option value="social-entrepreneurs">Social Entrepreneurs</option>
-                                        <option value="tech-founders">Tech Founders</option>
-                                        <option value="creative-entrepreneurs">Creative Entrepreneurs</option>
-                                        <option value="family-business">Family-Business Leaders</option>
-                                    </optgroup>
-
-                                    <!-- III. LEADERSHIP & INFLUENCE -->
-                                    <optgroup label="III. LEADERSHIP & INFLUENCE">
-                                        <option value="civic-political" disabled class="font-bold">— Civic & Political
-                                            Leadership</option>
-                                        <option value="elected-officials">Elected Officials</option>
-                                        <option value="diplomats">Diplomats</option>
-                                        <option value="policy-advocates">Policy Advocates</option>
-                                        <option value="peacebuilders">Peacebuilders</option>
-                                        <option value="grassroots-organisers">Grassroots Organisers</option>
-
-                                        <option value="community-social" disabled class="font-bold">— Community & Social
-                                            Leadership</option>
-                                        <option value="community-elders">Community Elders</option>
-                                        <option value="traditional-leaders">Traditional Leaders</option>
-                                        <option value="local-organisers">Local Organisers</option>
-                                        <option value="cultural-custodians">Cultural Custodians</option>
-
-                                        <option value="thought-leadership" disabled class="font-bold">— Thought
-                                            Leadership
-                                        </option>
-                                        <option value="scholars-researchers">Scholars & Researchers</option>
-                                        <option value="public-intellectuals">Public Intellectuals</option>
-                                        <option value="authors-theorists">Authors & Theorists</option>
-                                        <option value="media-voices">Media Voices</option>
-
-                                        <option value="faith-spiritual" disabled class="font-bold">— Faith & Spiritual
-                                            Leadership</option>
-                                        <option value="ministers-clergy">Ministers & Clergy</option>
-                                        <option value="religious-scholars">Religious Scholars</option>
-                                        <option value="spiritual-practitioners">Spiritual Practitioners</option>
-                                        <option value="interfaith-leaders">Interfaith Leaders</option>
-                                    </optgroup>
-
-                                    <!-- IV. EDUCATION & KNOWLEDGE -->
-                                    <optgroup label="IV. EDUCATION & KNOWLEDGE">
-                                        <option value="educational-attainment" disabled class="font-bold">— Educational
-                                            Attainment</option>
-                                        <option value="no-formal-education">Women with No Formal Education</option>
-                                        <option value="primary-secondary">Primary/Secondary Education</option>
-                                        <option value="vocational-technical">Vocational/Technical Training</option>
-                                        <option value="university-graduates">University Graduates</option>
-                                        <option value="postgraduate-scholars">Postgraduate Scholars</option>
-
-                                        <option value="knowledge-traditions" disabled class="font-bold">— Knowledge
-                                            Traditions</option>
-                                        <option value="academic-knowledge">Academic Knowledge</option>
-                                        <option value="indigenous-knowledge">Indigenous Knowledge</option>
-                                        <option value="technical-knowledge">Technical Knowledge</option>
-                                        <option value="creative-knowledge">Creative Knowledge</option>
-                                        <option value="entrepreneurial-knowledge">Entrepreneurial Knowledge</option>
-                                    </optgroup>
-
-                                    <!-- V. LIFE STAGE & FAMILY ROLE -->
-                                    <optgroup label="V. LIFE STAGE & FAMILY ROLE">
-                                        <option value="age-stage" disabled class="font-bold">— Age & Stage</option>
-                                        <option value="girls">Girls</option>
-                                        <option value="adolescents">Adolescents</option>
-                                        <option value="young-women">Young Women</option>
-                                        <option value="adult-women">Adult Women</option>
-                                        <option value="elder-women">Elder Women / Matriarchs</option>
-
-                                        <option value="family-care" disabled class="font-bold">— Family & Care Roles
-                                        </option>
-                                        <option value="mothers">Mothers</option>
-                                        <option value="single-mothers">Single Mothers</option>
-                                        <option value="guardians">Guardians</option>
-                                        <option value="caregivers">Caregivers</option>
-                                        <option value="widows">Widows</option>
-                                        <option value="women-without-children">Women Without Children</option>
-                                    </optgroup>
-
-                                    <!-- VI. SOCIAL EXPERIENCE & VULNERABILITY -->
-                                    <optgroup label="VI. SOCIAL EXPERIENCE & VULNERABILITY">
-                                        <option value="economic-status" disabled class="font-bold">— Economic Status
-                                        </option>
-                                        <option value="women-in-poverty">Women Living in Poverty</option>
-                                        <option value="middle-income">Middle-Income Women</option>
-                                        <option value="high-income">High-Income Women</option>
-
-                                        <option value="social-vulnerabilities" disabled class="font-bold">— Social
-                                            Vulnerabilities</option>
-                                        <option value="women-disabilities">Women with Disabilities</option>
-                                        <option value="conflict-zones">Women in Conflict Zones</option>
-                                        <option value="displacement">Women Experiencing Displacement</option>
-                                        <option value="gender-based-violence">Women Facing Gender-Based Violence
-                                        </option>
-                                        <option value="restrictive-legal">Women in Restrictive Legal Environments
-                                        </option>
-                                    </optgroup>
-
-                                    <!-- VII. FAITH & SPIRITUAL TRADITION -->
-                                    <optgroup label="VII. FAITH & SPIRITUAL TRADITION">
-                                        <option value="christian-women">Christian Women</option>
-                                        <option value="muslim-women">Muslim Women</option>
-                                        <option value="jewish-women">Jewish Women</option>
-                                        <option value="hindu-women">Hindu Women</option>
-                                        <option value="buddhist-women">Buddhist Women</option>
-                                        <option value="indigenous-spiritual">Indigenous Spiritual Practitioners</option>
-                                        <option value="secular-nonreligious">Secular/Non-Religious Women</option>
-                                    </optgroup>
-
-                                    <!-- VIII. ENTERPRISE, CREATIVITY & CONTRIBUTION -->
-                                    <optgroup label="VIII. ENTERPRISE, CREATIVITY & CONTRIBUTION">
-                                        <option value="creative-cultural" disabled class="font-bold">— Creative &
-                                            Cultural
-                                            Work</option>
-                                        <option value="artists">Artists</option>
-                                        <option value="writers">Writers</option>
-                                        <option value="musicians">Musicians</option>
-                                        <option value="designers">Designers</option>
-                                        <option value="cultural-archivists">Cultural Archivists</option>
-
-                                        <option value="innovation-invention" disabled class="font-bold">— Innovation &
-                                            Invention</option>
-                                        <option value="scientists">Scientists</option>
-                                        <option value="inventors">Inventors</option>
-                                        <option value="tech-innovators">Tech Innovators</option>
-                                        <option value="research-pioneers">Research Pioneers</option>
-
-                                        <option value="social-community" disabled class="font-bold">— Social & Community
-                                            Contribution</option>
-                                        <option value="healers">Healers</option>
-                                        <option value="educators">Educators</option>
-                                        <option value="social-workers">Social Workers</option>
-                                        <option value="community-builders">Community Builders</option>
-                                    </optgroup>
-
-                                    <!-- IX. CIVIC PARTICIPATION & PUBLIC LIFE -->
-                                    <optgroup label="IX. CIVIC PARTICIPATION & PUBLIC LIFE">
-                                        <option value="voters">Voters</option>
-                                        <option value="advocates">Advocates</option>
-                                        <option value="volunteers">Volunteers</option>
-                                        <option value="civil-society-leaders">Civil Society Leaders</option>
-                                        <option value="movement-builders">Movement Builders</option>
-                                    </optgroup>
-
-                                    <!-- X. GLOBAL MOVEMENT & IMPACT -->
-                                    <optgroup label="X. GLOBAL MOVEMENT & IMPACT">
-                                        <option value="global-policy">Women Shaping Global Policy</option>
-                                        <option value="international-markets">Women Influencing International Markets
-                                        </option>
-                                        <option value="global-development">Women in Global Development</option>
-                                        <option value="humanitarian-work">Women in Humanitarian Work</option>
-                                        <option value="global-culture">Women Shaping Global Culture</option>
-                                    </optgroup>
-
-                                    <!-- Legacy Collections -->
-                                    <optgroup label="LEGACY COLLECTIONS">
-                                        <option value="foremothers">Foremothers of Empires</option>
-                                        <option value="missionary">Missionary Women</option>
-                                        <option value="african-queens">African Queens & Kingdom Mothers</option>
-                                        <option value="resistance">Resistance Movements</option>
-                                        <option value="oral">Oral Traditions & Storytellers</option>
-                                        <option value="environment">Environmental Stewardship</option>
-                                        <option value="other">Other / Not Sure</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-
-                            <!-- Brief Bio -->
-                            <div>
-                                <label class="block text-sm font-semibold text-text-main mb-2" for="bio">Brief Biography
-                                    /
-                                    Why She Matters *</label>
-                                <textarea id="bio" name="bio" rows="5" required
-                                    class="w-full px-4 py-3 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal resize-none"
-                                    placeholder="Tell us about her story, contributions, and why her legacy deserves to be preserved..."></textarea>
-                            </div>
-
-                            <!-- Sources -->
-                            <div>
-                                <label class="block text-sm font-semibold text-text-main mb-2" for="sources">Known
-                                    Sources
-                                    (Optional)</label>
-                                <textarea id="sources" name="sources" rows="3"
-                                    class="w-full px-4 py-3 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal resize-none"
-                                    placeholder="List any books, articles, archives, or oral sources you know of..."></textarea>
-                            </div>
-
-                            <!-- Your Name -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold text-text-main mb-2" for="yourName">Your
-                                        Name
-                                        *</label>
-                                    <input type="text" id="yourName" name="yourName" required
-                                        class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal" />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-text-main mb-2" for="yourEmail">Your
-                                        Email *</label>
-                                    <input type="email" id="yourEmail" name="yourEmail" required
-                                        class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal" />
-                                </div>
-                            </div>
-
-                            <!-- Submit -->
-                            <div class="pt-4">
-                                <button type="submit"
-                                    class="w-full h-14 bg-primary text-white font-bold text-lg rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-                                    <span class="material-symbols-outlined">send</span>
-                                    Submit Nomination
-                                </button>
-                            </div>
-
-                            <p class="text-xs text-text-secondary text-center mt-4">
-                                By submitting this form, you confirm that the information provided is accurate to the
-                                best
-                                of your knowledge.
-                            </p>
-                        </form>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Submission Workflow -->
-            <section class="py-16 lg:py-24 bg-lavender-soft/40">
-                <div class="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-12">
-                    <div class="text-center mb-12">
-                        <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4"
-                            data-i18n="nominate.whatHappensNext">What Happens
-                            Next?</h2>
-                        <p class="text-text-secondary text-lg max-w-2xl mx-auto">Our thorough review process ensures
-                            every
-                            nominated woman receives proper recognition.</p>
-                    </div>
-
-                    <div class="relative">
-                        <!-- Connecting Line -->
-                        <div class="hidden lg:block absolute top-8 left-[12%] right-[12%] h-1 bg-primary/20"></div>
-
-                        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <!-- Step 1 -->
-                            <div class="relative text-center">
-                                <div
-                                    class="size-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-lg">
-                                    <span class="material-symbols-outlined">send</span>
-                                </div>
-                                <h3 class="font-serif text-lg font-bold text-text-main mb-2"
-                                    data-i18n="nominate.1SubmissionReceived">1. Submission Received</h3>
-                                <p class="text-text-secondary text-sm">Your nomination is sent to our editorial team for
-                                    initial review</p>
-                            </div>
-
-                            <!-- Step 2 -->
-                            <div class="relative text-center">
-                                <div
-                                    class="size-16 rounded-full bg-accent-teal text-white flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-lg">
-                                    <span class="material-symbols-outlined">search</span>
-                                </div>
-                                <h3 class="font-serif text-lg font-bold text-text-main mb-2"
-                                    data-i18n="nominate.2ResearchVerification">2. Research & Verification</h3>
-                                <p class="text-text-secondary text-sm">We verify sources and conduct additional research
-                                    as
-                                    needed</p>
-                            </div>
-
-                            <!-- Step 3 -->
-                            <div class="relative text-center">
-                                <div
-                                    class="size-16 rounded-full bg-accent-gold text-white flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-lg">
-                                    <span class="material-symbols-outlined">fact_check</span>
-                                </div>
-                                <h3 class="font-serif text-lg font-bold text-text-main mb-2"
-                                    data-i18n="nominate.3EditorialReview">3. Editorial Review</h3>
-                                <p class="text-text-secondary text-sm">Senior editors review for accuracy and cultural
-                                    sensitivity</p>
-                            </div>
-
-                            <!-- Step 4 -->
-                            <div class="relative text-center">
-                                <div
-                                    class="size-16 rounded-full bg-primary-hover text-white flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-lg">
-                                    <span class="material-symbols-outlined">celebration</span>
-                                </div>
-                                <h3 class="font-serif text-lg font-bold text-text-main mb-2"
-                                    data-i18n="nominate.4Publication">4. Publication</h3>
-                                <p class="text-text-secondary text-sm">Published with full attribution to you, the
-                                    nominator
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Info -->
-                    <div class="mt-12 bg-white rounded-xl p-6 border border-border-light">
-                        <div class="flex flex-wrap items-center justify-center gap-8 text-sm">
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-primary">schedule</span>
-                                <span><strong>Typical Review:</strong> 4-6 weeks</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-primary">notifications</span>
-                                <span><strong>Updates:</strong> Email notifications sent</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-primary">person</span>
-                                <span><strong>Attribution:</strong> Your name credited</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+</main>
 
         <!-- Footer -->
         <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
@@ -791,42 +577,7 @@
         <script src="js/page-protection.js"></script>
         <script src="js/strapi-api.js"></script>
         <script src="js/api.js"></script>
-        <script>
-            // CMS Health Check - Run on page load to diagnose connectivity issues
-            (async function () {
-                try {
-                    const cmsUrl = window.API_STRAPI_URL || window.API_BASE_URL || 'https://womencypedia-cms.onrender.com';
-                    console.log('[HealthCheck] Testing CMS connectivity:', cmsUrl);
-
-                    const response = await fetch(`${cmsUrl}/api/nominations?pagination[limit]=1`, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' },
-                        signal: AbortSignal.timeout(10000)
-                    });
-
-                    if (response.ok) {
-                        console.log('[HealthCheck] CMS is accessible - Status:', response.status);
-                    } else {
-                        console.warn('[HealthCheck] CMS returned error - Status:', response.status);
-                    }
-                } catch (error) {
-                    console.error('[HealthCheck] CMS is not accessible:', error.message);
-                    // Show warning to user
-                    const warningDiv = document.createElement('div');
-                    warningDiv.className = 'fixed top-4 right-4 z-50 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 max-w-md';
-                    warningDiv.innerHTML = `
-                        <div class="flex items-start">
-                            <span class="material-symbols-outlined mr-2">warning</span>
-                            <div>
-                                <p class="font-bold">CMS Connection Issue</p>
-                                <p class="text-sm">Unable to connect to the content management system. Form submissions may fail. Please try again later or contact support.</p>
-                            </div>
-                        </div>
-                    `;
-                    document.body.appendChild(warningDiv);
-                }
-            })();
-        </script>
+        <script src="js/nominate-inline-2.js"></script>
         <script src="js/forms.js"></script>
         <!-- Login Modal -->
         <div id="login-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
@@ -896,6 +647,7 @@
         <script src="js/inline-common.js"></script>
         <script src="js/darkmode.js"></script>
         <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>

@@ -178,9 +178,12 @@ const FormHandler = {
             return;
         }
 
-        // Collect form data — map to Strapi nomination schema fields
+        // Collect form data — map to Strapi contribution schema fields
+        const nomineeName = form.querySelector('#nomineeName')?.value || '';
         const formData = {
-            nomineeName: form.querySelector('#nomineeName')?.value || '',
+            title: nomineeName ? `Nomination: ${nomineeName}` : 'Untitled Nomination',
+            type: 'nomination',
+            nomineeName: nomineeName,
             nomineeEra: form.querySelector('#era')?.value || '',
             nomineeRegion: form.querySelector('#region')?.value || '',
             nomineeCategory: form.querySelector('#collection')?.value || '',
@@ -188,6 +191,13 @@ const FormHandler = {
             sources: form.querySelector('#sources')?.value ? [form.querySelector('#sources').value] : [],
             nominatorName: form.querySelector('#yourName')?.value || '',
             nominatorEmail: form.querySelector('#yourEmail')?.value || '',
+            
+            // Standard contribution fields (for compatibility)
+            subjectName: nomineeName,
+            content: form.querySelector('#bio')?.value || '',
+            contactName: form.querySelector('#yourName')?.value || '',
+            contactEmail: form.querySelector('#yourEmail')?.value || '',
+            region: form.querySelector('#region')?.value || '',
             status: 'pending'
         };
 
@@ -217,9 +227,9 @@ const FormHandler = {
                 throw new Error('Configuration not loaded. Please refresh the page and try again.');
             }
 
-            console.log('[NominationForm] Submitting to:', `${CONFIG.API_BASE_URL}/api/nominations`);
+            console.log('[NominationForm] Submitting to:', `${CONFIG.API_BASE_URL}/api/contributions`);
 
-            const response = await fetch(`${CONFIG.API_BASE_URL}/api/nominations`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/contributions`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ data: formData })
@@ -233,12 +243,12 @@ const FormHandler = {
                 console.log('[NominationForm] Error data:', errorData);
                 // Provide more helpful error messages for common issues
                 if (response.status === 404) {
-                    throw new Error('Unable to submit nomination. The server endpoint /api/nominations was not found. This may indicate the CMS needs to be rebuilt.');
+                    throw new Error('Unable to submit nomination. The server endpoint /api/contributions was not found. This may indicate the CMS needs to be rebuilt.');
                 } if (response.status === 401) {
                     throw new Error('Please sign in to submit a nomination.');
                 }
                 if (response.status === 403) {
-                    throw new Error('You do not have permission to submit nominations. This may indicate the Public role needs to be granted POST permission for nominations in Strapi admin panel.');
+                    throw new Error('You do not have permission to submit nominations. This may indicate the Public role needs to be granted POST permission for contributions in Strapi admin panel.');
                 }
                 if (response.status === 500) {
                     throw new Error('Server error. Please try again later or contact support.');

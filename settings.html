@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-L3sC/CohuANlxxjY0M4ePZneANc/A+tHdun9+qTDnbM=' 'sha256-9droVe+8kv1OvFREHdMkLL/RVZkFfzo+OutCcAklwSE=' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://cdn.tailwindcss.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: blob: https://*.tile.openstreetmap.org; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://img1.wsimg.com https://d3js.org https://*.onrender.com https://fonts.googleapis.com https://fonts.gstatic.com https://app.launchdarkly.com https://csp.secureserver.net https://*.secureserver.net https://*.tile.openstreetmap.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:;">
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Manage your Womencypedia account settings, preferences, and privacy options.">
     <title>Account Settings | Womencypedia</title>
@@ -104,110 +102,227 @@
     <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 
     <!-- Redirect to profile.html with settings tab -->
-    <script>
-        // Redirect settings.html to profile.html#settings
-        // This consolidates settings into the profile page for better UX
-        window.location.replace('profile.html#settings');
-    </script>
+    <script src="js/settings-inline-1.js"></script>
 </head>
 
 <body class="bg-background-cream min-h-screen text-text-main antialiased">
+
+    <!-- Skip Link -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
+        Skip to main content
+    </a>
+
+    
+
+    
+
+    
+
     <!-- Header -->
-    <header class="w-full border-b border-divider bg-background-cream sticky top-0 z-50">
-        <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+    <header id="navbar"
+        class="w-full border-b border-divider bg-background-cream  sticky top-0 z-50 transition-transform duration-300">
+        <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
-                <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
-                    <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
-                    <span class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
-                </a>
-                <div class="flex items-center gap-3">
-                    <nav class="hidden lg:flex items-center gap-8">
-                        <a href="profile.html"
-                            class="text-sm font-medium text-text-secondary hover:text-primary transition-colors">Profile</a>
-                        <a href="browse.html"
-                            class="text-sm font-medium text-text-secondary hover:text-primary transition-colors">Browse</a>
-                        <a href="index.html"
-                            class="text-sm font-medium text-text-secondary hover:text-primary transition-colors">Home</a>
-                    </nav>
-                    <!-- Mobile Menu Button -->
-                    <button onclick="toggleMenu()"
-                        class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
-                        aria-label="Open menu">
-                        <span class="material-symbols-outlined text-text-main">menu</span>
-                    </button>
+                <!-- Logo -->
+                <div class="flex items-center gap-8 lg:gap-12">
+                    <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
+                        <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
+                        <span
+                            class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
+                    </a>
+
+                    <!-- Desktop Nav -->
+                    <nav class="hidden lg:flex items-center gap-6">
+                        <!-- Explore Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Explore
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="index.html"
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Home</a>
+                                    <a href="browse.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a>
+                                    <a href="featured.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
+                                    <a href="collections.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a>
+                                    <a href="timelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Registry Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Registry
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[220px]">
+                                    <a href="browse-leaders.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse
+                                        Leaders</a>
+                                    <a href="apply-verification.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Apply
+                                        for Verification</a>
+                                    <a href="controlled-contributions.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Submit
+                                        Content</a>
+                                    <div class="border-t border-border-light my-1"></div>
+                                    <a href="partners.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Partners</a>
+                                    <a href="fellowship.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Fellowships</a>
+                                    <a href="reports.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Reports</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Learn Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Learn
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="education.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a>
+                                    <a href="enterprises.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a>
+                                    <a href="research.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a>
+                                    <a href="publications.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a>
+                                    <a href="resources.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Participate Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Participate
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="nominate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
+                                        a Woman</a>
+                                    <a href="share-story.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
+                                        Your Story</a>
+                                    <a href="contributor-guidelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
+                                        Guidelines</a>
+                                    <a href="donate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="donate">Donate</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- About Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                About
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="about.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
+                                        Us</a>
+                                    <a href="contributors.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
+                                    <a href="methodology.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
+                                    <a href="editorial-standards.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
+                                        Standards</a>
+                                    <a href="contact.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex items-center gap-3 lg:gap-6">
+                            <!-- Language Switcher -->
+                            <div id="language-switcher" class="hidden lg:block"></div>
+                            <!-- Desktop Search -->
+                            <div
+                                class="hidden md:flex items-center bg-white/50  border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
+                                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
+                                <input
+                                    class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
+                                    placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
+                            </div>
+
+                            <!-- Mobile Search Button -->
+                            <button onclick="toggleSearch()"
+                                class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
+                                aria-label="Open search">
+                                <span class="material-symbols-outlined text-accent-teal">search</span>
+                            </button>
+
+                            <!-- Desktop Actions -->
+                            <div class="hidden sm:flex items-center gap-4">
+                                <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
+                                    href="donate.html" data-i18n="donate">Donate</a>
+                                <button data-auth="signin"
+                                    class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                    data-i18n="signIn">
+                                    Sign In
+                                </button>
+                                <div data-auth="signout" class="flex items-center gap-3" style="display: none;">
+                                    <span data-auth="user-info" class="text-sm text-text-secondary"></span>
+                                    <button
+                                        class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                                        Sign Out
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Menu Button -->
+                            <button onclick="toggleMenu()"
+                                class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
+                                aria-label="Open menu">
+                                <span class="material-symbols-outlined text-text-main">menu</span>
+                            </button>
+                        </div>
                 </div>
             </div>
-        </div>
     </header>
 
-    <!-- Mobile Search Sheet -->
-    <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
-        <div class="flex items-center gap-3">
-            <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
-                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
-            </div>
-            <button onclick="toggleSearch()"
-                class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div id="menuOverlay" class="overlay hidden fixed inset-0 z-[140] bg-black/40" onclick="toggleMenu()"></div>
-
-    <!-- Mobile Bottom Sheet Menu -->
-    <nav id="mobileMenu"
-        class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
-        <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
-
-        <!-- Account Section -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                Account</h3>
-            <a href="profile.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">My
-                Profile</a>
-            <a href="settings.html"
-                class="block py-3 text-base font-medium text-primary border-b border-border-light/50 hover:text-primary/80">Settings</a>
-            <button onclick="handleMobileLogout()"
-                class="block w-full text-left py-3 text-base font-medium text-red-600 hover:text-red-700">
-                Sign Out
-            </button>
-        </div>
-
-        <!-- Explore -->
-        <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                Explore</h3>
-            <a href="index.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
-            <a href="browse.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
-            <a href="featured.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
-            <a href="collections.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Collections</a>
-        </div>
-
-        <!-- About -->
-        <div class="px-6 pb-8">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                About</h3>
-            <a href="about.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
-                Us</a>
-            <a href="contact.html"
-                class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row gap-8">
             <!-- Settings Navigation Sidebar -->
@@ -803,148 +918,12 @@
     <script src="js/ui.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/navigation.js"></script>
-    <script>
-        // Tab navigation
-        function showSection(section) {
-            // Hide all sections
-            document.querySelectorAll('.settings-section').forEach(el => {
-                el.classList.add('hidden');
-            });
-
-            // Show selected section
-            document.getElementById('section-' + section).classList.remove('hidden');
-
-            // Update nav items
-            document.querySelectorAll('.settings-nav-item').forEach(btn => {
-                btn.classList.remove('active', 'text-text-main', 'border-primary', 'bg-primary/10');
-                btn.classList.add('text-text-secondary', 'border-transparent');
-
-                if (btn.dataset.section === section) {
-                    btn.classList.add('active', 'text-text-main', 'border-primary', 'bg-primary/10');
-                    btn.classList.remove('text-text-secondary', 'border-transparent');
-                }
-            });
-        }
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function () {
-            // ALWAYS require authentication - security critical
-            // Use Auth.protectPage() for consistent security
-            if (!Auth.protectPage('user')) {
-                return; // protectPage handles redirect
-            }
-
-            // Load user data
-            loadUserData();
-        });
-
-        // Load user data
-        function loadUserData() {
-            const user = Auth.getUser();
-            if (user) {
-                // Update avatar initials
-                const initials = user.name ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : 'JD';
-                document.getElementById('avatar-initials').textContent = initials;
-
-                // Update form fields
-                if (user.name) {
-                    const nameParts = user.name.split(' ');
-                    document.getElementById('firstName').value = nameParts[0] || '';
-                    document.getElementById('lastName').value = nameParts.slice(1).join(' ') || '';
-                }
-                if (user.email) {
-                    document.getElementById('email').value = user.email;
-                }
-                if (user.bio) {
-                    document.getElementById('bio').value = user.bio;
-                }
-                if (user.location) {
-                    document.getElementById('location').value = user.location;
-                }
-            }
-        }
-
-        // Profile form submission
-        document.getElementById('profile-form')?.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const formData = {
-                name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`.trim(),
-                email: document.getElementById('email').value,
-                bio: document.getElementById('bio').value,
-                location: document.getElementById('location').value
-            };
-
-            // Show loading state
-            const submitBtn = this.querySelector('[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Saving...';
-
-            try {
-                // In demo mode, just update local storage
-                const currentUser = Auth._currentUser || {};
-                const updatedUser = { ...currentUser, ...formData };
-                localStorage.setItem(CONFIG.STORAGE_KEYS.USER, JSON.stringify(updatedUser));
-                Auth._currentUser = updatedUser;
-
-                // Update avatar initials
-                const initials = formData.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                document.getElementById('avatar-initials').textContent = initials;
-
-                UI.showToast('Profile updated successfully!', 'success');
-            } catch (error) {
-                console.error('Profile update error:', error);
-                UI.showToast('Failed to update profile', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }
-        });
-
-        // Password form submission
-        document.getElementById('password-form')?.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const currentPassword = this.querySelector('[name="currentPassword"]').value;
-            const newPassword = this.querySelector('[name="newPassword"]').value;
-            const confirmPassword = this.querySelector('[name="confirmPassword"]').value;
-
-            if (newPassword !== confirmPassword) {
-                UI.showToast('New passwords do not match', 'error');
-                return;
-            }
-
-            if (newPassword.length < 8) {
-                UI.showToast('Password must be at least 8 characters', 'error');
-                return;
-            }
-
-            // Show loading state
-            const submitBtn = this.querySelector('[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Updating...';
-
-            try {
-                // Demo mode - simulate password change
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                UI.showToast('Password updated successfully!', 'success');
-                this.reset();
-            } catch (error) {
-                console.error('Password update error:', error);
-                UI.showToast('Failed to update password', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }
-        });
-    </script>
+    <script src="js/settings-inline-2.js"></script>
 
     <script src="js/inline-common.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>

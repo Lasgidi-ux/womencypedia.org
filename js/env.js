@@ -24,13 +24,13 @@
         window.location.hostname.endsWith('.local');
 
     // Strapi CMS URL
-    // Use local Strapi for development, remote for production
     // Production Strapi is hosted on Render: https://womencypedia-cms.onrender.com
-    // Override: Set FORCE_PRODUCTION=true in URL params to use production CMS on localhost
+    // Default to production URL to avoid connection errors when local Strapi is not running
+    // To use local Strapi, set FORCE_LOCAL=true in URL params
     const urlParams = new URLSearchParams(window.location.search);
-    const forceProduction = urlParams.get('FORCE_PRODUCTION') === 'true';
+    const forceLocal = urlParams.get('FORCE_LOCAL') === 'true';
 
-    window.API_STRAPI_URL = (isDevelopment && !forceProduction)
+    window.API_STRAPI_URL = (isDevelopment && forceLocal)
         ? 'http://localhost:1337'
         : 'https://womencypedia-cms.onrender.com';
 

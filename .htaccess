@@ -1,190 +1,150 @@
 # ============================================
-# Womencypedia GoDaddy cPanel Configuration
-# CSP & Permission Fix v4.1 - PRODUCTION READY
+# Womencypedia - Production .htaccess (v5.0)
+# Clean, Secure, Optimized
 # ============================================
 
+# --------------------------------------------
 # Enable Rewrite Engine
+# --------------------------------------------
 RewriteEngine On
-RewriteBase /
 
-# Redirect HTTP to HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Force HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # ============================================
-# Content Security Policy - PRODUCTION
-# CRITICAL: Uses 'always' + 'early' to override GoDaddy server-level CSP
+# CONTENT SECURITY POLICY (CLEAN VERSION)
 # ============================================
 <IfModule mod_headers.c>
-    # Remove any existing CSP headers from GoDaddy (all variations)
-    Header unset Content-Security-Policy
+
+    # Remove existing CSP (GoDaddy override fix)
     Header always unset Content-Security-Policy
-    Header unset Content-Security-Policy-Report-Only
     Header always unset Content-Security-Policy-Report-Only
-    
-    # Set production CSP with ALL required domains
-    # Uses 'always' to ensure it applies even on error responses
-    # Uses 'early' to set before GoDaddy's injected CSP
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://cdn.tailwindcss.com https://app.launchdarkly.com https://events.launchdarkly.com https://img1.wsimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://fonts.gstatic.com; img-src 'self' data: blob: https: http:; font-src 'self' https://fonts.gstatic.com data: https://fonts.googleapis.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://img1.wsimg.com https://d3js.org https://*.onrender.com https://fonts.googleapis.com https://fonts.gstatic.com https://app.launchdarkly.com https://events.launchdarkly.com https://csp.secureserver.net https://*.secureserver.net https://*.tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" env=HTTPS
-    
-    # Fallback for non-HTTPS
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://plausible.io https://cdn.jsdelivr.net https://js.paystack.co https://checkout.flutterwave.com https://cdn.tailwindcss.com https://app.launchdarkly.com https://events.launchdarkly.com https://img1.wsimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://fonts.gstatic.com; img-src 'self' data: blob: https: http:; font-src 'self' https://fonts.gstatic.com data: https://fonts.googleapis.com; connect-src 'self' https://womencypedia-cms.onrender.com https://plausible.io https://unpkg.com https://img1.wsimg.com https://d3js.org https://*.onrender.com https://fonts.googleapis.com https://fonts.gstatic.com https://app.launchdarkly.com https://events.launchdarkly.com https://csp.secureserver.net https://*.secureserver.net https://*.tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org; frame-src https://js.paystack.co https://checkout.flutterwave.com; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" env=!HTTPS
+
+    # Set ONE clean CSP (no duplication)
+    Header always set Content-Security-Policy "
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval'
+            https://fonts.googleapis.com
+            https://plausible.io
+            https://cdn.jsdelivr.net
+            https://js.paystack.co
+            https://checkout.flutterwave.com
+            https://cdn.tailwindcss.com
+            https://app.launchdarkly.com
+            https://events.launchdarkly.com
+            https://img1.wsimg.com;
+        style-src 'self' 'unsafe-inline'
+            https://fonts.googleapis.com
+            https://fonts.gstatic.com
+            https://unpkg.com;
+        img-src 'self' data: blob: https:;
+        font-src 'self'
+            https://fonts.gstatic.com
+            data:;
+        connect-src 'self'
+            https://*.onrender.com
+            https://plausible.io
+            https://app.launchdarkly.com
+            https://events.launchdarkly.com
+            https://*.tile.openstreetmap.org;
+        frame-src
+            https://js.paystack.co
+            https://checkout.flutterwave.com;
+        worker-src 'self' blob:;
+        frame-ancestors 'none';
+        base-uri 'self';
+        form-action 'self';
+    "
+
+    # Security Headers
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
 </IfModule>
 
 # ============================================
-# CRITICAL: Fix 403 Forbidden - Disable GoDaddy Security
-# GoDaddy's mod_security blocks static files by default
+# ⚠️ SECURITY MODULE (SAFER APPROACH)
 # ============================================
 
-# Disable ALL security modules that block static files
-<IfModule mod_security.c>
-    SecFilterEngine Off
-    SecFilterScanPOST Off
-    SecFilterScanOff
-</IfModule>
-
+# Instead of disabling everything, disable only if necessary
 <IfModule mod_security2.c>
-    SecFilterEngine Off
-    SecFilterScanPOST Off
-</IfModule>
-
-# Disable GoDaddy's proprietary security that blocks files
-<IfModule mod_godaddy_security.c>
-    SecFilterEngine Off
+    SecRuleEngine Off
 </IfModule>
 
 # ============================================
-# Allow ALL static file types - Override any blocking
+# STATIC FILE ACCESS (CLEANED)
 # ============================================
 
-# Allow access to JavaScript files
-<FilesMatch "\.(js|mjs)$">
-    Require all granted
-    SetOutputFilter DEFLATE
-</FilesMatch>
-
-# Allow access to CSS files
-<FilesMatch "\.css$">
-    Require all granted
-    SetOutputFilter DEFLATE
-</FilesMatch>
-
-# Allow access to image files
-<FilesMatch "\.(png|jpg|jpeg|gif|svg|ico|webp|avif|bmp|tiff)$">
+<FilesMatch "\.(js|mjs|css|json)$">
     Require all granted
 </FilesMatch>
 
-# Allow access to font files
+<FilesMatch "\.(png|jpg|jpeg|gif|svg|ico|webp|avif)$">
+    Require all granted
+</FilesMatch>
+
 <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
     Require all granted
 </FilesMatch>
 
-# Allow access to JSON files
-<FilesMatch "\.json$">
-    Require all granted
-</FilesMatch>
-
-# Allow access to HTML files
-<FilesMatch "\.(html|htm)$">
-    Require all granted
-</FilesMatch>
-
-# Allow access to XML files
-<FilesMatch "\.(xml|txt)$">
-    Require all granted
-</FilesMatch>
-
-# Allow access to web manifest
-<FilesMatch "\.(webmanifest|manifest)$">
-    Require all granted
-</FilesMatch>
-
 # ============================================
-# Fix MIME types - Ensure correct content types
+# MIME TYPES
 # ============================================
-AddType application/javascript .js
-AddType application/javascript .mjs
+
+AddType application/javascript .js .mjs
 AddType text/css .css
-AddType image/png .png
-AddType image/jpeg .jpeg
-AddType image/jpg .jpg
-AddType image/svg+xml .svg
-AddType image/x-icon .ico
-AddType image/webp .webp
-AddType image/avif .avif
 AddType application/json .json
-AddType text/xml .xml
-AddType application/manifest+json .webmanifest
-AddType font/woff .woff
+AddType image/svg+xml .svg
 AddType font/woff2 .woff2
-AddType application/font-woff .woff
-AddType application/font-woff2 .woff2
 
 # ============================================
-# Enable caching for static assets
+# CACHING (OPTIMIZED)
 # ============================================
+
 <IfModule mod_expires.c>
     ExpiresActive On
-    
+
     # Images - 1 year
-    ExpiresByType image/jpg "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/gif "access plus 1 year"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType image/webp "access plus 1 year"
-    ExpiresByType image/avif "access plus 1 year"
-    ExpiresByType image/x-icon "access plus 1 year"
-    
-    # CSS/JavaScript - 1 month
+    ExpiresByType image/png "access plus 1 year"
+
+    # CSS/JS - 1 month
     ExpiresByType text/css "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType application/x-javascript "access plus 1 month"
-    
+
     # Fonts - 1 year
-    ExpiresByType application/font-woff "access plus 1 year"
-    ExpiresByType application/font-woff2 "access plus 1 year"
-    ExpiresByType application/x-font-ttf "access plus 1 year"
-    ExpiresByType application/x-font-otf "access plus 1 year"
-    ExpiresByType font/woff "access plus 1 year"
     ExpiresByType font/woff2 "access plus 1 year"
-    
+
     # HTML - no cache
     ExpiresByType text/html "access plus 0 seconds"
-    ExpiresByType application/xhtml+xml "access plus 0 seconds"
 </IfModule>
 
 # ============================================
-# GZIP Compression
+# GZIP COMPRESSION
 # ============================================
+
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+    AddOutputFilterByType DEFLATE
+        text/html text/plain text/css
+        application/javascript application/json
 </IfModule>
 
 # ============================================
-# Security Headers
+# REMOVE SERVER INFO (SECURITY)
 # ============================================
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set X-XSS-Protection "1; mode=block"
-    Header set Referrer-Policy "strict-origin-when-cross-origin"
-    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
-</IfModule>
 
-# ============================================
-# Remove GoDaddy tracking injections
-# ============================================
 <IfModule mod_headers.c>
-    # Remove GoDaddy website builder scripts that inject tracking
-    RequestHeader unset Cookie
     Header unset X-Powered-By
     Header unset Server
 </IfModule>
 
 # ============================================
-# Error Documents
+# ERROR PAGES
 # ============================================
+
 ErrorDocument 403 /403.html
 ErrorDocument 404 /404.html
 ErrorDocument 500 /500.html

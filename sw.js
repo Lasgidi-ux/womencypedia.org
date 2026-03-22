@@ -5,8 +5,8 @@
  * FIXED: CSP violation prevention for service worker fetches
  */
 
-const CACHE_NAME = 'womencypedia-v4.1';
-const OFFLINE_URL = '404.html';
+const CACHE_NAME = 'womencypedia-v4.2';
+const OFFLINE_URL = '/404.html';
 
 const PRECACHE_ASSETS = [
     '/',
@@ -25,7 +25,8 @@ const PRECACHE_ASSETS = [
     '/js/darkmode.js',
     '/js/performance.js',
     '/images/womencypedia-logo.png',
-    '/manifest.json'
+    '/manifest.json',
+    '/404.html'
 ];
 
 // Critical assets that MUST cache for the app to function offline
@@ -167,7 +168,16 @@ self.addEventListener('fetch', (event) => {
                     .catch(() => {
                         // Offline fallback for navigation requests
                         if (event.request.mode === 'navigate') {
-                            return caches.match(OFFLINE_URL);
+                            return caches.match(OFFLINE_URL).then(cachedResponse => {
+                                return cachedResponse || new Response(
+                                    '<!DOCTYPE html><html lang="en"><head><title>Offline</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="font-family:sans-serif;text-align:center;padding:2rem;"><h1>You are currently offline</h1><p>Please check your internet connection and try again.</p></body></html>',
+                                    {
+                                        status: 503,
+                                        statusText: 'Service Unavailable',
+                                        headers: { 'Content-Type': 'text/html' }
+                                    }
+                                );
+                            });
                         }
                         // Return an empty response for other failed requests
                         return new Response('', {

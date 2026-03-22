@@ -1,0 +1,70 @@
+{
+    "kind": "collectionType",
+    "collectionName": "badges",
+    "info": {
+        "singularName": "badge",
+        "pluralName": "badges",
+        "displayName": "Badge",
+        "description": "Recognition badges awarded to users for contributions and achievements"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true,
+            "unique": true
+        },
+        "slug": {
+            "type": "string",
+            "required": true,
+            "unique": true
+        },
+        "description": {
+            "type": "text"
+        },
+        "icon": {
+            "type": "string",
+            "required": true
+        },
+        "category": {
+            "type": "enumeration",
+            "enum": [
+                "contribution",
+                "review",
+                "research",
+                "verification",
+                "special"
+            ],
+            "required": true
+        },
+        "requirement": {
+            "type": "string",
+            "description": "Human-readable requirement description"
+        },
+        "threshold": {
+            "type": "integer",
+            "description": "Numeric threshold to earn the badge"
+        },
+        "color": {
+            "type": "string",
+            "default": "primary"
+        },
+        "isActive": {
+            "type": "boolean",
+            "default": true
+        },
+        "sortOrder": {
+            "type": "integer",
+            "default": 0
+        },
+        "users": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "plugin::users-permissions.user",
+            "mappedBy": "badges"
+        }
+    }
+}

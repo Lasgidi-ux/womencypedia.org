@@ -81,6 +81,12 @@
         },
         "displayName": {
             "type": "string"
+        },
+        "badges": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::badge.badge",
+            "inversedBy": "users"
         }
     }
 }

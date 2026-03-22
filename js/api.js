@@ -16,10 +16,10 @@ class APIError extends Error {
     }
 }
 
-const API = {
+const LegacyAPI = {
     // Use CONFIG for dynamic base URL to match environment configuration
     get baseURL() {
-        return CONFIG?.API_BASE_URL || "https://womencypedia-cms.onrender.com";
+        return typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL ? CONFIG.API_BASE_URL : "https://womencypedia-cms.onrender.com";
     },
 
     // ============================================
@@ -72,7 +72,7 @@ const API = {
     _useStrapi: true,
 
     async init() {
-        this._useStrapi = CONFIG?.USE_STRAPI === true;
+        this._useStrapi = typeof CONFIG !== 'undefined' && CONFIG.USE_STRAPI === true;
         if (this._useStrapi) console.info('Using Strapi CMS mode');
     },
 
@@ -107,10 +107,10 @@ const API = {
     },
 
     async _genericRequest(endpoint, options = {}) {
-        const url = `${CONFIG?.API_BASE_URL || this.baseURL}${endpoint}`;
+        const url = `${typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL ? CONFIG.API_BASE_URL : this.baseURL}${endpoint}`;
 
         const defaultHeaders = { 'Content-Type': 'application/json' };
-        const token = Auth?.getAccessToken?.() || localStorage.getItem("womencypedia_access_token");
+        const token = (typeof Auth !== 'undefined' && Auth.getAccessToken && Auth.getAccessToken()) || localStorage.getItem("womencypedia_access_token");
         if (token) defaultHeaders.Authorization = `Bearer ${token}`;
 
         const config = { ...options, headers: { ...defaultHeaders, ...options.headers } };
@@ -138,7 +138,43 @@ const API = {
     }
 };
 
-// CRITICAL: Force API onto window object so forms.js can always find it
-window.API = API;
+// CRITICAL: Protect existing API methods (from strapi-api.js) while exposing new methods.
+if (!window.API) {
+    window.API = LegacyAPI;
+} else {
+    // Only add methods that don't conflict, notably submitStory!
+    window.API.submitStory = LegacyAPI.submitStory.bind(LegacyAPI);
+    if (!window.API.init) window.API.init = LegacyAPI.init.bind(LegacyAPI);
+    if (!window.API.isUsingStrapi) window.API.isUsingStrapi = LegacyAPI.isUsingStrapi.bind(LegacyAPI);
+    if (!window.API.handleApiError) window.API.handleApiError = LegacyAPI.handleApiError.bind(LegacyAPI);
 
-console.log("✅ Womencypedia API service (with fixed submitStory) loaded successfully");
+    // CRITICAL: Preserve biographies and collections objects from StrapiAPI
+    // These are required by browse-logic.js and other pages
+    if (window.StrapiAPI) {
+        if (!window.API.biographies && window.StrapiAPI.biographies) {
+            window.API.biographies = window.StrapiAPI.biographies;
+        }
+        if (!window.API.collections && window.StrapiAPI.collections) {
+            window.API.collections = window.StrapiAPI.collections;
+        }
+        if (!window.API.leaders && window.StrapiAPI.leaders) {
+            window.API.leaders = window.StrapiAPI.leaders;
+        }
+        if (!window.API.contributions && window.StrapiAPI.contributions) {
+            window.API.contributions = window.StrapiAPI.contributions;
+        }
+        if (!window.API.comments && window.StrapiAPI.comments) {
+            window.API.comments = window.StrapiAPI.comments;
+        }
+        if (!window.API.educationModules && window.StrapiAPI.educationModules) {
+            window.API.educationModules = window.StrapiAPI.educationModules;
+        }
+        if (!window.API.notifications && window.StrapiAPI.notifications) {
+            window.API.notifications = window.StrapiAPI.notifications;
+        }
+    }
+
+    // We do NOT override window.API.request or window.API._strapiRequest because that breaks StrapiAPI objects!
+}
+
+console.log("✅ Womencypedia API service (with fixed submitStory) merged successfully");
