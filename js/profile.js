@@ -532,7 +532,7 @@ async function saveProfile() {
     try {
         if (Auth?.isAuthenticated?.()) {
             await API.request(
-                `${API.base} /api/users / ${profileData.id} `,
+                `${API.base}/api/users/${profileData.id}`,
                 {
                     method: 'PUT',
                     headers: {

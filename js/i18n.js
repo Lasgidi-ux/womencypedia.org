@@ -145,6 +145,9 @@ const I18N = {
     /** Timeout for debounced translation */
     _translateTimeout: null,
 
+    /** Timeout for debounced auto-translation */
+    _autoTranslateTimeout: null,
+
     /** MutationObserver instance */
     _mutationObserver: null,
 
@@ -435,6 +438,13 @@ const I18N = {
                 clearTimeout(this._translateTimeout);
                 this._translateTimeout = setTimeout(() => {
                     this.translatePage();
+                    // Also auto-translate new content after a short delay
+                    if (this.currentLocale !== 'en') {
+                        clearTimeout(this._autoTranslateTimeout);
+                        this._autoTranslateTimeout = setTimeout(() => {
+                            this.autoTranslateRemainingText();
+                        }, 800);
+                    }
                 }, 100);
             }
         });
@@ -641,6 +651,279 @@ const I18N = {
             clearTimeout(this._translateTimeout);
             this._translateTimeout = null;
         }
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // AUTO-TRANSLATION ENGINE
+    // Automatically translates ALL remaining visible text on the
+    // page that is NOT already handled by data-i18n attributes.
+    // Uses MyMemory free translation API with sessionStorage cache.
+    // ─────────────────────────────────────────────────────────
+
+    /** Cache for auto-translated strings (sessionStorage-backed) */
+    _autoTranslateCache: {},
+
+    /** Whether auto-translation is currently running */
+    _autoTranslating: false,
+
+    /** Set of nodes currently being translated (to avoid duplicates) */
+    _pendingNodes: new WeakSet(),
+
+    /**
+     * Load the auto-translate cache from sessionStorage
+     */
+    _loadAutoTranslateCache() {
+        try {
+            const cached = sessionStorage.getItem('womencypedia_auto_translate_cache');
+            if (cached) {
+                this._autoTranslateCache = JSON.parse(cached);
+            }
+        } catch {
+            this._autoTranslateCache = {};
+        }
+    },
+
+    /**
+     * Save the auto-translate cache to sessionStorage
+     */
+    _saveAutoTranslateCache() {
+        try {
+            // Limit cache size to prevent sessionStorage overflow
+            const keys = Object.keys(this._autoTranslateCache);
+            if (keys.length > 2000) {
+                // Keep only the most recent 1000 entries
+                const toKeep = keys.slice(-1000);
+                const trimmed = {};
+                toKeep.forEach(k => { trimmed[k] = this._autoTranslateCache[k]; });
+                this._autoTranslateCache = trimmed;
+            }
+            sessionStorage.setItem('womencypedia_auto_translate_cache', JSON.stringify(this._autoTranslateCache));
+        } catch {
+            // sessionStorage full — silently continue
+        }
+    },
+
+    /**
+     * Get a cache key for a translation
+     */
+    _cacheKey(text, targetLang) {
+        return `${targetLang}:${text.substring(0, 200)}`;
+    },
+
+    /**
+     * Translate text using the MyMemory Translation API (free, no API key needed)
+     * Falls back gracefully if the API is unavailable.
+     * @param {string} text - Text to translate
+     * @param {string} targetLang - Target language code (e.g., 'fr', 'es')
+     * @returns {Promise<string>} Translated text, or original if translation fails
+     */
+    async _translateText(text, targetLang) {
+        if (!text || !text.trim() || targetLang === 'en') return text;
+
+        const cacheKey = this._cacheKey(text, targetLang);
+
+        // Check cache first
+        if (this._autoTranslateCache[cacheKey]) {
+            return this._autoTranslateCache[cacheKey];
+        }
+
+        try {
+            const encodedText = encodeURIComponent(text.trim());
+            const url = `https://api.mymemory.translated.net/get?q=${encodedText}&langpair=en|${targetLang}&de=rev@womencypedia.org`;
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                signal: AbortSignal.timeout(8000) // 8 second timeout
+            });
+
+            if (!response.ok) return text;
+
+            const data = await response.json();
+
+            if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
+                let translated = data.responseData.translatedText;
+
+                // MyMemory sometimes returns the input in uppercase when it can't translate
+                if (translated.toUpperCase() === text.toUpperCase() && translated !== text) {
+                    return text;
+                }
+
+                // Cache the result
+                this._autoTranslateCache[cacheKey] = translated;
+                return translated;
+            }
+
+            return text;
+        } catch {
+            // API unavailable — return original
+            return text;
+        }
+    },
+
+    /**
+     * Batch translate multiple texts (groups API calls for efficiency)
+     * @param {Array<{text: string, node: Node}>} items - Array of text/node pairs
+     * @param {string} targetLang - Target language code
+     */
+    async _batchTranslate(items, targetLang) {
+        // Process in batches of 5 to avoid overwhelming the API
+        const batchSize = 5;
+        for (let i = 0; i < items.length; i += batchSize) {
+            const batch = items.slice(i, i + batchSize);
+            const promises = batch.map(async (item) => {
+                const translated = await this._translateText(item.text, targetLang);
+                if (translated !== item.text && item.node) {
+                    item.node.textContent = translated;
+                }
+            });
+            await Promise.all(promises);
+
+            // Small delay between batches to respect rate limits
+            if (i + batchSize < items.length) {
+                await new Promise(resolve => setTimeout(resolve, 300));
+            }
+        }
+    },
+
+    /**
+     * Check if an element should be skipped from auto-translation
+     */
+    _shouldSkipElement(el) {
+        // Skip elements that are handled by data-i18n
+        if (el.hasAttribute && (
+            el.hasAttribute('data-i18n') ||
+            el.hasAttribute('data-i18n-html') ||
+            el.hasAttribute('data-i18n-placeholder') ||
+            el.hasAttribute('data-i18n-title') ||
+            el.hasAttribute('data-i18n-aria') ||
+            el.hasAttribute('data-no-translate')
+        )) {
+            return true;
+        }
+
+        // Skip script, style, code elements
+        const tag = el.tagName ? el.tagName.toLowerCase() : '';
+        if (['script', 'style', 'code', 'pre', 'noscript', 'svg', 'math', 'iframe'].includes(tag)) {
+            return true;
+        }
+
+        // Skip hidden elements
+        if (el.offsetParent === null && tag !== 'body' && tag !== 'html') {
+            return true;
+        }
+
+        // Skip the language switcher itself
+        if (el.closest && (el.closest('#language-switcher') || el.closest('.language-switcher') || el.closest('.lang-dropdown'))) {
+            return true;
+        }
+
+        return false;
+    },
+
+    /**
+     * Collect all text nodes that need translation
+     * @param {Element} root - Root element to search within
+     * @returns {Array<{text: string, node: Node}>}
+     */
+    _collectTranslatableTextNodes(root) {
+        const items = [];
+        const walker = document.createTreeWalker(
+            root,
+            NodeFilter.SHOW_TEXT,
+            {
+                acceptNode: (node) => {
+                    // Skip empty or whitespace-only nodes
+                    const text = node.textContent.trim();
+                    if (!text || text.length < 2) return NodeFilter.FILTER_REJECT;
+
+                    // Skip if already pending translation
+                    if (this._pendingNodes.has(node)) return NodeFilter.FILTER_REJECT;
+
+                    // Skip if parent should be excluded
+                    const parent = node.parentElement;
+                    if (!parent) return NodeFilter.FILTER_REJECT;
+                    if (this._shouldSkipElement(parent)) return NodeFilter.FILTER_REJECT;
+
+                    // Check if ANY ancestor has data-i18n (already translated)
+                    let ancestor = parent;
+                    while (ancestor && ancestor !== root) {
+                        if (ancestor.hasAttribute && (
+                            ancestor.hasAttribute('data-i18n') ||
+                            ancestor.hasAttribute('data-i18n-html')
+                        )) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+                        ancestor = ancestor.parentElement;
+                    }
+
+                    // Skip numbers-only, single characters, URLs, emails
+                    if (/^[\d\s.,;:!?%$€£¥+\-*/=()[\]{}#@&|~^`"'<>\\]+$/.test(text)) return NodeFilter.FILTER_REJECT;
+                    if (/^https?:\/\//.test(text)) return NodeFilter.FILTER_REJECT;
+                    if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(text)) return NodeFilter.FILTER_REJECT;
+
+                    // Skip very short text that's likely an icon or symbol
+                    if (text.length <= 2 && !/[a-zA-Z]{2,}/.test(text)) return NodeFilter.FILTER_REJECT;
+
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            }
+        );
+
+        let node;
+        while (node = walker.nextNode()) {
+            const text = node.textContent.trim();
+            items.push({ text, node });
+            this._pendingNodes.add(node);
+        }
+
+        return items;
+    },
+
+    /**
+     * Auto-translate all remaining text on the page.
+     * Called after translatePage() to handle text NOT covered by data-i18n.
+     */
+    async autoTranslateRemainingText() {
+        if (this.currentLocale === 'en' || this._autoTranslating) return;
+
+        this._autoTranslating = true;
+        this._loadAutoTranslateCache();
+
+        try {
+            const items = this._collectTranslatableTextNodes(document.body);
+            
+            if (items.length === 0) {
+                this._autoTranslating = false;
+                return;
+            }
+
+            console.log(`[i18n] Auto-translating ${items.length} text nodes to ${this.currentLocale}...`);
+
+            // First pass: apply cached translations immediately
+            const uncached = [];
+            items.forEach(item => {
+                const cacheKey = this._cacheKey(item.text, this.currentLocale);
+                if (this._autoTranslateCache[cacheKey]) {
+                    item.node.textContent = this._autoTranslateCache[cacheKey];
+                } else {
+                    uncached.push(item);
+                }
+            });
+
+            if (uncached.length > 0) {
+                console.log(`[i18n] ${items.length - uncached.length} from cache, ${uncached.length} need API translation`);
+                // Translate uncached items via API
+                await this._batchTranslate(uncached, this.currentLocale);
+                // Save new translations to cache
+                this._saveAutoTranslateCache();
+            }
+
+            console.log(`[i18n] Auto-translation complete`);
+        } catch (error) {
+            console.warn('[i18n] Auto-translation error:', error.message);
+        } finally {
+            this._autoTranslating = false;
+        }
     }
 };
 
@@ -661,6 +944,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     I18N.init();
     // Intercept links AFTER init so locale is set
     I18N.interceptAllLinks();
+
+    // Auto-translate remaining text that isn't covered by data-i18n
+    // This runs after a short delay to let the page fully render
+    if (I18N.currentLocale !== 'en') {
+        setTimeout(() => {
+            I18N.autoTranslateRemainingText();
+        }, 500);
+    }
 });
 
 // Export for module usage

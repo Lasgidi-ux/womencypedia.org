@@ -48,20 +48,15 @@ yarn-error.log*
 *.temp
 *.bak
 *.orig
+tmp/
 
-# ─── Strapi CMS ─────────────────────────────
-womencypedia-cms/.tmp/
-womencypedia-cms/dist/
-womencypedia-cms/.strapi/
-womencypedia-cms/database/
-womencypedia-cms/.cache/
-womencypedia-cms/exports/
-womencypedia-cms/node_modules/
-womencypedia-cms/.env
-womencypedia-cms/.env.*
+# ─── Strapi CMS (separate backend — has its own repo) ─
+# The CMS runs on Render independently; do NOT include in frontend deploy
+womencypedia-cms/
 
 # ─── Build artifacts ────────────────────────
-dist/
+# NOTE: dist/ is NOT ignored — Cloudflare Pages serves pre-built files from git
+# If you switch to Cloudflare Pages with a build step, you can re-add dist/
 build/
 css/tailwind.css.map
 

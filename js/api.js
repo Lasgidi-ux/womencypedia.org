@@ -98,7 +98,8 @@ const LegacyAPI = {
         // Contributions (kept for GET)
         if (endpoint.startsWith('/api/contributions')) {
             if (endpoint === '/api/contributions' && method === 'GET') {
-                return StrapiAPI.contributions.getAll();
+                // StrapiAPI doesn't have contributions.getAll(), use generic request
+                return this._genericRequest(endpoint, options);
             }
         }
 

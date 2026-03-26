@@ -254,12 +254,12 @@ const DynamicContentLoader = {
      * Load resources
      */
     async loadResources() {
-        // Reading lists
+        // Reading lists - use 'article' type since 'reading-list' is not a valid contribution type
         const readingListContainer = document.getElementById('reading-lists-grid');
 
         try {
             const response = await this.fetchWithTimeout(
-                `${this.config.apiBaseUrl}/api/contributions?locale=en&filters[type][$eq]=reading-list&pagination[pageSize]=6`,
+                `${this.config.apiBaseUrl}/api/contributions?locale=en&filters[type][$eq]=article&pagination[pageSize]=6`,
                 this.config.timeout
             );
 

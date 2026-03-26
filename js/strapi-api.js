@@ -292,6 +292,31 @@ class StrapiAPIClient {
     },
   };
 
+  teachingResources = {
+    getAll: (params = {}) => {
+      const { populate, ...rest } = params;
+      return this.request("/api/teaching-resources", { query: rest });
+    },
+
+    getBySlug: async (slug) => {
+      const res = await this.request(
+        `/api/teaching-resources?filters[slug][$eq]=${slug}`
+      );
+      return res.entries?.[0] || null;
+    },
+
+    getByType: (type) =>
+      this.request(`/api/teaching-resources?filters[type][$eq]=${type}`),
+
+    getDownloadUrl: (resource) => {
+      if (!resource || !resource.file) return null;
+      if (resource.file.url) {
+        return this.getMediaURL(resource.file.url);
+      }
+      return null;
+    },
+  };
+
   notifications = {
     getAll: () => this.request("/api/notifications"),
 
@@ -299,6 +324,14 @@ class StrapiAPIClient {
       this.request(`/api/notifications/${id}`, {
         method: "PUT",
         body: JSON.stringify({ data: { read: true } }),
+      }),
+  };
+
+  contact = {
+    submit: (data) =>
+      this.request("/api/contact-submissions", {
+        method: "POST",
+        body: JSON.stringify({ data }),
       }),
   };
 }

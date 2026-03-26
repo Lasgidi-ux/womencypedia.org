@@ -34,6 +34,12 @@
         ? 'http://localhost:1337'
         : 'https://womencypedia-cms.onrender.com';
 
+    // Strapi API Token
+    // IMPORTANT: Set this to your Strapi API token for authenticated requests
+    // You can generate a token in Strapi Admin Panel -> Settings -> API Tokens
+    // Leave empty if Public role is enabled in Strapi (allows unauthenticated access)
+    window.API_TOKEN = '';  // Add your token here: 'your-strapi-api-token-here'
+
     // Payment Gateway Keys
     // Replace with your LIVE/TEST public keys
     window.PAYSTACK_PUBLIC_KEY = '';      // pk_live_xxx or pk_test_xxx
