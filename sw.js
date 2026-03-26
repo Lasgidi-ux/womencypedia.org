@@ -1,15 +1,14 @@
 /**
- * Womencypedia Service Worker v4.1
+ * Womencypedia Service Worker v5.0
  * Provides offline caching and PWA support
- * FIXED: External resource handling for fonts and tiles
- * FIXED: CSP violation prevention for service worker fetches
+ * FIXED: Redirect response handling for Cloudflare Pages
+ * FIXED: Image 408 offline errors
  */
 
-const CACHE_NAME = 'womencypedia-v4.2';
+const CACHE_NAME = 'womencypedia-v5.0';
 const OFFLINE_URL = '/404.html';
 
 const PRECACHE_ASSETS = [
-    '/',
     '/index.html',
     '/css/tailwind.css',
     '/css/styles.css',
@@ -30,33 +29,23 @@ const PRECACHE_ASSETS = [
 ];
 
 // Critical assets that MUST cache for the app to function offline
-const CRITICAL_ASSETS = new Set(['/', '/index.html', '/css/tailwind.css', '/css/styles.css']);
+const CRITICAL_ASSETS = new Set(['/index.html', '/css/tailwind.css', '/css/styles.css']);
 
 // Install event - cache core assets
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                // Pass raw promises — let allSettled observe successes and failures
                 return Promise.allSettled(
-                    PRECACHE_ASSETS.map(url => cache.add(url))
-                ).then(results => {
-                    let criticalFailed = false;
-                    results.forEach((result, i) => {
-                        if (result.status === 'rejected') {
-                            const url = PRECACHE_ASSETS[i];
+                    PRECACHE_ASSETS.map(url =>
+                        cache.add(new Request(url, { redirect: 'follow' })).catch(err => {
                             if (CRITICAL_ASSETS.has(url)) {
-                                console.error(`[SW] Critical asset failed to cache: ${url}`, result.reason);
-                                criticalFailed = true;
-                            } else {
-                                console.warn(`[SW] Non-critical asset skipped: ${url}`);
+                                throw err;
                             }
-                        }
-                    });
-                    if (criticalFailed) {
-                        throw new Error('One or more critical assets failed to cache');
-                    }
-                });
+                            console.warn(`[SW] Non-critical asset skipped: ${url}`);
+                        })
+                    )
+                );
             })
             .then(() => self.skipWaiting())
     );
@@ -82,7 +71,7 @@ self.addEventListener('fetch', (event) => {
     // Skip non-GET requests
     if (event.request.method !== 'GET') return;
 
-    // Skip chrome-extension, browser-extension, and non-http(s) schemes
+    // Skip non-http(s) schemes (chrome-extension, etc.)
     if (!requestUrl.startsWith('http://') && !requestUrl.startsWith('https://')) return;
 
     // Skip API requests
@@ -91,20 +80,17 @@ self.addEventListener('fetch', (event) => {
     // Skip analytics, tracking, and third-party SDK requests
     if (requestUrl.includes('plausible.io') || requestUrl.includes('launchdarkly') || requestUrl.includes('analytics')) return;
 
-    // Skip GoDaddy security and external CDN requests that may violate CSP
+    // Skip Cloudflare internal paths
+    if (requestUrl.includes('/cdn-cgi/')) return;
+
+    // Skip GoDaddy security requests
     if (requestUrl.includes('secureserver.net') || requestUrl.includes('csp.')) return;
 
-    // CRITICAL FIX: Skip ALL external resources that could cause CSP violations
-    // This includes fonts, map tiles, and any cross-origin resources
-    // Return undefined to let the browser handle the request natively
-    // This prevents CSP violations from service worker fetch requests
+    // Skip ALL external resources — let the browser handle them natively
     const isExternalResource =
         requestUrl.includes('fonts.gstatic.com') ||
         requestUrl.includes('fonts.googleapis.com') ||
         requestUrl.includes('tile.openstreetmap.org') ||
-        requestUrl.includes('a.tile.openstreetmap.org') ||
-        requestUrl.includes('b.tile.openstreetmap.org') ||
-        requestUrl.includes('c.tile.openstreetmap.org') ||
         requestUrl.includes('unpkg.com') ||
         requestUrl.includes('cdn.jsdelivr.net') ||
         requestUrl.includes('cdn.tailwindcss.com') ||
@@ -112,79 +98,89 @@ self.addEventListener('fetch', (event) => {
         requestUrl.includes('checkout.flutterwave.com') ||
         /\.(?:woff2?|ttf|otf|eot)(?:[?#]|$)/i.test(requestUrl);
 
-    if (isExternalResource) {
-        // CRITICAL: Let browser handle these directly without service worker interference
-        // Return undefined to let the browser handle the request natively
-        // This prevents CSP violations from service worker fetch requests
-        return;
-    }
+    if (isExternalResource) return;
 
     // Only handle same-origin requests
     const requestOrigin = new URL(requestUrl).origin;
-    const currentOrigin = self.location.origin;
+    if (requestOrigin !== self.location.origin) return;
 
-    if (requestOrigin !== currentOrigin) {
-        // Skip all cross-origin requests - let browser handle them
+    // CRITICAL FIX: For navigation requests (page loads), let the browser handle
+    // them directly. This prevents the "redirected response" error that occurs
+    // when the server sends a redirect (e.g. / → /index.html) and the SW
+    // tries to use that redirected response for a non-follow redirect mode request.
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request).catch(() => {
+                // Offline: try to serve cached version of the page
+                return caches.match(event.request)
+                    .then(cached => cached || caches.match(OFFLINE_URL))
+                    .then(fallback => fallback || new Response(
+                        '<!DOCTYPE html><html lang="en"><head><title>Offline</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="font-family:sans-serif;text-align:center;padding:2rem;"><h1>You are currently offline</h1><p>Please check your internet connection and try again.</p></body></html>',
+                        { status: 503, statusText: 'Service Unavailable', headers: { 'Content-Type': 'text/html' } }
+                    ));
+            })
+        );
         return;
     }
 
+    // For sub-resources (JS, CSS, images): cache-first strategy with redirect safety
     event.respondWith(
         caches.match(event.request)
             .then(cachedResponse => {
                 if (cachedResponse) {
-                    // Return cached version but also update cache in background
+                    // Return cached version and update in background
                     event.waitUntil(
-                        fetch(event.request)
+                        fetch(event.request, { redirect: 'follow' })
                             .then(response => {
-                                if (response && response.ok && response.type !== 'opaque') {
-                                    const responseClone = response.clone();
+                                if (response && response.ok && !response.redirected) {
                                     caches.open(CACHE_NAME)
-                                        .then(cache => {
-                                            // Only cache same-origin or CORS-approved responses
-                                            if (response.type === 'basic' || response.type === 'cors') {
-                                                cache.put(event.request, responseClone);
-                                            }
-                                        })
-                                        .catch(() => { /* ignore cache errors */ });
+                                        .then(cache => cache.put(event.request, response.clone()))
+                                        .catch(() => {});
+                                } else if (response && response.ok && response.redirected) {
+                                    // Create a clean, non-redirected response for caching
+                                    const cleanResponse = new Response(response.body, {
+                                        status: response.status,
+                                        statusText: response.statusText,
+                                        headers: response.headers
+                                    });
+                                    caches.open(CACHE_NAME)
+                                        .then(cache => cache.put(event.request, cleanResponse))
+                                        .catch(() => {});
                                 }
                             })
-                            .catch(() => { /* ignore network errors for background update */ })
+                            .catch(() => {})
                     );
                     return cachedResponse;
                 }
 
-                // Not in cache - fetch from network
-                return fetch(event.request)
+                // Not in cache — fetch from network
+                return fetch(event.request, { redirect: 'follow' })
                     .then(response => {
-                        // Cache both same-origin and cross-origin (CORS) responses
-                        if (response && response.ok && (response.type === 'basic' || response.type === 'cors')) {
-                            const responseClone = response.clone();
-                            caches.open(CACHE_NAME)
-                                .then(cache => cache.put(event.request, responseClone))
-                                .catch(() => { /* ignore cache errors */ });
-                        }
-                        return response;
-                    })
-                    .catch(() => {
-                        // Offline fallback for navigation requests
-                        if (event.request.mode === 'navigate') {
-                            return caches.match(OFFLINE_URL).then(cachedResponse => {
-                                return cachedResponse || new Response(
-                                    '<!DOCTYPE html><html lang="en"><head><title>Offline</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="font-family:sans-serif;text-align:center;padding:2rem;"><h1>You are currently offline</h1><p>Please check your internet connection and try again.</p></body></html>',
-                                    {
-                                        status: 503,
-                                        statusText: 'Service Unavailable',
-                                        headers: { 'Content-Type': 'text/html' }
-                                    }
-                                );
+                        if (!response || !response.ok) return response;
+
+                        // If the response was redirected, create a clean copy
+                        // to avoid the "redirected response" error
+                        let responseToCache = response;
+                        if (response.redirected) {
+                            responseToCache = new Response(response.body, {
+                                status: response.status,
+                                statusText: response.statusText,
+                                headers: response.headers
                             });
                         }
-                        // Return an empty response for other failed requests
-                        return new Response('', {
-                            status: 408,
-                            statusText: 'Offline'
-                        });
+
+                        const responseClone = responseToCache.clone();
+                        caches.open(CACHE_NAME)
+                            .then(cache => cache.put(event.request, responseClone))
+                            .catch(() => {});
+
+                        return responseToCache;
+                    })
+                    .catch(() => {
+                        // Offline: return empty response (silently fail for sub-resources)
+                        return new Response('', { status: 503, statusText: 'Offline' });
                     });
             })
     );
 });
+
