@@ -2,7 +2,6 @@
 <html class="light" lang="en">
 
 <head>
-<meta charset="utf-8" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -52,6 +51,7 @@
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
+
     <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
@@ -65,9 +65,9 @@
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
                     class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
-                    / data-i18n-placeholder="search">
+                    data-i18n-placeholder="search.placeholder">
             </div>
-            <button type="button" onclick="toggleSearch()" aria-label="Close search"
+            <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
                 <span class="material-symbols-outlined">close</span>
             </button>
@@ -85,7 +85,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="education.explore">
+                data-i18n="browse.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -102,7 +102,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="education.learn">
+                data-i18n="browse.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -119,13 +119,14 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="education.participate">
+                data-i18n="browse.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
                 a Woman</a>
             <a href="share-story.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
+                data-i18n="shareYourStory">Share
                 Your Story</a>
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
@@ -137,12 +138,12 @@
         <!-- About -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="education.about">
+                data-i18n="browse.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
                 Us</a>
-<a href="contributors.html"
+            <a href="contributors.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
             <a href="methodology.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
@@ -161,11 +162,11 @@
     </nav>
 
     <!-- Header -->
-
-    <!-- Header -->
-    <header class="w-full border-b border-divider bg-background-cream sticky top-0 z-50">
+    <header id="navbar"
+        class="transition-transform duration-300 w-full border-b border-divider bg-background-cream sticky top-0 z-50">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Left Section: Logo + Desktop Nav -->
                 <div class="flex items-center gap-8 lg:gap-12">
                     <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                         <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
@@ -173,17 +174,131 @@
                             class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
                     <nav class="hidden lg:flex items-center gap-6">
+                        <!-- Explore Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">
+                                Explore
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="index.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a>
+                                    <a href="browse.html"
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Browse</a>
+                                    <a href="featured.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
+                                    <a href="collections.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a>
+                                    <a href="timelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Learn Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Learn
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="education.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a>
+                                    <a href="enterprises.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a>
+                                    <a href="research.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a>
+                                    <a href="publications.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a>
+                                    <a href="resources.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Participate Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Participate
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="nominate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
+                                        a Woman</a>
+                                    <a href="share-story.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="shareYourStory">Share
+                                        Your Story</a>
+                                    <a href="contributor-guidelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
+                                        Guidelines</a>
+                                    <a href="donate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="donate">Donate</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- About Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                About
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="about.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
+                                        Us</a>
+                                    <a href="contributors.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
+                                    <a href="methodology.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
+                                    <a href="editorial-standards.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
+                                        Standards</a>
+                                    <a href="contact.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
+                                </div>
+                            </div>
+                        </div>
                     </nav>
                 </div>
+
+                <!-- Right Section: Actions -->
                 <div class="flex items-center gap-3 lg:gap-6">
                     <div
                         class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
                         <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                         <input
                             class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                            placeholder="Search the archive..." type="search" />
+                            placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
                     </div>
+                    <button onclick="toggleSearch()"
+                        class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
+                        aria-label="Open search">
+                        <span class="material-symbols-outlined text-accent-teal">search</span>
+                    </button>
                     <div class="hidden sm:flex items-center gap-4">
                         <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
@@ -194,13 +309,10 @@
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
-                            <a href="profile.html"
-                                class="flex items-center gap-2 text-sm text-text-secondary hover:text-primary">
-                                <span class="material-symbols-outlined text-[18px]">account_circle</span>
-                                <span data-auth="user-info"></span>
-                            </a>
+                            <span data-auth="user-info" class="text-sm text-text-secondary"></span>
                             <button
-                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                data-i18n="signOut">
                                 Sign Out
                             </button>
                         </div>
@@ -231,85 +343,23 @@
             </div>
         </section>
 
-        <!-- Featured Module -->
-        <section class="py-16 lg:py-24 bg-background-cream">
+        <!-- Featured Module (dynamically loaded) -->
+        <section id="featured-module-section" class="py-16 lg:py-24 bg-background-cream hidden">
             <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
                 <div class="text-center mb-16">
                     <span class="text-primary text-sm font-bold uppercase tracking-widest mb-3 block">Featured
                         Course</span>
-                    <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4"
-                        data-i18n="education.understandingSymbolicPower">Understanding
-                        Symbolic Power</h2>
-                    <p class="text-text-secondary text-lg max-w-2xl mx-auto">A comprehensive introduction to analyzing
-                        women's leadership and authority across cultures.</p>
+                    <h2 id="featured-title"
+                        class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main mb-4">Featured
+                        Education Module</h2>
+                    <p id="featured-description" class="text-text-secondary text-lg max-w-2xl mx-auto">Dynamic content
+                        loaded from Strapi.</p>
                 </div>
 
-                <!-- Featured Module Card -->
-                <div
+                <!-- Featured Module Card (dynamically populated) -->
+                <div id="featured-module-card"
                     class="bg-white rounded-2xl border border-border-light overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="grid lg:grid-cols-2">
-                        <div
-                            class="bg-gradient-to-br from-primary to-primary-hover p-8 lg:p-12 flex flex-col justify-center">
-                            <div
-                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white w-fit mb-6">
-                                <span class="material-symbols-outlined text-[16px]">workspace_premium</span>
-                                <span class="text-xs font-bold uppercase tracking-wider">Beginner Course</span>
-                            </div>
-                            <h3 class="font-serif text-2xl lg:text-3xl font-bold text-white mb-4"
-                                data-i18n="education.module1FoundationsOfSymbolicPower">Module 1: Foundations
-                                of Symbolic Power</h3>
-                            <p class="text-white/90 leading-relaxed mb-6">
-                                Learn how to identify and analyze the symbolic power women held in different
-                                societies—political, spiritual, economic, and cultural authority that shaped their
-                                communities.
-                            </p>
-                            <div class="flex flex-wrap gap-4 text-white/80 text-sm">
-                                <span class="flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-[16px]">schedule</span> 4 Hours
-                                </span>
-                                <span class="flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-[16px]">auto_stories</span> 12 Lessons
-                                </span>
-                                <span class="flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-[16px]">emoji_events</span> Certificate
-                                </span>
-                            </div>
-                        </div>
-                        <div class="p-8 lg:p-12">
-                            <h4 class="font-serif text-lg font-bold text-text-main mb-4">What You'll Learn</h4>
-                            <ul class="space-y-3 mb-8">
-                                <li class="flex items-start gap-3">
-                                    <span
-                                        class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
-                                    <span class="text-text-secondary">Define symbolic power in historical and cultural
-                                        contexts</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span
-                                        class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
-                                    <span class="text-text-secondary">Identify different forms of women's authority
-                                        across cultures</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span
-                                        class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
-                                    <span class="text-text-secondary">Analyze primary sources for evidence of symbolic
-                                        power</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span
-                                        class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
-                                    <span class="text-text-secondary">Write interpretive biographies with cultural
-                                        grounding</span>
-                                </li>
-                            </ul>
-                            <a href="education-module-1.html"
-                                class="inline-flex items-center justify-center h-12 px-8 bg-primary text-white font-bold rounded-lg hover:bg-primary-hover transition-colors gap-2 w-full lg:w-auto">
-                                <span class="material-symbols-outlined text-[20px]">play_circle</span>
-                                Start Learning
-                            </a>
-                        </div>
-                    </div>
+                    <!-- Content will be loaded dynamically -->
                 </div>
             </div>
         </section>
@@ -366,188 +416,175 @@
                 <div id="modules-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
                 </div>
 
-                <!-- Static Fallback Modules (hidden by default) -->
-                <div id="modules-fallback" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
-                    <!-- Module 2 -->
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="size-12 rounded-full bg-accent-teal/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-accent-teal text-2xl">auto_stories</span>
-                            </div>
-                            <span class="text-accent-teal text-xs font-bold uppercase tracking-wider">Module 2</span>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3"
-                            data-i18n="education.researchMethodsForWomensHistory">Research Methods for Women's
-                            History</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed mb-4">
-                            Master the techniques for researching women's stories across archives, oral traditions, and
-                            secondary sources.
-                        </p>
-                        <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">schedule</span> 5 Hours
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">auto_stories</span> 15 Lessons
-                            </span>
-                        </div>
-                        <a href="education-module-2.html"
-                            class="inline-flex items-center justify-center h-10 px-6 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors gap-2 w-full">
-                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            View Module
-                        </a>
-                    </div>
 
-                    <!-- Module 3 -->
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="size-12 rounded-full bg-accent-gold/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-accent-gold text-2xl">public</span>
-                            </div>
-                            <span class="text-accent-gold text-xs font-bold uppercase tracking-wider">Module 3</span>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3"
-                            data-i18n="education.culturalContextGrounding">Cultural Context & Grounding</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed mb-4">
-                            Learn to interpret women's lives within their own cultural frameworks, avoiding
-                            Western-centric assumptions.
-                        </p>
-                        <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">schedule</span> 6 Hours
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">auto_stories</span> 18 Lessons
-                            </span>
-                        </div>
-                        <a href="education-module-3.html"
-                            class="inline-flex items-center justify-center h-10 px-6 bg-accent-gold/10 text-accent-gold font-bold rounded-lg hover:bg-accent-gold/20 transition-colors gap-2 w-full">
-                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            View Module
-                        </a>
-                    </div>
+                <span class="text-accent-teal text-xs font-bold uppercase tracking-wider">Module 2</span>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-text-main mb-3"
+                data-i18n="education.researchMethodsForWomensHistory">Research Methods for Women's
+                History</h3>
+            <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                Master the techniques for researching women's stories across archives, oral traditions, and
+                secondary sources.
+            </p>
+            <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
+                <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">schedule</span> 5 Hours
+                </span>
+                <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">auto_stories</span> 15 Lessons
+                </span>
+            </div>
+            <a href="education-module-2.html"
+                class="inline-flex items-center justify-center h-10 px-6 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors gap-2 w-full">
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                View Module
+            </a>
+            </div>
 
-                    <!-- Module 4 -->
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="size-12 rounded-full bg-primary/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-primary text-2xl">psychology</span>
-                            </div>
-                            <span class="text-primary text-xs font-bold uppercase tracking-wider">Module 4</span>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3"
-                            data-i18n="education.ethicalStorytellingPractices">Ethical Storytelling Practices</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed mb-4">
-                            Understand trauma-informed approaches, cultural sensitivity, and ethical considerations in
-                            biographical writing.
-                        </p>
-                        <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">schedule</span> 4 Hours
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">auto_stories</span> 12 Lessons
-                            </span>
-                        </div>
-                        <a href="education-module-4.html"
-                            class="inline-flex items-center justify-center h-10 px-6 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors gap-2 w-full">
-                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            View Module
-                        </a>
+            <!-- Module 3 -->
+            <div class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="size-12 rounded-full bg-accent-gold/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-accent-gold text-2xl">public</span>
                     </div>
-
-                    <!-- Module 5 -->
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="size-12 rounded-full bg-accent-teal/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-accent-teal text-2xl">castle</span>
-                            </div>
-                            <span class="text-accent-teal text-xs font-bold uppercase tracking-wider">Module 5</span>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3"
-                            data-i18n="education.womenInAncientCivilizations">Women in Ancient Civilizations</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed mb-4">
-                            Explore women's leadership in ancient Egypt, Mesopotamia, Greece, Rome, and beyond.
-                        </p>
-                        <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">schedule</span> 8 Hours
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">auto_stories</span> 24 Lessons
-                            </span>
-                        </div>
-                        <a href="education-module-5.html"
-                            class="inline-flex items-center justify-center h-10 px-6 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors gap-2 w-full">
-                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            View Module
-                        </a>
-                    </div>
-
-                    <!-- Module 6 -->
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="size-12 rounded-full bg-accent-gold/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-accent-gold text-2xl">temple</span>
-                            </div>
-                            <span class="text-accent-gold text-xs font-bold uppercase tracking-wider">Module 6</span>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3"
-                            data-i18n="education.womenSpiritualAuthority">Women & Spiritual Authority</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed mb-4">
-                            Study women's roles as priestesses, prophets, healers, and spiritual leaders across
-                            traditions.
-                        </p>
-                        <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">schedule</span> 7 Hours
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">auto_stories</span> 20 Lessons
-                            </span>
-                        </div>
-                        <a href="education-module-6.html"
-                            class="inline-flex items-center justify-center h-10 px-6 bg-accent-gold/10 text-accent-gold font-bold rounded-lg hover:bg-accent-gold/20 transition-colors gap-2 w-full">
-                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            View Module
-                        </a>
-                    </div>
-
-                    <!-- Module 7 -->
-                    <div
-                        class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="size-12 rounded-full bg-primary/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-primary text-2xl">flag</span>
-                            </div>
-                            <span class="text-primary text-xs font-bold uppercase tracking-wider">Module 7</span>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-3"
-                            data-i18n="education.womenResistanceMovements">Women & Resistance Movements</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed mb-4">
-                            Analyze women's roles in anti-colonial struggles, civil rights, and social justice
-                            movements.
-                        </p>
-                        <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">schedule</span> 6 Hours
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">auto_stories</span> 16 Lessons
-                            </span>
-                        </div>
-                        <a href="education-module-7.html"
-                            class="inline-flex items-center justify-center h-10 px-6 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors gap-2 w-full">
-                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            View Module
-                        </a>
-                    </div>
+                    <span class="text-accent-gold text-xs font-bold uppercase tracking-wider">Module 3</span>
                 </div>
+                <h3 class="font-serif text-xl font-bold text-text-main mb-3"
+                    data-i18n="education.culturalContextGrounding">Cultural Context & Grounding</h3>
+                <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                    Learn to interpret women's lives within their own cultural frameworks, avoiding
+                    Western-centric assumptions.
+                </p>
+                <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">schedule</span> 6 Hours
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">auto_stories</span> 18 Lessons
+                    </span>
+                </div>
+                <a href="education-module-3.html"
+                    class="inline-flex items-center justify-center h-10 px-6 bg-accent-gold/10 text-accent-gold font-bold rounded-lg hover:bg-accent-gold/20 transition-colors gap-2 w-full">
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    View Module
+                </a>
+            </div>
+
+            <!-- Module 4 -->
+            <div class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="size-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-2xl">psychology</span>
+                    </div>
+                    <span class="text-primary text-xs font-bold uppercase tracking-wider">Module 4</span>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-text-main mb-3"
+                    data-i18n="education.ethicalStorytellingPractices">Ethical Storytelling Practices</h3>
+                <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                    Understand trauma-informed approaches, cultural sensitivity, and ethical considerations in
+                    biographical writing.
+                </p>
+                <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">schedule</span> 4 Hours
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">auto_stories</span> 12 Lessons
+                    </span>
+                </div>
+                <a href="education-module-4.html"
+                    class="inline-flex items-center justify-center h-10 px-6 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors gap-2 w-full">
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    View Module
+                </a>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="size-12 rounded-full bg-accent-teal/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-accent-teal text-2xl">castle</span>
+                    </div>
+                    <span class="text-accent-teal text-xs font-bold uppercase tracking-wider">Module 5</span>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-text-main mb-3"
+                    data-i18n="education.womenInAncientCivilizations">Women in Ancient Civilizations</h3>
+                <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                    Explore women's leadership in ancient Egypt, Mesopotamia, Greece, Rome, and beyond.
+                </p>
+                <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">schedule</span> 8 Hours
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">auto_stories</span> 24 Lessons
+                    </span>
+                </div>
+                <a href="education-module-5.html"
+                    class="inline-flex items-center justify-center h-10 px-6 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors gap-2 w-full">
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    View Module
+                </a>
+            </div>
+
+            <!-- Module 6 -->
+            <div class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="size-12 rounded-full bg-accent-gold/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-accent-gold text-2xl">temple</span>
+                    </div>
+                    <span class="text-accent-gold text-xs font-bold uppercase tracking-wider">Module 6</span>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-text-main mb-3"
+                    data-i18n="education.womenSpiritualAuthority">Women & Spiritual Authority</h3>
+                <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                    Study women's roles as priestesses, prophets, healers, and spiritual leaders across
+                    traditions.
+                </p>
+                <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">schedule</span> 7 Hours
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">auto_stories</span> 20 Lessons
+                    </span>
+                </div>
+                <a href="education-module-6.html"
+                    class="inline-flex items-center justify-center h-10 px-6 bg-accent-gold/10 text-accent-gold font-bold rounded-lg hover:bg-accent-gold/20 transition-colors gap-2 w-full">
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    View Module
+                </a>
+            </div>
+
+            <!-- Module 7 -->
+            <div class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="size-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-2xl">flag</span>
+                    </div>
+                    <span class="text-primary text-xs font-bold uppercase tracking-wider">Module 7</span>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-text-main mb-3"
+                    data-i18n="education.womenResistanceMovements">Women & Resistance Movements</h3>
+                <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                    Analyze women's roles in anti-colonial struggles, civil rights, and social justice
+                    movements.
+                </p>
+                <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">schedule</span> 6 Hours
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">auto_stories</span> 16 Lessons
+                    </span>
+                </div>
+                <a href="education-module-7.html"
+                    class="inline-flex items-center justify-center h-10 px-6 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors gap-2 w-full">
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    View Module
+                </a>
+            </div>
+            </div>
             </div> <!-- End fallback -->
         </section>
 
@@ -564,120 +601,45 @@
                         and lesson plans for classroom use.</p>
                 </div>
 
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Resource 1 -->
-                    <div class="bg-white rounded-xl p-5 border border-border-light hover:shadow-md transition-shadow">
+                <!-- Loading Skeleton -->
+                <div id="teaching-resources-loading" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Skeleton 1 -->
+                    <div class="bg-white rounded-xl p-5 border border-border-light animate-pulse">
                         <div class="flex items-start gap-4">
-                            <div
-                                class="size-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-primary text-2xl">picture_as_pdf</span>
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="font-serif text-base font-bold text-text-main mb-1"
-                                    data-i18n="education.lessonPlanAncientQueens">Lesson Plan: Ancient
-                                    Queens</h3>
-                                <p class="text-text-secondary text-xs leading-relaxed mb-3">Complete lesson plan for
-                                    teaching about Cleopatra, Hatshepsut, and Zenobia.</p>
-                                <a href="resources.html" class="text-primary text-xs font-bold hover:underline">Download
-                                    PDF →</a>
+                            <div class="size-12 rounded-lg bg-gray-200 flex-shrink-0"></div>
+                            <div class="min-w-0 flex-1">
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-full mb-3"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/3"></div>
                             </div>
                         </div>
                     </div>
+                    <!-- Skeleton 2 -->
+                    <div class="bg-white rounded-xl p-5 border border-border-light animate-pulse">
+                        <div class="flex items-start gap-4">
+                            <div class="size-12 rounded-lg bg-gray-200 flex-shrink-0"></div>
+                            <div class="min-w-0 flex-1">
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-full mb-3"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Skeleton 3 -->
+                    <div class="bg-white rounded-xl p-5 border border-border-light animate-pulse">
+                        <div class="flex items-start gap-4">
+                            <div class="size-12 rounded-lg bg-gray-200 flex-shrink-0"></div>
+                            <div class="min-w-0 flex-1">
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-full mb-3"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- Resource 2 -->
-                    <div class="bg-white rounded-xl p-5 border border-border-light hover:shadow-md transition-shadow">
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="size-12 rounded-lg bg-accent-teal/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-accent-teal text-2xl">slideshow</span>
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="font-serif text-base font-bold text-text-main mb-1"
-                                    data-i18n="education.presentationSymbolicPower">Presentation: Symbolic
-                                    Power</h3>
-                                <p class="text-text-secondary text-xs leading-relaxed mb-3">Slide deck introducing
-                                    symbolic power analysis for undergraduate courses.</p>
-                                <a href="resources.html" class="text-primary text-xs font-bold hover:underline">Download
-                                    Slides →</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resource 3 -->
-                    <div class="bg-white rounded-xl p-5 border border-border-light hover:shadow-md transition-shadow">
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="size-12 rounded-lg bg-accent-gold/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-accent-gold text-2xl">quiz</span>
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="font-serif text-base font-bold text-text-main mb-1"
-                                    data-i18n="education.discussionGuideOralTraditions">Discussion Guide: Oral
-                                    Traditions</h3>
-                                <p class="text-text-secondary text-xs leading-relaxed mb-3">Discussion questions and
-                                    activities for teaching about oral history preservation.</p>
-                                <a href="resources.html" class="text-primary text-xs font-bold hover:underline">Download
-                                    Guide →</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resource 4 -->
-                    <div class="bg-white rounded-xl p-5 border border-border-light hover:shadow-md transition-shadow">
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="size-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-primary text-2xl">menu_book</span>
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="font-serif text-base font-bold text-text-main mb-1"
-                                    data-i18n="education.readingListWomensHistory">Reading List: Women's
-                                    History</h3>
-                                <p class="text-text-secondary text-xs leading-relaxed mb-3">Curated bibliography of
-                                    essential works on global women's history.</p>
-                                <a href="resources.html" class="text-primary text-xs font-bold hover:underline">View
-                                    List →</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resource 5 -->
-                    <div class="bg-white rounded-xl p-5 border border-border-light hover:shadow-md transition-shadow">
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="size-12 rounded-lg bg-accent-teal/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-accent-teal text-2xl">assignment</span>
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="font-serif text-base font-bold text-text-main mb-1"
-                                    data-i18n="education.assignmentBiographyProject">Assignment: Biography
-                                    Project</h3>
-                                <p class="text-text-secondary text-xs leading-relaxed mb-3">Template and rubric for
-                                    student biography research projects.</p>
-                                <a href="resources.html" class="text-primary text-xs font-bold hover:underline">Download
-                                    Template
-                                    →</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resource 6 -->
-                    <div class="bg-white rounded-xl p-5 border border-border-light hover:shadow-md transition-shadow">
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="size-12 rounded-lg bg-accent-gold/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-accent-gold text-2xl">video_library</span>
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="font-serif text-base font-bold text-text-main mb-1"
-                                    data-i18n="education.videoLectureSeries">Video Lecture Series</h3>
-                                <p class="text-text-secondary text-xs leading-relaxed mb-3">Recorded lectures on
-                                    interpretive biography methodology.</p>
-                                <a href="resources.html" class="text-primary text-xs font-bold hover:underline">Watch
-                                    Now →</a>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Teaching Resources Grid (dynamically loaded) -->
+                <div id="teaching-resources-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
                 </div>
 
                 <div class="text-center mt-10">
@@ -717,6 +679,7 @@
     </main>
 
     <!-- Footer -->
+    <!-- Footer -->
     <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
         <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
@@ -732,19 +695,22 @@
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">The world's first interpretive encyclopedia of
                         women.</p>
                     <div class="flex gap-4">
-                        <a href="https://www.facebook.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.facebook.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                             </svg>
                         </a>
-                        <a href="https://x.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+                        <a href="https://x.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                             </svg>
                         </a>
-                        <a href="https://www.instagram.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
@@ -755,71 +721,77 @@
 
                 <!-- Explore -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Explore</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.explore">
+                        Explore</h4>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="index.html"
+                        data-i18n="footer.home">Home</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="browse.html"
+                        data-i18n="footer.browse">Browse</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="index.html">Home</a>
+                        href="featured.html" data-i18n="footer.featured">Featured</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="browse.html">Browse</a>
+                        href="collections.html" data-i18n="footer.collections">Collections</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="featured.html">Featured</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="collections.html">Collections</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="timelines.html">Timelines</a>
+                        href="timelines.html" data-i18n="footer.timelines">Timelines</a>
                 </div>
 
                 <!-- Learn -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Learn</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.learn">
+                        Learn</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="education.html">Education</a>
+                        href="education.html" data-i18n="footer.education">Education</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="enterprises.html">Enterprises</a>
+                        href="enterprises.html" data-i18n="footer.enterprises">Enterprises</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="research.html">Research</a>
+                        href="research.html" data-i18n="footer.research">Research</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="publications.html">Publications</a>
+                        href="publications.html" data-i18n="footer.publications">Publications</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="resources.html">Resources</a>
+                        href="resources.html" data-i18n="footer.resources">Resources</a>
                 </div>
 
                 <!-- Participate -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary"
+                        data-i18n="browse.participate">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
+                        href="nominate.html" data-i18n="nominateWoman">Nominate a Woman</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
+                        href="share-story.html" data-i18n="shareYourStory">Share Your Story</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributor-guidelines.html">Contributor Guidelines</a>
+                        href="contributor-guidelines.html" data-i18n="footer.contributorGuidelines">Contributor
+                        Guidelines</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html"
                         data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">About</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.about">
+                        About</h4>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="about.html"
+                        data-i18n="footer.aboutUs">About Us</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="about.html">About Us</a>
-<a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributors.html">Contributors</a>
+                        href="contributors.html" data-i18n="footer.contributors">Contributors</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="methodology.html">Methodology</a>
+                        href="methodology.html" data-i18n="footer.methodology">Methodology</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="editorial-standards.html">Editorial Standards</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contact.html">Contact</a>
+                        href="editorial-standards.html" data-i18n="footer.editorialStandards">Editorial Standards</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="contact.html"
+                        data-i18n="footer.contact">Contact</a>
                 </div>
             </div>
 
             <!-- Quick Links Row -->
             <div class="border-t border-gray-800 pt-8 mt-8">
-            </div>
-            <div class="text-center">
-                <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                        href="privacy-policy.html" class="text-gray-400 hover:text-white"><span
-                            data-i18n="privacyPolicy">Privacy Policy</span></a> | <a href="terms-of-use.html"
-                        class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
+                <div class="text-center">
+                    <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"
+                            data-i18n="privacyPolicy">Privacy Policy</a> | <a href="terms-of-use.html"
+                            class="text-gray-400 hover:text-white" data-i18n="termsOfUse">Terms of Use</a>
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
@@ -890,7 +862,8 @@
         </div>
     </div>
 
-    <script src="js/env.js"></script><script src="js/config.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/auth.js"></script>
@@ -898,189 +871,24 @@
     <script src="js/strapi-api.js"></script>
 
     <!-- Education Modules Dynamic Loading -->
+    <script src="js/education-inline-1.js"></script>
+    <script src="js/teaching-resources.js"></script>
+
     <script>
-        // Fallback static education modules
-        const fallbackModules = [
-            {
-                slug: 'introduction-interpretive-biography',
-                title: 'Introduction to Interpretive Biography',
-                description: 'Learn the foundational principles of writing interpretive biographies that go beyond facts to reveal the symbolic significance of women\'s lives.',
-                duration: '4 Hours',
-                lessons: 12,
-                moduleNumber: 1,
-                icon: 'school',
-                color: 'primary'
-            },
-            {
-                slug: 'research-methods-womens-history',
-                title: 'Research Methods for Women\'s History',
-                description: 'Master the techniques for researching women\'s stories across archives, oral traditions, and secondary sources.',
-                duration: '5 Hours',
-                lessons: 15,
-                moduleNumber: 2,
-                icon: 'auto_stories',
-                color: 'accent-teal'
-            },
-            {
-                slug: 'cultural-context-grounding',
-                title: 'Cultural Context & Grounding',
-                description: 'Learn to interpret women\'s lives within their own cultural frameworks, avoiding Western-centric assumptions.',
-                duration: '6 Hours',
-                lessons: 18,
-                moduleNumber: 3,
-                icon: 'public',
-                color: 'accent-gold'
-            },
-            {
-                slug: 'ethical-storytelling-practices',
-                title: 'Ethical Storytelling Practices',
-                description: 'Understand trauma-informed approaches, cultural sensitivity, and ethical considerations in biographical writing.',
-                duration: '4 Hours',
-                lessons: 12,
-                moduleNumber: 4,
-                icon: 'psychology',
-                color: 'primary'
-            },
-            {
-                slug: 'analyzing-symbolic-power',
-                title: 'Analyzing Symbolic Power',
-                description: 'Develop skills to identify and interpret the symbolic power of women across different historical and cultural contexts.',
-                duration: '5 Hours',
-                lessons: 14,
-                moduleNumber: 5,
-                icon: 'lightbulb',
-                color: 'primary'
-            },
-            {
-                slug: 'comparative-biography-analysis',
-                title: 'Comparative Biography Analysis',
-                description: 'Learn to compare and contrast women\'s lives across regions, eras, and cultural contexts to reveal broader patterns.',
-                duration: '6 Hours',
-                lessons: 16,
-                moduleNumber: 6,
-                icon: 'compare_arrows',
-                color: 'accent-gold'
-            },
-            {
-                slug: 'writing-interpretive-biography',
-                title: 'Writing Interpretive Biography',
-                description: 'Put everything together and learn to write compelling interpretive biographies with cultural grounding.',
-                duration: '5 Hours',
-                lessons: 15,
-                moduleNumber: 7,
-                icon: 'edit_note',
-                color: 'primary'
-            }
-        ];
-
-        // HTML escape helper for XSS prevention
-        function escapeHtml(text) {
-            if (text == null) return '';
-            return String(text)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
-
-        // Render module card
-        function renderModuleCard(module, index) {
-            const colors = {
-                'primary': { bg: 'bg-primary/10', text: 'text-primary', btn: 'bg-primary/10 text-primary hover:bg-primary/20' },
-                'accent-teal': { bg: 'bg-accent-teal/10', text: 'text-accent-teal', btn: 'bg-accent-teal/10 text-accent-teal hover:bg-accent-teal/20' },
-                'accent-gold': { bg: 'bg-accent-gold/10', text: 'text-accent-gold', btn: 'bg-accent-gold/10 text-accent-gold hover:bg-accent-gold/20' }
-            };
-            const c = colors[module.color] || colors['primary'];
-
-            const moduleNumber = module.moduleNumber || (index + 1);
-            const title = escapeHtml(module.title || '');
-            const description = escapeHtml(module.description || '');
-            const duration = escapeHtml(module.duration || '4 Hours');
-            const lessons = module.lessons || 12;
-            const icon = escapeHtml(module.icon || 'school');
-            const slug = encodeURIComponent(module.slug || '');
-
-            return `
-                <div class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="size-12 rounded-full ${c.bg} flex items-center justify-center">
-                            <span class="material-symbols-outlined ${c.text} text-2xl">${icon}</span>
-                        </div>
-                        <span class="${c.text} text-xs font-bold uppercase tracking-wider">Module ${moduleNumber}</span>
-                    </div>
-                    <h3 class="font-serif text-xl font-bold text-text-main mb-3" data-i18n="education.moduletitle">${title}</h3>
-                    <p class="text-text-secondary text-sm leading-relaxed mb-4">${description}</p>
-                    <div class="flex items-center justify-between text-sm text-text-secondary mb-4">
-                        <span class="flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">schedule</span> ${duration}
-                        </span>
-                        <span class="flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">auto_stories</span> ${lessons} Lessons
-                        </span>
-                    </div>
-                    <a href="education-module-${moduleNumber}.html?slug=${slug}"
-                        class="inline-flex items-center justify-center h-10 px-6 ${c.btn} font-bold rounded-lg transition-colors gap-2 w-full">
-                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                        View Module
-                    </a>
-                </div>
-            `;
-        }
-
-        // Render modules from API data
-        function renderModules(modules) {
-            const grid = document.getElementById('modules-grid');
-            if (!grid) return;
-
-            grid.innerHTML = modules.map((module, index) => renderModuleCard(module, index)).join('');
-
-            // Hide loading, show grid
-            document.getElementById('modules-loading').classList.add('hidden');
-            grid.classList.remove('hidden');
-        }
-
-        // Show fallback static modules
-        function showFallbackModules() {
-            const fallback = document.getElementById('modules-fallback');
-            if (!fallback) return;
-
-            // Hide loading, show fallback
-            document.getElementById('modules-loading').classList.add('hidden');
-            fallback.classList.remove('hidden');
-        }
-
-        // Load education modules from Strapi API
-        async function loadEducationModules() {
-            try {
-                // Try Strapi API first
-                if (typeof StrapiAPI !== 'undefined' && CONFIG.USE_STRAPI) {
-                    const response = await StrapiAPI.educationModules.getAll();
-                    if (response && response.entries && response.entries.length > 0) {
-                        renderModules(response.entries);
-                        return;
-                    }
-                }
-            } catch (error) {
-                console.warn('Strapi API not available, using fallback:', error.message);
-            }
-
-            // If API fails, use fallback
-            showFallbackModules();
-        }
-
-        // Initialize on page load
+        // Initialize teaching resources on page load
         document.addEventListener('DOMContentLoaded', function () {
-            loadEducationModules();
+            if (typeof loadFeaturedTeachingResources === 'function') {
+                loadFeaturedTeachingResources('teaching-resources-grid');
+            } else if (typeof loadTeachingResources === 'function') {
+                loadTeachingResources('teaching-resources-grid');
+            }
         });
     </script>
 
-        <script src="js/inline-common.js"></script>
+    <script src="js/inline-common.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>
-
-
-

@@ -35,633 +35,8 @@ const I18N = {
     // Keys are used as data-i18n="keyName" attributes in HTML
     // ─────────────────────────────────────────────────────────
     translations: {
-        en: {
-            // Navigation
-            search: 'Search the archive...',
-            donate: 'Donate',
-            signIn: 'Sign In',
-            signOut: 'Sign Out',
-            explore: 'Explore',
-            learn: 'Learn',
-            participate: 'Participate',
-            about: 'About',
-            home: 'Home',
-            browse: 'Browse',
-            featured: 'Featured',
-            collections: 'Collections',
-            timelines: 'Timelines',
-            education: 'Education',
-            registry: 'Registry',
-            enterprises: 'Enterprises',
-            research: 'Research',
-            publications: 'Publications',
-            resources: 'Resources',
-            nominateWoman: 'Nominate a Woman',
-            shareYourStory: 'Share Your Story',
-            contributorGuidelines: 'Contributor Guidelines',
-            aboutUs: 'About Us',
-            founders: 'Founders',
-            contributors: 'Contributors',
-            methodology: 'Methodology',
-            editorialStandards: 'Editorial Standards',
-            contact: 'Contact',
-            myProfile: 'My Profile',
-            admin: 'Admin',
-            sampleBiography: 'Sample Biography',
-
-            // Hero Section
-            heroBadge: 'The Heritage Project',
-            heroTitle: 'The world\'s first <em>interpretive</em> encyclopedia of women — revealing the depth, power, cultural meaning behind every woman and preserving their story. Built on rigorous scholarship, ethical storytelling, and cultural truth.',
-            heroDescription: 'Restoring the stories history overlooked, with dignity, context, and global insight.',
-            exploreArchive: 'Explore the Archive',
-            learnMore: 'Learn More',
-
-            // Credibility Strip
-            globalMission: 'The Global Mission',
-            worldRegions: 'World Regions',
-            languages: 'Languages',
-            historicalEras: 'Historical Eras',
-            categories: 'Categories',
-            credibilityTagline: 'Built on rigorous scholarship, ethical storytelling, and cultural truth — powered by community contributors worldwide.',
-
-            // Why Section
-            whyWomencypedia: 'Why Womencypedia?',
-            correctingImbalance: 'Correcting Historical Imbalance',
-            whyDescription: 'For centuries, women\'s contributions to history have been overlooked, minimized, or attributed to men. This systemic erasure has left gaping holes in our collective understanding of human achievement.',
-
-            // Featured Quote
-            featuredCollection: 'Featured Collection',
-            voicesOfCentury: 'Voices of the 19th Century',
-            quoteText: '"Dear Woman, Do you have a story of resilience, lament, challenge, or victory? Tell it now — before the world tells it its own way."',
-
-            // Common UI
-            readMore: 'Read More',
-            loading: 'Loading...',
-            noResults: 'No results found',
-            error: 'Something went wrong',
-            retry: 'Retry',
-            language: 'Language',
-            profile: 'My Profile',
-            allRegions: 'All Regions',
-            allEras: 'All Eras',
-            allCategories: 'All Categories',
-            clearAll: 'Clear all',
-            found: 'Found',
-            results: 'results',
-            privacyPolicy: 'Privacy Policy',
-            termsOfUse: 'Terms of Use',
-            copyright: '© 2026 Womencypedia Foundation. All rights reserved.',
-            memberSince: 'Member since',
-            editProfile: 'Edit Profile',
-            saveChanges: 'Save Changes',
-            cancel: 'Cancel',
-            readBiography: 'Read Biography',
-
-            // Footer
-            footerAbout: 'The world\'s first interpretive encyclopedia of women.',
-            quickLinks: 'Quick Links',
-            legal: 'Legal',
-            followUs: 'Follow Us',
-
-            // Browse Leaders / Registry
-            browseLeaders: 'Browse Leaders',
-            leaderProfile: 'Leader Profile',
-            applyVerification: 'Apply for Verification',
-            controlledContributions: 'Controlled Contributions',
-            partners: 'Partners',
-            fellowship: 'Fellowship',
-            reports: 'Reports',
-
-            // Donate
-            supportMission: 'Support Our Mission',
-            oneTime: 'One-Time',
-            monthly: 'Monthly',
-            legacy: 'Legacy Circle',
-        },
-        fr: {
-            search: 'Rechercher dans les archives...',
-            donate: 'Faire un don',
-            signIn: 'Se connecter',
-            signOut: 'Se déconnecter',
-            explore: 'Explorer',
-            learn: 'Apprendre',
-            participate: 'Participer',
-            about: 'À propos',
-            home: 'Accueil',
-            browse: 'Parcourir',
-            featured: 'En vedette',
-            collections: 'Collections',
-            timelines: 'Chronologies',
-            education: 'Éducation',
-            registry: 'Registre',
-            enterprises: 'Entreprises',
-            research: 'Recherche',
-            publications: 'Publications',
-            resources: 'Ressources',
-            nominateWoman: 'Proposer une femme',
-            shareYourStory: 'Partagez votre histoire',
-            contributorGuidelines: 'Guide du contributeur',
-            aboutUs: 'À propos de nous',
-            founders: 'Fondateurs',
-            contributors: 'Contributeurs',
-            methodology: 'Méthodologie',
-            editorialStandards: 'Normes éditoriales',
-            contact: 'Contact',
-            myProfile: 'Mon profil',
-            admin: 'Admin',
-            sampleBiography: 'Biographie type',
-            heroBadge: 'Le Projet Patrimoine',
-            heroTitle: 'La première encyclopédie <em>interprétative</em> des femmes au monde — révélant la profondeur, la puissance, le sens culturel derrière chaque femme et préservant son histoire.',
-            heroDescription: 'Restaurer les histoires que l\'histoire a oubliées, avec dignité, contexte et vision globale.',
-            exploreArchive: 'Explorer les archives',
-            learnMore: 'En savoir plus',
-            globalMission: 'La mission mondiale',
-            worldRegions: 'Régions du monde',
-            languages: 'Langues',
-            historicalEras: 'Époques historiques',
-            categories: 'Catégories',
-            credibilityTagline: 'Fondée sur une recherche rigoureuse, une narration éthique et la vérité culturelle — propulsée par des contributeurs du monde entier.',
-            whyWomencypedia: 'Pourquoi Womencypedia ?',
-            correctingImbalance: 'Corriger le déséquilibre historique',
-            whyDescription: 'Pendant des siècles, les contributions des femmes à l\'histoire ont été négligées, minimisées ou attribuées aux hommes.',
-            featuredCollection: 'Collection en vedette',
-            voicesOfCentury: 'Voix du XIXe siècle',
-            quoteText: '« Chère femme, avez-vous une histoire de résilience, de défi ou de victoire ? Racontez-la maintenant — avant que le monde ne la raconte à sa manière. »',
-            readMore: 'Lire la suite',
-            loading: 'Chargement...',
-            noResults: 'Aucun résultat trouvé',
-            error: 'Une erreur est survenue',
-            retry: 'Réessayer',
-            language: 'Langue',
-            profile: 'Mon profil',
-            allRegions: 'Toutes les régions',
-            allEras: 'Toutes les époques',
-            allCategories: 'Toutes les catégories',
-            clearAll: 'Tout effacer',
-            found: 'Trouvé',
-            results: 'résultats',
-            privacyPolicy: 'Politique de confidentialité',
-            termsOfUse: 'Conditions d\'utilisation',
-            copyright: '© 2026 Fondation Womencypedia. Tous droits réservés.',
-            memberSince: 'Membre depuis',
-            editProfile: 'Modifier le profil',
-            saveChanges: 'Enregistrer',
-            cancel: 'Annuler',
-            readBiography: 'Lire la biographie',
-            footerAbout: 'La première encyclopédie interprétative des femmes au monde.',
-            quickLinks: 'Liens rapides',
-            legal: 'Mentions légales',
-            followUs: 'Suivez-nous',
-            browseLeaders: 'Parcourir les leaders',
-            supportMission: 'Soutenir notre mission',
-            oneTime: 'Ponctuel',
-            monthly: 'Mensuel',
-            legacy: 'Cercle patrimonial',
-        },
-        es: {
-            search: 'Buscar en el archivo...',
-            donate: 'Donar',
-            signIn: 'Iniciar sesión',
-            signOut: 'Cerrar sesión',
-            explore: 'Explorar',
-            learn: 'Aprender',
-            participate: 'Participar',
-            about: 'Acerca de',
-            home: 'Inicio',
-            browse: 'Navegar',
-            featured: 'Destacados',
-            collections: 'Colecciones',
-            timelines: 'Líneas de tiempo',
-            education: 'Educación',
-            registry: 'Registro',
-            enterprises: 'Empresas',
-            research: 'Investigación',
-            publications: 'Publicaciones',
-            resources: 'Recursos',
-            nominateWoman: 'Nominar a una mujer',
-            shareYourStory: 'Comparte tu historia',
-            contributorGuidelines: 'Guía del colaborador',
-            aboutUs: 'Sobre nosotros',
-            founders: 'Fundadores',
-            contributors: 'Colaboradores',
-            methodology: 'Metodología',
-            editorialStandards: 'Estándares editoriales',
-            contact: 'Contacto',
-            myProfile: 'Mi perfil',
-            admin: 'Admin',
-            sampleBiography: 'Biografía de muestra',
-            heroBadge: 'El Proyecto Patrimonio',
-            heroTitle: 'La primera enciclopedia <em>interpretativa</em> de mujeres del mundo — revelando la profundidad, el poder y el significado cultural detrás de cada mujer y preservando su historia.',
-            heroDescription: 'Restaurando las historias que la historia pasó por alto, con dignidad, contexto y visión global.',
-            exploreArchive: 'Explorar el archivo',
-            learnMore: 'Más información',
-            globalMission: 'La misión global',
-            worldRegions: 'Regiones del mundo',
-            languages: 'Idiomas',
-            historicalEras: 'Épocas históricas',
-            categories: 'Categorías',
-            credibilityTagline: 'Construida sobre investigación rigurosa, narración ética y verdad cultural — impulsada por colaboradores de todo el mundo.',
-            whyWomencypedia: '¿Por qué Womencypedia?',
-            correctingImbalance: 'Corrigiendo el desequilibrio histórico',
-            whyDescription: 'Durante siglos, las contribuciones de las mujeres a la historia han sido pasadas por alto, minimizadas o atribuidas a los hombres.',
-            featuredCollection: 'Colección destacada',
-            voicesOfCentury: 'Voces del siglo XIX',
-            quoteText: '«Querida mujer, ¿tienes una historia de resiliencia, desafío o victoria? Cuéntala ahora — antes de que el mundo la cuente a su manera.»',
-            readMore: 'Leer más',
-            loading: 'Cargando...',
-            noResults: 'No se encontraron resultados',
-            error: 'Algo salió mal',
-            retry: 'Reintentar',
-            language: 'Idioma',
-            profile: 'Mi perfil',
-            allRegions: 'Todas las regiones',
-            allEras: 'Todas las épocas',
-            allCategories: 'Todas las categorías',
-            clearAll: 'Borrar todo',
-            found: 'Encontrados',
-            results: 'resultados',
-            privacyPolicy: 'Política de privacidad',
-            termsOfUse: 'Términos de uso',
-            copyright: '© 2026 Fundación Womencypedia. Todos los derechos reservados.',
-            memberSince: 'Miembro desde',
-            editProfile: 'Editar perfil',
-            saveChanges: 'Guardar cambios',
-            cancel: 'Cancelar',
-            readBiography: 'Leer biografía',
-            footerAbout: 'La primera enciclopedia interpretativa de mujeres del mundo.',
-            quickLinks: 'Enlaces rápidos',
-            legal: 'Legal',
-            followUs: 'Síguenos',
-            supportMission: 'Apoya nuestra misión',
-        },
-        pt: {
-            search: 'Pesquisar no arquivo...',
-            donate: 'Doar',
-            signIn: 'Entrar',
-            signOut: 'Sair',
-            explore: 'Explorar',
-            learn: 'Aprender',
-            participate: 'Participar',
-            about: 'Sobre',
-            home: 'Início',
-            browse: 'Navegar',
-            featured: 'Destaque',
-            collections: 'Coleções',
-            timelines: 'Cronologias',
-            education: 'Educação',
-            registry: 'Registro',
-            enterprises: 'Empreendimentos',
-            research: 'Pesquisa',
-            publications: 'Publicações',
-            resources: 'Recursos',
-            nominateWoman: 'Indicar uma mulher',
-            shareYourStory: 'Compartilhe sua história',
-            contributorGuidelines: 'Guia do colaborador',
-            aboutUs: 'Sobre nós',
-            founders: 'Fundadores',
-            contributors: 'Colaboradores',
-            methodology: 'Metodologia',
-            editorialStandards: 'Padrões editoriais',
-            contact: 'Contato',
-            myProfile: 'Meu perfil',
-            heroBadge: 'O Projeto Patrimônio',
-            heroTitle: 'A primeira enciclopédia <em>interpretativa</em> de mulheres do mundo — revelando a profundidade, o poder e o significado cultural por trás de cada mulher e preservando sua história.',
-            heroDescription: 'Restaurando as histórias que a história esqueceu, com dignidade, contexto e visão global.',
-            exploreArchive: 'Explorar o arquivo',
-            learnMore: 'Saiba mais',
-            globalMission: 'A missão global',
-            worldRegions: 'Regiões do mundo',
-            languages: 'Idiomas',
-            historicalEras: 'Épocas históricas',
-            categories: 'Categorias',
-            credibilityTagline: 'Construída sobre pesquisa rigorosa, narrativa ética e verdade cultural — impulsionada por colaboradores de todo o mundo.',
-            whyWomencypedia: 'Por que Womencypedia?',
-            correctingImbalance: 'Corrigindo o desequilíbrio histórico',
-            whyDescription: 'Durante séculos, as contribuições das mulheres para a história foram ignoradas, minimizadas ou atribuídas aos homens.',
-            quoteText: '"Querida mulher, você tem uma história de resiliência, desafio ou vitória? Conte agora — antes que o mundo conte do seu jeito."',
-            readMore: 'Leia mais',
-            loading: 'Carregando...',
-            noResults: 'Nenhum resultado encontrado',
-            error: 'Algo deu errado',
-            retry: 'Tentar novamente',
-            language: 'Idioma',
-            copyright: '© 2026 Fundação Womencypedia. Todos os direitos reservados.',
-            footerAbout: 'A primeira enciclopédia interpretativa de mulheres do mundo.',
-            quickLinks: 'Links rápidos',
-            legal: 'Legal',
-            supportMission: 'Apoie nossa missão',
-        },
-        ar: {
-            search: 'ابحث في الأرشيف...',
-            donate: 'تبرع',
-            signIn: 'تسجيل الدخول',
-            signOut: 'تسجيل الخروج',
-            explore: 'استكشاف',
-            learn: 'تعلم',
-            participate: 'شارك',
-            about: 'حول',
-            home: 'الرئيسية',
-            browse: 'تصفح',
-            featured: 'مميز',
-            collections: 'المجموعات',
-            timelines: 'الجداول الزمنية',
-            education: 'التعليم',
-            registry: 'السجل',
-            enterprises: 'المشاريع',
-            research: 'البحث',
-            publications: 'المنشورات',
-            resources: 'الموارد',
-            nominateWoman: 'رشح امرأة',
-            shareYourStory: 'شاركي قصتك',
-            contributorGuidelines: 'دليل المساهم',
-            aboutUs: 'من نحن',
-            founders: 'المؤسسون',
-            contributors: 'المساهمون',
-            methodology: 'المنهجية',
-            editorialStandards: 'المعايير التحريرية',
-            contact: 'اتصل بنا',
-            myProfile: 'ملفي الشخصي',
-            heroBadge: 'مشروع التراث',
-            heroTitle: 'أول موسوعة <em>تفسيرية</em> للنساء في العالم — تكشف العمق والقوة والمعنى الثقافي وراء كل امرأة وتحفظ قصتها.',
-            heroDescription: 'استعادة القصص التي أغفلها التاريخ، بكرامة وسياق ورؤية عالمية.',
-            exploreArchive: 'استكشاف الأرشيف',
-            learnMore: 'اعرف المزيد',
-            globalMission: 'المهمة العالمية',
-            worldRegions: 'مناطق العالم',
-            languages: 'اللغات',
-            historicalEras: 'العصور التاريخية',
-            categories: 'الفئات',
-            credibilityTagline: 'مبنية على بحث دقيق وسرد أخلاقي وحقيقة ثقافية — بدعم من مساهمين من جميع أنحاء العالم.',
-            whyWomencypedia: 'لماذا ومنسيبيديا؟',
-            correctingImbalance: 'تصحيح الخلل التاريخي',
-            whyDescription: 'لقرون، تم تجاهل مساهمات النساء في التاريخ أو التقليل منها أو نسبها إلى الرجال.',
-            quoteText: '"عزيزتي المرأة، هل لديك قصة صمود أو تحدٍ أو انتصار؟ أخبريها الآن — قبل أن يرويها العالم بطريقته."',
-            readMore: 'اقرأ المزيد',
-            loading: 'جاري التحميل...',
-            noResults: 'لم يتم العثور على نتائج',
-            error: 'حدث خطأ ما',
-            retry: 'إعادة المحاولة',
-            language: 'اللغة',
-            profile: 'ملفي الشخصي',
-            allRegions: 'جميع المناطق',
-            allEras: 'جميع العصور',
-            allCategories: 'جميع الفئات',
-            clearAll: 'مسح الكل',
-            found: 'وجدت',
-            results: 'نتائج',
-            privacyPolicy: 'سياسة الخصوصية',
-            termsOfUse: 'شروط الاستخدام',
-            copyright: '© 2026 مؤسسة ومنسيبيديا. جميع الحقوق محفوظة.',
-            footerAbout: 'أول موسوعة تفسيرية للنساء في العالم.',
-            quickLinks: 'روابط سريعة',
-            legal: 'قانوني',
-            supportMission: 'ادعم مهمتنا',
-        },
-        sw: {
-            search: 'Tafuta katika kumbukumbu...',
-            donate: 'Changia',
-            signIn: 'Ingia',
-            signOut: 'Toka',
-            explore: 'Chunguza',
-            learn: 'Jifunze',
-            participate: 'Shiriki',
-            about: 'Kuhusu',
-            home: 'Nyumbani',
-            browse: 'Vinjari',
-            featured: 'Pendekeza',
-            collections: 'Makusanyo',
-            timelines: 'Kalenda',
-            education: 'Elimu',
-            registry: 'Sajili',
-            enterprises: 'Biashara',
-            research: 'Utafiti',
-            publications: 'Machapisho',
-            resources: 'Rasilimali',
-            nominateWoman: 'Teua mwanamke',
-            shareYourStory: 'Shiriki hadithi yako',
-            contributorGuidelines: 'Mwongozo wa mchangiaji',
-            aboutUs: 'Kuhusu sisi',
-            founders: 'Waanzilishi',
-            contributors: 'Wachangiaji',
-            methodology: 'Mbinu',
-            editorialStandards: 'Viwango vya uhariri',
-            contact: 'Wasiliana nasi',
-            myProfile: 'Wasifu wangu',
-            heroBadge: 'Mradi wa Urithi',
-            heroTitle: 'Ensaiklopedia ya kwanza ya <em>tafsiri</em> ya wanawake duniani — ikifichua kina, nguvu, na maana ya kitamaduni nyuma ya kila mwanamke na kuhifadhi hadithi yake.',
-            heroDescription: 'Kurejesha hadithi ambazo historia ilizipuuza, kwa heshima, muktadha na utambuzi wa kimataifa.',
-            exploreArchive: 'Chunguza kumbukumbu',
-            learnMore: 'Jifunze zaidi',
-            globalMission: 'Dhamira ya kimataifa',
-            worldRegions: 'Mikoa ya dunia',
-            languages: 'Lugha',
-            historicalEras: 'Vipindi vya kihistoria',
-            categories: 'Makundi',
-            credibilityTagline: 'Imejengwa juu ya utafiti mkali, usimulizi wa maadili na ukweli wa kitamaduni — inayoendeshwa na wachangiaji duniani kote.',
-            whyWomencypedia: 'Kwa nini Womencypedia?',
-            correctingImbalance: 'Kurekebisha usawa wa kihistoria',
-            whyDescription: 'Kwa karne nyingi, michango ya wanawake katika historia imepuuzwa, kupunguzwa, au kuhusishwa na wanaume.',
-            quoteText: '"Mwanamke mpendwa, je una hadithi ya uvumilivu, changamoto, au ushindi? Ieleze sasa — kabla dunia haijaieleza kwa njia yake."',
-            readMore: 'Soma zaidi',
-            loading: 'Inapakia...',
-            noResults: 'Hakuna matokeo yaliyopatikana',
-            error: 'Kitu kimeenda vibaya',
-            retry: 'Jaribu tena',
-            copyright: '© 2026 Shirika la Womencypedia. Haki zote zimehifadhiwa.',
-            footerAbout: 'Ensaiklopedia ya kwanza ya tafsiri ya wanawake duniani.',
-            quickLinks: 'Viungo vya haraka',
-            supportMission: 'Saidia dhamira yetu',
-        },
-        yo: {
-            search: 'Wa ninu ibi ipamọ...',
-            donate: 'Ṣe iranlọwọ',
-            signIn: 'Wọlé',
-            signOut: 'Jáde',
-            explore: 'Ṣàwárí',
-            learn: 'Kọ ẹkọ',
-            participate: 'Kópa',
-            about: 'Nípa',
-            home: 'Ilé',
-            browse: 'Léwò',
-            featured: 'Ìfojúsùn',
-            collections: 'Àkójọpọ̀',
-            timelines: 'Ìlà àkókò',
-            education: 'Ẹ̀kọ́',
-            registry: 'Ìforúkọsílẹ̀',
-            enterprises: 'Iṣẹ́',
-            research: 'Ìwádìí',
-            publications: 'Àwọn ìtẹ̀jáde',
-            resources: 'Àwọn ohun àmúlò',
-            nominateWoman: 'Yan obinrin kan',
-            shareYourStory: 'Pín ìtàn rẹ',
-            contributorGuidelines: 'Ètò olùkópa',
-            aboutUs: 'Nípa wa',
-            founders: 'Àwọn olùdásílẹ̀',
-            contributors: 'Àwọn olùkópa',
-            methodology: 'Ọ̀nà ìṣe',
-            editorialStandards: 'Ìlànà ìṣàtúnṣe',
-            contact: 'Kàn sí wa',
-            myProfile: 'Ìpèsè mi',
-            heroBadge: 'Iṣẹ́ Àjogúnbá',
-            heroTitle: 'Ìwé-ìmọ̀ àkọ́kọ́ <em>àsọyé</em> ti àwọn obìnrin lágbàyé — tí ń ṣàfihàn ìjìnlẹ̀, agbára, àti ìtumọ̀ àṣà lẹ́yìn obìnrin kọ̀ọ̀kan àti títọ́jú ìtàn wọn.',
-            heroDescription: 'Títúnṣe àwọn ìtàn tí ìtàn gbàgbé, pẹ̀lú ọlá, ìpèsè, àti ìmọ̀ àgbáyé.',
-            exploreArchive: 'Ṣàwárí ibi ìpamọ́',
-            learnMore: 'Kọ́ síi',
-            globalMission: 'Iṣẹ́ àgbáyé',
-            worldRegions: 'Àwọn agbègbè àgbáyé',
-            languages: 'Àwọn èdè',
-            historicalEras: 'Àwọn àkókò ìtàn',
-            categories: 'Àwọn ẹ̀ka',
-            credibilityTagline: 'A dá lórí ìwádìí líle, ìtàn ìwà rere àti òtítọ́ àṣà — tí àwọn olùkópa lágbàyé ń ṣiṣẹ́.',
-            whyWomencypedia: 'Kí nìdí Womencypedia?',
-            correctingImbalance: 'Àtúnṣe àìdọ́gba ìtàn',
-            readMore: 'Ka siwaju',
-            loading: 'Nṣiṣẹ́...',
-            noResults: 'A kò rí èsì kankan',
-            error: 'Nǹkan kan ṣẹlẹ̀',
-            retry: 'Tún gbìyànjú',
-            copyright: '© 2026 Womencypedia Foundation. Gbogbo ẹ̀tọ́ ni a pa mọ́.',
-            footerAbout: 'Ìwé-ìmọ̀ àkọ́kọ́ àsọyé ti àwọn obìnrin lágbàyé.',
-            quickLinks: 'Àwọn ọ̀nà yíyára',
-            supportMission: 'Ṣe àtìlẹ́yìn fún iṣẹ́ wa',
-        },
-        ha: {
-            search: 'Bincika cikin tarihi...',
-            donate: 'Bayar da gudummawa',
-            signIn: 'Shiga',
-            signOut: 'Fita',
-            explore: 'Bincika',
-            learn: 'Koyi',
-            participate: 'Shiga ciki',
-            about: 'Game da mu',
-            home: 'Gida',
-            browse: 'Duba',
-            featured: 'Sananne',
-            collections: 'Tarin',
-            timelines: 'Jadawalin lokaci',
-            education: 'Ilimi',
-            registry: 'Rajista',
-            enterprises: 'Kasuwanci',
-            research: 'Bincike',
-            publications: 'Bugawa',
-            resources: 'Albarkatu',
-            nominateWoman: 'Zaɓi mace',
-            shareYourStory: 'Raba labarinka',
-            contributorGuidelines: 'Jagoran mai ba da gudummawa',
-            aboutUs: 'Game da mu',
-            founders: 'Masu kafa',
-            contributors: 'Masu ba da gudummawa',
-            methodology: 'Hanyar bincike',
-            editorialStandards: 'Ka\'idojin edita',
-            contact: 'Tuntuɓe mu',
-            myProfile: 'Bayanan ku',
-            heroBadge: 'Aikin Gado',
-            heroTitle: 'Na farko <em>fassara</em> encyclopedia ta mata a duniya — tana bayyana zurfin, ƙarfi, da ma\'anar al\'adu a bayan kowace mace tare da adana labarinta.',
-            heroDescription: 'Maido da labaran da tarihi ya ƙyale, da mutunci, mahallin, da hangen duniya.',
-            exploreArchive: 'Bincika tarihin',
-            learnMore: 'Ƙara koyo',
-            globalMission: 'Manufar duniya',
-            worldRegions: 'Yankunan duniya',
-            languages: 'Harsuna',
-            historicalEras: 'Zamunnan tarihi',
-            categories: 'Rukunoni',
-            credibilityTagline: 'An gina ta ne akan bincike mai zurfi, labari na ɗa\'a da gaskiyar al\'adu — ana tallafawa ta masu ba da gudummawa a duk duniya.',
-            readMore: 'Karanta ƙari',
-            loading: 'Ana lodi...',
-            noResults: 'Ba a sami sakamako ba',
-            error: 'Wani abu ya faru kuskure',
-            copyright: '© 2026 Gidauniyar Womencypedia. An kiyaye duk haƙƙoƙi.',
-            footerAbout: 'Na farko fassara encyclopedia ta mata a duniya.',
-            supportMission: 'Tallafa wa manufarmu',
-        },
-        am: {
-            search: 'በማህደር ውስጥ ይፈልጉ...',
-            donate: 'ይለግሱ',
-            signIn: 'ይግቡ',
-            signOut: 'ይውጡ',
-            explore: 'ያስሱ',
-            learn: 'ይማሩ',
-            participate: 'ይሳተፉ',
-            about: 'ስለ እኛ',
-            home: 'ዋና ገጽ',
-            browse: 'ያስሱ',
-            featured: 'ተለይቶ የቀረበ',
-            collections: 'ስብስቦች',
-            timelines: 'የጊዜ መስመሮች',
-            education: 'ትምህርት',
-            registry: 'ምዝገባ',
-            enterprises: 'ድርጅቶች',
-            research: 'ጥናት',
-            publications: 'ህትመቶች',
-            resources: 'ግብዓቶች',
-            nominateWoman: 'ሴት ያጩ',
-            shareYourStory: 'ታሪክዎን ያጋሩ',
-            aboutUs: 'ስለ እኛ',
-            founders: 'መስራቾች',
-            contributors: 'አስተዋጽኦ አድራጊዎች',
-            contact: 'ያግኙን',
-            myProfile: 'የእኔ መገለጫ',
-            heroBadge: 'የቅርስ ፕሮጀክት',
-            heroTitle: 'የዓለም የመጀመሪያ <em>ትርጓሜያዊ</em> የሴቶች ኢንሳይክሎፒዲያ — ከእያንዳንዱ ሴት ጀርባ ያለውን ጥልቀት፣ ኃይል እና ባህላዊ ትርጉም የሚገልጥ እና ታሪካቸውን የሚጠብቅ።',
-            heroDescription: 'ታሪክ ያስቀረቻቸውን ታሪኮች በክብር፣ በአውድ እና በዓለም አቀፍ ግንዛቤ መልሶ ማቅረብ።',
-            exploreArchive: 'ማህደሩን ያስሱ',
-            learnMore: 'ተጨማሪ ይወቁ',
-            globalMission: 'ዓለም አቀፍ ተልዕኮ',
-            worldRegions: 'የዓለም ክልሎች',
-            languages: 'ቋንቋዎች',
-            historicalEras: 'ታሪካዊ ዘመናት',
-            categories: 'ምድቦች',
-            readMore: 'ተጨማሪ ያንብቡ',
-            loading: 'በመጫን ላይ...',
-            noResults: 'ምንም ውጤት አልተገኘም',
-            error: 'የሆነ ስህተት ተከስቷል',
-            copyright: '© 2026 ወመንሳይፒዲያ ፋውንዴሽን። ሁሉም መብቶች የተጠበቁ ናቸው።',
-            supportMission: 'ተልዕኳችንን ይደግፉ',
-        },
-        zu: {
-            search: 'Sesha emlandweni...',
-            donate: 'Nikela',
-            signIn: 'Ngena',
-            signOut: 'Phuma',
-            explore: 'Hlola',
-            learn: 'Funda',
-            participate: 'Hlanganyela',
-            about: 'Mayelana',
-            home: 'Ikhaya',
-            browse: 'Bhrawuza',
-            featured: 'Okuvelele',
-            collections: 'Imiqoqo',
-            timelines: 'Izikhathi',
-            education: 'Imfundo',
-            registry: 'Irejista',
-            enterprises: 'Amabhizinisi',
-            research: 'Ucwaningo',
-            publications: 'Izincwadi',
-            resources: 'Izinsiza',
-            nominateWoman: 'Qoka owesifazane',
-            shareYourStory: 'Yabelana indaba yakho',
-            aboutUs: 'Mayelana nathi',
-            founders: 'Abasunguli',
-            contributors: 'Abanikeli',
-            contact: 'Xhumana nathi',
-            myProfile: 'Iphrofayili yami',
-            heroBadge: 'Iphrojekthi Yefa',
-            heroTitle: 'I-encyclopedia yokuqala <em>yokuhumusha</em> yabesifazane emhlabeni — iveza ukujula, amandla, nencazelo yamasiko ngemuva kowesifazane ngamunye kanye nokulondoloza indaba yakhe.',
-            heroDescription: 'Ukubuyisela izindaba umlando ezizibekelayo, ngesithunzi, umongo nombono womhlaba.',
-            exploreArchive: 'Hlola umkhiqizo',
-            learnMore: 'Funda kabanzi',
-            globalMission: 'Umgomo womhlaba',
-            worldRegions: 'Izifunda zomhlaba',
-            languages: 'Izilimi',
-            historicalEras: 'Izikhathi zomlando',
-            categories: 'Izigaba',
-            readMore: 'Funda kabanzi',
-            loading: 'Iyalayisha...',
-            noResults: 'Ayikho imiphumela etholakele',
-            error: 'Kukhona okungahambanga kahle',
-            copyright: '© 2026 Womencypedia Foundation. Wonke amalungelo agodliwe.',
-            supportMission: 'Sekela umgomo wethu',
-        },
+        en: {}, fr: {}, es: {}, pt: {}, ar: {}, 
+        sw: {}, yo: {}, ha: {}, am: {}, zu: {}
     },
 
     /**
@@ -695,6 +70,9 @@ const I18N = {
 
         // Translate static UI strings on the page
         this.translatePage();
+
+        // Setup MutationObserver to watch for dynamically added elements
+        this._setupMutationObserver();
 
         console.log(`[i18n] Locale set to: ${this.currentLocale}`);
     },
@@ -763,6 +141,15 @@ const I18N = {
 
     /** Loaded locale JSON data (from locales/*.json files) */
     _localeData: {},
+
+    /** Timeout for debounced translation */
+    _translateTimeout: null,
+
+    /** Timeout for debounced auto-translation */
+    _autoTranslateTimeout: null,
+
+    /** MutationObserver instance */
+    _mutationObserver: null,
 
     /**
      * Load locale JSON file from locales/ directory.
@@ -872,6 +259,202 @@ const I18N = {
                 el.setAttribute('title', this.t(key));
             }
         });
+
+        // Auto-translate common UI patterns without explicit data-i18n attributes
+        this._autoTranslateCommonElements();
+    },
+
+    /**
+     * Automatically translate common UI elements that may not have data-i18n attributes
+     * This provides fallback translation for navigation, buttons, and common text
+     */
+    _autoTranslateCommonElements() {
+        // Translate navigation links by their href or text content
+        document.querySelectorAll('nav a, header a, .nav-link').forEach(link => {
+            const text = link.textContent.trim();
+            const href = link.getAttribute('href') || '';
+
+            // Map common navigation texts to translation keys
+            const navTextMap = {
+                'Home': 'home',
+                'Browse': 'browse',
+                'Explore': 'explore',
+                'Learn': 'learn',
+                'Participate': 'participate',
+                'About': 'about',
+                'Donate': 'donate',
+                'Sign In': 'signIn',
+                'Sign Out': 'signOut',
+                'My Profile': 'myProfile',
+                'Profile': 'profile',
+                'Settings': 'settings',
+                'Admin': 'admin',
+                'Featured': 'featured',
+                'Collections': 'collections',
+                'Timelines': 'timelines',
+                'Education': 'education',
+                'Registry': 'registry',
+                'Enterprises': 'enterprises',
+                'Research': 'research',
+                'Publications': 'publications',
+                'Resources': 'resources',
+                'Contact': 'contact',
+                'About Us': 'aboutUs',
+                'Founders': 'founders',
+                'Contributors': 'contributors',
+                'Methodology': 'methodology',
+                'Editorial Standards': 'editorialStandards',
+                'Nominate a Woman': 'nominateWoman',
+                'Share Your Story': 'shareYourStory',
+                'Contributor Guidelines': 'contributorGuidelines',
+                'Browse Leaders': 'browseLeaders',
+                'Apply for Verification': 'applyVerification',
+                'Controlled Contributions': 'controlledContributions',
+                'Partners': 'partners',
+                'Fellowship': 'fellowship',
+                'Reports': 'reports',
+            };
+
+            // Check if text matches a known navigation item
+            for (const [englishText, translationKey] of Object.entries(navTextMap)) {
+                if (text === englishText && this._hasTranslation(translationKey)) {
+                    link.textContent = this.t(translationKey);
+                    break;
+                }
+            }
+        });
+
+        // Translate buttons by their text content
+        document.querySelectorAll('button, .btn, [role="button"]').forEach(btn => {
+            const text = btn.textContent.trim();
+
+            const buttonTextMap = {
+                'Read More': 'readMore',
+                'Learn More': 'learnMore',
+                'Explore the Archive': 'exploreArchive',
+                'Retry': 'retry',
+                'Cancel': 'cancel',
+                'Save Changes': 'saveChanges',
+                'Edit Profile': 'editProfile',
+                'Clear All': 'clearAll',
+                'Clear History': 'clearAll',
+                'Start Reading': 'readMore',
+                'Browse Biographies': 'browse',
+                'Share Your Story': 'shareYourStory',
+            };
+
+            for (const [englishText, translationKey] of Object.entries(buttonTextMap)) {
+                if (text === englishText && this._hasTranslation(translationKey)) {
+                    btn.textContent = this.t(translationKey);
+                    break;
+                }
+            }
+        });
+
+        // Translate common headings
+        document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(heading => {
+            const text = heading.textContent.trim();
+
+            const headingTextMap = {
+                'Why Womencypedia?': 'whyWomencypedia',
+                'Correcting Historical Imbalance': 'correctingImbalance',
+                'Featured Collection': 'featuredCollection',
+                'Voices of the 19th Century': 'voicesOfCentury',
+                'The Global Mission': 'globalMission',
+                'World Regions': 'worldRegions',
+                'Languages': 'languages',
+                'Historical Eras': 'historicalEras',
+                'Categories': 'categories',
+                'Quick Links': 'quickLinks',
+                'Legal': 'legal',
+                'Follow Us': 'followUs',
+                'No Reading History': 'noResults',
+                'No Saved Biographies': 'noResults',
+                'No contributions yet': 'noResults',
+                'No badges yet': 'noResults',
+            };
+
+            for (const [englishText, translationKey] of Object.entries(headingTextMap)) {
+                if (text === englishText && this._hasTranslation(translationKey)) {
+                    heading.textContent = this.t(translationKey);
+                    break;
+                }
+            }
+        });
+
+        // Translate footer content
+        document.querySelectorAll('footer p, footer span, footer div').forEach(el => {
+            const text = el.textContent.trim();
+
+            const footerTextMap = {
+                'The world\'s first interpretive encyclopedia of women.': 'footerAbout',
+                '© 2026 Womencypedia Foundation. All rights reserved.': 'copyright',
+                'Privacy Policy': 'privacyPolicy',
+                'Terms of Use': 'termsOfUse',
+            };
+
+            for (const [englishText, translationKey] of Object.entries(footerTextMap)) {
+                if (text === englishText && this._hasTranslation(translationKey)) {
+                    el.textContent = this.t(translationKey);
+                    break;
+                }
+            }
+        });
+
+        // Translate search placeholders
+        document.querySelectorAll('input[type="search"], input[placeholder*="Search"], input[placeholder*="search"]').forEach(input => {
+            const placeholder = input.getAttribute('placeholder') || '';
+            if (placeholder.includes('Search') && this._hasTranslation('search')) {
+                input.setAttribute('placeholder', this.t('search'));
+            }
+        });
+
+        // Translate loading states
+        document.querySelectorAll('[class*="loading"], [class*="spinner"]').forEach(el => {
+            if (el.textContent.trim() === 'Loading...' && this._hasTranslation('loading')) {
+                el.textContent = this.t('loading');
+            }
+        });
+    },
+
+    /**
+     * Setup MutationObserver to watch for dynamically added elements
+     * This ensures new content is translated even after initial page load
+     */
+    _setupMutationObserver() {
+        if (typeof MutationObserver === 'undefined') return;
+
+        const observer = new MutationObserver((mutations) => {
+            let shouldTranslate = false;
+
+            mutations.forEach(mutation => {
+                if (mutation.addedNodes.length > 0) {
+                    shouldTranslate = true;
+                }
+            });
+
+            if (shouldTranslate) {
+                // Debounce translation to avoid excessive calls
+                clearTimeout(this._translateTimeout);
+                this._translateTimeout = setTimeout(() => {
+                    this.translatePage();
+                    // Also auto-translate new content after a short delay
+                    if (this.currentLocale !== 'en') {
+                        clearTimeout(this._autoTranslateTimeout);
+                        this._autoTranslateTimeout = setTimeout(() => {
+                            this.autoTranslateRemainingText();
+                        }, 800);
+                    }
+                }, 100);
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        this._mutationObserver = observer;
     },
 
     /**
@@ -1008,6 +591,339 @@ const I18N = {
                 this._originalTexts[key] = el.innerHTML.trim();
             }
         });
+    },
+
+    /**
+     * Force re-translation of the entire page
+     * Useful after dynamic content is loaded
+     */
+    forceRetranslate() {
+        this.translatePage();
+    },
+
+    /**
+     * Translate a specific element
+     * @param {Element} element - The element to translate
+     */
+    translateElement(element) {
+        if (!element) return;
+
+        // Check for data-i18n attribute
+        const key = element.getAttribute('data-i18n');
+        if (key && this._hasTranslation(key)) {
+            element.textContent = this.t(key);
+        }
+
+        // Check for data-i18n-html attribute
+        const htmlKey = element.getAttribute('data-i18n-html');
+        if (htmlKey && this._hasTranslation(htmlKey)) {
+            element.innerHTML = this.t(htmlKey);
+        }
+
+        // Check for data-i18n-placeholder attribute
+        const placeholderKey = element.getAttribute('data-i18n-placeholder');
+        if (placeholderKey) {
+            element.setAttribute('placeholder', this.t(placeholderKey));
+        }
+
+        // Check for data-i18n-aria attribute
+        const ariaKey = element.getAttribute('data-i18n-aria');
+        if (ariaKey) {
+            element.setAttribute('aria-label', this.t(ariaKey));
+        }
+
+        // Check for data-i18n-title attribute
+        const titleKey = element.getAttribute('data-i18n-title');
+        if (titleKey) {
+            element.setAttribute('title', this.t(titleKey));
+        }
+    },
+
+    /**
+     * Cleanup resources (disconnect MutationObserver)
+     */
+    destroy() {
+        if (this._mutationObserver) {
+            this._mutationObserver.disconnect();
+            this._mutationObserver = null;
+        }
+        if (this._translateTimeout) {
+            clearTimeout(this._translateTimeout);
+            this._translateTimeout = null;
+        }
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // AUTO-TRANSLATION ENGINE
+    // Automatically translates ALL remaining visible text on the
+    // page that is NOT already handled by data-i18n attributes.
+    // Uses MyMemory free translation API with sessionStorage cache.
+    // ─────────────────────────────────────────────────────────
+
+    /** Cache for auto-translated strings (sessionStorage-backed) */
+    _autoTranslateCache: {},
+
+    /** Whether auto-translation is currently running */
+    _autoTranslating: false,
+
+    /** Set of nodes currently being translated (to avoid duplicates) */
+    _pendingNodes: new WeakSet(),
+
+    /**
+     * Load the auto-translate cache from sessionStorage
+     */
+    _loadAutoTranslateCache() {
+        try {
+            const cached = sessionStorage.getItem('womencypedia_auto_translate_cache');
+            if (cached) {
+                this._autoTranslateCache = JSON.parse(cached);
+            }
+        } catch {
+            this._autoTranslateCache = {};
+        }
+    },
+
+    /**
+     * Save the auto-translate cache to sessionStorage
+     */
+    _saveAutoTranslateCache() {
+        try {
+            // Limit cache size to prevent sessionStorage overflow
+            const keys = Object.keys(this._autoTranslateCache);
+            if (keys.length > 2000) {
+                // Keep only the most recent 1000 entries
+                const toKeep = keys.slice(-1000);
+                const trimmed = {};
+                toKeep.forEach(k => { trimmed[k] = this._autoTranslateCache[k]; });
+                this._autoTranslateCache = trimmed;
+            }
+            sessionStorage.setItem('womencypedia_auto_translate_cache', JSON.stringify(this._autoTranslateCache));
+        } catch {
+            // sessionStorage full — silently continue
+        }
+    },
+
+    /**
+     * Get a cache key for a translation
+     */
+    _cacheKey(text, targetLang) {
+        return `${targetLang}:${text.substring(0, 200)}`;
+    },
+
+    /**
+     * Translate text using the MyMemory Translation API (free, no API key needed)
+     * Falls back gracefully if the API is unavailable.
+     * @param {string} text - Text to translate
+     * @param {string} targetLang - Target language code (e.g., 'fr', 'es')
+     * @returns {Promise<string>} Translated text, or original if translation fails
+     */
+    async _translateText(text, targetLang) {
+        if (!text || !text.trim() || targetLang === 'en') return text;
+
+        const cacheKey = this._cacheKey(text, targetLang);
+
+        // Check cache first
+        if (this._autoTranslateCache[cacheKey]) {
+            return this._autoTranslateCache[cacheKey];
+        }
+
+        try {
+            const encodedText = encodeURIComponent(text.trim());
+            const url = `https://api.mymemory.translated.net/get?q=${encodedText}&langpair=en|${targetLang}&de=rev@womencypedia.org`;
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                signal: AbortSignal.timeout(8000) // 8 second timeout
+            });
+
+            if (!response.ok) return text;
+
+            const data = await response.json();
+
+            if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
+                let translated = data.responseData.translatedText;
+
+                // MyMemory sometimes returns the input in uppercase when it can't translate
+                if (translated.toUpperCase() === text.toUpperCase() && translated !== text) {
+                    return text;
+                }
+
+                // Cache the result
+                this._autoTranslateCache[cacheKey] = translated;
+                return translated;
+            }
+
+            return text;
+        } catch {
+            // API unavailable — return original
+            return text;
+        }
+    },
+
+    /**
+     * Batch translate multiple texts (groups API calls for efficiency)
+     * @param {Array<{text: string, node: Node}>} items - Array of text/node pairs
+     * @param {string} targetLang - Target language code
+     */
+    async _batchTranslate(items, targetLang) {
+        // Process in batches of 5 to avoid overwhelming the API
+        const batchSize = 5;
+        for (let i = 0; i < items.length; i += batchSize) {
+            const batch = items.slice(i, i + batchSize);
+            const promises = batch.map(async (item) => {
+                const translated = await this._translateText(item.text, targetLang);
+                if (translated !== item.text && item.node) {
+                    item.node.textContent = translated;
+                }
+            });
+            await Promise.all(promises);
+
+            // Small delay between batches to respect rate limits
+            if (i + batchSize < items.length) {
+                await new Promise(resolve => setTimeout(resolve, 300));
+            }
+        }
+    },
+
+    /**
+     * Check if an element should be skipped from auto-translation
+     */
+    _shouldSkipElement(el) {
+        // Skip elements that are handled by data-i18n
+        if (el.hasAttribute && (
+            el.hasAttribute('data-i18n') ||
+            el.hasAttribute('data-i18n-html') ||
+            el.hasAttribute('data-i18n-placeholder') ||
+            el.hasAttribute('data-i18n-title') ||
+            el.hasAttribute('data-i18n-aria') ||
+            el.hasAttribute('data-no-translate')
+        )) {
+            return true;
+        }
+
+        // Skip script, style, code elements
+        const tag = el.tagName ? el.tagName.toLowerCase() : '';
+        if (['script', 'style', 'code', 'pre', 'noscript', 'svg', 'math', 'iframe'].includes(tag)) {
+            return true;
+        }
+
+        // Skip hidden elements
+        if (el.offsetParent === null && tag !== 'body' && tag !== 'html') {
+            return true;
+        }
+
+        // Skip the language switcher itself
+        if (el.closest && (el.closest('#language-switcher') || el.closest('.language-switcher') || el.closest('.lang-dropdown'))) {
+            return true;
+        }
+
+        return false;
+    },
+
+    /**
+     * Collect all text nodes that need translation
+     * @param {Element} root - Root element to search within
+     * @returns {Array<{text: string, node: Node}>}
+     */
+    _collectTranslatableTextNodes(root) {
+        const items = [];
+        const walker = document.createTreeWalker(
+            root,
+            NodeFilter.SHOW_TEXT,
+            {
+                acceptNode: (node) => {
+                    // Skip empty or whitespace-only nodes
+                    const text = node.textContent.trim();
+                    if (!text || text.length < 2) return NodeFilter.FILTER_REJECT;
+
+                    // Skip if already pending translation
+                    if (this._pendingNodes.has(node)) return NodeFilter.FILTER_REJECT;
+
+                    // Skip if parent should be excluded
+                    const parent = node.parentElement;
+                    if (!parent) return NodeFilter.FILTER_REJECT;
+                    if (this._shouldSkipElement(parent)) return NodeFilter.FILTER_REJECT;
+
+                    // Check if ANY ancestor has data-i18n (already translated)
+                    let ancestor = parent;
+                    while (ancestor && ancestor !== root) {
+                        if (ancestor.hasAttribute && (
+                            ancestor.hasAttribute('data-i18n') ||
+                            ancestor.hasAttribute('data-i18n-html')
+                        )) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+                        ancestor = ancestor.parentElement;
+                    }
+
+                    // Skip numbers-only, single characters, URLs, emails
+                    if (/^[\d\s.,;:!?%$€£¥+\-*/=()[\]{}#@&|~^`"'<>\\]+$/.test(text)) return NodeFilter.FILTER_REJECT;
+                    if (/^https?:\/\//.test(text)) return NodeFilter.FILTER_REJECT;
+                    if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(text)) return NodeFilter.FILTER_REJECT;
+
+                    // Skip very short text that's likely an icon or symbol
+                    if (text.length <= 2 && !/[a-zA-Z]{2,}/.test(text)) return NodeFilter.FILTER_REJECT;
+
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            }
+        );
+
+        let node;
+        while (node = walker.nextNode()) {
+            const text = node.textContent.trim();
+            items.push({ text, node });
+            this._pendingNodes.add(node);
+        }
+
+        return items;
+    },
+
+    /**
+     * Auto-translate all remaining text on the page.
+     * Called after translatePage() to handle text NOT covered by data-i18n.
+     */
+    async autoTranslateRemainingText() {
+        if (this.currentLocale === 'en' || this._autoTranslating) return;
+
+        this._autoTranslating = true;
+        this._loadAutoTranslateCache();
+
+        try {
+            const items = this._collectTranslatableTextNodes(document.body);
+            
+            if (items.length === 0) {
+                this._autoTranslating = false;
+                return;
+            }
+
+            console.log(`[i18n] Auto-translating ${items.length} text nodes to ${this.currentLocale}...`);
+
+            // First pass: apply cached translations immediately
+            const uncached = [];
+            items.forEach(item => {
+                const cacheKey = this._cacheKey(item.text, this.currentLocale);
+                if (this._autoTranslateCache[cacheKey]) {
+                    item.node.textContent = this._autoTranslateCache[cacheKey];
+                } else {
+                    uncached.push(item);
+                }
+            });
+
+            if (uncached.length > 0) {
+                console.log(`[i18n] ${items.length - uncached.length} from cache, ${uncached.length} need API translation`);
+                // Translate uncached items via API
+                await this._batchTranslate(uncached, this.currentLocale);
+                // Save new translations to cache
+                this._saveAutoTranslateCache();
+            }
+
+            console.log(`[i18n] Auto-translation complete`);
+        } catch (error) {
+            console.warn('[i18n] Auto-translation error:', error.message);
+        } finally {
+            this._autoTranslating = false;
+        }
     }
 };
 
@@ -1028,6 +944,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     I18N.init();
     // Intercept links AFTER init so locale is set
     I18N.interceptAllLinks();
+
+    // Auto-translate remaining text that isn't covered by data-i18n
+    // This runs after a short delay to let the page fully render
+    if (I18N.currentLocale !== 'en') {
+        setTimeout(() => {
+            I18N.autoTranslateRemainingText();
+        }, 500);
+    }
 });
 
 // Export for module usage

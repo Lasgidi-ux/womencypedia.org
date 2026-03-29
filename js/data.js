@@ -193,7 +193,15 @@ const featuredCollections = [
     }
 ];
 
+// Static filter data for fallback when API is unavailable
+// This is used by browse-logic.js when the Strapi API fails
+const staticFilters = {
+    eras: eras.map(era => ({ slug: era.toLowerCase().replace(/\s+/g, '-'), name: era })),
+    regions: regions.map(region => ({ slug: region.toLowerCase().replace(/\s+/g, '-'), name: region })),
+    categories: categories.map(category => ({ slug: category.toLowerCase().replace(/\s+/g, '-'), name: category }))
+};
+
 // Export for use in other scripts
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { biographies, categories, regions, eras, featuredCollections };
+    module.exports = { biographies, categories, regions, eras, featuredCollections, staticFilters };
 }

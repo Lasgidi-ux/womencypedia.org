@@ -1,1060 +1,351 @@
 /**
- * Womencypedia Strapi API Service
- * 
- * Provides Strapi-specific functionality including:
- * - Response transformation (flattening nested Strapi responses)
- * - Locale-aware API calls
- * - Media URL handling
- * - Query parameter building
+ * Modern Strapi API Service (ES Module Version)
+ * Clean, scalable, production-ready
  */
 
-// Guard: prevent redeclaration if loaded via both script tag and bundle
-if (typeof StrapiAPI === 'undefined') {
-    var StrapiAPI = {
-        /**
-         * Transform Strapi response format to match frontend expectations
-         * @param {Object} response - Raw Strapi response
-         * @param {string} contentType - Content type name (e.g., 'biographies')
-         * @returns {Object} Transformed response
-         */
-        transformResponse(response, contentType) {
-            // Handle error responses
-            if (response.error) {
-                return {
-                    error: true,
-                    message: response.error.message || 'An error occurred',
-                    status: response.error.status || 500
-                };
-            }
-
-            // Handle single item response
-            if (response.data && !Array.isArray(response.data)) {
-                return this.transformItem(response.data);
-            }
-
-            // Handle collection response
-            if (response.data && Array.isArray(response.data)) {
-                return {
-                    entries: response.data.map(item => this.transformItem(item)),
-                    page: response.meta?.pagination?.page || 1,
-                    pageSize: response.meta?.pagination?.pageSize || CONFIG.PAGINATION.DEFAULT_PAGE_SIZE,
-                    total_pages: response.meta?.pagination?.pageCount || 1,
-                    total: response.meta?.pagination?.total || response.data.length
-                };
-            }
-
-            // Handle non-standard responses
-            return response;
-        },
-
-        /**
-         * Transform a single Strapi item
-         * @param {Object} item - Strapi data item
-         * @returns {Object} Transformed item
-         */
-        transformItem(item) {
-            if (!item) return null;
-
-            // In Strapi v5, the response is flattened by default (no 'attributes' wrapper)
-            // We'll support both v4 (with attributes) and v5 for safety
-            const id = item.id;
-            const documentId = item.documentId || null;
-            const attrs = item.attributes || item;
-
-            return {
-                id,
-                documentId,
-                ...this.flattenAttributes(attrs),
-                // Handle relations
-                ...this.extractRelations(item)
-            };
-        },
-
-        /**
-         * Flatten nested attributes object
-         * @param {Object} attrs - Attributes object
-         * @returns {Object} Flattened object
-         */
-        flattenAttributes(attrs) {
-            const result = {};
-
-            for (const [key, value] of Object.entries(attrs)) {
-                // Skip internal fields
-                if (key === 'createdAt' || key === 'updatedAt' || key === 'publishedAt') {
-                    result[key] = value;
-                    continue;
-                }
-
-                // Handle relation data (already processed)
-                if (key === 'localizations') continue;
-
-                // Handle media
-                if (value && typeof value === 'object') {
-                    if (value.data !== undefined) {
-                        // Single relation
-                        if (!Array.isArray(value.data) && value.data !== null) {
-                            result[key] = this.transformMedia(value.data);
-                        } else if (Array.isArray(value.data)) {
-                            // Multiple relations
-                            result[key] = value.data.map(item => this.transformMedia(item));
-                        } else {
-                            result[key] = null;
-                        }
-                    } else if (value.url) {
-                        // Media object (v5 flattened media shape)
-                        result[key] = this.transformMedia(value);
-                    } else if (Array.isArray(value) && value.length > 0 && value[0].url) {
-                        // Array of media objects (v5)
-                        result[key] = value.map(item => this.transformMedia(item));
-                    } else {
-                        result[key] = value;
-                    }
-                } else {
-                    result[key] = value;
-                }
-            }
-
-            return result;
-        },
-
-        extractRelations(item) {
-            const relations = {};
-
-            // In v5, relation data is attached directly to the item object, not in `attributes.data`
-            const attrs = item.attributes || item;
-
-            for (const [key, value] of Object.entries(attrs)) {
-                // Skip non-objects
-                if (!value || typeof value !== 'object') continue;
-
-                // Handle nested v4 style { data: ... }
-                if (value.data !== undefined) {
-                    if (Array.isArray(value.data)) {
-                        relations[key] = value.data.map(rel => ({
-                            id: rel.id,
-                            ...this.flattenAttributes(rel.attributes || rel)
-                        }));
-                    } else if (value.data !== null) {
-                        relations[key] = {
-                            id: value.data.id,
-                            ...this.flattenAttributes(value.data.attributes || value.data)
-                        };
-                    }
-                }
-                // Handle flattened v5 style array of relations
-                else if (Array.isArray(value)) {
-                    relations[key] = value.map(rel => ({
-                        id: rel.id,
-                        ...this.flattenAttributes(rel.attributes || rel)
-                    }));
-                }
-                // Handle flattened v5 style single relation object
-                else if (value.id) {
-                    relations[key] = {
-                        id: value.id,
-                        ...this.flattenAttributes(value.attributes || value)
-                    };
-                }
-            }
-
-            return relations;
-        },
-
-        /**
-         * Transform media object
-         * @param {Object} media - Strapi media object
-         * @returns {Object} Transformed media
-         */
-        transformMedia(media) {
-            if (!media) return null;
-
-            // Handle existing media format
-            if (media.url) {
-                return {
-                    id: media.id,
-                    url: this.getMediaUrl(media.url),
-                    alternativeText: media.alternativeText || media.name,
-                    caption: media.caption,
-                    width: media.width,
-                    height: media.height,
-                    formats: media.formats ? {
-                        thumbnail: media.formats.thumbnail ? this.getMediaUrl(media.formats.thumbnail.url) : null,
-                        small: media.formats.small ? this.getMediaUrl(media.formats.small.url) : null,
-                        medium: media.formats.medium ? this.getMediaUrl(media.formats.medium.url) : null,
-                        large: media.formats.large ? this.getMediaUrl(media.formats.large.url) : null
-                    } : null
-                };
-            }
-
-            return media;
-        },
-
-        /**
-         * Get full media URL
-         * @param {string} url - Relative or absolute URL
-         * @returns {string} Full URL
-         */
-        getMediaUrl(url) {
-            if (!url) return null;
-            if (url.startsWith('http') || url.startsWith('//')) {
-                return url;
-            }
-            return `${CONFIG.API_BASE_URL}${url}`;
-        },
-
-        /**
-         * Build query string for Strapi API
-         * @param {Object} params - Query parameters
-         * @returns {string} Query string
-         */
-        buildQueryString(params = {}) {
-            const queryParams = [];
-
-            // Add locale
-            if (params.locale) {
-                queryParams.push(`locale=${params.locale}`);
-            }
-
-            // Add populate
-            if (params.populate !== false) {
-                queryParams.push('populate=*');
-            }
-
-            // Add pagination
-            if (params.page) {
-                queryParams.push(`pagination[page]=${params.page}`);
-            }
-            if (params.pageSize) {
-                queryParams.push(`pagination[pageSize]=${params.pageSize}`);
-            }
-
-            // Add filters
-            if (params.filters) {
-                for (const [key, value] of Object.entries(params.filters)) {
-                    if (value !== undefined && value !== null) {
-                        queryParams.push(`filters[${key}][$eq]=${value}`);
-                    }
-                }
-            }
-
-            // Add sorting
-            if (params.sort) {
-                const sortOrder = params.sortOrder === 'desc' ? 'desc' : 'asc';
-                queryParams.push(`sort[0]=${params.sort}:${sortOrder}`);
-            }
-
-            // Add search
-            if (params.search) {
-                queryParams.push(`filters[$or][0][name][$containsi]=${params.search}`);
-                queryParams.push(`filters[$or][1][introduction][$containsi]=${params.search}`);
-            }
-
-            return queryParams.length > 0 ? `?${queryParams.join('&')}` : '';
-        },
-
-        /**
-         * Make a Strapi API request with automatic transformation
-         * @param {string} endpoint - API endpoint
-         * @param {Object} options - Request options
-         * @returns {Promise<Object>} Transformed response
-         */
-        async request(endpoint, options = {}) {
-            const locale = options.locale || this.getLocale();
-
-            // Build query string
-            const queryString = this.buildQueryString({
-                locale: locale,
-                populate: options.populate !== false,
-                ...options.queryParams
-            });
-
-            // Fix double ? bug: check if endpoint already has query params
-            const separator = endpoint.includes('?') ? '&' : '?';
-            const url = `${CONFIG.API_BASE_URL}${endpoint}${queryString ? separator + queryString.substring(1) : ''}`;
-
-            const defaultHeaders = {
-                'Content-Type': 'application/json',
-            };
-
-            // Add authorization header - prioritize user token, then fall back to API token
-            var token = Auth.getAccessToken();
-            if (!token && CONFIG.API_TOKEN) {
-                token = CONFIG.API_TOKEN;
-            }
-            if (token) {
-                defaultHeaders['Authorization'] = 'Bearer ' + token;
-            }
-
-            const config = {
-                ...options,
-                headers: {
-                    ...defaultHeaders,
-                    ...options.headers,
-                },
-            };
-
-            try {
-                const response = await fetch(url, config);
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.error?.message || data.message || 'API request failed');
-                }
-
-                return this.transformResponse(data, options.contentType);
-            } catch (error) {
-                console.error('StrapiAPI request error:', error);
-                throw error;
-            }
-        },
-
-        /**
-         * Get current locale for API requests
-         * @returns {string} Current locale code
-         */
-        getLocale() {
-            return typeof I18N !== 'undefined' ? I18N.currentLocale : 'en';
-        },
-
-        // ============================================
-        // CONTENT API METHODS
-        // ============================================
-
-        biographies: {
-            /**
-             * Get all biographies
-             * @param {Object} params - Query parameters
-             * @returns {Promise<Object>} Transformed response
-             */
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.BIOGRAPHIES, {
-                    method: 'GET',
-                    contentType: 'biographies',
-                    queryParams: params
-                });
-            },
-
-            /**
-             * Get biography by ID or slug
-             * @param {string|number} idOrSlug - ID or slug
-             * @returns {Promise<Object>} Single biography
-             */
-            async get(idOrSlug) {
-                // Check if it's a slug (contains letters)
-                if (isNaN(idOrSlug)) {
-                    const response = await StrapiAPI.request(
-                        CONFIG.ENDPOINTS.STRAPI.BIOGRAPHY_BY_SLUG(idOrSlug),
-                        { method: 'GET', contentType: 'biographies' }
-                    );
-                    return response.entries?.[0] || null;
-                }
-
-                return StrapiAPI.request(`${CONFIG.ENDPOINTS.STRAPI.BIOGRAPHIES}/${idOrSlug}`, {
-                    method: 'GET',
-                    contentType: 'biographies'
-                });
-            },
-
-            /**
-             * Get featured biographies
-             * @param {number} limit - Number of items
-             * @returns {Promise<Object>} Featured biographies
-             */
-            async getFeatured(limit = 6) {
-                return StrapiAPI.request(
-                    `${CONFIG.ENDPOINTS.STRAPI.BIOGRAPHIES_FEATURED}&pagination[pageSize]=${limit}`,
-                    { method: 'GET', contentType: 'biographies' }
-                );
-            },
-
-            /**
-             * Get biographies by region
-             * @param {string} region - Region name
-             * @param {Object} params - Additional params
-             * @returns {Promise<Object>} Biographies in region
-             */
-            async getByRegion(region, params = {}) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.BIOGRAPHIES_BY_REGION(region),
-                    { method: 'GET', contentType: 'biographies', queryParams: params }
-                );
-            },
-
-            /**
-             * Get biographies by category
-             * @param {string} category - Category name
-             * @param {Object} params - Additional params
-             * @returns {Promise<Object>} Biographies in category
-             */
-            async getByCategory(category, params = {}) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.BIOGRAPHIES_BY_CATEGORY(category),
-                    { method: 'GET', contentType: 'biographies', queryParams: params }
-                );
-            },
-
-            /**
-             * Search biographies
-             * @param {string} query - Search query
-             * @param {Object} params - Additional params
-             * @returns {Promise<Object>} Search results
-             */
-            async search(query, params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.BIOGRAPHIES, {
-                    method: 'GET',
-                    contentType: 'biographies',
-                    queryParams: { ...params, search: query }
-                });
-            }
-        },
-
-        collections: {
-            /**
-             * Get all collections
-             * @param {Object} params - Query parameters
-             * @returns {Promise<Object>} Collections response
-             */
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.COLLECTIONS, {
-                    method: 'GET',
-                    contentType: 'collections',
-                    queryParams: params
-                });
-            },
-
-            /**
-             * Get collection by ID or slug
-             * @param {string|number} idOrSlug - ID or slug
-             * @returns {Promise<Object>} Single collection
-             */
-            async get(idOrSlug) {
-                if (isNaN(idOrSlug)) {
-                    const response = await StrapiAPI.request(
-                        CONFIG.ENDPOINTS.STRAPI.COLLECTION_BY_SLUG(idOrSlug),
-                        { method: 'GET', contentType: 'collections' }
-                    );
-                    return response.entries?.[0] || null;
-                }
-
-                return StrapiAPI.request(`${CONFIG.ENDPOINTS.STRAPI.COLLECTIONS}/${idOrSlug}`, {
-                    method: 'GET',
-                    contentType: 'collections'
-                });
-            },
-
-            /**
-             * Get featured collections
-             * @param {number} limit - Number of items
-             * @returns {Promise<Object>} Featured collections
-             */
-            async getFeatured(limit = 4) {
-                return StrapiAPI.request(
-                    `${CONFIG.ENDPOINTS.STRAPI.COLLECTIONS_FEATURED}&pagination[pageSize]=${limit}`,
-                    { method: 'GET', contentType: 'collections' }
-                );
-            }
-        },
-
-        educationModules: {
-            /**
-             * Get all education modules
-             * @param {Object} params - Query parameters
-             * @returns {Promise<Object>} Modules response
-             */
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.EDUCATION_MODULES, {
-                    method: 'GET',
-                    contentType: 'education-modules',
-                    queryParams: params
-                });
-            },
-
-            /**
-             * Get module by slug
-             * @param {string} slug - Module slug
-             * @returns {Promise<Object>} Single module
-             */
-            async getBySlug(slug) {
-                const response = await StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.EDUCATION_MODULE_BY_SLUG(slug),
-                    { method: 'GET', contentType: 'education-modules' }
-                );
-                return response.entries?.[0] || null;
-            }
-        },
-
-        tags: {
-            /**
-             * Get all tags
-             * @param {Object} params - Query parameters
-             * @returns {Promise<Object>} Tags response
-             */
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.TAGS, {
-                    method: 'GET',
-                    contentType: 'tags',
-                    queryParams: params
-                });
-            }
-        },
-
-        // ============================================
-        // LEADERS (Institutional Registry)
-        // ============================================
-
-        leaders: {
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.LEADERS, {
-                    method: 'GET',
-                    contentType: 'leaders',
-                    queryParams: params
-                });
-            },
-
-            async get(idOrSlug) {
-                if (isNaN(idOrSlug)) {
-                    const response = await StrapiAPI.request(
-                        CONFIG.ENDPOINTS.STRAPI.LEADER_BY_SLUG(idOrSlug),
-                        { method: 'GET', contentType: 'leaders' }
-                    );
-                    return response.entries?.[0] || null;
-                }
-                return StrapiAPI.request(`${CONFIG.ENDPOINTS.STRAPI.LEADERS}/${idOrSlug}`, {
-                    method: 'GET',
-                    contentType: 'leaders'
-                });
-            },
-
-            async getFeatured(limit = 6) {
-                return StrapiAPI.request(
-                    `${CONFIG.ENDPOINTS.STRAPI.LEADERS_FEATURED}&pagination[pageSize]=${limit}`,
-                    { method: 'GET', contentType: 'leaders' }
-                );
-            },
-
-            async getVerified(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.LEADERS_VERIFIED, {
-                    method: 'GET',
-                    contentType: 'leaders',
-                    queryParams: params
-                });
-            },
-
-            async getByCountry(country, params = {}) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.LEADERS_BY_COUNTRY(country),
-                    { method: 'GET', contentType: 'leaders', queryParams: params }
-                );
-            },
-
-            async getByContinent(continent, params = {}) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.LEADERS_BY_CONTINENT(continent),
-                    { method: 'GET', contentType: 'leaders', queryParams: params }
-                );
-            },
-
-            async getBySector(sector, params = {}) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.LEADERS_BY_SECTOR(sector),
-                    { method: 'GET', contentType: 'leaders', queryParams: params }
-                );
-            }
-        },
-
-        // ============================================
-        // PARTNERS
-        // ============================================
-
-        partners: {
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.PARTNERS, {
-                    method: 'GET',
-                    contentType: 'partners',
-                    queryParams: params
-                });
-            },
-
-            async get(idOrSlug) {
-                if (isNaN(idOrSlug)) {
-                    const response = await StrapiAPI.request(
-                        CONFIG.ENDPOINTS.STRAPI.PARTNER_BY_SLUG(idOrSlug),
-                        { method: 'GET', contentType: 'partners' }
-                    );
-                    return response.entries?.[0] || null;
-                }
-                return StrapiAPI.request(`${CONFIG.ENDPOINTS.STRAPI.PARTNERS}/${idOrSlug}`, {
-                    method: 'GET',
-                    contentType: 'partners'
-                });
-            },
-
-            async getFeatured(limit = 6) {
-                return StrapiAPI.request(
-                    `${CONFIG.ENDPOINTS.STRAPI.PARTNERS_FEATURED}&pagination[pageSize]=${limit}`,
-                    { method: 'GET', contentType: 'partners' }
-                );
-            },
-
-            async getByTier(tier, params = {}) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.PARTNERS_BY_TIER(tier),
-                    { method: 'GET', contentType: 'partners', queryParams: params }
-                );
-            }
-        },
-
-        // ============================================
-        // FELLOWSHIPS
-        // ============================================
-
-        fellowships: {
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.FELLOWSHIPS, {
-                    method: 'GET',
-                    contentType: 'fellowships',
-                    queryParams: params
-                });
-            },
-
-            async get(idOrSlug) {
-                if (isNaN(idOrSlug)) {
-                    const response = await StrapiAPI.request(
-                        CONFIG.ENDPOINTS.STRAPI.FELLOWSHIP_BY_SLUG(idOrSlug),
-                        { method: 'GET', contentType: 'fellowships' }
-                    );
-                    return response.entries?.[0] || null;
-                }
-                return StrapiAPI.request(`${CONFIG.ENDPOINTS.STRAPI.FELLOWSHIPS}/${idOrSlug}`, {
-                    method: 'GET',
-                    contentType: 'fellowships'
-                });
-            },
-
-            async getFeatured(limit = 6) {
-                return StrapiAPI.request(
-                    `${CONFIG.ENDPOINTS.STRAPI.FELLOWSHIPS_FEATURED}&pagination[pageSize]=${limit}`,
-                    { method: 'GET', contentType: 'fellowships' }
-                );
-            },
-
-            async getOpen(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.FELLOWSHIPS_OPEN, {
-                    method: 'GET',
-                    contentType: 'fellowships',
-                    queryParams: params
-                });
-            },
-
-            async getByType(type, params = {}) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.FELLOWSHIPS_BY_TYPE(type),
-                    { method: 'GET', contentType: 'fellowships', queryParams: params }
-                );
-            }
-        },
-
-        // ============================================
-        // CONTRIBUTIONS
-        // ============================================
-
-        contributions: {
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.CONTRIBUTIONS, {
-                    method: 'GET',
-                    contentType: 'contributions',
-                    queryParams: params
-                });
-            },
-
-            async get(idOrSlug) {
-                if (isNaN(idOrSlug)) {
-                    const response = await StrapiAPI.request(
-                        CONFIG.ENDPOINTS.STRAPI.CONTRIBUTION_BY_SLUG(idOrSlug),
-                        { method: 'GET', contentType: 'contributions' }
-                    );
-                    return response.entries?.[0] || null;
-                }
-                return StrapiAPI.request(`${CONFIG.ENDPOINTS.STRAPI.CONTRIBUTIONS}/${idOrSlug}`, {
-                    method: 'GET',
-                    contentType: 'contributions'
-                });
-            },
-
-            async getFeatured(limit = 6) {
-                return StrapiAPI.request(
-                    `${CONFIG.ENDPOINTS.STRAPI.CONTRIBUTIONS_FEATURED}&pagination[pageSize]=${limit}`,
-                    { method: 'GET', contentType: 'contributions' }
-                );
-            },
-
-            async getPublished(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.CONTRIBUTIONS_PUBLISHED, {
-                    method: 'GET',
-                    contentType: 'contributions',
-                    queryParams: params
-                });
-            },
-
-            async getByType(type, params = {}) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.CONTRIBUTIONS_BY_TYPE(type),
-                    { method: 'GET', contentType: 'contributions', queryParams: params }
-                );
-            },
-
-            async submit(contributionData) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.CONTRIBUTION_SUBMIT, {
-                    method: 'POST',
-                    contentType: 'contributions',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: contributionData })
-                });
-            }
-        },
-
-        // ============================================
-        // VERIFICATION APPLICATIONS
-        // ============================================
-
-        verificationApplications: {
-            async getAll(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.VERIFICATION_APPLICATIONS, {
-                    method: 'GET',
-                    contentType: 'verification-applications',
-                    queryParams: params
-                });
-            },
-
-            async get(id) {
-                return StrapiAPI.request(
-                    CONFIG.ENDPOINTS.STRAPI.VERIFICATION_APPLICATION_BY_ID(id),
-                    { method: 'GET', contentType: 'verification-applications' }
-                );
-            },
-
-            async getPending(params = {}) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.VERIFICATION_APPLICATIONS_PENDING, {
-                    method: 'GET',
-                    contentType: 'verification-applications',
-                    queryParams: params
-                });
-            },
-
-            async submit(applicationData) {
-                return StrapiAPI.request(CONFIG.ENDPOINTS.STRAPI.VERIFICATION_APPLICATION_SUBMIT, {
-                    method: 'POST',
-                    contentType: 'verification-applications',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: applicationData })
-                });
-            }
-        },
-
-        // ============================================
-        // COMMENTS
-        // ============================================
-
-        comments: {
-            async getByBiography(biographyId, params = {}) {
-                return StrapiAPI.request(`/api/comments?filters[biography][id][$eq]=${biographyId}&populate=author,parent`, {
-                    method: 'GET',
-                    contentType: 'comments',
-                    queryParams: params
-                });
-            },
-
-            async create(commentData) {
-                return StrapiAPI.request('/api/comments', {
-                    method: 'POST',
-                    contentType: 'comments',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: commentData })
-                });
-            },
-
-            async delete(commentId) {
-                return StrapiAPI.request(`/api/comments/${commentId}`, {
-                    method: 'DELETE',
-                    contentType: 'comments'
-                });
-            },
-
-            async like(commentId) {
-                // Use atomic increment endpoint to avoid race conditions
-                // The backend handles the increment atomically
-                try {
-                    const result = await StrapiAPI.request(`/api/comments/${commentId}/like`, {
-                        method: 'POST',
-                        contentType: 'comments',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    // Return the updated comment or clear error
-                    if (result && result.data) {
-                        return result.data;
-                    }
-                    // If result exists but no data, return it anyway (some backends return updated comment directly)
-                    return result;
-                } catch (error) {
-                    // Return a clear error object instead of implicitly undefined
-                    console.error('Failed to like comment:', error);
-                    return { error: error.message || 'Failed to like comment', success: false };
-                }
-            }
-        },
-
-        // ============================================
-        // NOTIFICATIONS
-        // ============================================
-
-        notifications: {
-            async getAll(params = {}) {
-                return StrapiAPI.request('/api/notifications', {
-                    method: 'GET',
-                    contentType: 'notifications',
-                    queryParams: params
-                });
-            },
-
-            async markAsRead(notificationId) {
-                return StrapiAPI.request(`/api/notifications/${notificationId}`, {
-                    method: 'PUT',
-                    contentType: 'notifications',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: { read: true } })
-                });
-            },
-
-            async markAllAsRead() {
-                const pageSize = 100;
-                let page = 1;
-                let totalPages = 1;
-                const results = {
-                    success: [],
-                    failed: []
-                };
-
-                do {
-                    // Fetch current page of unread notifications
-                    const response = await StrapiAPI.request(
-                        `/api/notifications?filters[read][$eq]=false&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
-                        { method: 'GET', contentType: 'notifications' }
-                    );
-
-                    const entries = response.entries || [];
-                    totalPages = response.total_pages || 1;
-
-                    if (entries.length > 0) {
-                        // Update all notifications in parallel for this page
-                        const updatePromises = entries.map(notification =>
-                            StrapiAPI.request(`/api/notifications/${notification.id}`, {
-                                method: 'PUT',
-                                contentType: 'notifications',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ data: { read: true } })
-                            })
-                                .then(() => ({ id: notification.id, success: true }))
-                                .catch(error => {
-                                    console.error(`Failed to mark notification ${notification.id} as read:`, error);
-                                    return { id: notification.id, success: false, error: error.message };
-                                })
-                        );
-
-                        const updateResults = await Promise.all(updatePromises);
-
-                        // Collect results
-                        updateResults.forEach(result => {
-                            if (result.success) {
-                                results.success.push(result.id);
-                            } else {
-                                results.failed.push(result);
-                            }
-                        });
-                    }
-
-                    page++;
-                } while (page <= totalPages);
-
-                return results;
-            },
-
-            async delete(notificationId) {
-                return StrapiAPI.request(`/api/notifications/${notificationId}`, {
-                    method: 'DELETE',
-                    contentType: 'notifications'
-                });
-            },
-
-            async deleteAll() {
-                const pageSize = 100;
-                let page = 1;
-                let totalPages = 1;
-                const results = {
-                    success: [],
-                    failed: []
-                };
-
-                do {
-                    // Fetch current page of notifications
-                    const response = await StrapiAPI.request(
-                        `/api/notifications?pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
-                        { method: 'GET', contentType: 'notifications' }
-                    );
-
-                    const entries = response.entries || [];
-                    totalPages = response.total_pages || 1;
-
-                    if (entries.length > 0) {
-                        // Delete all notifications in parallel for this page
-                        const deletePromises = entries.map(notification =>
-                            StrapiAPI.request(`/api/notifications/${notification.id}`, {
-                                method: 'DELETE',
-                                contentType: 'notifications'
-                            })
-                                .then(() => ({ id: notification.id, success: true }))
-                                .catch(error => {
-                                    console.error(`Failed to delete notification ${notification.id}:`, error);
-                                    return { id: notification.id, success: false, error: error.message };
-                                })
-                        );
-
-                        const deleteResults = await Promise.all(deletePromises);
-
-                        // Collect results
-                        deleteResults.forEach(result => {
-                            if (result.success) {
-                                results.success.push(result.id);
-                            } else {
-                                results.failed.push(result);
-                            }
-                        });
-                    }
-
-                    page++;
-                } while (page <= totalPages);
-
-                return results;
-            }
-        },
-
-        // ============================================
-        // DONATIONS
-        // ============================================
-
-        donations: {
-            /**
-             * Submit a donation
-             * @param {Object} donationData - Donation details
-             * @returns {Promise<Object>} Donation response
-             */
-            async submit(donationData) {
-                return StrapiAPI.request('/api/donations', {
-                    method: 'POST',
-                    contentType: 'donations',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: donationData })
-                });
-            },
-
-            /**
-             * Get donation by ID
-             * @param {string|number} id - Donation ID
-             * @returns {Promise<Object>} Donation data
-             */
-            async get(id) {
-                return StrapiAPI.request(`/api/donations/${id}`, {
-                    method: 'GET',
-                    contentType: 'donations'
-                });
-            }
-        },
-
-        // ============================================
-        // SAVED ENTRIES (BOOKMARKS)
-        // ============================================
-
-        savedEntries: {
-            async getAll(params = {}) {
-                return StrapiAPI.request('/api/saved-entries?populate=biography', {
-                    method: 'GET',
-                    contentType: 'saved-entries',
-                    queryParams: params
-                });
-            },
-
-            async save(biographyId) {
-                return StrapiAPI.request('/api/saved-entries', {
-                    method: 'POST',
-                    contentType: 'saved-entries',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: { biography: biographyId } })
-                });
-            },
-
-            async remove(biographyId) {
-                // Fetch all saved entries matching the biography ID
-                const response = await StrapiAPI.request(
-                    `/api/saved-entries?filters[biography][id][$eq]=${biographyId}`,
-                    { method: 'GET', contentType: 'saved-entries' }
-                );
-
-                if (!response.entries || response.entries.length === 0) {
-                    return { success: true, deleted: 0 };
-                }
-
-                // Delete all matching entries concurrently
-                const deletePromises = response.entries.map(async (entry) => {
-                    try {
-                        await StrapiAPI.request(`/api/saved-entries/${entry.id}`, {
-                            method: 'DELETE',
-                            contentType: 'saved-entries'
-                        });
-                        return { id: entry.id, success: true };
-                    } catch (error) {
-                        // Ignore 404 errors - entry may have already been deleted by concurrent call
-                        if (error.message && (error.message.includes('404') || error.message.includes('Not Found') || error.message.toLowerCase().includes('not found'))) {
-                            console.warn(`Saved entry ${entry.id} already deleted or not found`);
-                            return { id: entry.id, success: true, alreadyDeleted: true };
-                        }
-                        // Log and re-throw other errors
-                        console.error(`Failed to delete saved entry ${entry.id}:`, error);
-                        throw error;
-                    }
-                });
-
-                const results = await Promise.all(deletePromises);
-                const deletedCount = results.filter(r => r.success).length;
-                return { success: true, deleted: deletedCount };
-            },
-
-            async clearAll() {
-                const response = await StrapiAPI.request('/api/saved-entries', {
-                    method: 'GET',
-                    contentType: 'saved-entries'
-                });
-                if (response.entries) {
-                    for (const entry of response.entries) {
-                        await StrapiAPI.request(`/api/saved-entries/${entry.id}`, {
-                            method: 'DELETE',
-                            contentType: 'saved-entries'
-                        });
-                    }
-                }
-                return { success: true };
-            },
-
-            async checkSaved(biographyId) {
-                const response = await StrapiAPI.request(
-                    `/api/saved-entries?filters[biography][id][$eq]=${biographyId}`,
-                    { method: 'GET', contentType: 'saved-entries' }
-                );
-                return response.entries && response.entries.length > 0;
-            }
-        }
+class StrapiAPIClient {
+  constructor({ baseURL, apiToken = null, getAccessToken = null }) {
+    this.baseURL = baseURL;
+    this.apiToken = apiToken;
+    this.getAccessToken = getAccessToken;
+  }
+
+  // =========================
+  // CORE REQUEST METHOD
+  // =========================
+  async request(endpoint, options = {}) {
+    const queryString = this.buildQueryString(options.query || {});
+    const url = `${this.baseURL}${endpoint}${queryString}`;
+
+    const token =
+      (this.getAccessToken && this.getAccessToken()) || this.apiToken;
+
+    const headers = {
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+      ...options.headers,
     };
 
-    // Export for module usage
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = StrapiAPI;
+    const res = await fetch(url, {
+      method: options.method || "GET",
+      headers,
+      body: options.body,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw {
+        message: data?.error?.message || "API request failed",
+        status: res.status,
+        raw: data,
+      };
     }
-} // End StrapiAPI guard
+
+    return this.transformResponse(data);
+  }
+
+  // =========================
+  // RESPONSE TRANSFORM
+  // =========================
+  transformResponse(response) {
+    if (!response || !response.data) return response;
+
+    if (Array.isArray(response.data)) {
+      return {
+        entries: response.data.map((item) => this.transformItem(item)),
+        pagination: response.meta?.pagination || null,
+      };
+    }
+
+    return this.transformItem(response.data);
+  }
+
+  transformItem(item) {
+    if (!item) return null;
+
+    const attrs = item.attributes || item;
+
+    return {
+      id: item.id,
+      ...this.flatten(attrs),
+    };
+  }
+
+  flatten(obj) {
+    const result = {};
+
+    for (const key in obj) {
+      const value = obj[key];
+
+      if (value?.data !== undefined) {
+        result[key] = this.handleRelation(value.data);
+      } else if (value?.url) {
+        result[key] = this.transformMedia(value);
+      } else {
+        result[key] = value;
+      }
+    }
+
+    return result;
+  }
+
+  handleRelation(data) {
+    if (Array.isArray(data)) {
+      return data.map((item) => this.transformItem(item));
+    }
+    if (!data) return null;
+    return this.transformItem(data);
+  }
+
+  transformMedia(media) {
+    return {
+      id: media.id,
+      url: this.getMediaURL(media.url),
+      width: media.width,
+      height: media.height,
+      alt: media.alternativeText || media.name,
+    };
+  }
+
+  getMediaURL(url) {
+    if (!url) return null;
+    if (url.startsWith("http")) return url;
+    return `${this.baseURL}${url}`;
+  }
+
+  // Alias for backward compatibility
+  getMediaUrl(url) {
+    return this.getMediaURL(url);
+  }
+
+  // =========================
+  // QUERY BUILDER
+  // =========================
+  buildQueryString(params = {}) {
+    const query = new URLSearchParams();
+
+    // Only add populate if explicitly requested
+    // Using populate=* can cause "Invalid key" errors if fields don't exist
+    // Different endpoints have different populate requirements
+    if (params.populate !== undefined) {
+      if (params.populate === true || params.populate === "*") {
+        query.append("populate", "*");
+      } else if (typeof params.populate === "string") {
+        query.append("populate", params.populate);
+      }
+    }
+
+    if (params.page) {
+      query.append("pagination[page]", params.page);
+    }
+
+    if (params.pageSize) {
+      query.append("pagination[pageSize]", params.pageSize);
+    }
+
+    if (params.sort) {
+      query.append(
+        "sort[0]",
+        `${params.sort}:${params.order || "asc"}`
+      );
+    }
+
+    if (params.filters) {
+      this.appendFilters(query, params.filters);
+    }
+
+    if (params.search) {
+      query.append(
+        "filters[$or][0][name][$containsi]",
+        params.search
+      );
+      query.append(
+        "filters[$or][1][description][$containsi]",
+        params.search
+      );
+    }
+
+    return query.toString() ? `?${query.toString()}` : "";
+  }
+
+  appendFilters(query, filters, path = "filters") {
+    Object.entries(filters).forEach(([key, value]) => {
+      if (typeof value === "object" && !Array.isArray(value)) {
+        this.appendFilters(query, value, `${path}[${key}]`);
+      } else {
+        query.append(`${path}[${key}][$eq]`, value);
+      }
+    });
+  }
+
+  // =========================
+  // HELPERS
+  // =========================
+  isSlug(value) {
+    return isNaN(value);
+  }
+
+  // =========================
+  // CONTENT METHODS
+  // =========================
+
+  biographies = {
+    getAll: (params = {}) => {
+      // Don't send populate by default - API rejects populate=* with "Invalid key sources"
+      const { populate, ...rest } = params;
+      return this.request("/api/biographies", { query: rest });
+    },
+
+    get: async (idOrSlug) => {
+      if (this.isSlug(idOrSlug)) {
+        const res = await this.request(
+          `/api/biographies?filters[slug][$eq]=${idOrSlug}`
+        );
+        return res.entries?.[0] || null;
+      }
+      return this.request(`/api/biographies/${idOrSlug}`);
+    },
+
+    search: (query, params = {}) =>
+      this.request("/api/biographies", {
+        query: { ...params, search: query },
+      }),
+  };
+
+  collections = {
+    getAll: (params = {}) => {
+      // Don't send populate by default - API may reject it
+      const { populate, ...rest } = params;
+      return this.request("/api/collections", { query: rest });
+    },
+
+    get: async (idOrSlug) => {
+      if (this.isSlug(idOrSlug)) {
+        const res = await this.request(
+          `/api/collections?filters[slug][$eq]=${idOrSlug}`
+        );
+        return res.entries?.[0] || null;
+      }
+      return this.request(`/api/collections/${idOrSlug}`);
+    },
+  };
+
+  leaders = {
+    getAll: (params = {}) => {
+      // Don't send populate by default - API may reject it
+      const { populate, ...rest } = params;
+      return this.request("/api/leaders", { query: rest });
+    },
+
+    get: async (idOrSlug) => {
+      if (this.isSlug(idOrSlug)) {
+        const res = await this.request(
+          `/api/leaders?filters[slug][$eq]=${idOrSlug}`
+        );
+        return res.entries?.[0] || null;
+      }
+      return this.request(`/api/leaders/${idOrSlug}`);
+    },
+  };
+
+  contributions = {
+    submit: (data) =>
+      this.request("/api/contributions", {
+        method: "POST",
+        body: JSON.stringify({ data }),
+      }),
+  };
+
+  comments = {
+    getByBiography: (id) =>
+      this.request(
+        `/api/comments?filters[biography][id][$eq]=${id}&populate=*`
+      ),
+
+    create: (data) =>
+      this.request("/api/comments", {
+        method: "POST",
+        body: JSON.stringify({ data }),
+      }),
+
+    delete: (id) =>
+      this.request(`/api/comments/${id}`, {
+        method: "DELETE",
+      }),
+
+    like: (id) =>
+      this.request(`/api/comments/${id}/like`, {
+        method: "POST",
+      }),
+  };
+
+  educationModules = {
+    getAll: (params = {}) =>
+      this.request("/api/education-modules", { query: params }),
+
+    getBySlug: async (slug) => {
+      const res = await this.request(
+        `/api/education-modules?filters[slug][$eq]=${slug}`
+      );
+      return res.entries?.[0] || null;
+    },
+  };
+
+  teachingResources = {
+    getAll: (params = {}) => {
+      const { populate, ...rest } = params;
+      return this.request("/api/teaching-resources", { query: rest });
+    },
+
+    getBySlug: async (slug) => {
+      const res = await this.request(
+        `/api/teaching-resources?filters[slug][$eq]=${slug}`
+      );
+      return res.entries?.[0] || null;
+    },
+
+    getByType: (type) =>
+      this.request(`/api/teaching-resources?filters[type][$eq]=${type}`),
+
+    getDownloadUrl: (resource) => {
+      if (!resource || !resource.file) return null;
+      if (resource.file.url) {
+        return this.getMediaURL(resource.file.url);
+      }
+      return null;
+    },
+  };
+
+  notifications = {
+    getAll: () => this.request("/api/notifications"),
+
+    markAsRead: (id) =>
+      this.request(`/api/notifications/${id}`, {
+        method: "PUT",
+        body: JSON.stringify({ data: { read: true } }),
+      }),
+  };
+
+  contact = {
+    submit: (data) =>
+      this.request("/api/contact-submissions", {
+        method: "POST",
+        body: JSON.stringify({ data }),
+      }),
+  };
+}
+
+// =========================
+// GLOBAL EXPORT INSTANCE
+// =========================
+
+const strapiAPI = new StrapiAPIClient({
+  baseURL: typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : "https://womencypedia-cms.onrender.com",
+  getAccessToken: () => typeof Auth !== 'undefined' ? Auth.getAccessToken() : localStorage.getItem("womencypedia_access_token"),
+});
+
+if (typeof window !== 'undefined') {
+  window.StrapiAPI = strapiAPI;
+  window.API = strapiAPI;
+}

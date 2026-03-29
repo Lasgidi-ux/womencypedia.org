@@ -20,35 +20,7 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#D67D7D",
-                        "primary-hover": "#D98F8F",
-                        "accent-gold": "#B8962F",
-                        "accent-teal": "#2F8F86",
-                        "accent-teal-dark": "#2F8F86",
-                        "divider": "#B48CB8",
-                        "lavender": "#C8A2C8",
-                        "lavender-soft": "#EDE3F1",
-                        "background-cream": "#FAF8F3",
-                        "background-dark": "#1f1313",
-                        "text-main": "#1A1414",
-                        "text-secondary": "#5A5454",
-                        "border-light": "#DDD8CF",
-                    },
-                    fontFamily: {
-                        "display": ["Lato", "sans-serif"],
-                        "serif": ["Playfair Display", "serif"],
-                    },
-                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
-                },
-            },
-        }
-    </script>
+    <script id="tailwind-config" src="js/founders-inline-1.js"></script>
     <style>
         ::-webkit-scrollbar {
             width: 8px;
@@ -126,13 +98,20 @@
 <body
     class="bg-background-cream dark:bg-background-dark text-text-main antialiased font-display selection:bg-primary/30">
 
+                        <!-- Skip Link -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
+        Skip to main content
+    </a>
+
     <!-- Mobile Search Sheet -->
     <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
         <div class="flex items-center gap-3">
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
+                    data-i18n-placeholder="search.placeholder">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -148,74 +127,218 @@
     <nav id="mobileMenu"
         class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
+
+        <!-- Explore -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
-                Primary Navigation</h3>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.explore">
+                Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
-            <a href="about.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
-                Womencypedia</a>
-            <a href="collections.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured
-                Collections</a>
             <a href="browse.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse
-                Stories</a>
-            <a href="research.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Research
-                & Method</a>
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Browse</a>
+            <a href="featured.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Featured</a>
+            <a href="collections.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Collections</a>
+            <a href="timelines.html"
+                class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
         </div>
+
+        <!-- Learn -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.learn">
+                Learn</h3>
+            <a href="education.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
+            <a href="enterprises.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Enterprises</a>
+            <a href="research.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Research</a>
+            <a href="publications.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Publications</a>
+            <a href="resources.html"
+                class="block py-3 text-base font-medium text-text-main hover:text-primary">Resources</a>
+        </div>
+
+        <!-- Participate -->
+        <div class="px-6 pb-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
                 a Woman</a>
-            <a href="share-story.html" class="block py-3 text-base font-medium text-text-main hover:text-primary">Share
+            <a href="share-story.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
+                data-i18n="shareYourStory">Share
                 Your Story</a>
+            <a href="contributor-guidelines.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
+                Guidelines</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary"
+                data-i18n="donate">Donate</a>
         </div>
+
+        <!-- About -->
+        <div class="px-6 pb-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.about">
+                About</h3>
+            <a href="about.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
+                Us</a>
+            <a href="contributors.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
+            <a href="methodology.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
+            <a href="editorial-standards.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial
+                Standards</a>
+            <a href="contact.html"
+                class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
+        </div>
+        <!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors">
-                Share Your Story
-            </a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span
+                    data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
     <!-- Header -->
-    <header id="navbar"
-        class="w-full border-b border-divider bg-background-cream dark:bg-background-dark sticky top-0 z-50 transition-transform duration-300">
+    <header id="navbar" class="transition-transform duration-300 w-full border-b border-divider bg-background-cream sticky top-0 z-50">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Left Section: Logo + Desktop Nav -->
                 <div class="flex items-center gap-8 lg:gap-12">
                     <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                         <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
                         <span
                             class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
-                    <nav class="hidden lg:flex items-center gap-8">
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="index.html">Home</a>
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="browse.html">Browse</a>
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="featured.html">Featured</a>
-                        <a class="text-primary text-sm font-medium uppercase tracking-wider border-b-2 border-primary"
-                            href="about.html">About</a>
-                        <a class="text-text-main text-sm font-medium hover:text-primary uppercase tracking-wider"
-                            href="resources.html">Resources</a>
+                    <nav class="hidden lg:flex items-center gap-6">
+                        <!-- Explore Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">
+                                Explore
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="index.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a>
+                                    <a href="browse.html"
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Browse</a>
+                                    <a href="featured.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
+                                    <a href="collections.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a>
+                                    <a href="timelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Learn Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Learn
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    <a href="education.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a>
+                                    <a href="enterprises.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a>
+                                    <a href="research.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Research</a>
+                                    <a href="publications.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Publications</a>
+                                    <a href="resources.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Resources</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Participate Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Participate
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="nominate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
+                                        a Woman</a>
+                                    <a href="share-story.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="shareYourStory">Share
+                                        Your Story</a>
+                                    <a href="contributor-guidelines.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
+                                        Guidelines</a>
+                                    <a href="donate.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="donate">Donate</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- About Dropdown -->
+                        <div class="relative group">
+                            <button
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                About
+                                <span
+                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    <a href="about.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
+                                        Us</a>
+                                    <a href="contributors.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
+                                    <a href="methodology.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
+                                    <a href="editorial-standards.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Editorial
+                                        Standards</a>
+                                    <a href="contact.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contact</a>
+                                </div>
+                            </div>
+                        </div>
                     </nav>
                 </div>
+
+                <!-- Right Section: Actions -->
                 <div class="flex items-center gap-3 lg:gap-6">
                     <div
-                        class="hidden md:flex items-center bg-white/50 dark:bg-white/5 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
+                        class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
                         <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                         <input
                             class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                            placeholder="Search the archive..." type="search" />
+                            placeholder="Search the archive..." type="search"
+                            data-i18n-placeholder="search" />
                     </div>
                     <button onclick="toggleSearch()"
                         class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
@@ -225,20 +348,17 @@
                     <div class="hidden sm:flex items-center gap-4">
                         <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                            href="donate.html">Donate</a>
+                            href="donate.html" data-i18n="donate">Donate</a>
                         <button data-auth="signin"
                             class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
                             data-i18n="signIn">
                             Sign In
                         </button>
-                        <div data-auth="signout" class="hidden items-center gap-3">
-                            <a href="profile.html"
-                                class="flex items-center gap-2 text-sm text-text-secondary hover:text-primary">
-                                <span class="material-symbols-outlined text-[18px]">account_circle</span>
-                                <span data-auth="user-info"></span>
-                            </a>
-                            <button onclick="handleLogout()"
-                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                        <div data-auth="signout" class="hidden flex items-center gap-3">
+                            <span data-auth="user-info" class="text-sm text-text-secondary"></span>
+                            <button
+                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                data-i18n="signOut">
                                 Sign Out
                             </button>
                         </div>
@@ -253,7 +373,6 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main id="main-content">
 
         <!-- Page Header -->
@@ -579,6 +698,7 @@
     </main>
 
     <!-- Footer -->
+        <!-- Footer -->
     <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
         <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
@@ -620,60 +740,60 @@
 
                 <!-- Explore -->
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Explore</h3>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.explore">Explore</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="index.html">Home</a>
+                        href="index.html" data-i18n="footer.home">Home</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="browse.html">Browse</a>
+                        href="browse.html" data-i18n="footer.browse">Browse</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="featured.html">Featured</a>
+                        href="featured.html" data-i18n="footer.featured">Featured</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="collections.html">Collections</a>
+                        href="collections.html" data-i18n="footer.collections">Collections</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="timelines.html">Timelines</a>
+                        href="timelines.html" data-i18n="footer.timelines">Timelines</a>
                 </div>
 
                 <!-- Learn -->
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Learn</h3>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.learn">Learn</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="education.html">Education</a>
+                        href="education.html" data-i18n="footer.education">Education</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="enterprises.html">Enterprises</a>
+                        href="enterprises.html" data-i18n="footer.enterprises">Enterprises</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="research.html">Research</a>
+                        href="research.html" data-i18n="footer.research">Research</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="publications.html">Publications</a>
+                        href="publications.html" data-i18n="footer.publications">Publications</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="resources.html">Resources</a>
+                        href="resources.html" data-i18n="footer.resources">Resources</a>
                 </div>
 
                 <!-- Participate -->
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h3>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.participate">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
+                        href="nominate.html" data-i18n="nominateWoman">Nominate a Woman</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
+                        href="share-story.html" data-i18n="shareYourStory">Share Your Story</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributor-guidelines.html">Contributor Guidelines</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html"
-                        data-i18n="donate">Donate</a>
+                        href="contributor-guidelines.html" data-i18n="footer.contributorGuidelines">Contributor Guidelines</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" 
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">About</h3>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.about">About</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="about.html">About Us</a>
+                        href="about.html" data-i18n="footer.aboutUs">About Us</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributors.html">Contributors</a>
+                        href="contributors.html" data-i18n="footer.contributors">Contributors</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="methodology.html">Methodology</a>
+                        href="methodology.html" data-i18n="footer.methodology">Methodology</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="editorial-standards.html">Editorial Standards</a>
+                        href="editorial-standards.html" data-i18n="footer.editorialStandards">Editorial Standards</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contact.html">Contact</a>
+                        href="contact.html" data-i18n="footer.contact">Contact</a>
                 </div>
             </div>
 
@@ -681,9 +801,9 @@
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span
-                                data-i18n="privacyPolicy">Privacy Policy</span></a> | <a href="terms-of-use.html"
-                            class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"
+                            data-i18n="privacyPolicy">Privacy Policy</a> | <a href="terms-of-use.html"
+                            class="text-gray-400 hover:text-white" data-i18n="termsOfUse">Terms of Use</a>
                     </p>
                 </div>
             </div>
@@ -695,6 +815,7 @@
     <script src="js/i18n.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>

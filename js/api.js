@@ -1,9 +1,10 @@
 /**
- * Womencypedia API Service - FIXED & PRODUCTION READY
+ * Womencypedia API Service - FINAL FIXED & PRODUCTION READY
  * 
  * Centralized API client for all backend communications.
  * Uses Strapi CMS as the primary data source.
  * Fixed: submitStory now works directly with /api/contributions
+ * Guaranteed window.API availability
  */
 
 class APIError extends Error {
@@ -15,8 +16,11 @@ class APIError extends Error {
     }
 }
 
-const API = {
-    baseURL: "https://womencypedia-cms.onrender.com",
+const LegacyAPI = {
+    // Use CONFIG for dynamic base URL to match environment configuration
+    get baseURL() {
+        return typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL ? CONFIG.API_BASE_URL : "https://womencypedia-cms.onrender.com";
+    },
 
     // ============================================
     // CORE SUBMIT STORY - FIXED & WORKING
@@ -33,17 +37,12 @@ const API = {
                 },
                 body: JSON.stringify({
                     data: {
-                        // Required fields
-                        title: formData.subjectName,
-                        type: "story",
-                        content: formData.story,
-
-                        // Optional fields (matching Strapi schema)
                         storyType: formData.storyType || "other",
                         subjectName: formData.subjectName,
                         relationship: formData.relationship || "",
-                        region: formData.storyRegion || "",
+                        storyRegion: formData.storyRegion || "",
                         theme: formData.theme,
+                        story: formData.story,
                         lessons: formData.lessons || "",
                         contactName: formData.contactName,
                         contactEmail: formData.contactEmail,
@@ -73,7 +72,7 @@ const API = {
     _useStrapi: true,
 
     async init() {
-        this._useStrapi = CONFIG?.USE_STRAPI === true;
+        this._useStrapi = typeof CONFIG !== 'undefined' && CONFIG.USE_STRAPI === true;
         if (this._useStrapi) console.info('Using Strapi CMS mode');
     },
 
@@ -99,19 +98,20 @@ const API = {
         // Contributions (kept for GET)
         if (endpoint.startsWith('/api/contributions')) {
             if (endpoint === '/api/contributions' && method === 'GET') {
-                return StrapiAPI.contributions.getAll();
+                // StrapiAPI doesn't have contributions.getAll(), use generic request
+                return this._genericRequest(endpoint, options);
             }
         }
 
-        // All other existing endpoints (biographies, collections, etc.) remain unchanged
+        // All other existing endpoints remain unchanged
         return this._genericRequest(endpoint, options);
     },
 
     async _genericRequest(endpoint, options = {}) {
-        const url = `${CONFIG?.API_BASE_URL || this.baseURL}${endpoint}`;
+        const url = `${typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL ? CONFIG.API_BASE_URL : this.baseURL}${endpoint}`;
 
         const defaultHeaders = { 'Content-Type': 'application/json' };
-        const token = Auth?.getAccessToken?.() || localStorage.getItem("womencypedia_access_token");
+        const token = (typeof Auth !== 'undefined' && Auth.getAccessToken && Auth.getAccessToken()) || localStorage.getItem("womencypedia_access_token");
         if (token) defaultHeaders.Authorization = `Bearer ${token}`;
 
         const config = { ...options, headers: { ...defaultHeaders, ...options.headers } };
@@ -129,11 +129,6 @@ const API = {
         }
     },
 
-    // Convenience methods (unchanged)
-    async getEntries(params = {}) { /* your existing code */ },
-    async getEntry(id) { /* your existing code */ },
-    async getFeaturedEntries() { /* your existing code */ },
-
     async handleApiError(error, context = 'API request') {
         console.error(`[API Error] ${context}:`, error);
         return {
@@ -144,13 +139,43 @@ const API = {
     }
 };
 
-// Export for modules if needed
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = API;
-    module.exports.APIError = APIError;
+// CRITICAL: Protect existing API methods (from strapi-api.js) while exposing new methods.
+if (!window.API) {
+    window.API = LegacyAPI;
+} else {
+    // Only add methods that don't conflict, notably submitStory!
+    window.API.submitStory = LegacyAPI.submitStory.bind(LegacyAPI);
+    if (!window.API.init) window.API.init = LegacyAPI.init.bind(LegacyAPI);
+    if (!window.API.isUsingStrapi) window.API.isUsingStrapi = LegacyAPI.isUsingStrapi.bind(LegacyAPI);
+    if (!window.API.handleApiError) window.API.handleApiError = LegacyAPI.handleApiError.bind(LegacyAPI);
+
+    // CRITICAL: Preserve biographies and collections objects from StrapiAPI
+    // These are required by browse-logic.js and other pages
+    if (window.StrapiAPI) {
+        if (!window.API.biographies && window.StrapiAPI.biographies) {
+            window.API.biographies = window.StrapiAPI.biographies;
+        }
+        if (!window.API.collections && window.StrapiAPI.collections) {
+            window.API.collections = window.StrapiAPI.collections;
+        }
+        if (!window.API.leaders && window.StrapiAPI.leaders) {
+            window.API.leaders = window.StrapiAPI.leaders;
+        }
+        if (!window.API.contributions && window.StrapiAPI.contributions) {
+            window.API.contributions = window.StrapiAPI.contributions;
+        }
+        if (!window.API.comments && window.StrapiAPI.comments) {
+            window.API.comments = window.StrapiAPI.comments;
+        }
+        if (!window.API.educationModules && window.StrapiAPI.educationModules) {
+            window.API.educationModules = window.StrapiAPI.educationModules;
+        }
+        if (!window.API.notifications && window.StrapiAPI.notifications) {
+            window.API.notifications = window.StrapiAPI.notifications;
+        }
+    }
+
+    // We do NOT override window.API.request or window.API._strapiRequest because that breaks StrapiAPI objects!
 }
 
-// Expose API to window for global access (required for HTML forms)
-window.API = API;
-
-console.log("✅ Womencypedia API service (with fixed submitStory) loaded successfully");
+console.log("✅ Womencypedia API service (with fixed submitStory) merged successfully");

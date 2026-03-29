@@ -1,7 +1,0 @@
-# .cpanel.yml - Configuration file for GoDaddy cPanel Git deployment
-# SECURITY: Only deploy public-facing files. Exclude sensitive directories.
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/ndso7dj6uvkq/public_html/
-    - /usr/bin/rsync -a --delete --exclude='.git' --exclude='.git/' --exclude='node_modules/' --exclude='womencypedia-cms/' --exclude='scripts/' --exclude='docs/' --exclude='.env' --exclude='.env.*' --exclude='.gitignore' --exclude='package.json' --exclude='package-lock.json' --exclude='tailwind.config.js' --exclude='.gemini/' --exclude='.cursor/' --exclude='.copilot/' ./ $DEPLOYPATH/

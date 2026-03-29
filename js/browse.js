@@ -22,6 +22,8 @@ let pagination = {
 
 // Flag to check if API is available
 let useAPI = true;
+let apiErrorCount = 0;
+const MAX_API_ERRORS = 3;
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -32,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
  * Initialize browse page
  */
 async function initializeBrowse() {
+    console.log('[Browse] Initializing browse page...');
+
     // Set up event listeners first
     setupSearch();
     setupFilters();
@@ -39,6 +43,8 @@ async function initializeBrowse() {
 
     // Load biographies
     await loadBiographies();
+
+    console.log('[Browse] Browse page initialization complete');
 }
 
 /**
@@ -58,15 +64,28 @@ async function loadBiographies() {
     try {
         // Try to fetch from Strapi API first using direct StrapiAPI calls
         if (useAPI && typeof StrapiAPI !== 'undefined') {
+            // If we've had too many API errors, skip API and use static data
+            if (apiErrorCount >= MAX_API_ERRORS) {
+                console.log('[Browse] Using static data due to previous API errors');
+                loadStaticFallback(container);
+                return;
+            }
+
             const params = buildQueryParams();
-            // Add timeout to avoid long hangs
-            const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('API timeout')), 5000)
-            );
+            console.log('[Browse] Attempting to load biographies from API...', params);
+
+            let timeoutId;
+            const timeoutPromise = new Promise((_, reject) => {
+                timeoutId = setTimeout(() => reject(new Error('API timeout')), 5000);
+            });
+            // Attach a no-op catch so the promise unhandled rejection doesn't spam the console if it rejects later.
+            timeoutPromise.catch(() => { });
+
             const response = await Promise.race([
                 StrapiAPI.biographies.getAll(params),
                 timeoutPromise
             ]);
+            clearTimeout(timeoutId);
 
             currentBiographies = response.entries || response.data || response;
             pagination = {
@@ -75,14 +94,27 @@ async function loadBiographies() {
                 total: response.total || currentBiographies.length
             };
 
+            console.log('[Browse] Successfully loaded biographies from API:', {
+                count: currentBiographies.length,
+                pagination
+            });
+
             displayBiographies();
         } else {
             // API not loaded — fall through to static fallback
+            console.log('[Browse] StrapiAPI not available, using static data');
             useAPI = false;
             loadStaticFallback(container);
         }
     } catch (error) {
-        console.warn('StrapiAPI not available, using static data:', error.message);
+        apiErrorCount++;
+        console.error(`[Browse] Biographies load error (attempt ${apiErrorCount}/${MAX_API_ERRORS}):`, error);
+        console.error('[Browse] Error details:', {
+            message: error.message,
+            status: error.status,
+            raw: error.raw
+        });
+
         useAPI = false;
         loadStaticFallback(container);
     }
@@ -99,6 +131,11 @@ function loadStaticFallback(container) {
             totalPages: 1,
             total: biographies.length
         };
+
+        console.log('[Browse] Loaded static biographies:', {
+            count: currentBiographies.length
+        });
+
         displayBiographies();
     } else if (container && typeof UI !== 'undefined' && UI.showError) {
         UI.showError(container, 'Unable to load biographies. Please try again later.', loadBiographies);
@@ -125,27 +162,30 @@ function loadStaticFallback(container) {
 function buildQueryParams() {
     const params = {
         page: currentFilters.page,
-        limit: CONFIG.PAGINATION.DEFAULT_PAGE_SIZE
+        pageSize: CONFIG.PAGINATION.DEFAULT_PAGE_SIZE
     };
 
     if (currentFilters.search) {
         params.search = currentFilters.search;
     }
 
+    // Build Strapi-compatible filters object
+    const filters = {};
+
     if (currentFilters.regions.length > 0) {
-        params.region = currentFilters.regions.join(',');
+        filters.region = { $eq: currentFilters.regions[0] };
     }
 
     if (currentFilters.eras.length > 0) {
-        params.era = currentFilters.eras.join(',');
+        filters.era = { $eq: currentFilters.eras[0] };
     }
 
     if (currentFilters.domains.length > 0) {
-        params.domain = currentFilters.domains.join(',');
+        filters.category = { $eq: currentFilters.domains[0] };
     }
 
-    if (currentFilters.tags.length > 0) {
-        params.tags = currentFilters.tags.join(',');
+    if (Object.keys(filters).length > 0) {
+        params.filters = filters;
     }
 
     return params;

@@ -2,7 +2,7 @@
 <html class="light" lang="en">
 
 <head>
-<meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -47,7 +47,8 @@
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
-    <!-- Skip Link -->
+
+                        <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
         Skip to main content
@@ -59,7 +60,8 @@
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" / data-i18n-placeholder="search">
+                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
+                    data-i18n-placeholder="search.placeholder">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -78,8 +80,8 @@
 
         <!-- Explore -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="collections.explore">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -95,8 +97,8 @@
 
         <!-- Learn -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="collections.learn">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -112,30 +114,32 @@
 
         <!-- Participate -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="collections.participate">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
                 a Woman</a>
             <a href="share-story.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
+                data-i18n="shareYourStory">Share
                 Your Story</a>
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
                 Guidelines</a>
-            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary" data-i18n="donate">Donate</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary"
+                data-i18n="donate">Donate</a>
         </div>
 
         <!-- About -->
         <div class="px-6 pb-4">
-            <h3
-                class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light" data-i18n="collections.about">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
                 Us</a>
-<a href="contributors.html"
+            <a href="contributors.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
             <a href="methodology.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
@@ -145,18 +149,19 @@
             <a href="contact.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
         </div>
-<!-- CTA -->
+        <!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
-                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span data-i18n="shareYourStory">Share Your Story</span></a>
+                class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span
+                    data-i18n="shareYourStory">Share Your Story</span></a>
         </div>
     </nav>
 
     <!-- Header -->
-    <!-- Header -->
-    <header class="w-full border-b border-divider bg-background-cream sticky top-0 z-50">
+    <header id="navbar" class="transition-transform duration-300 w-full border-b border-divider bg-background-cream sticky top-0 z-50">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Left Section: Logo + Desktop Nav -->
                 <div class="flex items-center gap-8 lg:gap-12">
                     <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                         <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
@@ -179,16 +184,17 @@
                                     <a href="index.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a>
                                     <a href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a>
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Browse</a>
                                     <a href="featured.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
                                     <a href="collections.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Collections</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a>
                                     <a href="timelines.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
                                 </div>
                             </div>
                         </div>
+
                         <!-- Learn Dropdown -->
                         <div class="relative group">
                             <button
@@ -214,6 +220,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- Participate Dropdown -->
                         <div class="relative group">
                             <button
@@ -230,16 +237,19 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
                                         a Woman</a>
                                     <a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="shareYourStory">Share
                                         Your Story</a>
                                     <a href="contributor-guidelines.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
                                         Guidelines</a>
                                     <a href="donate.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors" data-i18n="donate">Donate</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="donate">Donate</a>
                                 </div>
                             </div>
                         </div>
+
                         <!-- About Dropdown -->
                         <div class="relative group">
                             <button
@@ -255,7 +265,7 @@
                                     <a href="about.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
                                         Us</a>
-<a href="contributors.html"
+                                    <a href="contributors.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
                                     <a href="methodology.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
@@ -267,15 +277,20 @@
                                 </div>
                             </div>
                         </div>
+                    </nav>
+                </div>
+
+                <!-- Right Section: Actions -->
                 <div class="flex items-center gap-3 lg:gap-6">
                     <div
                         class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
                         <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                         <input
                             class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                            placeholder="Search the archive..." type="search" />
+                            placeholder="Search the archive..." type="search"
+                            data-i18n-placeholder="search" />
                     </div>
-                    <button
+                    <button onclick="toggleSearch()"
                         class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
                         aria-label="Open search">
                         <span class="material-symbols-outlined text-accent-teal">search</span>
@@ -285,17 +300,15 @@
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
                             href="donate.html" data-i18n="donate">Donate</a>
                         <button data-auth="signin"
-                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity" data-i18n="signIn">
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                            data-i18n="signIn">
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
-                            <a href="profile.html"
-                                class="flex items-center gap-2 text-sm text-text-secondary hover:text-primary">
-                                <span class="material-symbols-outlined text-[18px]">account_circle</span>
-                                <span data-auth="user-info"></span>
-                            </a>
+                            <span data-auth="user-info" class="text-sm text-text-secondary"></span>
                             <button
-                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                data-i18n="signOut">
                                 Sign Out
                             </button>
                         </div>
@@ -315,7 +328,8 @@
         <section class="bg-gradient-to-br from-primary/10 via-background-cream to-primary/5 py-16 lg:py-24 text-center">
             <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
                 <span class="text-primary text-sm font-bold uppercase tracking-widest mb-2 block">Explore</span>
-                <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4" data-i18n="collections.featuredCollections">Featured
+                <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-main mb-4"
+                    data-i18n="collections.featuredCollections">Featured
                     Collections</h1>
                 <p class="text-text-secondary text-lg max-w-2xl mx-auto">Thematic journeys through history, curated to
                     reveal the symbolic power of women across time and place.</p>
@@ -375,7 +389,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.foremothersOfEmpires">Foremothers of Empires</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.foremothersOfEmpires">Foremothers of Empires</h3>
                             <p class="text-sm text-text-secondary mb-4">Women whose influence shaped kingdoms, defined
                                 dynasties, and altered the course of civilizations through political strategy or
                                 cultural patronage.</p>
@@ -396,7 +411,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.missionaryWomenCrossculturalEncounters">Missionary Women &
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.missionaryWomenCrossculturalEncounters">Missionary Women &
                                 Cross-Cultural Encounters</h3>
                             <p class="text-sm text-text-secondary mb-4">Women who navigated cultural boundaries,
                                 challenged patriarchal structures, and preserved indigenous knowledge.</p>
@@ -417,7 +433,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.indigenousMatriarchs">Indigenous Matriarchs</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.indigenousMatriarchs">Indigenous Matriarchs</h3>
                             <p class="text-sm text-text-secondary mb-4">Custodians of cultural memory, spiritual
                                 authority, and communal identity rooted in land stewardship and ritual knowledge.</p>
                             <a href="collection.html?slug=indigenous-matriarchs"
@@ -437,7 +454,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.africanQueensKingdomMothers">African Queens & Kingdom
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.africanQueensKingdomMothers">African Queens & Kingdom
                                 Mothers</h3>
                             <p class="text-sm text-text-secondary mb-4">Sovereigns, strategists, and state-builders
                                 whose power reshaped continents and shaped the destiny of nations.</p>
@@ -458,7 +476,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.womenOfTheDiaspora">Women of the Diaspora</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.womenOfTheDiaspora">Women of the Diaspora</h3>
                             <p class="text-sm text-text-secondary mb-4">Journeys of resilience, reinvention, and
                                 cultural transformation across borders and generations.</p>
                             <a href="collection.html?slug=diaspora"
@@ -478,7 +497,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.womenInConflictPeacebuilding">Women in Conflict &
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.womenInConflictPeacebuilding">Women in Conflict &
                                 Peacebuilding</h3>
                             <p class="text-sm text-text-secondary mb-4">Courage, negotiation, protection, and the
                                 reimagining of survival and community rebuilding.</p>
@@ -499,7 +519,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.hiddenFiguresOfScienceInnovation">Hidden Figures of Science &
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.hiddenFiguresOfScienceInnovation">Hidden Figures of Science &
                                 Innovation</h3>
                             <p class="text-sm text-text-secondary mb-4">Discoverers, inventors, and theorists who
                                 transformed knowledge despite institutional barriers.</p>
@@ -520,7 +541,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.womenOfFaithTraditions">Women of Faith Traditions</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.womenOfFaithTraditions">Women of Faith Traditions</h3>
                             <p class="text-sm text-text-secondary mb-4">Spiritual leaders, reformers, and theologians
                                 who shaped religious thought and practice.</p>
                             <a href="collection.html?slug=faith-spirituality"
@@ -540,7 +562,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.womenInMigration">Women in Migration</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.womenInMigration">Women in Migration</h3>
                             <p class="text-sm text-text-secondary mb-4">Those who carried identity across borders,
                                 creating hybrid cultures enriching global society.</p>
                             <a href="collection.html?slug=migration-movement"
@@ -560,7 +583,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.oralTraditionsStorytellers">Oral Traditions & Storytellers
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.oralTraditionsStorytellers">Oral Traditions & Storytellers
                             </h3>
                             <p class="text-sm text-text-secondary mb-4">Guardians of community memory who preserved
                                 wisdom through spoken word.</p>
@@ -581,7 +605,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.resistanceMovements">Resistance Movements</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.resistanceMovements">Resistance Movements</h3>
                             <p class="text-sm text-text-secondary mb-4">Women who fought oppression, led uprisings, and
                                 challenged unjust systems.</p>
                             <a href="collection.html?slug=resistance-movements"
@@ -601,7 +626,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.educationLiteracyPioneers">Education & Literacy Pioneers
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.educationLiteracyPioneers">Education & Literacy Pioneers
                             </h3>
                             <p class="text-sm text-text-secondary mb-4">Women who opened schools, created curricula, and
                                 fought for access to knowledge.</p>
@@ -623,7 +649,8 @@
                                 loading="lazy" />
                         </div>
                         <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.environmentalStewardship">Environmental Stewardship</h3>
+                            <h3 class="font-serif text-xl font-bold text-text-main mb-2"
+                                data-i18n="collections.environmentalStewardship">Environmental Stewardship</h3>
                             <p class="text-sm text-text-secondary mb-4">Women who protected land, led conservation
                                 movements, and championed sustainability.</p>
                             <a href="collection.html?slug=environmental-stewardship"
@@ -639,6 +666,7 @@
     </main>
 
     <!-- Footer -->
+        <!-- Footer -->
     <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
         <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
@@ -654,19 +682,22 @@
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">The world's first interpretive encyclopedia of
                         women.</p>
                     <div class="flex gap-4">
-                        <a href="https://www.facebook.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.facebook.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                             </svg>
                         </a>
-                        <a href="https://x.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+                        <a href="https://x.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                             </svg>
                         </a>
-                        <a href="https://www.instagram.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
@@ -677,60 +708,60 @@
 
                 <!-- Explore -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Explore</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.explore">Explore</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="index.html">Home</a>
+                        href="index.html" data-i18n="footer.home">Home</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="browse.html">Browse</a>
+                        href="browse.html" data-i18n="footer.browse">Browse</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="featured.html">Featured</a>
+                        href="featured.html" data-i18n="footer.featured">Featured</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="collections.html">Collections</a>
+                        href="collections.html" data-i18n="footer.collections">Collections</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="timelines.html">Timelines</a>
+                        href="timelines.html" data-i18n="footer.timelines">Timelines</a>
                 </div>
 
                 <!-- Learn -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Learn</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.learn">Learn</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="education.html">Education</a>
+                        href="education.html" data-i18n="footer.education">Education</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="enterprises.html">Enterprises</a>
+                        href="enterprises.html" data-i18n="footer.enterprises">Enterprises</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="research.html">Research</a>
+                        href="research.html" data-i18n="footer.research">Research</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="publications.html">Publications</a>
+                        href="publications.html" data-i18n="footer.publications">Publications</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="resources.html">Resources</a>
+                        href="resources.html" data-i18n="footer.resources">Resources</a>
                 </div>
 
                 <!-- Participate -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.participate">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
+                        href="nominate.html" data-i18n="nominateWoman">Nominate a Woman</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
+                        href="share-story.html" data-i18n="shareYourStory">Share Your Story</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributor-guidelines.html">Contributor Guidelines</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="contributor-guidelines.html" data-i18n="footer.contributorGuidelines">Contributor Guidelines</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" 
                         href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">About</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.about">About</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="about.html">About Us</a>
-<a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributors.html">Contributors</a>
+                        href="about.html" data-i18n="footer.aboutUs">About Us</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="methodology.html">Methodology</a>
+                        href="contributors.html" data-i18n="footer.contributors">Contributors</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="editorial-standards.html">Editorial Standards</a>
+                        href="methodology.html" data-i18n="footer.methodology">Methodology</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contact.html">Contact</a>
+                        href="editorial-standards.html" data-i18n="footer.editorialStandards">Editorial Standards</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="contact.html" data-i18n="footer.contact">Contact</a>
                 </div>
             </div>
 
@@ -738,8 +769,10 @@
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span data-i18n="privacyPolicy">Privacy Policy</span></a> | <a
-                            href="terms-of-use.html" class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"
+                            data-i18n="privacyPolicy">Privacy Policy</a> | <a href="terms-of-use.html"
+                            class="text-gray-400 hover:text-white" data-i18n="termsOfUse">Terms of Use</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -755,7 +788,8 @@
                 <div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-primary text-3xl">login</span>
                 </div>
-                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="collections.welcomeBack">Welcome Back</h2>
+                <h2 class="font-serif text-2xl font-bold text-text-main" data-i18n="collections.welcomeBack">Welcome
+                    Back</h2>
                 <p class="text-text-secondary text-sm mt-2">Sign in to access your account</p>
             </div>
             <form id="login-form" class="space-y-4">
@@ -805,7 +839,8 @@
         </div>
     </div>
 
-    <script src="js/env.js"></script><script src="js/config.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/auth.js"></script>
@@ -813,165 +848,12 @@
     <script src="js/strapi-api.js"></script>
 
     <!-- Collections Dynamic Loading -->
-    <script>
-        // Static fallback collections data
-        const fallbackCollections = [
-            {
-                slug: 'foremothers',
-                title: 'Foremothers of Empires',
-                description: 'Women whose influence shaped kingdoms, defined dynasties, and altered the course of civilizations through political strategy or cultural patronage.',
-                image: 'images/foremothers.png'
-            },
-            {
-                slug: 'missionary-women',
-                title: 'Missionary Women & Cross-Cultural Encounters',
-                description: 'Women who navigated cultural boundaries, challenged patriarchal structures, and preserved indigenous knowledge.',
-                image: 'images/missionary.png'
-            },
-            {
-                slug: 'indigenous-matriarchs',
-                title: 'Indigenous Matriarchs',
-                description: 'Custodians of cultural memory, spiritual authority, and communal identity rooted in land stewardship and ritual knowledge.',
-                image: 'images/indigenous.png'
-            },
-            {
-                slug: 'african-queens',
-                title: 'African Queens & Kingdom Mothers',
-                description: 'Sovereigns, strategists, and state-builders whose power reshaped continents and shaped the destiny of nations.',
-                image: 'images/african-queens.png'
-            },
-            {
-                slug: 'diaspora',
-                title: 'Women of the Diaspora',
-                description: 'Journeys of resilience, reinvention, and cultural transformation across borders and generations.',
-                image: 'images/diaspora.png'
-            },
-            {
-                slug: 'conflict-peace',
-                title: 'Women in Conflict & Peacebuilding',
-                description: 'Courage, negotiation, protection, and the reimagining of survival and community rebuilding.',
-                image: 'images/conflict-peace.png'
-            },
-            {
-                slug: 'science-innovation',
-                title: 'Science & Innovation',
-                description: 'Women who expanded human knowledge, pioneered discoveries, and challenged scientific paradigms.',
-                image: 'images/science_curie.png'
-            },
-            {
-                slug: 'arts-creativity',
-                title: 'Arts & Creativity',
-                description: 'Visionary artists, musicians, writers, and performers who transformed cultural landscapes.',
-                image: 'images/oral_angelou.png'
-            },
-            {
-                slug: 'migration-movement',
-                title: 'Migration & Movement',
-                description: 'Women who crossed borders, led migrations, and built new communities across continents.',
-                image: 'images/migration_baker.png'
-            },
-            {
-                slug: 'faith-spirituality',
-                title: 'Faith & Spirituality',
-                description: 'Spiritual leaders, mystics, and reformers who shaped religious traditions and spiritual practices.',
-                image: 'images/faith_hildegard.png'
-            },
-            {
-                slug: 'education-literacy',
-                title: 'Education & Literacy Pioneers',
-                description: 'Women who opened schools, created curricula, and fought for access to knowledge.',
-                image: 'images/environment_maathai.png'
-            },
-            {
-                slug: 'environmental-stewardship',
-                title: 'Environmental Stewardship',
-                description: 'Women who protected land, led conservation movements, and championed sustainability.',
-                image: 'images/environment_maathai.png'
-            }
-        ];
+    <script src="js/collections-inline-1.js"></script>
 
-        // Get media URL helper
-        function getCollectionImageUrl(collection) {
-            if (collection.coverImage && collection.coverImage.url) {
-                return collection.coverImage.url;
-            }
-            // Map slug to fallback image
-            const fallback = fallbackCollections.find(f => f.slug === collection.slug);
-            return fallback ? fallback.image : 'images/womencypedia-logo.png';
-        }
-
-        // Render collections from API data
-        function renderCollections(collections) {
-            const grid = document.getElementById('collections-grid');
-            if (!grid) return;
-
-            grid.innerHTML = collections.map((collection, index) => {
-                const imageUrl = getCollectionImageUrl(collection);
-                const slug = collection.slug || collection.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                return `
-                <article class="group bg-white rounded-lg overflow-hidden border border-border-light hover:border-accent-gold/50 hover:shadow-lg transition-all">
-                    <div class="relative h-56 overflow-hidden">
-                        <span class="absolute top-4 left-4 z-10 size-8 bg-accent-gold text-white rounded-full flex items-center justify-center text-sm font-bold">${index + 1}</span>
-                        <img src="${imageUrl}" alt="${collection.title}"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-serif text-xl font-bold text-text-main mb-2" data-i18n="collections.collectiontitle">${collection.title}</h3>
-                        <p class="text-sm text-text-secondary mb-4">${collection.description || ''}</p>
-                        <a href="collection.html?slug=${slug}"
-                            class="inline-flex items-center gap-1 text-sm font-semibold text-accent-teal hover:text-accent-teal/80">Explore
-                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
-                    </div>
-                </article>
-            `;
-            }).join('');
-
-            // Hide loading, show grid
-            document.getElementById('collections-loading').classList.add('hidden');
-            grid.classList.remove('hidden');
-        }
-
-        // Show fallback static collections
-        function showFallbackCollections() {
-            const fallback = document.getElementById('collections-fallback');
-            if (!fallback) return;
-
-            // Hide loading, show fallback
-            document.getElementById('collections-loading').classList.add('hidden');
-            fallback.classList.remove('hidden');
-        }
-
-        // Load collections from Strapi API
-        async function loadCollections() {
-            try {
-                // Try Strapi API first
-                if (typeof StrapiAPI !== 'undefined' && CONFIG.USE_STRAPI) {
-                    const response = await StrapiAPI.collections.getAll();
-                    if (response && response.entries && response.entries.length > 0) {
-                        renderCollections(response.entries);
-                        return;
-                    }
-                }
-            } catch (error) {
-                console.warn('Strapi API not available, using fallback:', error.message);
-            }
-
-            // If API fails, use fallback
-            showFallbackCollections();
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function () {
-            loadCollections();
-        });
-    </script>
-
-        <script src="js/inline-common.js"></script>
+    <script src="js/inline-common.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>
-
-
-

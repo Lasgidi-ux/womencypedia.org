@@ -1,0 +1,9 @@
+# ============================================
+# Womencypedia — Cloudflare Pages Redirects
+# ============================================
+
+# Cloudflare Pages handles HTTPS automatically.
+# No redirect rules needed for HTTPS enforcement.
+
+# If you want www → non-www (or vice versa), configure
+# that in Cloudflare Dashboard > Domain Management.

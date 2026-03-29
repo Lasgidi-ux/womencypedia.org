@@ -2,7 +2,7 @@
 <html class="light" lang="en">
 
 <head>
-    <meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -65,29 +65,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Womencypedia",
-      "url": "https://womencypedia.org",
-      "logo": "https://womencypedia.org/images/womencypedia-logo.png",
-      "description": "The world's first interpretive encyclopedia of women — revealing the depth, power, cultural meaning behind every woman.",
-      "foundingDate": "2024",
-      "sameAs": [],
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://womencypedia.org/browse.html?search={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
+    <script type="application/ld+json" src="js/index-inline-1.js"></script>
     <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
 
-    <!-- Skip Link -->
+                        <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
         Skip to main content
@@ -100,7 +84,7 @@
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
                     class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
-                    data-i18n-placeholder="search" />
+                    data-i18n-placeholder="search.placeholder">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -120,7 +104,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="index.explore">
+                data-i18n="browse.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -137,7 +121,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="index.learn">
+                data-i18n="browse.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -154,13 +138,14 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="index.participate">
+                data-i18n="browse.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
                 a Woman</a>
             <a href="share-story.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
+                data-i18n="shareYourStory">Share
                 Your Story</a>
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
@@ -172,7 +157,7 @@
         <!-- About -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="index.about">
+                data-i18n="browse.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -196,19 +181,16 @@
     </nav>
 
     <!-- Header -->
-    <header id="navbar"
-        class="w-full border-b border-divider bg-background-cream  sticky top-0 z-50 transition-transform duration-300">
+    <header id="navbar" class="transition-transform duration-300 w-full border-b border-divider bg-background-cream sticky top-0 z-50">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
-                <!-- Logo -->
+                <!-- Left Section: Logo + Desktop Nav -->
                 <div class="flex items-center gap-8 lg:gap-12">
                     <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                         <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
                         <span
                             class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
-
-                    <!-- Desktop Nav -->
                     <nav class="hidden lg:flex items-center gap-6">
                         <!-- Explore Dropdown -->
                         <div class="relative group">
@@ -223,47 +205,15 @@
                                 <div
                                     class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
                                     <a href="index.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Home</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a>
                                     <a href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a>
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Browse</a>
                                     <a href="featured.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
                                     <a href="collections.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Collections</a>
                                     <a href="timelines.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Timelines</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Registry Dropdown -->
-                        <div class="relative group">
-                            <button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                Registry
-                                <span
-                                    class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
-                            </button>
-                            <div
-                                class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                <div
-                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[220px]">
-                                    <a href="browse-leaders.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse
-                                        Leaders</a>
-                                    <a href="apply-verification.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Apply
-                                        for Verification</a>
-                                    <a href="controlled-contributions.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Submit
-                                        Content</a>
-                                    <div class="border-t border-border-light my-1"></div>
-                                    <a href="partners.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Partners</a>
-                                    <a href="fellowship.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Fellowships</a>
-                                    <a href="reports.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Reports</a>
                                 </div>
                             </div>
                         </div>
@@ -310,7 +260,8 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
                                         a Woman</a>
                                     <a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="shareYourStory">Share
                                         Your Story</a>
                                     <a href="contributor-guidelines.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
@@ -349,57 +300,52 @@
                                 </div>
                             </div>
                         </div>
+                    </nav>
+                </div>
 
-                        <!-- Actions -->
-                        <div class="flex items-center gap-3 lg:gap-6">
-                            <!-- Language Switcher -->
-                            <div id="language-switcher" class="hidden lg:block"></div>
-                            <!-- Desktop Search -->
-                            <div
-                                class="hidden md:flex items-center bg-white/50  border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
-                                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                                <input
-                                    class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                                    placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
-                            </div>
-
-                            <!-- Mobile Search Button -->
-                            <button onclick="toggleSearch()"
-                                class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
-                                aria-label="Open search">
-                                <span class="material-symbols-outlined text-accent-teal">search</span>
-                            </button>
-
-                            <!-- Desktop Actions -->
-                            <div class="hidden sm:flex items-center gap-4">
-                                <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
-                                    href="donate.html" data-i18n="donate">Donate</a>
-                                <button data-auth="signin"
-                                    class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
-                                    data-i18n="signIn">
-                                    Sign In
-                                </button>
-                                <div data-auth="signout" class="flex items-center gap-3" style="display: none;">
-                                    <span data-auth="user-info" class="text-sm text-text-secondary"></span>
-                                    <button
-                                        class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
-                                        Sign Out
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Mobile Menu Button -->
-                            <button onclick="toggleMenu()"
-                                class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
-                                aria-label="Open menu">
-                                <span class="material-symbols-outlined text-text-main">menu</span>
+                <!-- Right Section: Actions -->
+                <div class="flex items-center gap-3 lg:gap-6">
+                    <div
+                        class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
+                        <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
+                        <input
+                            class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
+                            placeholder="Search the archive..." type="search"
+                            data-i18n-placeholder="search" />
+                    </div>
+                    <button onclick="toggleSearch()"
+                        class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
+                        aria-label="Open search">
+                        <span class="material-symbols-outlined text-accent-teal">search</span>
+                    </button>
+                    <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
+                        <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
+                            href="donate.html" data-i18n="donate">Donate</a>
+                        <button data-auth="signin"
+                            class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                            data-i18n="signIn">
+                            Sign In
+                        </button>
+                        <div data-auth="signout" class="hidden flex items-center gap-3">
+                            <span data-auth="user-info" class="text-sm text-text-secondary"></span>
+                            <button
+                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                data-i18n="signOut">
+                                Sign Out
                             </button>
                         </div>
+                    </div>
+                    <button onclick="toggleMenu()"
+                        class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
+                        aria-label="Open menu">
+                        <span class="material-symbols-outlined text-text-main">menu</span>
+                    </button>
                 </div>
             </div>
+        </div>
     </header>
 
-    <!-- Main Content -->
     <main id="main-content" class="flex-1 w-full bg-background-cream ">
 
         <!-- Hero Section -->
@@ -1436,6 +1382,7 @@
     </main>
 
     <!-- Footer -->
+        <!-- Footer -->
     <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
         <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
@@ -1477,60 +1424,60 @@
 
                 <!-- Explore -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Explore</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.explore">Explore</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="index.html">Home</a>
+                        href="index.html" data-i18n="footer.home">Home</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="browse.html">Browse</a>
+                        href="browse.html" data-i18n="footer.browse">Browse</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="featured.html">Featured</a>
+                        href="featured.html" data-i18n="footer.featured">Featured</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="collections.html">Collections</a>
+                        href="collections.html" data-i18n="footer.collections">Collections</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="timelines.html">Timelines</a>
+                        href="timelines.html" data-i18n="footer.timelines">Timelines</a>
                 </div>
 
                 <!-- Learn -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Learn</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.learn">Learn</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="education.html">Education</a>
+                        href="education.html" data-i18n="footer.education">Education</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="enterprises.html">Enterprises</a>
+                        href="enterprises.html" data-i18n="footer.enterprises">Enterprises</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="research.html">Research</a>
+                        href="research.html" data-i18n="footer.research">Research</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="publications.html">Publications</a>
+                        href="publications.html" data-i18n="footer.publications">Publications</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="resources.html">Resources</a>
+                        href="resources.html" data-i18n="footer.resources">Resources</a>
                 </div>
 
                 <!-- Participate -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.participate">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
+                        href="nominate.html" data-i18n="nominateWoman">Nominate a Woman</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
+                        href="share-story.html" data-i18n="shareYourStory">Share Your Story</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributor-guidelines.html">Contributor Guidelines</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html"
-                        data-i18n="donate">Donate</a>
+                        href="contributor-guidelines.html" data-i18n="footer.contributorGuidelines">Contributor Guidelines</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" 
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">About</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.about">About</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="about.html">About Us</a>
+                        href="about.html" data-i18n="footer.aboutUs">About Us</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributors.html">Contributors</a>
+                        href="contributors.html" data-i18n="footer.contributors">Contributors</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="methodology.html">Methodology</a>
+                        href="methodology.html" data-i18n="footer.methodology">Methodology</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="editorial-standards.html">Editorial Standards</a>
+                        href="editorial-standards.html" data-i18n="footer.editorialStandards">Editorial Standards</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contact.html">Contact</a>
+                        href="contact.html" data-i18n="footer.contact">Contact</a>
                 </div>
             </div>
 
@@ -1538,9 +1485,9 @@
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span
-                                data-i18n="privacyPolicy">Privacy Policy</span></a> | <a href="terms-of-use.html"
-                            class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"
+                            data-i18n="privacyPolicy">Privacy Policy</a> | <a href="terms-of-use.html"
+                            class="text-gray-400 hover:text-white" data-i18n="termsOfUse">Terms of Use</a>
                     </p>
                 </div>
             </div>
@@ -1646,116 +1593,11 @@
     <script src="js/inline-common.js"></script>
 
     <!-- Map Initialization (page-specific) -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mapContainer = document.getElementById('global-map');
-            if (!mapContainer) return;
-
-            // Security: helper function to escape HTML inside popups
-            function escapeHTML(str) {
-                if (!str) return '';
-                return String(str).replace(/[&<>'"]/g,
-                    tag => ({
-                        '&': '&amp;',
-                        '<': '&lt;',
-                        '>': '&gt;',
-                        "'": '&#39;',
-                        '"': '&quot;'
-                    }[tag] || tag)
-                );
-            }
-
-            // Guard: check if Leaflet loaded
-            if (typeof L === 'undefined') {
-                console.warn('Leaflet not loaded — map disabled (check network)');
-                mapContainer.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5A5454;font-size:14px;">Map unavailable offline</div>';
-                return;
-            }
-
-            // Initialize map centered on the world
-            const map = L.map('global-map').setView([20, 0], 2);
-
-            // Add OpenStreetMap tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors',
-                maxZoom: 18,
-            }).addTo(map);
-
-            // Define region coordinates and biography counts
-            const regions = {
-                africa: { lat: 1.5, lng: 20, count: 1200, zoom: 3 },
-                asia: { lat: 30, lng: 100, count: 850, zoom: 3 },
-                europe: { lat: 50, lng: 10, count: 980, zoom: 4 },
-                'middle-east': { lat: 30, lng: 45, count: 620, zoom: 5 },
-                'north-america': { lat: 40, lng: -100, count: 720, zoom: 3 },
-                'south-america': { lat: -15, lng: -60, count: 480, zoom: 3 },
-                oceania: { lat: -25, lng: 135, count: 320, zoom: 4 },
-                antarctica: { lat: -80, lng: 0, count: 45, zoom: 3 }
-            };
-
-            // Add markers for each region
-            Object.entries(regions).forEach(([region, data]) => {
-                const marker = L.marker([data.lat, data.lng]).addTo(map);
-
-                const escapedRegion = escapeHTML(region.replace('-', ' '));
-                marker.bindPopup(`
-                    <div class="text-center">
-                        <h4 class="font-serif font-bold text-text-main mb-2 capitalize">${escapedRegion}</h4>
-                        <p class="text-sm text-text-secondary mb-3">${escapeHTML(data.count)} biographies</p>
-                        <a href="browse.html?region=${encodeURIComponent(region)}" class="inline-block px-3 py-1 bg-primary text-white text-xs rounded hover:bg-primary-hover transition-colors">
-                            Explore ${escapedRegion}
-                        </a>
-                    </div>
-                `);
-            });
-
-            // Add zoom controls
-            document.getElementById('zoom-africa')?.addEventListener('click', () => {
-                map.setView([regions.africa.lat, regions.africa.lng], regions.africa.zoom);
-            });
-
-            document.getElementById('zoom-asia')?.addEventListener('click', () => {
-                map.setView([regions.asia.lat, regions.asia.lng], regions.asia.zoom);
-            });
-
-            document.getElementById('zoom-europe')?.addEventListener('click', () => {
-                map.setView([regions.europe.lat, regions.europe.lng], regions.europe.zoom);
-            });
-
-            document.getElementById('reset-view')?.addEventListener('click', () => {
-                map.setView([20, 0], 2);
-            });
-
-            // Add some sample biography markers (only if biographies data is available)
-            if (typeof biographies !== 'undefined' && Array.isArray(biographies)) {
-                biographies.forEach(bio => {
-                    if (bio.region === 'Africa') {
-                        const marker = L.circleMarker([1.5 + (Math.random() - 0.5) * 10, 20 + (Math.random() - 0.5) * 20], {
-                            color: '#D67D7D',
-                            fillColor: '#D67D7D',
-                            fillOpacity: 0.6,
-                            radius: 6
-                        }).addTo(map);
-
-                        marker.bindPopup(`
-                        <div class="max-w-xs">
-                            <h4 class="font-serif font-bold text-text-main mb-1">${escapeHTML(bio.name)}</h4>
-                            <p class="text-xs text-text-secondary mb-2">${escapeHTML(bio.era)} • ${escapeHTML(bio.region)}</p>
-                            <p class="text-sm text-text-secondary mb-3">${escapeHTML(bio.introduction.substring(0, 100))}...</p>
-                            <a href="biography.html?id=${escapeHTML(bio.id)}" class="inline-block px-3 py-1 bg-primary text-white text-xs rounded hover:bg-primary-hover transition-colors"><span data-i18n="readBiography">Read Biography</span></a>
-                        </div>
-                    `);
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="js/index-inline-2.js"></script>
 
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>
-
-
-

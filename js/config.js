@@ -14,11 +14,9 @@
  * - USE_MOCK_API: Set to true to force mock API, false to use real API, undefined to auto-detect
  */
 
-// Environment-based API URL configuration
 // Priority: 1. window.API_STRAPI_URL (JavaScript environment variable)
 //           2. window.API_BASE_URL (alternative variable name)
-//           3. Automatic detection based on current hostname
-//           4. Production URL fallback
+//           3. Production URL fallback
 // Note: Added window check for SSR environment compatibility
 const getApiBaseUrl = () => {
     // Check for explicit overrides first
@@ -26,11 +24,13 @@ const getApiBaseUrl = () => {
         if (window.API_STRAPI_URL) return window.API_STRAPI_URL;
         if (window.API_BASE_URL) return window.API_BASE_URL;
 
-        // Auto-detect: if running on localhost, use local CMS
+        // Auto-detect removed: force all environments to use production backend unless locally overriden via window.API_BASE_URL.
+        /*
         const hostname = window.location.hostname;
         if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.local')) {
             return 'http://localhost:1337'; // Local development CMS
         }
+        */
     }
     return 'https://womencypedia-cms.onrender.com'; // Production CMS
 };
@@ -41,8 +41,20 @@ const API_BASE_URL = getApiBaseUrl();
 // Priority: 1. window.API_TOKEN (JavaScript environment variable)
 //           2. Hardcoded token (replace with your actual token)
 // NOTE: For production, use environment variables or window.API_TOKEN
+// IMPORTANT: If Strapi Public role is not enabled, API requests will fail without a valid token
 const API_TOKEN = (typeof window !== 'undefined' ? window.API_TOKEN : undefined) ||
-    '';  // Add your token here: 'your-strapi-api-token-here'
+    '';  // Set via window.API_TOKEN environment variable or configure Strapi Public role permissions
+
+// Contact email for form submissions
+// Priority: 1. window.CONTACT_EMAIL (JavaScript environment variable)
+//           2. Default email (rev@womencypedia.org)
+const CONTACT_EMAIL = (typeof window !== 'undefined' ? window.CONTACT_EMAIL : undefined) ||
+    'rev@womencypedia.org';
+
+// Warn if API token is not set (helps with debugging)
+if (typeof window !== 'undefined' && !window.API_TOKEN) {
+    console.warn('[CONFIG] API_TOKEN is not set. If Strapi requires authentication, API requests will fail. Set window.API_TOKEN or enable Public role in Strapi.');
+}
 
 const CONFIG = {
     // API Base URL - Environment configurable via window.API_STRAPI_URL or window.API_BASE_URL
@@ -53,6 +65,10 @@ const CONFIG = {
     // Leave empty string if Public role is enabled in Strapi
     // For production, set via window.API_TOKEN or use environment variables
     API_TOKEN: API_TOKEN,
+
+    // Contact email for form submissions
+    // Used for contact forms and notifications
+    CONTACT_EMAIL: CONTACT_EMAIL,
 
     // Use Strapi CMS
     // Set to true to enable Strapi mode (transforms responses, uses Strapi endpoints)
@@ -103,6 +119,11 @@ const CONFIG = {
             // Education Modules
             EDUCATION_MODULES: '/api/education-modules',
             EDUCATION_MODULE_BY_SLUG: (slug) => `/api/education-modules?filters[slug][$eq]=${slug}`,
+
+            // Teaching Resources
+            TEACHING_RESOURCES: '/api/teaching-resources',
+            TEACHING_RESOURCE_BY_SLUG: (slug) => `/api/teaching-resources?filters[slug][$eq]=${slug}`,
+            TEACHING_RESOURCES_BY_TYPE: (type) => `/api/teaching-resources?filters[type][$eq]=${type}`,
 
             // Tags
             TAGS: '/api/tags',

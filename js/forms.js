@@ -51,6 +51,12 @@ const FormHandler = {
             return;
         }
 
+        // If the page already has its own inline handler, skip forms.js handler
+        if (window.__storyFormHandledByPage) {
+            console.log('[Forms] story-form already handled by page inline script — skipping');
+            return;
+        }
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             await this.handleStorySubmit(form);
@@ -66,23 +72,54 @@ const FormHandler = {
     async uploadMediaFiles(files, token) {
         if (!files || files.length === 0) return [];
 
-        // Allowed MIME types for images
+        // Allowed MIME types for media uploads
         const allowedTypes = [
+            // Images
             'image/jpeg',
             'image/png',
             'image/gif',
             'image/webp',
-            'image/svg+xml'
+            'image/svg+xml',
+            // Videos
+            'video/mp4',
+            'video/webm',
+            'video/quicktime',
+            'video/x-msvideo',
+            // Audio
+            'audio/mpeg',
+            'audio/wav',
+            'audio/ogg',
+            'audio/mp4',
+            'audio/webm',
+            // Documents
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'text/plain'
         ];
+
+        // Build a friendly format list from allowedTypes for error messages
+        const mimeToFriendly = {
+            'image/jpeg': 'JPEG', 'image/png': 'PNG', 'image/gif': 'GIF',
+            'image/webp': 'WebP', 'image/svg+xml': 'SVG',
+            'video/mp4': 'MP4', 'video/webm': 'WebM',
+            'video/quicktime': 'MOV', 'video/x-msvideo': 'AVI',
+            'audio/mpeg': 'MP3', 'audio/wav': 'WAV', 'audio/ogg': 'OGG',
+            'audio/mp4': 'M4A', 'audio/webm': 'WebM Audio',
+            'application/pdf': 'PDF', 'application/msword': 'DOC',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'DOCX',
+            'text/plain': 'TXT'
+        };
+        const friendlyFormats = [...new Set(allowedTypes.map(t => mimeToFriendly[t] || t))].join(', ');
 
         const uploadedIds = [];
 
         for (const file of files) {
             // Validate file type (MIME type) - security measure
             if (!allowedTypes.includes(file.type)) {
-                console.warn(`File "${file.name}" has invalid type "${file.type}". Allowed: jpeg, png, gif, webp, svg`);
+                console.warn(`File "${file.name}" has invalid type "${file.type}". Allowed: ${friendlyFormats}`);
                 if (typeof UI !== 'undefined' && UI.showToast) {
-                    UI.showToast(`File "${file.name}" has an invalid format. Allowed: JPEG, PNG, GIF, WebP, SVG`, 'warning');
+                    UI.showToast(`File "${file.name}" has an invalid format. Allowed: ${friendlyFormats}`, 'warning');
                 }
                 continue;
             }
@@ -141,9 +178,12 @@ const FormHandler = {
             return;
         }
 
-        // Collect form data — map to Strapi nomination schema fields
+        // Collect form data — map to Strapi contribution schema fields
+        const nomineeName = form.querySelector('#nomineeName')?.value || '';
         const formData = {
-            nomineeName: form.querySelector('#nomineeName')?.value || '',
+            title: nomineeName ? `Nomination: ${nomineeName}` : 'Untitled Nomination',
+            type: 'nomination',
+            nomineeName: nomineeName,
             nomineeEra: form.querySelector('#era')?.value || '',
             nomineeRegion: form.querySelector('#region')?.value || '',
             nomineeCategory: form.querySelector('#collection')?.value || '',
@@ -151,6 +191,13 @@ const FormHandler = {
             sources: form.querySelector('#sources')?.value ? [form.querySelector('#sources').value] : [],
             nominatorName: form.querySelector('#yourName')?.value || '',
             nominatorEmail: form.querySelector('#yourEmail')?.value || '',
+            
+            // Standard contribution fields (for compatibility)
+            subjectName: nomineeName,
+            content: form.querySelector('#bio')?.value || '',
+            contactName: form.querySelector('#yourName')?.value || '',
+            contactEmail: form.querySelector('#yourEmail')?.value || '',
+            region: form.querySelector('#region')?.value || '',
             status: 'pending'
         };
 
@@ -180,9 +227,9 @@ const FormHandler = {
                 throw new Error('Configuration not loaded. Please refresh the page and try again.');
             }
 
-            console.log('[NominationForm] Submitting to:', `${CONFIG.API_BASE_URL}/api/nominations`);
+            console.log('[NominationForm] Submitting to:', `${CONFIG.API_BASE_URL}/api/contributions`);
 
-            const response = await fetch(`${CONFIG.API_BASE_URL}/api/nominations`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/contributions`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ data: formData })
@@ -196,12 +243,12 @@ const FormHandler = {
                 console.log('[NominationForm] Error data:', errorData);
                 // Provide more helpful error messages for common issues
                 if (response.status === 404) {
-                    throw new Error('Unable to submit nomination. The server endpoint /api/nominations was not found. This may indicate the CMS needs to be rebuilt.');
+                    throw new Error('Unable to submit nomination. The server endpoint /api/contributions was not found. This may indicate the CMS needs to be rebuilt.');
                 } if (response.status === 401) {
                     throw new Error('Please sign in to submit a nomination.');
                 }
                 if (response.status === 403) {
-                    throw new Error('You do not have permission to submit nominations. This may indicate the Public role needs to be granted POST permission for nominations in Strapi admin panel.');
+                    throw new Error('You do not have permission to submit nominations. This may indicate the Public role needs to be granted POST permission for contributions in Strapi admin panel.');
                 }
                 if (response.status === 500) {
                     throw new Error('Server error. Please try again later or contact support.');

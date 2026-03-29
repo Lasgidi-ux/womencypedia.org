@@ -23,15 +23,14 @@
      * @returns {Promise<Object>} - API response data
      */
     window.fetchStrapi = async function (endpoint, options = {}) {
-        // Get API base URL and token from CONFIG if available
-        const baseUrl = (typeof CONFIG !== 'undefined') ? CONFIG.API_BASE_URL : 'https://womencypedia-cms.onrender.com';
+        // Always use production Strapi URL — CONFIG.API_BASE_URL may be localhost
+        const baseUrl = 'https://womencypedia-cms.onrender.com';
         const apiToken = (typeof CONFIG !== 'undefined') ? CONFIG.API_TOKEN : '';
 
-        // Build URL with populate=* by default
+        // Build URL with populate (exclude sensitive relations)
         const urlObj = new URL(endpoint, baseUrl);
-        if (!endpoint.includes('populate=') && !endpoint.includes('?')) {
-            urlObj.searchParams.set('populate', '*');
-        } else if (!endpoint.includes('populate=') && endpoint.includes('?')) {
+        if (!endpoint.includes('populate=')) {
+            // Populate content fields but exclude createdBy/updatedBy (contain password hashes)
             urlObj.searchParams.set('populate', '*');
         }
 
@@ -81,8 +80,8 @@
         if (!url) return null;
         if (url.startsWith('http') || url.startsWith('//')) return url;
 
-        const baseUrl = (typeof CONFIG !== 'undefined') ? CONFIG.API_BASE_URL : 'https://womencypedia-cms.onrender.com';
-        return `${baseUrl}${url}`;
+        // Always use production Strapi URL for media
+        return `https://womencypedia-cms.onrender.com${url}`;
     };
 
     /**

@@ -2,7 +2,7 @@
 <html class="light" lang="en">
 
 <head>
-    <meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -48,20 +48,20 @@
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
 
-    <!-- Skip Link -->
+                        <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
         Skip to main content
     </a>
 
     <!-- Mobile Search Sheet -->
-    <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-primary/10 p-4">
+    <div id="searchSheet" class="search-sheet hidden fixed top-0 left-0 right-0 z-[150] bg-accent-teal/10 p-4">
         <div class="flex items-center gap-3">
             <div class="flex-1 flex items-center bg-white border border-border-light rounded-lg px-4 h-12">
-                <span class="material-symbols-outlined text-primary text-[20px]">search</span>
+                <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
                     class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
-                    / data-i18n-placeholder="search">
+                    data-i18n-placeholder="search.placeholder">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -77,9 +77,11 @@
     <nav id="mobileMenu"
         class="mobile-menu hidden fixed bottom-0 left-0 right-0 z-[150] bg-background-cream rounded-t-2xl border-t border-border-light max-h-[85vh] overflow-y-auto">
         <div class="w-10 h-1 bg-border-light rounded-full mx-auto mt-3 mb-4"></div>
+
+        <!-- Explore -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="education_module.explore">
+                data-i18n="browse.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -92,12 +94,14 @@
             <a href="timelines.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Timelines</a>
         </div>
+
+        <!-- Learn -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="education_module.learn">
+                data-i18n="browse.learn">
                 Learn</h3>
             <a href="education.html"
-                class="block py-3 text-base font-medium text-primary border-b border-border-light/50">Education</a>
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
             <a href="enterprises.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Enterprises</a>
             <a href="research.html"
@@ -107,6 +111,45 @@
             <a href="resources.html"
                 class="block py-3 text-base font-medium text-text-main hover:text-primary">Resources</a>
         </div>
+
+        <!-- Participate -->
+        <div class="px-6 pb-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.participate">
+                Participate</h3>
+            <a href="nominate.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
+                a Woman</a>
+            <a href="share-story.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
+                data-i18n="shareYourStory">Share
+                Your Story</a>
+            <a href="contributor-guidelines.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
+                Guidelines</a>
+            <a href="donate.html" class="block py-3 text-base font-medium text-text-main hover:text-primary"
+                data-i18n="donate">Donate</a>
+        </div>
+
+        <!-- About -->
+        <div class="px-6 pb-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
+                data-i18n="browse.about">
+                About</h3>
+            <a href="about.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
+                Us</a>
+            <a href="contributors.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributors</a>
+            <a href="methodology.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Methodology</a>
+            <a href="editorial-standards.html"
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Editorial
+                Standards</a>
+            <a href="contact.html"
+                class="block py-3 text-base font-medium text-text-main hover:text-primary">Contact</a>
+        </div>
+        <!-- CTA -->
         <div class="px-6 pb-8">
             <a href="share-story.html"
                 class="block w-full h-12 bg-primary text-white text-base font-bold rounded-lg flex items-center justify-center hover:bg-primary-hover transition-colors"><span
@@ -115,9 +158,10 @@
     </nav>
 
     <!-- Header -->
-    <header class="w-full border-b border-divider bg-background-cream sticky top-0 z-50">
+    <header id="navbar" class="transition-transform duration-300 w-full border-b border-divider bg-background-cream sticky top-0 z-50">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Left Section: Logo + Desktop Nav -->
                 <div class="flex items-center gap-8 lg:gap-12">
                     <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                         <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
@@ -125,20 +169,22 @@
                             class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
                     </a>
                     <nav class="hidden lg:flex items-center gap-6">
+                        <!-- Explore Dropdown -->
                         <div class="relative group">
                             <button
-                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                Explore <span
+                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">
+                                Explore
+                                <span
                                     class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
                             <div
                                 class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
                                     <a href="index.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a>
                                     <a href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a>
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Browse</a>
                                     <a href="featured.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
                                     <a href="collections.html"
@@ -148,18 +194,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Learn Dropdown -->
                         <div class="relative group">
                             <button
-                                class="flex items-center gap-1 text-primary text-sm font-medium uppercase tracking-wider py-2 border-b-2 border-primary">
-                                Learn <span
+                                class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
+                                Learn
+                                <span
                                     class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
                             <div
                                 class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
                                     <a href="education.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Education</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Education</a>
                                     <a href="enterprises.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Enterprises</a>
                                     <a href="research.html"
@@ -171,21 +220,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Participate Dropdown -->
                         <div class="relative group">
                             <button
                                 class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                Participate <span
+                                Participate
+                                <span
                                     class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
                             <div
                                 class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
                                     <a href="nominate.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
                                         a Woman</a>
                                     <a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="shareYourStory">Share
                                         Your Story</a>
                                     <a href="contributor-guidelines.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
@@ -196,19 +249,24 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- About Dropdown -->
                         <div class="relative group">
                             <button
                                 class="flex items-center gap-1 text-text-main text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider py-2">
-                                About <span
+                                About
+                                <span
                                     class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
                             </button>
                             <div
                                 class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 <div
-                                    class="bg-white border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
+                                    class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[200px]">
                                     <a href="about.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">About
                                         Us</a>
+                                    <a href="contributors.html"
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributors</a>
                                     <a href="methodology.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Methodology</a>
                                     <a href="editorial-standards.html"
@@ -221,22 +279,39 @@
                         </div>
                     </nav>
                 </div>
+
+                <!-- Right Section: Actions -->
                 <div class="flex items-center gap-3 lg:gap-6">
-                    <!-- Language Switcher -->
-                    <div id="language-switcher" class="hidden lg:block"></div>
                     <div
                         class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
                         <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                         <input
                             class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                            placeholder="Search the archive..." type="search" data-i18n-placeholder="search" />
+                            placeholder="Search the archive..." type="search"
+                            data-i18n-placeholder="search" />
                     </div>
+                    <button onclick="toggleSearch()"
+                        class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
+                        aria-label="Open search">
+                        <span class="material-symbols-outlined text-accent-teal">search</span>
+                    </button>
                     <div class="hidden sm:flex items-center gap-4">
+                        <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
                             href="donate.html" data-i18n="donate">Donate</a>
                         <button data-auth="signin"
                             class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
-                            data-i18n="signIn">Sign In</button>
+                            data-i18n="signIn">
+                            Sign In
+                        </button>
+                        <div data-auth="signout" class="hidden flex items-center gap-3">
+                            <span data-auth="user-info" class="text-sm text-text-secondary"></span>
+                            <button
+                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                data-i18n="signOut">
+                                Sign Out
+                            </button>
+                        </div>
                     </div>
                     <button onclick="toggleMenu()"
                         class="lg:hidden size-11 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors"
@@ -248,7 +323,6 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main id="main-content">
 
         <!-- Loading State -->
@@ -390,55 +464,112 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-text-main text-white pt-16 pb-8">
-        <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12">
-            <div class="grid md:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <a href="index.html" class="flex items-center gap-2 mb-6">
-                        <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto brightness-200">
-                        <span class="font-heading text-lg font-semibold text-white">Womencypedia</span>
-                    </a>
-                    <p class="text-gray-400 text-sm leading-relaxed">The world's first interpretive encyclopedia of
-                        women, restoring stories history overlooked.</p>
+        <!-- Footer -->
+    <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
+        <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                        <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
+                            <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
+                            <span
+                                class="font-heading text-xl font-semibold text-primary hidden sm:block">Womencypedia</span>
+                        </a>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">The world's first interpretive encyclopedia of
+                        women.</p>
+                    <div class="flex gap-4">
+                        <a href="https://www.facebook.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="https://x.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Explore -->
                 <div>
-                    <h4 class="font-serif text-lg font-bold text-white mb-4">Explore</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.explore">Explore</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="browse.html">Browse</a>
+                        href="index.html" data-i18n="footer.home">Home</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="featured.html">Featured</a>
+                        href="browse.html" data-i18n="footer.browse">Browse</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="collections.html">Collections</a>
+                        href="featured.html" data-i18n="footer.featured">Featured</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="timelines.html">Timelines</a>
+                        href="collections.html" data-i18n="footer.collections">Collections</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="timelines.html" data-i18n="footer.timelines">Timelines</a>
                 </div>
+
+                <!-- Learn -->
                 <div>
-                    <h4 class="font-serif text-lg font-bold text-white mb-4">Participate</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.learn">Learn</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html">Nominate</a>
+                        href="education.html" data-i18n="footer.education">Education</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html">Share Story</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html"
-                        data-i18n="donate">Donate</a>
+                        href="enterprises.html" data-i18n="footer.enterprises">Enterprises</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="research.html" data-i18n="footer.research">Research</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="publications.html" data-i18n="footer.publications">Publications</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="resources.html" data-i18n="footer.resources">Resources</a>
                 </div>
+
+                <!-- Participate -->
                 <div>
-                    <h4 class="font-serif text-lg font-bold text-white mb-4">About</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.participate">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="about.html">About Us</a>
+                        href="nominate.html" data-i18n="nominateWoman">Nominate a Woman</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="methodology.html">Methodology</a>
+                        href="share-story.html" data-i18n="shareYourStory">Share Your Story</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="editorial-standards.html">Editorial Standards</a>
+                        href="contributor-guidelines.html" data-i18n="footer.contributorGuidelines">Contributor Guidelines</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" 
+                        href="donate.html" data-i18n="donate">Donate</a>
+                </div>
+
+                <!-- About -->
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.about">About</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contact.html">Contact</a>
+                        href="about.html" data-i18n="footer.aboutUs">About Us</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="contributors.html" data-i18n="footer.contributors">Contributors</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="methodology.html" data-i18n="footer.methodology">Methodology</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="editorial-standards.html" data-i18n="footer.editorialStandards">Editorial Standards</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
+                        href="contact.html" data-i18n="footer.contact">Contact</a>
                 </div>
             </div>
+
+            <!-- Quick Links Row -->
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="text-center">
                     <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                            href="privacy-policy.html" class="text-gray-400 hover:text-white"><span
-                                data-i18n="privacyPolicy">Privacy Policy</span></a> | <a href="terms-of-use.html"
-                            class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a>
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"
+                            data-i18n="privacyPolicy">Privacy Policy</a> | <a href="terms-of-use.html"
+                            class="text-gray-400 hover:text-white" data-i18n="termsOfUse">Terms of Use</a>
                     </p>
                 </div>
             </div>
@@ -446,7 +577,8 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/env.js"></script><script src="js/config.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/auth.js"></script>
@@ -454,229 +586,12 @@
     <script src="js/navigation.js"></script>
 
     <!-- Module Loader -->
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const params = new URLSearchParams(window.location.search);
-            const slug = params.get('slug');
-
-            if (!slug) {
-                showError();
-                return;
-            }
-
-            try {
-                const module = await StrapiAPI.educationModules.getBySlug(slug);
-
-                if (!module) {
-                    showError();
-                    return;
-                }
-
-                renderModule(module);
-                await loadModuleNavigation(module);
-            } catch (error) {
-                console.error('Failed to load education module:', error);
-                showError();
-            }
-        });
-
-        function renderModule(module) {
-            // Update page title
-            document.title = `${module.title} — Womencypedia Education`;
-
-            // Update meta description
-            const metaDesc = document.querySelector('meta[name="description"]');
-            if (metaDesc && module.description) {
-                metaDesc.setAttribute('content', module.description);
-            }
-
-            // Hero
-            document.getElementById('module-badge').textContent = `MODULE ${module.order || ''}`;
-            document.getElementById('module-title').textContent = module.title;
-            document.getElementById('module-description').textContent = module.description || '';
-
-            // Cover image
-            if (module.coverImage?.url) {
-                const heroImg = document.getElementById('module-hero-image');
-                heroImg.style.backgroundImage = `url(${StrapiAPI.getMediaUrl(module.coverImage.url)})`;
-                heroImg.style.opacity = '0.3';
-            }
-
-            // Meta info
-            const metaEl = document.getElementById('module-meta');
-            const lessons = module.lessons || [];
-            metaEl.innerHTML = `
-                <span class="flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[18px]">auto_stories</span>
-                    ${lessons.length} Lesson${lessons.length !== 1 ? 's' : ''}
-                </span>
-                <span class="flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
-                    Certificate
-                </span>
-            `;
-
-            // Level badge
-            if (module.level) {
-                document.getElementById('module-level').textContent = module.level.toUpperCase();
-            }
-
-            // Body content
-            const bodyEl = document.getElementById('module-body');
-            if (module.content) {
-                bodyEl.innerHTML = module.content;
-            }
-
-            // Lessons
-            if (lessons.length > 0) {
-                document.getElementById('lessons-section').classList.remove('hidden');
-                const lessonsList = document.getElementById('lessons-list');
-                const lessonNav = document.getElementById('lesson-nav');
-
-                lessonsList.innerHTML = lessons.map((lesson, i) => `
-                    <div id="lesson-${i + 1}" class="bg-white rounded-xl border border-border-light overflow-hidden">
-                        <button onclick="toggleUnit(this)" class="w-full flex items-center justify-between p-6 text-left hover:bg-lavender-soft/10 transition-colors">
-                            <div class="flex items-center gap-4">
-                                <span class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold flex-shrink-0">${i + 1}</span>
-                                <div>
-                                    <h3 class="font-serif text-lg font-bold text-text-main" data-i18n="education_module.lessontitleLessonI1">${lesson.title || `Lesson ${i + 1}`}</h3>
-                                    ${lesson.duration ? `<p class="text-sm text-text-secondary mt-1">${lesson.duration}</p>` : ''}
-                                </div>
-                            </div>
-                            <span class="material-symbols-outlined text-text-secondary">expand_more</span>
-                        </button>
-                        <div class="hidden px-6 pb-6 pt-0">
-                            <div class="pl-14 prose prose-sm max-w-none text-text-secondary">
-                                ${lesson.content || lesson.description || '<p>Lesson content loading from CMS...</p>'}
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-
-                // Lesson nav sidebar
-                lessonNav.innerHTML = lessons.map((lesson, i) => `
-                    <a href="#lesson-${i + 1}"
-                        class="flex items-center gap-3 p-3 rounded-lg hover:bg-primary/5 transition-colors">
-                        <span class="size-8 rounded-full ${i === 0 ? 'bg-primary/10 text-primary' : 'bg-border-light text-text-secondary'} flex items-center justify-center text-sm font-bold">${i + 1}</span>
-                        <span class="text-sm ${i === 0 ? 'text-text-main' : 'text-text-secondary'}">${lesson.title || `Lesson ${i + 1}`}</span>
-                    </a>
-                `).join('');
-            }
-
-            // Quiz
-            const quiz = module.quiz;
-            if (quiz && Array.isArray(quiz) && quiz.length > 0) {
-                document.getElementById('quiz-section').classList.remove('hidden');
-                const quizContainer = document.getElementById('quiz-container');
-
-                quizContainer.innerHTML = quiz.map((q, i) => `
-                    <div class="bg-white rounded-xl border border-border-light p-6">
-                        <h4 class="font-serif text-lg font-bold text-text-main mb-4">${i + 1}. ${q.question}</h4>
-                        <div class="space-y-3">
-                            ${(q.options || []).map((opt, j) => `
-                                <label class="flex items-center gap-3 p-3 rounded-lg border border-border-light hover:border-primary/30 cursor-pointer transition-colors">
-                                    <input type="radio" name="quiz-${i}" value="${j}" class="accent-primary">
-                                    <span class="text-sm text-text-main">${opt}</span>
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            // Related biographies
-            const related = module.relatedBiographies;
-            if (related && Array.isArray(related) && related.length > 0) {
-                document.getElementById('related-section').classList.remove('hidden');
-                const relatedContainer = document.getElementById('related-biographies');
-
-                relatedContainer.innerHTML = related.map(bio => {
-                    const attrs = bio.attributes || bio;
-                    const imgUrl = attrs.image?.url ? StrapiAPI.getMediaUrl(attrs.image.url) : null;
-                    return `
-                        <a href="biography.html?slug=${attrs.slug || bio.id}" class="group bg-white rounded-xl border border-border-light overflow-hidden hover:shadow-lg transition-shadow">
-                            <div class="h-40 overflow-hidden bg-primary/5">
-                                ${imgUrl ? `<img src="${imgUrl}" alt="${attrs.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` :
-                            `<div class="w-full h-full flex items-center justify-center"><span class="material-symbols-outlined text-4xl text-primary/20">person</span></div>`}
-                            </div>
-                            <div class="p-4">
-                                <h4 class="font-serif font-bold text-text-main group-hover:text-primary transition-colors">${attrs.name || 'Unknown'}</h4>
-                                <p class="text-sm text-text-secondary mt-1">${attrs.region || ''} ${attrs.era ? '• ' + attrs.era : ''}</p>
-                            </div>
-                        </a>
-                    `;
-                }).join('');
-            }
-
-            // Show content, hide loading
-            document.getElementById('module-loading').classList.add('hidden');
-            document.getElementById('module-content').classList.remove('hidden');
-        }
-
-        async function loadModuleNavigation(currentModule) {
-            try {
-                const allModules = await StrapiAPI.educationModules.getAll({
-                    sort: 'order',
-                    sortOrder: 'asc',
-                    pageSize: 50
-                });
-
-                if (allModules.entries && allModules.entries.length > 1) {
-                    const currentIndex = allModules.entries.findIndex(m =>
-                        m.slug === currentModule.slug || m.id === currentModule.id
-                    );
-
-                    const navSection = document.getElementById('module-navigation');
-                    navSection.classList.remove('hidden');
-
-                    if (currentIndex > 0) {
-                        const prev = allModules.entries[currentIndex - 1];
-                        const prevLink = document.getElementById('prev-module');
-                        prevLink.href = `education-module.html?slug=${prev.slug}`;
-                        prevLink.querySelector('span:last-child').textContent = prev.title;
-                        prevLink.classList.remove('hidden');
-                        prevLink.classList.add('flex');
-                    }
-
-                    if (currentIndex < allModules.entries.length - 1) {
-                        const next = allModules.entries[currentIndex + 1];
-                        const nextLink = document.getElementById('next-module');
-                        nextLink.href = `education-module.html?slug=${next.slug}`;
-                        nextLink.querySelector('span:first-child').textContent = next.title;
-                        nextLink.classList.remove('hidden');
-                        nextLink.classList.add('flex');
-                    }
-                }
-            } catch (error) {
-                console.warn('Could not load module navigation:', error);
-            }
-        }
-
-        function showError() {
-            document.getElementById('module-loading').classList.add('hidden');
-            document.getElementById('module-error').classList.remove('hidden');
-        }
-
-        function toggleUnit(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('.material-symbols-outlined:last-child');
-
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.textContent = 'expand_less';
-            } else {
-                content.classList.add('hidden');
-                icon.textContent = 'expand_more';
-            }
-        }
-    </script>
+    <script src="js/education-module-inline-1.js"></script>
 
     <script src="js/inline-common.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>
-
-
-

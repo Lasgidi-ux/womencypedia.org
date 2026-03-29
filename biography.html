@@ -2,7 +2,7 @@
 <html class="light" lang="en">
 
 <head>
-    <meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -52,7 +52,8 @@
 </head>
 
 <body class="bg-background-cream text-text-main antialiased font-display selection:bg-primary/30 min-h-screen">
-    <!-- Skip Link -->
+
+                        <!-- Skip Link -->
     <a href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[200] focus:bg-accent-teal focus:text-white focus:px-4 focus:py-2">
         Skip to main content
@@ -65,7 +66,7 @@
                 <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                 <input type="search" placeholder="Search women, cultures, eras…"
                     class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2"
-                    data-i18n-placeholder="search" />
+                    data-i18n-placeholder="search.placeholder">
             </div>
             <button onclick="toggleSearch()"
                 class="size-12 flex items-center justify-center bg-white border border-border-light rounded-lg">
@@ -85,7 +86,7 @@
         <!-- Explore -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="biography.explore">
+                data-i18n="browse.explore">
                 Explore</h3>
             <a href="index.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Home</a>
@@ -102,7 +103,7 @@
         <!-- Learn -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="biography.learn">
+                data-i18n="browse.learn">
                 Learn</h3>
             <a href="education.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Education</a>
@@ -119,13 +120,14 @@
         <!-- Participate -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="biography.participate">
+                data-i18n="browse.participate">
                 Participate</h3>
             <a href="nominate.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Nominate
                 a Woman</a>
             <a href="share-story.html"
-                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Share
+                class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary"
+                data-i18n="shareYourStory">Share
                 Your Story</a>
             <a href="contributor-guidelines.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">Contributor
@@ -137,7 +139,7 @@
         <!-- About -->
         <div class="px-6 pb-4">
             <h3 class="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 pb-2 border-b border-border-light"
-                data-i18n="biography.about">
+                data-i18n="browse.about">
                 About</h3>
             <a href="about.html"
                 class="block py-3 text-base font-medium text-text-main border-b border-border-light/50 hover:text-primary">About
@@ -161,11 +163,10 @@
     </nav>
 
     <!-- Header -->
-
-    <!-- Header -->
-    <header class="w-full border-b border-divider bg-background-cream sticky top-0 z-50">
+    <header id="navbar" class="transition-transform duration-300 w-full border-b border-divider bg-background-cream sticky top-0 z-50">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
             <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Left Section: Logo + Desktop Nav -->
                 <div class="flex items-center gap-8 lg:gap-12">
                     <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity">
                         <img src="images/womencypedia-logo.png" alt="Womencypedia" class="h-8 w-auto">
@@ -186,9 +187,9 @@
                                 <div
                                     class="bg-white  border border-border-light rounded-xl shadow-xl py-2 min-w-[180px]">
                                     <a href="index.html"
-                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Home</a>
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Home</a>
                                     <a href="browse.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Browse</a>
+                                        class="block px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/10 transition-colors">Browse</a>
                                     <a href="featured.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Featured</a>
                                     <a href="collections.html"
@@ -241,7 +242,8 @@
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Nominate
                                         a Woman</a>
                                     <a href="share-story.html"
-                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Share
+                                        class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
+                                        data-i18n="shareYourStory">Share
                                         Your Story</a>
                                     <a href="contributor-guidelines.html"
                                         class="block px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors">Contributor
@@ -282,14 +284,22 @@
                         </div>
                     </nav>
                 </div>
+
+                <!-- Right Section: Actions -->
                 <div class="flex items-center gap-3 lg:gap-6">
                     <div
                         class="hidden md:flex items-center bg-white/50 border border-divider/30 rounded-full px-4 h-10 w-64 focus-within:border-accent-teal focus-within:ring-1 focus-within:ring-accent-teal transition-all">
                         <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
                         <input
                             class="bg-transparent border-none focus:ring-0 text-sm w-full text-text-main placeholder-text-main/50 ml-2"
-                            placeholder="Search the archive..." type="search" />
+                            placeholder="Search the archive..." type="search"
+                            data-i18n-placeholder="search" />
                     </div>
+                    <button onclick="toggleSearch()"
+                        class="md:hidden size-11 flex items-center justify-center rounded-lg hover:bg-accent-teal/10 transition-colors"
+                        aria-label="Open search">
+                        <span class="material-symbols-outlined text-accent-teal">search</span>
+                    </button>
                     <div class="hidden sm:flex items-center gap-4">
                         <div id="language-switcher"></div>
                         <a class="text-sm font-bold text-text-main hover:text-primary uppercase tracking-wide"
@@ -300,13 +310,10 @@
                             Sign In
                         </button>
                         <div data-auth="signout" class="hidden flex items-center gap-3">
-                            <a href="profile.html"
-                                class="flex items-center gap-2 text-sm text-text-secondary hover:text-primary">
-                                <span class="material-symbols-outlined text-[18px]">account_circle</span>
-                                <span data-auth="user-info"></span>
-                            </a>
+                            <span data-auth="user-info" class="text-sm text-text-secondary"></span>
                             <button
-                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity">
+                                class="flex items-center justify-center h-10 px-6 rounded-full bg-text-main text-background-cream text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                                data-i18n="signOut">
                                 Sign Out
                             </button>
                         </div>
@@ -1042,6 +1049,7 @@
     </main>
 
     <!-- Footer -->
+        <!-- Footer -->
     <footer class="bg-text-main text-white py-12 lg:py-16 border-t-4 border-primary">
         <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
@@ -1057,19 +1065,22 @@
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">The world's first interpretive encyclopedia of
                         women.</p>
                     <div class="flex gap-4">
-                        <a href="https://www.facebook.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.facebook.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                             </svg>
                         </a>
-                        <a href="https://x.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+                        <a href="https://x.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                             </svg>
                         </a>
-                        <a href="https://www.instagram.com/womencypedia" class="text-gray-400 hover:text-primary" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/womencypedia" class="text-gray-400 hover:text-primary"
+                            aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
@@ -1080,81 +1091,77 @@
 
                 <!-- Explore -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Explore</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.explore">Explore</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="index.html">Home</a>
+                        href="index.html" data-i18n="footer.home">Home</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="browse.html">Browse</a>
+                        href="browse.html" data-i18n="footer.browse">Browse</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="featured.html">Featured</a>
+                        href="featured.html" data-i18n="footer.featured">Featured</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="collections.html">Collections</a>
+                        href="collections.html" data-i18n="footer.collections">Collections</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="timelines.html">Timelines</a>
+                        href="timelines.html" data-i18n="footer.timelines">Timelines</a>
                 </div>
 
                 <!-- Learn -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Learn</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.learn">Learn</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="education.html">Education</a>
+                        href="education.html" data-i18n="footer.education">Education</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="enterprises.html">Enterprises</a>
+                        href="enterprises.html" data-i18n="footer.enterprises">Enterprises</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="research.html">Research</a>
+                        href="research.html" data-i18n="footer.research">Research</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="publications.html">Publications</a>
+                        href="publications.html" data-i18n="footer.publications">Publications</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="resources.html">Resources</a>
+                        href="resources.html" data-i18n="footer.resources">Resources</a>
                 </div>
 
                 <!-- Participate -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">Participate</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.participate">Participate</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="nominate.html"><span data-i18n="nominateWoman">Nominate a Woman</span></a>
+                        href="nominate.html" data-i18n="nominateWoman">Nominate a Woman</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="share-story.html"><span data-i18n="shareYourStory">Share Your Story</span></a>
+                        href="share-story.html" data-i18n="shareYourStory">Share Your Story</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributor-guidelines.html">Contributor Guidelines</a>
-                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" href="donate.html"
-                        data-i18n="donate">Donate</a>
+                        href="contributor-guidelines.html" data-i18n="footer.contributorGuidelines">Contributor Guidelines</a>
+                    <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors" 
+                        href="donate.html" data-i18n="donate">Donate</a>
                 </div>
 
                 <!-- About -->
                 <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary">About</h4>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-primary" data-i18n="browse.about">About</h4>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="about.html">About Us</a>
+                        href="about.html" data-i18n="footer.aboutUs">About Us</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contributors.html">Contributors</a>
+                        href="contributors.html" data-i18n="footer.contributors">Contributors</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="methodology.html">Methodology</a>
+                        href="methodology.html" data-i18n="footer.methodology">Methodology</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="editorial-standards.html">Editorial Standards</a>
+                        href="editorial-standards.html" data-i18n="footer.editorialStandards">Editorial Standards</a>
                     <a class="block text-gray-400 hover:text-white text-sm py-1.5 transition-colors"
-                        href="contact.html">Contact</a>
+                        href="contact.html" data-i18n="footer.contact">Contact</a>
                 </div>
             </div>
 
             <!-- Quick Links Row -->
             <div class="border-t border-gray-800 pt-8 mt-8">
-                <a href="profile.html" class="text-gray-400 hover:text-white text-sm transition-colors">My
-                    Profile</a>
-                <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors"
-                    data-auth="admin-only">Admin</a>
-                <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Biography</a>
+                <div class="text-center">
+                    <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
+                            href="privacy-policy.html" class="text-gray-400 hover:text-white"
+                            data-i18n="privacyPolicy">Privacy Policy</a> | <a href="terms-of-use.html"
+                            class="text-gray-400 hover:text-white" data-i18n="termsOfUse">Terms of Use</a>
+                    </p>
+                </div>
             </div>
-            <div class="text-center">
-                <p class="text-xs text-gray-500">© 2026 Womencypedia Foundation. All rights reserved. | <a
-                        href="privacy-policy.html" class="text-gray-400 hover:text-white"><span
-                            data-i18n="privacyPolicy">Privacy Policy</span></a> | <a href="terms-of-use.html"
-                        class="text-gray-400 hover:text-white"><span data-i18n="termsOfUse">Terms of Use</span></a></p>
-            </div>
-        </div>
         </div>
     </footer>
-    <script src="js/env.js"></script><script src="js/config.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/strapi-api.js"></script>
     <script src="js/api.js"></script>
@@ -1162,367 +1169,7 @@
     <script src="js/auth.js"></script>
 
     <script src="js/navigation.js"></script>
-    <script>
-        // Current biography data
-        let currentBio = null;
-        let useStrapiAPI = true;
-
-        // Show loading skeleton
-        function showLoadingSkeleton() {
-            const main = document.querySelector('main');
-            if (!main) return;
-
-            main.innerHTML = `
-                <div class="animate-pulse">
-                    <!-- Header skeleton -->
-                    <div class="bg-white border-b border-border-light">
-                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                            <div class="flex flex-col lg:flex-row gap-8">
-                                <div class="w-full lg:w-1/3">
-                                    <div class="aspect-[3/4] rounded-2xl bg-lavender-soft"></div>
-                                </div>
-                                <div class="w-full lg:w-2/3">
-                                    <div class="h-4 w-32 bg-lavender-soft rounded mb-4"></div>
-                                    <div class="h-12 w-96 bg-lavender-soft rounded mb-4"></div>
-                                    <div class="h-6 w-64 bg-lavender-soft rounded mb-8"></div>
-                                    <div class="h-4 w-full bg-lavender-soft rounded mb-2"></div>
-                                    <div class="h-4 w-full bg-lavender-soft rounded mb-2"></div>
-                                    <div class="h-4 w-3/4 bg-lavender-soft rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Content skeleton -->
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <div class="lg:col-span-2">
-                                <div class="h-8 w-48 bg-lavender-soft rounded mb-6"></div>
-                                <div class="space-y-3">
-                                    <div class="h-4 w-full bg-lavender-soft rounded"></div>
-                                    <div class="h-4 w-full bg-lavender-soft rounded"></div>
-                                    <div class="h-4 w-full bg-lavender-soft rounded"></div>
-                                    <div class="h-4 w-3/4 bg-lavender-soft rounded"></div>
-                                </div>
-                            </div>
-                            <div class="lg:col-span-1">
-                                <div class="h-64 bg-lavender-soft rounded"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Show error/not found state
-        function showNotFound() {
-            const main = document.querySelector('main');
-            if (!main) {
-                window.location.href = 'browse.html';
-                return;
-            }
-            main.innerHTML = `
-                <div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-                    <div class="size-20 rounded-full bg-lavender-soft/50 flex items-center justify-center mb-6">
-                        <span class="material-symbols-outlined text-text-secondary/50 text-4xl">person_off</span>
-                    </div>
-                    <h1 class="font-serif text-2xl font-bold text-text-main mb-4" data-i18n="biography.biographyNotFound">Biography Not Found</h1>
-                    <p class="text-text-secondary mb-8">The biography you're looking for doesn't exist or has been removed.</p>
-                    <a href="browse.html" class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors">
-                        Browse All Entries
-                    </a>
-                </div>
-            `;
-        }
-
-        // Show API error state
-        function showError(message) {
-            const main = document.querySelector('main');
-            if (!main) {
-                window.location.href = 'browse.html';
-                return;
-            }
-            main.innerHTML = `
-                <div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-                    <div class="size-20 rounded-full bg-red-100 flex items-center justify-center mb-6">
-                        <span class="material-symbols-outlined text-red-500 text-4xl">error</span>
-                    </div>
-                    <h1 class="font-serif text-2xl font-bold text-text-main mb-4" data-i18n="biography.unableToLoadBiography">Unable to Load Biography</h1>
-                    <p class="text-text-secondary mb-2">${message || 'There was a problem loading this biography.'}</p>
-                    <p class="text-text-secondary mb-8">Please try again later.</p>
-                    <div class="flex gap-4">
-                        <button onclick="window.location.reload()" class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors">
-                            Try Again
-                        </button>
-                        <a href="browse.html" class="px-6 py-3 bg-accent-teal text-white font-bold rounded-lg hover:bg-accent-teal/90 transition-colors">
-                            Browse All Entries
-                        </a>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Load biography based on URL slug parameter
-        document.addEventListener('DOMContentLoaded', async function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const slug = urlParams.get('slug');
-
-            if (!slug) {
-                // No slug provided - redirect to browse page
-                window.location.href = 'browse.html';
-                return;
-            }
-
-            showLoadingSkeleton();
-            await loadBiography(slug);
-
-            // Check if admin and show edit button
-            setupAdminFeatures();
-        });
-
-        async function loadBiography(slug) {
-            try {
-                // Try Strapi API first
-                if (useStrapiAPI && typeof StrapiAPI !== 'undefined') {
-                    currentBio = await StrapiAPI.biographies.get(slug);
-                }
-
-                // If not found via Strapi, try legacy API using request method
-                if (!currentBio && typeof API !== 'undefined') {
-                    try {
-                        const response = await API.request(`/api/biographies?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`, { method: 'GET' });
-                        if (response && response.entries && response.entries.length > 0) {
-                            currentBio = response.entries[0];
-                        }
-                    } catch (apiError) {
-                        console.warn('Legacy API not available:', apiError.message);
-                    }
-                }
-            } catch (error) {
-                console.warn('API not available, using static data:', error.message);
-                useStrapiAPI = false;
-
-                // Fallback to static data
-                currentBio = typeof biographies !== 'undefined'
-                    ? biographies.find(b => b.slug === slug || b.name.toLowerCase().replace(/\s+/g, '-') === slug)
-                    : null;
-            }
-
-            if (!currentBio) {
-                console.error('Biography not found for slug:', slug);
-                showNotFound();
-                return;
-            }
-
-            // Update page title and meta
-            document.title = `${currentBio.name} — Womencypedia`;
-            const metaDesc = document.querySelector('meta[name="description"]');
-            if (metaDesc) {
-                metaDesc.content = `Read the complete biography of ${currentBio.name}. ${currentBio.introduction || ''}`;
-            }
-
-            // Update canonical URL
-            const canonical = document.querySelector('link[rel="canonical"]');
-            if (canonical) {
-                canonical.href = `https://womencypedia.org/biography.html?slug=${slug}`;
-            }
-
-            // Update OG URL
-            const ogUrl = document.querySelector('meta[property="og:url"]');
-            if (ogUrl) {
-                ogUrl.content = `https://womencypedia.org/biography.html?slug=${slug}`;
-            }
-
-            // Update page content
-            updateBiographyHeader(currentBio);
-            updateBiographyContent(currentBio);
-            updateBiographySidebar(currentBio);
-        }
-
-        function updateBiographyHeader(bio) {
-            // Update tags
-            const tagsContainer = document.querySelector('.flex.flex-wrap.gap-2.mb-4');
-            if (tagsContainer) {
-                tagsContainer.innerHTML = `
-                    <span class="px-3 py-1 bg-accent-gold/20 text-accent-gold text-xs font-bold uppercase tracking-wider rounded-full">${bio.era || ''}</span>
-                    <span class="px-3 py-1 bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider rounded-full">${bio.region || ''}</span>
-                    <span class="px-3 py-1 bg-accent-teal/20 text-accent-teal text-xs font-bold uppercase tracking-wider rounded-full">${bio.category || ''}</span>
-                `;
-            }
-
-            // Update name
-            const nameElement = document.querySelector('h1.font-serif');
-            if (nameElement) {
-                nameElement.textContent = bio.name;
-            }
-
-            // Update subtitle
-            const subtitleElement = document.querySelector('p.text-xl.text-text-secondary.italic');
-            if (subtitleElement) {
-                subtitleElement.textContent = bio.category || bio.domain || '';
-            }
-
-            // Update image
-            const imageElement = document.querySelector('#bio-image, img[alt*="Portrait"]');
-            if (imageElement && bio.image) {
-                const imageUrl = bio.image.url || bio.image;
-                imageElement.src = imageUrl;
-                imageElement.alt = `Portrait of ${bio.name}`;
-            }
-        }
-
-        function updateBiographyContent(bio) {
-            const article = document.querySelector('article.prose');
-            if (!article) return;
-
-            // Update summary/introduction
-            const summaryDiv = article.querySelector('.bg-lavender-soft\\/50');
-            if (summaryDiv) {
-                summaryDiv.innerHTML = `
-                    <p class="text-lg leading-relaxed m-0">
-                        <strong class="text-text-main">${bio.name}</strong> ${bio.introduction || ''}
-                    </p>
-                `;
-            }
-
-            // Update Early Life section
-            const earlyLifeHeader = article.querySelector('h2#early-life');
-            if (earlyLifeHeader && bio.earlyLife) {
-                let earlyLifeContent = earlyLifeHeader.nextElementSibling;
-                while (earlyLifeContent && earlyLifeContent.tagName !== 'H2') {
-                    const next = earlyLifeContent.nextElementSibling;
-                    if (earlyLifeContent.tagName !== 'H2') {
-                        earlyLifeContent.remove();
-                    }
-                    earlyLifeContent = next;
-                }
-                // Insert new content
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = bio.earlyLife;
-                earlyLifeHeader.parentNode.insertBefore(tempDiv, earlyLifeHeader.nextSibling);
-            }
-
-            // Update Path to Influence section
-            const pathHeader = article.querySelector('h2#symbolic-power');
-            if (pathHeader && bio.pathToInfluence) {
-                let pathContent = pathHeader.nextElementSibling;
-                while (pathContent && pathContent.tagName !== 'H2') {
-                    const next = pathContent.nextElementSibling;
-                    if (pathContent.tagName !== 'H2') {
-                        pathContent.remove();
-                    }
-                    pathContent = next;
-                }
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = bio.pathToInfluence;
-                pathHeader.parentNode.insertBefore(tempDiv, pathHeader.nextSibling);
-            }
-
-            // Update Legacy section
-            const legacyHeader = article.querySelector('h2#legacy-memory');
-            if (legacyHeader && bio.legacy) {
-                let legacyContent = legacyHeader.nextElementSibling;
-                while (legacyContent && legacyContent.tagName !== 'H2' && legacyContent.tagName !== 'FOOTER') {
-                    const next = legacyContent.nextElementSibling;
-                    if (legacyContent.tagName !== 'H2' && legacyContent.tagName !== 'FOOTER') {
-                        legacyContent.remove();
-                    }
-                    legacyContent = next;
-                }
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = bio.legacy;
-                legacyHeader.parentNode.insertBefore(tempDiv, legacyHeader.nextSibling);
-            }
-
-            // For dynamic content loading when API provides full content
-            if (bio.fullContent) {
-                article.innerHTML = bio.fullContent;
-            }
-        }
-
-        function updateBiographySidebar(bio) {
-            // Update related entries
-            const relatedContainer = document.querySelector('.space-y-3');
-            if (relatedContainer && bio.relatedWomen && bio.relatedWomen.length > 0) {
-                const relatedPromises = bio.relatedWomen.map(async id => {
-                    let relatedBio;
-                    try {
-                        if (useStrapiAPI && typeof StrapiAPI !== 'undefined') {
-                            relatedBio = await StrapiAPI.biographies.get(id);
-                        } else if (typeof API !== 'undefined') {
-                            try {
-                                const response = await API.request(`/api/biographies?filters[slug][$eq]=${encodeURIComponent(id)}&populate=*`, { method: 'GET' });
-                                if (response && response.entries && response.entries.length > 0) {
-                                    relatedBio = response.entries[0];
-                                }
-                            } catch (e) {
-                                // Ignore and use static fallback
-                            }
-                        }
-                    } catch {
-                        relatedBio = typeof biographies !== 'undefined'
-                            ? biographies.find(b => b.id === id || b.slug === id)
-                            : null;
-                    }
-                    return relatedBio;
-                });
-
-                Promise.all(relatedPromises).then(relatedBios => {
-                    relatedContainer.innerHTML = relatedBios.filter(b => b).map(relatedBio => `
-                        <a href="biography.html?slug=${relatedBio.slug}" class="flex items-center gap-3 group">
-                            <div class="size-12 rounded-lg bg-white flex items-center justify-center">
-                                ${relatedBio.image
-                            ? `<img src="${relatedBio.image.url || relatedBio.image}" alt="" class="size-12 rounded-lg object-cover">`
-                            : '<span class="material-symbols-outlined text-primary/50">person</span>'}
-                            </div>
-                            <div>
-                                <p class="font-bold text-sm text-text-main group-hover:text-primary">${relatedBio.name}</p>
-                                <p class="text-xs text-text-secondary">Related biography</p>
-                            </div>
-                        </a>
-                    `).join('');
-                });
-            }
-
-            // Update keywords
-            const keywordsContainer = document.querySelector('.flex.flex-wrap.gap-2');
-            if (keywordsContainer && bio.tags && bio.tags.length > 0) {
-                keywordsContainer.innerHTML = bio.tags.map(tag => `
-                    <span class="px-3 py-1 bg-background-cream text-text-secondary text-xs rounded-full border border-border-light">${tag}</span>
-                `).join('');
-            }
-
-            // Update references
-            const referencesList = document.querySelector('ol.space-y-4');
-            if (referencesList && bio.sources && bio.sources.length > 0) {
-                referencesList.innerHTML = bio.sources.map((source, index) => `
-                    <li class="flex gap-3">
-                        <span class="text-accent-teal font-bold">[${index + 1}]</span>
-                        <span>${source.title} ${source.author ? `by ${source.author}` : ''} ${source.year ? `(${source.year})` : ''}. ${source.citation || ''}</span>
-                    </li>
-                `).join('');
-            }
-        }
-
-        function setupAdminFeatures() {
-            // Check if user is admin
-            const isAdmin = typeof Auth !== 'undefined' && Auth.isAdmin();
-
-            if (isAdmin && currentBio) {
-                // Add edit button to header actions
-                const actionsContainer = document.querySelector('.flex.flex-wrap.gap-3');
-                if (actionsContainer) {
-                    const editButton = document.createElement('a');
-                    editButton.href = `#edit-${currentBio.id || currentBio.documentId}`;
-                    editButton.className = 'admin-edit-btn flex items-center gap-2 px-5 py-2.5 bg-accent-teal text-white rounded-lg font-bold text-sm hover:bg-accent-teal/90';
-                    editButton.innerHTML = `
-                        <span class="material-symbols-outlined text-[18px]">edit</span>
-                        Edit Entry
-                    `;
-                    actionsContainer.insertBefore(editButton, actionsContainer.firstChild);
-                }
-            }
-        }
-    </script>
+    <script src="js/biography-inline-1.js"></script>
 
     <!-- Login Modal -->
     <div id="login-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
@@ -1589,169 +1236,11 @@
     <script src="js/inline-common.js"></script>
 
     <!-- Biography Data Fetching -->
-    <script>
-        (function () {
-            'use strict';
-
-            // Simple HTML escape function to prevent XSS
-            function escapeHtml(text) {
-                if (!text) return '';
-                var div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            }
-
-            // Get slug from URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const slug = urlParams.get('slug');
-
-            // Elements to update - use more generic selectors
-            const elements = {
-                title: document.querySelector('title'),
-                metaDesc: document.querySelector('meta[name="description"]'),
-                breadcrumbName: document.querySelector('#main-content nav span:last-child'),
-                heroImage: document.querySelector('.aspect-\\[3\\/4\\] img'),
-                name: document.querySelector('h1.font-serif'),
-                tags: document.querySelector('.flex.flex-wrap.gap-2'),
-                summary: document.querySelector('[class*="border-accent-gold"]'),
-                content: document.querySelector('article.prose')
-            };
-
-            // Loading state
-            const loadingHTML = '<div class="flex items-center justify-center py-12"><div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div></div>';
-            const errorHTML = '<div class="text-center py-12"><p class="text-text-secondary mb-4">Unable to load biography. Please ensure Strapi is configured correctly.</p><a href="https://womencypedia-cms.onrender.com/admin" target="_blank" class="text-primary hover:underline">Open Strapi Admin</a></div>';
-
-            async function loadBiography() {
-                if (!slug) {
-                    console.log('No slug provided, using default static content');
-                    return;
-                }
-
-                console.log('Loading biography:', slug);
-
-                try {
-                    // Show loading state
-                    if (elements.content) {
-                        elements.content.innerHTML = loadingHTML;
-                    }
-
-                    // Fetch biography from Strapi
-                    const data = await fetchStrapi(`/api/biographies?filters[slug][$eq]=${slug}&populate=*`);
-
-                    if (!data.data || data.data.length === 0) {
-                        console.log('Biography not found, using static content');
-                        return;
-                    }
-
-                    const bio = data.data[0];
-                    console.log('Biography loaded:', bio);
-
-                    // Debug: check what elements are found
-                    console.log('Elements found:', {
-                        title: !!elements.title,
-                        metaDesc: !!elements.metaDesc,
-                        breadcrumbName: !!elements.breadcrumbName,
-                        heroImage: !!elements.heroImage,
-                        name: !!elements.name,
-                        tags: !!elements.tags,
-                        summary: !!elements.summary,
-                        content: !!elements.content
-                    });
-
-                    // Update page title
-                    if (elements.title && bio.name) {
-                        document.title = `${bio.name} — Womencypedia`;
-                    }
-
-                    // Update meta description
-                    if (elements.metaDesc && bio.introduction) {
-                        document.querySelector('meta[name="description"]').setAttribute('content',
-                            bio.introduction.substring(0, 160));
-                    }
-
-                    // Update breadcrumb
-                    if (elements.breadcrumbName && bio.name) {
-                        elements.breadcrumbName.textContent = bio.name;
-                    }
-
-                    // Update hero image
-                    if (elements.heroImage && bio.image) {
-                        const imgUrl = getMediaUrl(bio.image.url);
-                        elements.heroImage.src = imgUrl || 'images/queen-amina.png';
-                        elements.heroImage.alt = bio.image.alternativeText || bio.name || 'Portrait';
-                    }
-
-                    // Update name
-                    if (elements.name && bio.name) {
-                        elements.name.textContent = bio.name;
-                    }
-
-                    // Update tags
-                    if (elements.tags && bio.tags) {
-                        const tagsHtml = bio.tags.map(tag =>
-                            `<span class="px-3 py-1 bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider rounded-full">${escapeHtml(tag.name)}</span>`
-                        ).join('');
-                        elements.tags.innerHTML = tagsHtml;
-                    }
-
-                    // Update summary
-                    if (elements.summary && bio.introduction) {
-                        elements.summary.innerHTML = '<strong class="text-text-main">' + escapeHtml(bio.name || 'This woman') + '</strong> ' + escapeHtml(bio.introduction);
-                    }
-
-                    // Build full content
-                    if (elements.content) {
-                        var contentHtml = '';
-
-                        if (bio.earlyLife) {
-                            contentHtml += '<h2 id="early-life">Early Life</h2><p>' + escapeHtml(bio.earlyLife) + '</p>';
-                        }
-
-                        if (bio.pathToInfluence) {
-                            contentHtml += '<h2 id="path-to-influence">Path to Influence</h2><p>' + escapeHtml(bio.pathToInfluence) + '</p>';
-                        }
-
-                        if (bio.contributions) {
-                            contentHtml += '<h2 id="contributions">Contributions</h2><p>' + escapeHtml(bio.contributions) + '</p>';
-                        }
-
-                        if (bio.culturalContext) {
-                            contentHtml += '<h2 id="cultural-context">Cultural Context</h2><p>' + escapeHtml(bio.culturalContext) + '</p>';
-                        }
-
-                        if (bio.symbolicPower) {
-                            contentHtml += '<h2 id="symbolic-power">Symbolic Power</h2><p>' + escapeHtml(bio.symbolicPower) + '</p>';
-                        }
-
-                        if (bio.legacy) {
-                            contentHtml += '<h2 id="legacy">Legacy</h2><p>' + escapeHtml(bio.legacy) + '</p>';
-                        }
-
-                        elements.content.innerHTML = contentHtml || '<p>Content coming soon...</p>';
-                    }
-
-                } catch (error) {
-                    console.error('Error loading biography:', error);
-                    if (elements.content) {
-                        elements.content.innerHTML = errorHTML;
-                    }
-                }
-            }
-
-            // Run on page load
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', loadBiography);
-            } else {
-                loadBiography();
-            }
-        })();
-    </script>
+    <script src="js/biography-inline-2.js"></script>
 
     <script src="js/darkmode.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/timeline.js" defer></script>
 </body>
 
 </html>
-
-
-
