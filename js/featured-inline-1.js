@@ -61,8 +61,9 @@ function renderFeaturedCard(bio) {
 
 // Initialize featured page
 async function initFeatured() {
-    // Find the grid container
-    const gridContainer = document.querySelector('.grid.sm\\:grid-cols-2.lg\\:grid-cols-4');
+    // Find the grid container - use id first, then fallback to class selector
+    const gridContainer = document.getElementById('featured-biographies-grid') ||
+        document.querySelector('.grid[class*="grid-cols-4"]');
     if (!gridContainer) return;
 
     // Show loading state

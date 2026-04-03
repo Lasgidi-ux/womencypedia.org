@@ -191,7 +191,6 @@ async function loadFeaturedModule() {
 
         if (loadFeaturedModule.retryCount < maxRetries && (error.name === 'NetworkError' || error.message.includes('fetch'))) {
             const delay = Math.pow(2, loadFeaturedModule.retryCount) * 1000;
-            `);
 
             loadFeaturedModule.retryCount++;
             setTimeout(() => {
@@ -250,7 +249,6 @@ async function loadEducationModules(retryCount = 0) {
         // Retry with exponential backoff for network errors
         if (retryCount < maxRetries && (error.name === 'NetworkError' || error.message.includes('fetch'))) {
             const delay = Math.pow(2, retryCount) * 1000; // Exponential backoff: 1s, 2s, 4s
-            `);
 
             setTimeout(() => {
                 loadEducationModules(retryCount + 1);
