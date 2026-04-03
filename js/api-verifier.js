@@ -3,6 +3,12 @@
  *
  * This script tests if Strapi API endpoints are accessible after enabling Public role permissions.
  * Run this in the browser console on any Womencypedia page to verify API connectivity.
+ *
+ * Usage:
+ * 1. Open any Womencypedia page in browser
+ * 2. Open browser console (F12)
+ * 3. Run: APIVerifier.runAllTests()
+ * 4. Check results - all should return 200 for dynamic content to work
  */
 
 const APIVerifier = {

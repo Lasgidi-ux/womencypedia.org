@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strapi API Test - Womencypedia</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .error { background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .pending { background-color: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .instructions { background: #f8f9fa; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Strapi API Connectivity Test</h1>
+
+    <div class="instructions">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Ensure Strapi Public role permissions are enabled in <a href="https://womencypedia-cms.onrender.com/admin" target="_blank">Strapi Admin</a></li>
+            <li>Click "Run API Tests" below</li>
+            <li>All tests should show SUCCESS (green) for dynamic content to work</li>
+            <li>If any show ERROR (red), check Strapi permissions</li>
+        </ol>
+    </div>
+
+    <button onclick="runTests()">Run API Tests</button>
+
+    <div id="results"></div>
+
+    <script>
+        const APIVerifier = {
+            baseURL: 'https://womencypedia-cms.onrender.com/api',
+
+            async testEndpoint(endpoint, description) {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'test-result pending';
+                resultDiv.textContent = `Testing ${description}...`;
+                document.getElementById('results').appendChild(resultDiv);
+
+                try {
+                    const response = await fetch(`${this.baseURL}${endpoint}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const count = data.data ? (Array.isArray(data.data) ? data.data.length : 1) : 0;
+                        resultDiv.className = 'test-result success';
+                        resultDiv.textContent = `✅ ${description}: SUCCESS (${response.status}) - ${count} items`;
+                        return true;
+                    } else {
+                        const errorData = await response.json().catch(() => ({}));
+                        resultDiv.className = 'test-result error';
+                        resultDiv.textContent = `❌ ${description}: FAILED (${response.status}) - ${errorData.error?.message || 'Unknown error'}`;
+                        return false;
+                    }
+                } catch (error) {
+                    resultDiv.className = 'test-result error';
+                    resultDiv.textContent = `❌ ${description}: ERROR - ${error.message}`;
+                    return false;
+                }
+            },
+
+            async runAllTests() {
+                document.getElementById('results').innerHTML = '<h3>Testing API Endpoints...</h3>';
+
+                const tests = [
+                    ['/biographies?pagination[pageSize]=1', 'Biographies endpoint'],
+                    ['/collections?pagination[pageSize]=1', 'Collections endpoint'],
+                    ['/homepage', 'Homepage single type'],
+                    ['/education-modules?pagination[pageSize]=1', 'Education modules'],
+                    ['/leaders?pagination[pageSize]=1', 'Leaders endpoint'],
+                    ['/tags?pagination[pageSize]=1', 'Tags endpoint']
+                ];
+
+                let passed = 0;
+                let total = tests.length;
+
+                for (const [endpoint, description] of tests) {
+                    if (await this.testEndpoint(endpoint, description)) {
+                        passed++;
+                    }
+                }
+
+                const summaryDiv = document.createElement('div');
+                summaryDiv.style.marginTop = '20px';
+                summaryDiv.style.padding = '15px';
+                summaryDiv.style.borderRadius = '4px';
+
+                if (passed === total) {
+                    summaryDiv.className = 'success';
+                    summaryDiv.innerHTML = `
+                        <h3>🎉 All API endpoints are working!</h3>
+                        <p>Dynamic content should now load properly on the Womencypedia website.</p>
+                        <p><strong>Next steps:</strong></p>
+                        <ul>
+                            <li>Test the homepage - should show real biographies and collections</li>
+                            <li>Test browse page filtering</li>
+                            <li>Verify no static loading skeletons remain</li>
+                        </ul>
+                    `;
+                } else {
+                    summaryDiv.className = 'error';
+                    summaryDiv.innerHTML = `
+                        <h3>🚫 API Issues Detected</h3>
+                        <p>${passed}/${total} endpoints accessible. Some permissions may not be enabled.</p>
+                        <p><strong>To fix:</strong></p>
+                        <ol>
+                            <li>Go to <a href="https://womencypedia-cms.onrender.com/admin" target="_blank">Strapi Admin</a></li>
+                            <li>Navigate to Settings → Users & Permissions Plugin → Roles → Public</li>
+                            <li>Enable <code>find</code> and <code>findOne</code> permissions for all content types</li>
+                            <li>Click Save and test again</li>
+                        </ol>
+                    `;
+                }
+
+                document.getElementById('results').appendChild(summaryDiv);
+            }
+        };
+
+        async function runTests() {
+            await APIVerifier.runAllTests();
+        }
+
+        // Auto-run on page load for convenience
+        window.addEventListener('DOMContentLoaded', () => {
+            // Comment out auto-run to prevent confusion
+            // runTests();
+        });
+    </script>
+</body>
+</html>
