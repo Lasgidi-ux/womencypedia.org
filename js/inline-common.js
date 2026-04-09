@@ -40,8 +40,9 @@
             ...options.headers
         };
 
-        // Add Authorization header if token exists
-        if (apiToken) {
+        // Add Authorization header if token exists, but skip for public GET endpoints
+        const isPublicGet = !options.method || options.method === 'GET' && (endpoint.startsWith('/api/biographies') || endpoint.startsWith('/api/collections'));
+        if (apiToken && !isPublicGet) {
             headers['Authorization'] = `Bearer ${apiToken}`;
         }
 

@@ -227,9 +227,16 @@
                     }
 
                 } catch (error) {
-                    
-                    if (elements.content) {
-                        elements.content.innerHTML = errorHTML;
+
+                    if (error.message.includes('API error: 403') || error.message.includes('API error: 500') || error.message.includes('Data not found')) {
+                        // Treat as not found
+                        if (elements.content) {
+                            elements.content.innerHTML = '<div class="text-center py-12"><p class="text-text-secondary mb-4">Biography not found for "' + escapeHtml(slug) + '".</p><a href="browse.html" class="text-primary hover:underline">Browse All Biographies</a></div>';
+                        }
+                    } else {
+                        if (elements.content) {
+                            elements.content.innerHTML = errorHTML;
+                        }
                     }
                 }
             }
