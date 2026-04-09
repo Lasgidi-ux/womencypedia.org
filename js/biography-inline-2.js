@@ -75,20 +75,16 @@
                         elements.content.innerHTML = loadingHTML;
                     }
 
-                    // Fetch biography from Strapi (backend handles populate safely)
-                    const data = await fetchStrapi('/api/biographies?filters[slug][$eq]=' + encodeURIComponent(slug));
+                    // Fetch biography from Strapi using safe API client
+                    const rawBio = await window.StrapiAPI.biographies.get(slug);
 
-                    if (!data.data || (Array.isArray(data.data) && data.data.length === 0)) {
-                        
+                    if (!rawBio) {
                         if (elements.content) {
                             elements.content.innerHTML = '<div class="text-center py-12"><p class="text-text-secondary mb-4">Biography not found for "' + escapeHtml(slug) + '".</p><a href="browse.html" class="text-primary hover:underline">Browse All Biographies</a></div>';
                         }
                         return;
                     }
-
-                    // Handle both array and single object responses
-                    const rawBio = Array.isArray(data.data) ? data.data[0] : data.data;
-                    const bio = unwrapAttributes(rawBio);
+                    const bio = rawBio;
                     
 
                     // Update page title
