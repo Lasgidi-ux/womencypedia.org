@@ -31,7 +31,9 @@
         const urlObj = new URL(endpoint, baseUrl);
         if (!endpoint.includes('populate=')) {
             // Populate content fields but exclude createdBy/updatedBy (contain password hashes)
-            urlObj.searchParams.set('populate', '*');
+            urlObj.searchParams.set('populate[]', 'image');
+            urlObj.searchParams.set('populate[]', 'tags');
+            urlObj.searchParams.set('populate[]', 'sources');
         }
 
         // Build headers

@@ -288,11 +288,11 @@ class StrapiAPIClient {
       if (this.isSlug(idOrSlug)) {
         // Deep populate for single biography by slug
         const res = await this.request(
-          `/api/biographies?filters[slug][$eq]=${encodeURIComponent(idOrSlug)}&populate=*`
+          `/api/biographies?filters[slug][$eq]=${encodeURIComponent(idOrSlug)}&populate[]=image&populate[]=tags&populate[]=sources`
         );
         return res.entries?.[0] || null;
       }
-      return this.request(`/api/biographies/${encodeURIComponent(idOrSlug)}?populate=*`);
+      return this.request(`/api/biographies/${encodeURIComponent(idOrSlug)}?populate[]=image&populate[]=tags&populate[]=sources`);
     },
 
       search: (query, params = {}) =>
