@@ -8,6 +8,11 @@
  * To use mock API: Set USE_MOCK_API = true in config (default when API unavailable)
  */
 
+// Fallback arrays — data.js was migrated to Strapi CMS, so these are empty
+// unless populated by another script
+const biographies = typeof window !== 'undefined' && window.__mockBiographies ? window.__mockBiographies : [];
+const featuredCollections = typeof window !== 'undefined' && window.__mockCollections ? window.__mockCollections : [];
+
 const MockAPI = {
     // Simulated delay for realistic API behavior (ms)
     DEFAULT_DELAY: 300,

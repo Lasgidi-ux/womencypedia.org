@@ -21,8 +21,7 @@ const FormHandler = {
      * Initialize form handlers
      */
     init() {
-         called');
-        );
+        console.log('[FormHandler] init called');
         this.setupNominationForm();
         this.setupStoryForm();
     },
@@ -229,7 +228,7 @@ const FormHandler = {
 
             
 
-            const response = await fetch(`${CONFIG.API_BASE_URL}/api/contributions`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/nominations`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ data: formData })
@@ -355,7 +354,7 @@ const FormHandler = {
             }
             // Ensure global API object exists for compatibility
             if (typeof API === 'undefined') {
-                 directly');
+                console.log('[FormHandler] API undefined, calling Strapi directly');
             }
 
             const token = (typeof Auth !== 'undefined' && Auth.isAuthenticated()) ? Auth.getAccessToken() : null;
@@ -415,8 +414,7 @@ const FormHandler = {
                 successMessage += ' Note: Media upload failed, but your story text was submitted successfully.';
             }
 
-            
-            );
+            console.log('[FormHandler] Submitting story data');
 
             submitBtn.innerHTML = `
                 <span class="material-symbols-outlined animate-spin">refresh</span>

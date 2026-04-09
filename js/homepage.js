@@ -62,7 +62,8 @@ const Homepage = {
                 this.loadHomepageContent(),
                 this.loadFeaturedBiographies(),
                 this.loadFeaturedCollections(),
-                this.loadRecentBiographies()
+                this.loadRecentBiographies(),
+                this.loadHomepageStats()
             ]);
         } catch {
             // Content sections will show loading/error states if API fails
@@ -339,14 +340,14 @@ const Homepage = {
         const count = col.biographies ? col.biographies.length : 0;
 
         return `
-            <a href="collection.html?slug=${encodeURIComponent(col.slug)}"
+            <a href="collections.html?slug=${encodeURIComponent(col.slug)}"
                class="group block bg-white rounded-xl border border-border-light overflow-hidden hover:shadow-lg transition-shadow">
                 <div class="h-40 overflow-hidden">
-                    <img src="${imageUrl}" alt="${this.escapeHtml(col.title)}"
+                    <img src="${imageUrl}" alt="${this.escapeHtml(col.title || col.name)}"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
                 </div>
                 <div class="p-5">
-                    <h3 class="font-serif text-lg font-bold text-text-main group-hover:text-primary transition-colors">${this.escapeHtml(col.title)}</h3>
+                    <h3 class="font-serif text-lg font-bold text-text-main group-hover:text-primary transition-colors">${this.escapeHtml(col.title || col.name)}</h3>
                     <p class="text-sm text-text-secondary mt-1">${count} biographies</p>
                 </div>
             </a>
@@ -514,7 +515,7 @@ const Homepage = {
 
         // If URL is relative, prepend the Strapi base URL
         if (url.startsWith('/')) {
-            const baseUrl = CONFIG.API_BASE_URL.replace('/api', '');
+            const baseUrl = CONFIG.API_BASE_URL;
             return `${baseUrl}${url}`;
         }
 
@@ -539,6 +540,49 @@ const Homepage = {
         const div = document.createElement('div');
         div.innerHTML = html;
         return div.textContent || div.innerText || '';
+    },
+
+    /**
+     * Load dynamic stats from Strapi pagination metadata.
+     * Populates all stat containers across the homepage.
+     */
+    async loadHomepageStats() {
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (CONFIG.API_TOKEN) {
+                headers['Authorization'] = `Bearer ${CONFIG.API_TOKEN}`;
+            }
+
+            // Fetch biography count
+            const bioRes = await fetch(`${CONFIG.API_BASE_URL}/api/biographies?pagination[page]=1&pagination[pageSize]=1`, {
+                cache: 'no-store', headers
+            });
+            if (bioRes.ok) {
+                const bioData = await bioRes.json();
+                const total = bioData.meta?.pagination?.total || 0;
+                if (total > 0) {
+                    const display = total.toLocaleString() + '+';
+                    this.setTextContent('home-stat-biographies', display);
+                    this.setTextContent('map-stat-biographies', display);
+                }
+            }
+
+            // Fetch collection count
+            const colRes = await fetch(`${CONFIG.API_BASE_URL}/api/collections?pagination[page]=1&pagination[pageSize]=1`, {
+                cache: 'no-store', headers
+            });
+            if (colRes.ok) {
+                const colData = await colRes.json();
+                const total = colData.meta?.pagination?.total || 0;
+                if (total > 0) {
+                    this.setTextContent('home-stat-collections', total.toString());
+                    this.setTextContent('map-stat-collections', total.toString());
+                    this.setTextContent('home-collections-count', total.toString());
+                }
+            }
+        } catch {
+            // Stats remain at static fallback values
+        }
     }
 };
 

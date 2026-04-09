@@ -381,9 +381,9 @@
                 </div>
 
                 <!-- Quick Stats -->
-                <div class="flex flex-wrap justify-center gap-8 text-center">
+                <div id="browse-stats" class="flex flex-wrap justify-center gap-8 text-center">
                     <div>
-                        <span class="block font-serif text-3xl font-bold text-primary">5,000+</span>
+                        <span id="stat-biographies" class="block font-serif text-3xl font-bold text-primary">—</span>
                         <span class="text-sm text-text-secondary">Biographies</span>
                     </div>
                     <div>
@@ -395,7 +395,7 @@
                         <span class="text-sm text-text-secondary">Historical Eras</span>
                     </div>
                     <div>
-                        <span class="block font-serif text-3xl font-bold text-divider">13</span>
+                        <span id="stat-collections" class="block font-serif text-3xl font-bold text-divider">—</span>
                         <span class="text-sm text-text-secondary">Collections</span>
                     </div>
                 </div>
@@ -410,9 +410,9 @@
                     <div
                         class="flex-1 flex items-center bg-lavender-soft/50 border border-border-light rounded-lg px-4 h-12">
                         <span class="material-symbols-outlined text-accent-teal text-[20px]">search</span>
-                        <input type="text" placeholder="Search by name, sector, category..."
+                        <input type="text" id="searchInput" placeholder="Search by name, sector, category..."
                             class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-text-main placeholder-text-secondary ml-2" />
-                        <button
+                        <button onclick="applySearch()"
                             class="px-4 py-2 bg-primary text-white text-xs font-bold rounded hover:bg-primary/90 transition-colors">
                             Search
                         </button>
@@ -421,42 +421,27 @@
                     <!-- Filter Dropdowns -->
                     <div class="flex flex-wrap gap-3 items-center">
                         <div class="relative">
-                            <select name="sector"
+                            <select id="categoryFilter" name="sector" onchange="applyFilters()"
                                 class="appearance-none bg-white border border-border-light rounded-lg px-4 py-2.5 pr-10 text-sm font-medium focus:border-accent-teal focus:ring-1 focus:ring-accent-teal cursor-pointer">
                                 <option value="">All Sectors</option>
-                                <option value="stem">STEM & Innovation</option>
-                                <option value="arts">Arts & Culture</option>
-                                <option value="leadership">Leadership & Policy</option>
-                                <option value="entrepreneurship">Entrepreneurship</option>
-                                <option value="social-impact">Social Impact</option>
                             </select>
                             <span
                                 class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-secondary text-[18px] pointer-events-none">expand_more</span>
                         </div>
 
                         <div class="relative">
-                            <select name="category"
+                            <select id="eraFilter" name="category" onchange="applyFilters()"
                                 class="appearance-none bg-white border border-border-light rounded-lg px-4 py-2.5 pr-10 text-sm font-medium focus:border-accent-teal focus:ring-1 focus:ring-accent-teal cursor-pointer">
-                                <option value="">All Categories</option>
-                                <option value="leadership">Leadership</option>
-                                <option value="culture-arts">Culture & Arts</option>
-                                <option value="spirituality">Spirituality & Faith</option>
-                                <option value="science">Science & Innovation</option>
-                                <option value="politics">Politics & Governance</option>
-                                <option value="education">Education</option>
+                                <option value="">All Eras</option>
                             </select>
                             <span
                                 class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-secondary text-[18px] pointer-events-none">expand_more</span>
                         </div>
 
                         <div class="relative">
-                            <select name="contributor"
+                            <select id="regionFilter" name="contributor" onchange="applyFilters()"
                                 class="appearance-none bg-white border border-border-light rounded-lg px-4 py-2.5 pr-10 text-sm font-medium focus:border-accent-teal focus:ring-1 focus:ring-accent-teal cursor-pointer">
-                                <option value="">All Contributors</option>
-                                <option value="editor-1">Dr. Adaeze Okonkwo</option>
-                                <option value="editor-2">Dr. Mei-Lin Chen</option>
-                                <option value="editor-3">Dr. Fatima Al-Hassan</option>
-                                <option value="contributor-network">Contributor Network</option>
+                                <option value="">All Regions</option>
                             </select>
                             <span
                                 class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-secondary text-[18px] pointer-events-none">expand_more</span>
@@ -481,7 +466,7 @@
                         class="px-2 py-1 bg-accent-teal/10 text-accent-teal text-xs font-medium rounded-full flex items-center gap-1 hover:bg-accent-teal/20 transition-colors">
                         Africa <span class="material-symbols-outlined text-[12px]">close</span>
                     </button>
-                    <button class="text-xs text-text-secondary hover:text-primary ml-2">Clear all</button>
+                    <button onclick="resetFilters()" class="text-xs text-text-secondary hover:text-primary ml-2">Clear all</button>
                 </div>
             </div>
         </section>
@@ -497,11 +482,11 @@
                             data-i18n="browse.noteworthyWomen">Noteworthy Women</h2>
                     </div>
                     <div class="flex items-center gap-4">
-                        <select
+                        <select id="sortSelect" onchange="applySort()"
                             class="appearance-none bg-white border border-border-light rounded-lg px-3 py-2 text-sm font-medium focus:border-accent-teal cursor-pointer">
-                            <option>Sort by: Featured</option>
-                            <option>Sort by: Newest</option>
-                            <option>Sort by: Alphabetical</option>
+                            <option value="name:asc">Sort by: Alphabetical</option>
+                            <option value="featured:desc">Sort by: Featured</option>
+                            <option value="createdAt:desc">Sort by: Newest</option>
                         </select>
                     </div>
                 </div>
@@ -511,22 +496,14 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="flex items-center justify-center gap-2 mt-12">
-                    <button
-                        class="size-10 flex items-center justify-center rounded-lg border border-border-light text-text-secondary hover:border-primary hover:text-primary transition-colors">
+                <div id="browse-pagination" class="flex items-center justify-center gap-2 mt-12">
+                    <button id="prevPage" onclick="changePage(-1)" disabled
+                        class="size-10 flex items-center justify-center rounded-lg border border-border-light text-text-secondary hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
                         <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                     </button>
-                    <button
-                        class="size-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
-                    <button
-                        class="size-10 flex items-center justify-center rounded-lg border border-border-light text-text-main hover:border-primary hover:text-primary transition-colors">2</button>
-                    <button
-                        class="size-10 flex items-center justify-center rounded-lg border border-border-light text-text-main hover:border-primary hover:text-primary transition-colors">3</button>
-                    <span class="px-2 text-text-secondary">...</span>
-                    <button
-                        class="size-10 flex items-center justify-center rounded-lg border border-border-light text-text-main hover:border-primary hover:text-primary transition-colors">42</button>
-                    <button
-                        class="size-10 flex items-center justify-center rounded-lg border border-border-light text-text-main hover:border-primary hover:text-primary transition-colors">
+                    <span id="pageInfo" class="px-4 py-2 text-sm font-medium text-text-main">Page 1 of 1</span>
+                    <button id="nextPage" onclick="changePage(1)" disabled
+                        class="size-10 flex items-center justify-center rounded-lg border border-border-light text-text-secondary hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
                         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                     </button>
                 </div>
@@ -739,7 +716,7 @@
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Pre-colonial -->
-                    <a href="browse.html"
+                    <a href="browse.html?era=Pre-colonial"
                         class="group relative bg-gradient-to-br from-accent-gold/10 to-accent-gold/5 rounded-2xl p-8 border-2 border-transparent hover:border-accent-gold/30 transition-all text-center">
                         <div
                             class="size-16 rounded-full bg-accent-gold/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
@@ -753,7 +730,7 @@
                     </a>
 
                     <!-- Colonial -->
-                    <a href="browse.html"
+                    <a href="browse.html?era=Colonial"
                         class="group relative bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-8 border-2 border-transparent hover:border-primary/30 transition-all text-center">
                         <div
                             class="size-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
@@ -767,7 +744,7 @@
                     </a>
 
                     <!-- Post-colonial -->
-                    <a href="browse.html"
+                    <a href="browse.html?era=Post-colonial"
                         class="group relative bg-gradient-to-br from-accent-teal/10 to-accent-teal/5 rounded-2xl p-8 border-2 border-transparent hover:border-accent-teal/30 transition-all text-center">
                         <div
                             class="size-16 rounded-full bg-accent-teal/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
@@ -781,7 +758,7 @@
                     </a>
 
                     <!-- Contemporary -->
-                    <a href="browse.html"
+                    <a href="browse.html?era=Contemporary"
                         class="group relative bg-gradient-to-br from-divider/10 to-divider/5 rounded-2xl p-8 border-2 border-transparent hover:border-divider/30 transition-all text-center">
                         <div
                             class="size-16 rounded-full bg-divider/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
@@ -812,7 +789,7 @@
 
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     <!-- Leadership -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Leadership"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -823,7 +800,7 @@
                     </a>
 
                     <!-- Culture & Arts -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Culture+%26+Arts"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -834,7 +811,7 @@
                     </a>
 
                     <!-- Spirituality -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Spirituality+%26+Faith"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -845,7 +822,7 @@
                     </a>
 
                     <!-- Politics -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Politics+%26+Governance"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -856,7 +833,7 @@
                     </a>
 
                     <!-- Science -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Science+%26+Innovation"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -867,7 +844,7 @@
                     </a>
 
                     <!-- Community Builders -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Community+Builders"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -878,7 +855,7 @@
                     </a>
 
                     <!-- Activism -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Activism+%26+Justice"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -889,7 +866,7 @@
                     </a>
 
                     <!-- Education -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Education"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -900,7 +877,7 @@
                     </a>
 
                     <!-- Diaspora -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Diaspora+Stories"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -911,7 +888,7 @@
                     </a>
 
                     <!-- Environmental -->
-                    <a href="browse.html"
+                    <a href="browse.html?category=Environment"
                         class="group bg-white rounded-xl p-6 text-center border border-border-light hover:border-primary hover:shadow-lg transition-all">
                         <div
                             class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
@@ -944,10 +921,7 @@
 
                 <div id="recent-entries-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Dynamic content loaded from Strapi CMS -->
-                    Prize winner who founded the Green Belt...</p>
                 </div>
-                </a>
-            </div>
             </div>
         </section>
 
@@ -1165,7 +1139,7 @@
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Collection 1 -->
-                <a href="biography.html"
+                <a href="collections.html?slug=women-of-the-pcn"
                     class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                     <div class="h-48 bg-gradient-to-br from-primary/20 to-accent-gold/20 relative overflow-hidden">
                         <div
@@ -1195,7 +1169,7 @@
                 </a>
 
                 <!-- Collection 2 -->
-                <a href="biography.html"
+                <a href="collections.html?slug=missionary-encounters"
                     class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                     <div class="h-48 bg-gradient-to-br from-accent-teal/20 to-primary/20 relative overflow-hidden">
                         <div
@@ -1225,7 +1199,7 @@
                 </a>
 
                 <!-- Collection 3 -->
-                <a href="biography.html"
+                <a href="collections.html?slug=indigenous-matriarchs"
                     class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                     <div class="h-48 bg-gradient-to-br from-accent-gold/30 to-primary/10 relative overflow-hidden">
                         <div
@@ -1255,7 +1229,7 @@
                 </a>
 
                 <!-- Collection 4 -->
-                <a href="biography.html"
+                <a href="collections.html?slug=resistance-and-rebellion"
                     class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                     <div class="h-48 bg-gradient-to-br from-divider/20 to-lavender-soft relative overflow-hidden">
                         <div
@@ -1284,7 +1258,7 @@
                 </a>
 
                 <!-- Collection 5 -->
-                <a href="biography.html"
+                <a href="collections.html?slug=scientific-pioneers"
                     class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                     <div class="h-48 bg-gradient-to-br from-primary/30 to-accent-gold/20 relative overflow-hidden">
                         <div
@@ -1314,7 +1288,7 @@
                 </a>
 
                 <!-- Collection 6 -->
-                <a href="biography.html"
+                <a href="collections.html?slug=oral-traditions"
                     class="group bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-xl transition-all">
                     <div class="h-48 bg-gradient-to-br from-accent-teal/30 to-primary/10 relative overflow-hidden">
                         <div

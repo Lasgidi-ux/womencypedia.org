@@ -65,7 +65,23 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <!-- Structured Data -->
-    <script type="application/ld+json" src="js/index-inline-1.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Womencypedia",
+      "url": "https://womencypedia.org",
+      "logo": "https://womencypedia.org/images/womencypedia-logo.png",
+      "description": "The world's first interpretive encyclopedia of women — revealing the depth, power, cultural meaning behind every woman.",
+      "foundingDate": "2024",
+      "sameAs": [],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://womencypedia.org/browse.html?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
     <script defer data-domain="womencypedia.org" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -698,17 +714,17 @@
             <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12">
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
                     <div class="bg-white rounded-lg p-6 lg:p-8 text-center border border-border-light">
-                        <div class="font-serif text-3xl lg:text-4xl font-bold text-primary mb-2">5,000+</div>
+                        <div id="home-stat-biographies" class="font-serif text-3xl lg:text-4xl font-bold text-primary mb-2">5,000+</div>
                         <div class="text-xs lg:text-sm text-text-secondary uppercase tracking-wider">Verified
                             Biographies</div>
                     </div>
                     <div class="bg-white rounded-lg p-6 lg:p-8 text-center border border-border-light">
-                        <div class="font-serif text-3xl lg:text-4xl font-bold text-primary mb-2">13</div>
+                        <div id="home-stat-collections" class="font-serif text-3xl lg:text-4xl font-bold text-primary mb-2">13</div>
                         <div class="text-xs lg:text-sm text-text-secondary uppercase tracking-wider">Curated Collections
                         </div>
                     </div>
                     <div class="bg-white rounded-lg p-6 lg:p-8 text-center border border-border-light">
-                        <div class="font-serif text-3xl lg:text-4xl font-bold text-primary mb-2">100+</div>
+                        <div id="home-stat-countries" class="font-serif text-3xl lg:text-4xl font-bold text-primary mb-2">100+</div>
                         <div class="text-xs lg:text-sm text-text-secondary uppercase tracking-wider">Countries
                             Represented</div>
                     </div>
@@ -754,11 +770,11 @@
                                 <div class="text-sm text-text-secondary">Countries Represented</div>
                             </div>
                             <div class="bg-lavender-soft p-4 rounded-lg">
-                                <div class="font-serif text-2xl font-bold text-primary">5,000+</div>
+                                <div id="map-stat-biographies" class="font-serif text-2xl font-bold text-primary">5,000+</div>
                                 <div class="text-sm text-text-secondary">Verified Biographies</div>
                             </div>
                             <div class="bg-lavender-soft p-4 rounded-lg">
-                                <div class="font-serif text-2xl font-bold text-primary">13</div>
+                                <div id="map-stat-collections" class="font-serif text-2xl font-bold text-primary">13</div>
                                 <div class="text-sm text-text-secondary">Curated Collections</div>
                             </div>
                             <div class="bg-lavender-soft p-4 rounded-lg">
@@ -1098,7 +1114,7 @@
                 <div class="text-center mt-12">
                     <a href="collections.html"
                         class="inline-flex items-center gap-2 px-8 py-3 bg-accent-teal text-white font-bold rounded-lg hover:bg-accent-teal-dark transition-colors">
-                        View All 13 Collections
+                        View All <span id="home-collections-count">13</span> Collections
                         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
                     </a>
                 </div>

@@ -7,7 +7,7 @@
 // CONFIG + HELPERS
 //////////////////////////////
 
-const API = {
+const ProfileAPI = {
     base: CONFIG.API_BASE_URL,
 
     async request(url, options = {}) {
@@ -92,9 +92,9 @@ async function loadProfile() {
             return loadDemo();
         }
 
-        const user = await API.request(
-            `${API.base}/api/users/me?populate=*`,
-            { headers: API.getAuthHeaders() }
+        const user = await ProfileAPI.request(
+            `${ProfileAPI.base}/api/users/me?populate=*`,
+            { headers: ProfileAPI.getAuthHeaders() }
         );
 
         hydrateUser(user);
@@ -132,7 +132,7 @@ function hydrateUser(user) {
         avatar: avatarUrl
             ? avatarUrl.startsWith('http')
                 ? avatarUrl
-                : `${API.base}${avatarUrl}`
+                : `${ProfileAPI.base}${avatarUrl}`
             : null
     };
 }
@@ -143,9 +143,9 @@ function hydrateUser(user) {
 
 async function loadStats() {
     try {
-        const res = await API.request(
-            `${API.base}/api/contributions?filters[author][id][$eq]=${profileData.id}&pagination[pageSize]=1`,
-            { headers: API.getAuthHeaders() }
+        const res = await ProfileAPI.request(
+            `${ProfileAPI.base}/api/contributions?filters[author][id][$eq]=${profileData.id}&pagination[pageSize]=1`,
+            { headers: ProfileAPI.getAuthHeaders() }
         );
 
         profileData.stats.contributions = res.meta?.pagination?.total || 0;
@@ -154,9 +154,9 @@ async function loadStats() {
 
 async function loadContributions() {
     try {
-        const res = await API.request(
-            `${API.base}/api/contributions?filters[author][id][$eq]=${profileData.id}&sort=createdAt:desc&pagination[pageSize]=5`,
-            { headers: API.getAuthHeaders() }
+        const res = await ProfileAPI.request(
+            `${ProfileAPI.base}/api/contributions?filters[author][id][$eq]=${profileData.id}&sort=createdAt:desc&pagination[pageSize]=5`,
+            { headers: ProfileAPI.getAuthHeaders() }
         );
 
         profileData.contributions = res.data || [];
@@ -165,9 +165,9 @@ async function loadContributions() {
 
 async function loadSaved() {
     try {
-        const res = await API.request(
-            `${API.base}/api/users/me?populate=savedBiographies`,
-            { headers: API.getAuthHeaders() }
+        const res = await ProfileAPI.request(
+            `${ProfileAPI.base}/api/users/me?populate=savedBiographies`,
+            { headers: ProfileAPI.getAuthHeaders() }
         );
 
         profileData.saved = res.savedBiographies || [];
@@ -177,9 +177,9 @@ async function loadSaved() {
 
 async function loadBadges() {
     try {
-        const res = await API.request(
-            `${API.base}/api/users/me?populate=badges`,
-            { headers: API.getAuthHeaders() }
+        const res = await ProfileAPI.request(
+            `${ProfileAPI.base}/api/users/me?populate=badges`,
+            { headers: ProfileAPI.getAuthHeaders() }
         );
 
         profileData.badges = res.badges || [];
@@ -307,7 +307,7 @@ function renderSaved() {
         if (attrs.image?.url) {
             imageUrl = attrs.image.url.startsWith('http')
                 ? attrs.image.url
-                : `${API.base}${attrs.image.url}`;
+                : `${ProfileAPI.base}${attrs.image.url}`;
         }
 
         return `
@@ -337,7 +337,7 @@ async function checkAndAwardBadges() {
         const token = localStorage.getItem('womencypedia_access_token');
         if (!token) return;
 
-        const response = await fetch(`${API_BASE_URL}/api/badges/check`, {
+        const response = await fetch(`${ProfileAPI.base}/api/badges/check`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -477,23 +477,23 @@ async function uploadAvatar(file) {
         const fd = new FormData();
         fd.append('files', file);
 
-        const upload = await API.request(
-            `${API.base}/api/upload`,
+        const upload = await ProfileAPI.request(
+            `${ProfileAPI.base}/api/upload`,
             {
                 method: 'POST',
-                headers: API.getAuthHeaders(),
+                headers: ProfileAPI.getAuthHeaders(),
                 body: fd
             }
         );
 
         const fileId = upload[0].id;
 
-        await API.request(
-            `${API.base}/api/users/${profileData.id}`,
+        await ProfileAPI.request(
+            `${ProfileAPI.base}/api/users/${profileData.id}`,
             {
                 method: 'PUT',
                 headers: {
-                    ...API.getAuthHeaders(),
+                    ...ProfileAPI.getAuthHeaders(),
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ avatar: fileId })
@@ -531,12 +531,12 @@ function showEditModal() {
 async function saveProfile() {
     try {
         if (Auth?.isAuthenticated?.()) {
-            await API.request(
-                `${API.base}/api/users/${profileData.id}`,
+            await ProfileAPI.request(
+                `${ProfileAPI.base}/api/users/${profileData.id}`,
                 {
                     method: 'PUT',
                     headers: {
-                        ...API.getAuthHeaders(),
+                        ...ProfileAPI.getAuthHeaders(),
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(profileData)

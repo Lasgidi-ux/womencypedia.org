@@ -47,8 +47,9 @@ const Notifications = {
 
                 if (response.ok) {
                     const data = await response.json();
-                    this._notifications = data.notifications || [];
-                    this._unreadCount = data.unread_count || 0;
+                    // Strapi v5 returns { data: [...] } format
+                    this._notifications = data.data || data.notifications || [];
+                    this._unreadCount = this._notifications.filter(n => !n.read).length;
                     this._isLoaded = true;
                     this.saveToLocalStorage();
                     this.updateBadge();
@@ -184,10 +185,12 @@ const Notifications = {
             try {
                 if (Auth.isAuthenticated()) {
                     await fetch(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.NOTIFICATIONS.MARK_READ(id)}`, {
-                        method: 'PATCH',
+                        method: 'PUT',
                         headers: {
-                            'Authorization': `Bearer ${Auth.getAccessToken()}`
-                        }
+                            'Authorization': `Bearer ${Auth.getAccessToken()}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ data: { read: true } })
                     });
                 }
             } catch (error) {
@@ -205,18 +208,32 @@ const Notifications = {
         this.saveToLocalStorage();
         this.updateBadge();
 
-        // Sync with API
+        // Sync with API — Strapi v5 has no bulk /read-all endpoint.
+        // Iterate over each unread notification and PUT individually.
         try {
             if (Auth.isAuthenticated()) {
-                await fetch(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.NOTIFICATIONS.MARK_ALL_READ}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Authorization': `Bearer ${Auth.getAccessToken()}`
-                    }
-                });
+                const token = Auth.getAccessToken();
+                const headers = {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                };
+
+                // Fetch current notifications from Strapi to get real IDs
+                const res = await fetch(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.NOTIFICATIONS.LIST}?filters[read][$eq]=false`, { headers });
+                if (res.ok) {
+                    const data = await res.json();
+                    const unread = data.data || [];
+                    await Promise.all(unread.map(n =>
+                        fetch(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.NOTIFICATIONS.MARK_READ(n.id)}`, {
+                            method: 'PUT',
+                            headers,
+                            body: JSON.stringify({ data: { read: true } })
+                        })
+                    ));
+                }
             }
         } catch (error) {
-            
+            // Silently fail — local state already updated
         }
     },
 
@@ -260,18 +277,27 @@ const Notifications = {
         this.saveToLocalStorage();
         this.updateBadge();
 
-        // Sync with API
+        // Sync with API — Strapi v5 doesn't support bulk DELETE on collection root.
+        // Fetch all, then delete each individually.
         try {
             if (Auth.isAuthenticated()) {
-                await fetch(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.NOTIFICATIONS.CLEAR_ALL}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${Auth.getAccessToken()}`
-                    }
-                });
+                const token = Auth.getAccessToken();
+                const headers = { 'Authorization': `Bearer ${token}` };
+
+                const res = await fetch(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.NOTIFICATIONS.LIST}`, { headers });
+                if (res.ok) {
+                    const data = await res.json();
+                    const all = data.data || [];
+                    await Promise.all(all.map(n =>
+                        fetch(`${CONFIG.API_BASE_URL}${CONFIG.ENDPOINTS.NOTIFICATIONS.DELETE(n.id)}`, {
+                            method: 'DELETE',
+                            headers
+                        })
+                    ));
+                }
             }
         } catch (error) {
-            
+            // Silently fail — local state already cleared
         }
     },
 

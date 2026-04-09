@@ -10,7 +10,11 @@ function getImageUrl(imageData) {
     if (typeof imageData === 'string') return imageData;
     if (imageData.url) {
         if (imageData.url.startsWith('http')) return imageData.url;
-        return STRAPI_API_BASE.replace('/api', '') + imageData.url;
+        // Use CONFIG.API_BASE_URL directly (no /api suffix) for media URLs
+        var baseUrl = (typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL)
+            ? CONFIG.API_BASE_URL
+            : 'https://womencypedia-cms.onrender.com';
+        return baseUrl + imageData.url;
     }
     return null;
 }

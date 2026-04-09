@@ -32,6 +32,13 @@
                 }).join('');
             }
 
+            // Get media URL, handling both relative and absolute URLs
+            function getMediaUrl(url) {
+                if (!url) return '';
+                if (url.startsWith('http') || url.startsWith('//')) return url;
+                return 'https://womencypedia-cms.onrender.com' + url;
+            }
+
             // Get slug from URL
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('slug');

@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    // Check if StrapiAPI is available
+    if (typeof StrapiAPI === 'undefined' || !StrapiAPI.educationModules) {
+        console.error('StrapiAPI not available for education modules');
+        showError();
+        return;
+    }
+
     try {
         const module = await StrapiAPI.educationModules.getBySlug(slug);
 

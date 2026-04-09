@@ -5,6 +5,7 @@ let pageSize = 9
 
 let filters = {}
 let searchQuery = ""
+let sortOrder = "name:asc"
 
 let dynamicFilters = {
     eras: [],
@@ -186,7 +187,7 @@ async function loadEntries() {
         const params = {
             "pagination[page]": currentPage,
             "pagination[pageSize]": pageSize,
-            "sort": "name:asc",
+            "sort": sortOrder,
             "populate": "image"
         };
 
@@ -404,6 +405,21 @@ function applySearch() {
 
 
 
+/* ================= SORT ================= */
+
+function applySort() {
+
+    const sortEl = document.getElementById("sortSelect");
+    sortOrder = sortEl ? sortEl.value : "name:asc";
+
+    currentPage = 1
+
+    loadEntries()
+
+}
+
+
+
 /* ================= PAGINATION ================= */
 
 function changePage(direction) {
@@ -435,10 +451,119 @@ function updatePagination(meta) {
 
 
 
+/* ================= DYNAMIC STATS ================= */
+
+async function loadDynamicStats() {
+    try {
+        // Fetch total biographies count via pagination metadata
+        const bioRes = await browseFetch("biographies", {
+            "pagination[page]": 1,
+            "pagination[pageSize]": 1
+        });
+        const totalBiographies = bioRes.meta?.pagination?.total || 0;
+        const statEl = document.getElementById("stat-biographies");
+        if (statEl) {
+            statEl.textContent = totalBiographies > 0
+                ? totalBiographies.toLocaleString() + '+'
+                : '—';
+        }
+
+        // Fetch total collections count
+        const colRes = await browseFetch("collections", {
+            "pagination[page]": 1,
+            "pagination[pageSize]": 1
+        });
+        const totalCollections = colRes.meta?.pagination?.total || 0;
+        const colEl = document.getElementById("stat-collections");
+        if (colEl) {
+            colEl.textContent = totalCollections > 0
+                ? totalCollections.toLocaleString()
+                : '—';
+        }
+    } catch (e) {
+        console.warn('[Browse] Could not load dynamic stats:', e.message);
+    }
+}
+
+
+/* ================= RECENT ENTRIES ================= */
+
+async function loadRecentEntries() {
+    try {
+        const res = await browseFetch("biographies", {
+            "pagination[page]": 1,
+            "pagination[pageSize]": 4,
+            "sort": "createdAt:desc",
+            "populate": "image"
+        });
+
+        const entries = (res.data || []).map(item => {
+            const attrs = item.attributes || item;
+            let imageUrl = null;
+
+            if (attrs.image && attrs.image.data && attrs.image.data.attributes) {
+                const baseUrl = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'https://womencypedia-cms.onrender.com';
+                imageUrl = baseUrl + attrs.image.data.attributes.url;
+            } else if (attrs.image && attrs.image.url) {
+                imageUrl = attrs.image.url.startsWith('http')
+                    ? attrs.image.url
+                    : (typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'https://womencypedia-cms.onrender.com') + attrs.image.url;
+            }
+
+            return {
+                id: item.id,
+                name: attrs.name || '',
+                summary: attrs.introduction ? attrs.introduction.substring(0, 120) : (attrs.summary || ''),
+                image: imageUrl ? { url: imageUrl } : null,
+                slug: attrs.slug || '',
+                era: attrs.era || '',
+                region: attrs.region || ''
+            };
+        });
+
+        renderEntries(entries, "recent-entries-grid");
+    } catch (e) {
+        console.warn('[Browse] Could not load recent entries:', e.message);
+    }
+}
+
+
+/* ================= URL QUERY PARAMS ================= */
+
+function readUrlFilters() {
+    const params = new URLSearchParams(window.location.search);
+
+    const region = params.get('region');
+    const era = params.get('era');
+    const category = params.get('category');
+
+    if (region) {
+        filters.region = { slug: region.charAt(0).toUpperCase() + region.slice(1).replace(/-/g, ' ') };
+        const regionEl = document.getElementById("regionFilter");
+        if (regionEl) regionEl.value = filters.region.slug;
+    }
+
+    if (era) {
+        filters.era = { slug: era };
+        const eraEl = document.getElementById("eraFilter");
+        if (eraEl) eraEl.value = filters.era.slug;
+    }
+
+    if (category) {
+        filters.category = { slug: decodeURIComponent(category) };
+        const catEl = document.getElementById("categoryFilter");
+        if (catEl) catEl.value = filters.category.slug;
+    }
+}
+
+
 /* ================= INIT ================= */
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log('🔍 [Browse] DOMContentLoaded - initializing browse functionality');
-    loadFilterOptions()
-    loadEntries()
+    loadFilterOptions();
+    readUrlFilters();
+    loadEntries();
+    loadRecentEntries();
+    loadDynamicStats();
 })

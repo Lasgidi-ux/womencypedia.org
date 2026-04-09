@@ -104,7 +104,7 @@
             const url = mediaData.url || (mediaData.formats && (mediaData.formats.medium?.url || mediaData.formats.small?.url));
             if (!url) return 'images/placeholder-biography.jpg';
             if (url.startsWith('/')) {
-                return CONFIG.API_BASE_URL.replace('/api', '') + url;
+                return CONFIG.API_BASE_URL + url;
             }
             return url;
         }

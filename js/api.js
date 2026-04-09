@@ -178,4 +178,4 @@ if (!window.API) {
     // We do NOT override window.API.request or window.API._strapiRequest because that breaks StrapiAPI objects!
 }
 
- merged successfully");
+console.log("[API] LegacyAPI merged successfully");

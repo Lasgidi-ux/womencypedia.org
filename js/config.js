@@ -133,27 +133,27 @@ const CONFIG = {
             // Glossaries
             GLOSSARIES: '/api/glossaries',
             GLOSSARY_BY_SLUG: (slug) => `/api/glossaries?filters[slug][$eq]=${slug}`,
-            GLOSSARY_TERMS: '/api/glossary-terms',
-            GLOSSARY_TERM_BY_SLUG: (slug) => `/api/glossary-terms?filters[slug][$eq]=${slug}`,
+            GLOSSARY_TERMS: '/api/glossaries',
+            GLOSSARY_TERM_BY_SLUG: (slug) => `/api/glossaries?filters[slug][$eq]=${slug}`,
 
             // Timelines
             TIMELINES: '/api/timelines',
             TIMELINE_BY_SLUG: (slug) => `/api/timelines?filters[slug][$eq]=${slug}`,
-            TIMELINE_EVENTS: '/api/timeline-events',
+            TIMELINE_EVENTS: '/api/timelines',
 
             // Maps
-            MAPS: '/api/maps',
-            MAP_BY_SLUG: (slug) => `/api/maps?filters[slug][$eq]=${slug}`,
-            MAPS_BY_REGION: (region) => `/api/maps?filters[region][$eq]=${region}`,
+            MAPS: '/api/interactive-maps',
+            MAP_BY_SLUG: (slug) => `/api/interactive-maps?filters[slug][$eq]=${slug}`,
+            MAPS_BY_REGION: (region) => `/api/interactive-maps?filters[region][$eq]=${region}`,
 
             // Research Tools
             RESEARCH_TOOLS: '/api/research-tools',
             RESEARCH_TOOL_BY_SLUG: (slug) => `/api/research-tools?filters[slug][$eq]=${slug}`,
 
             // Downloadable Resources
-            DOWNLOADABLE_RESOURCES: '/api/downloadable-resources',
-            DOWNLOADABLE_RESOURCE_BY_SLUG: (slug) => `/api/downloadable-resources?filters[slug][$eq]=${slug}`,
-            DOWNLOADABLE_RESOURCE_BY_TYPE: (type) => `/api/downloadable-resources?filters[type][$eq]=${type}`,
+            DOWNLOADABLE_RESOURCES: '/api/teaching-resources',
+            DOWNLOADABLE_RESOURCE_BY_SLUG: (slug) => `/api/teaching-resources?filters[slug][$eq]=${slug}`,
+            DOWNLOADABLE_RESOURCE_BY_TYPE: (type) => `/api/teaching-resources?filters[type][$eq]=${type}`,
 
             // Tags
             TAGS: '/api/tags',
@@ -183,8 +183,8 @@ const CONFIG = {
             NOTIFICATION_BY_ID: (id) => `/api/notifications/${id}`,
 
             // Saved Entries (Bookmarks)
-            SAVED_ENTRIES: '/api/saved-entries',
-            SAVED_ENTRY_BY_ID: (id) => `/api/saved-entries/${id}`,
+            SAVED_ENTRIES: '/api/user-bookmarks',
+            SAVED_ENTRY_BY_ID: (id) => `/api/user-bookmarks/${id}`,
 
             // Contributions (Articles, Case Studies, Reports)
             CONTRIBUTIONS: '/api/contributions',
@@ -239,10 +239,10 @@ const CONFIG = {
 
         // Comments on entries
         COMMENTS: {
-            LIST: (entryId) => `/api/biographies/${entryId}/comments`,
-            CREATE: (entryId) => `/api/biographies/${entryId}/comments`,
-            DELETE: (entryId, commentId) => `/api/biographies/${entryId}/comments/${commentId}`,
-            LIKE: (entryId, commentId) => `/api/biographies/${entryId}/comments/${commentId}/like`
+            LIST: (entryId) => `/api/comments?filters[biography][id][$eq]=${entryId}`,
+            CREATE: () => `/api/comments`,
+            DELETE: (commentId) => `/api/comments/${commentId}`,
+            LIKE: (commentId) => `/api/comments/${commentId}`
         },
 
         // Contributions (User submissions)
@@ -259,7 +259,7 @@ const CONFIG = {
             LIST: '/api/collections',
             GET: (id) => `/api/collections/${id}`,
             GET_BY_SLUG: (slug) => `/api/collections?filters[slug][$eq]=${slug}`,
-            SAVED: '/api/saved-entries'
+            SAVED: '/api/user-bookmarks'
         },
 
         // Notifications
@@ -293,10 +293,10 @@ const CONFIG = {
 
         // Saved Entries (Bookmarks)
         SAVED_ENTRIES: {
-            LIST: '/api/saved-entries',
-            SAVE: '/api/saved-entries',
-            REMOVE: (biographyId) => `/api/saved-entries/${biographyId}`,
-            CLEAR: '/api/saved-entries'
+            LIST: '/api/user-bookmarks',
+            SAVE: '/api/user-bookmarks',
+            REMOVE: (biographyId) => `/api/user-bookmarks/${biographyId}`,
+            CLEAR: '/api/user-bookmarks'
         }
     },
 

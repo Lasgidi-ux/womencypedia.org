@@ -429,12 +429,12 @@ class StrapiAPIClient {
       },
 
       getTerms: (params = {}) => {
-        return this.request("/api/glossary-terms", { query: params });
+        return this.request("/api/glossaries", { query: params });
       },
 
       getTermBySlug: async (slug) => {
         const res = await this.request(
-          `/api/glossary-terms?filters[slug][$eq]=${slug}`
+          `/api/glossaries?filters[slug][$eq]=${slug}`
         );
         return res.entries?.[0] || null;
       },
@@ -454,25 +454,25 @@ class StrapiAPIClient {
       },
 
       getEvents: (params = {}) => {
-        return this.request("/api/timeline-events", { query: params });
+        return this.request("/api/timelines", { query: params });
       },
     };
 
     maps = {
       getAll: (params = {}) => {
         const { populate, ...rest } = params;
-        return this.request("/api/maps", { query: rest });
+        return this.request("/api/interactive-maps", { query: rest });
       },
 
       getBySlug: async (slug) => {
         const res = await this.request(
-          `/api/maps?filters[slug][$eq]=${slug}&populate=markers`
+          `/api/interactive-maps?filters[slug][$eq]=${slug}&populate=markers`
         );
         return res.entries?.[0] || null;
       },
 
       getByRegion: (region) =>
-        this.request(`/api/maps?filters[region][$eq]=${region}&populate=markers`),
+        this.request(`/api/interactive-maps?filters[region][$eq]=${region}&populate=markers`),
     };
 
     researchTools = {
@@ -492,18 +492,18 @@ class StrapiAPIClient {
     downloadableResources = {
       getAll: (params = {}) => {
         const { populate, ...rest } = params;
-        return this.request("/api/downloadable-resources", { query: rest });
+        return this.request("/api/teaching-resources", { query: rest });
       },
 
       getBySlug: async (slug) => {
         const res = await this.request(
-          `/api/downloadable-resources?filters[slug][$eq]=${slug}&populate=file`
+          `/api/teaching-resources?filters[slug][$eq]=${slug}&populate=file`
         );
         return res.entries?.[0] || null;
       },
 
       getByType: (type) =>
-        this.request(`/api/downloadable-resources?filters[type][$eq]=${type}&populate=file`),
+        this.request(`/api/teaching-resources?filters[type][$eq]=${type}&populate=file`),
 
       getDownloadUrl: (resource) => {
         if (!resource || !resource.file) return null;
@@ -547,10 +547,17 @@ class StrapiAPIClient {
           method: "DELETE",
         }),
 
-      clearAll: () =>
-        this.request("/api/user-bookmarks", {
-          method: "DELETE",
-        }),
+      clearAll: async () => {
+        // Strapi v5 doesn't support DELETE on collection root (bulk delete).
+        // Fetch all bookmarks, then delete each individually.
+        const all = await this.request("/api/user-bookmarks");
+        const entries = all.data || all.entries || [];
+        if (entries.length === 0) return { deleted: 0 };
+        await Promise.all(entries.map(b =>
+          this.request(`/api/user-bookmarks/${b.id}`, { method: "DELETE" })
+        ));
+        return { deleted: entries.length };
+      },
     };
 
     userHistory = {

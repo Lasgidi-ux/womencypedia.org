@@ -288,7 +288,7 @@ const Donate = (() => {
                 const headers = { 'Content-Type': 'application/json' };
                 if (token) headers['Authorization'] = `Bearer ${token}`;
 
-                await fetch(`${CONFIG.STRAPI_URL}/api/donations`, {
+                await fetch(`${CONFIG.API_BASE_URL}/api/donations`, {
                     method: 'POST',
                     headers,
                     body: JSON.stringify({
@@ -413,8 +413,8 @@ const Donate = (() => {
 
             // Save to Strapi if available
             try {
-                if (typeof CONFIG !== 'undefined' && CONFIG.STRAPI_URL) {
-                    await fetch(`${CONFIG.STRAPI_URL}/api/contact-submissions`, {
+                if (typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL) {
+                    await fetch(`${CONFIG.API_BASE_URL}/api/contact-submissions`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
