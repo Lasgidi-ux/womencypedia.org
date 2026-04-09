@@ -158,9 +158,10 @@ const Homepage = {
         try {
             const locale = typeof I18N !== 'undefined' ? I18N.currentLocale : 'en';
             const headers = { 'Content-Type': 'application/json' };
-            if (CONFIG.API_TOKEN) {
-                headers['Authorization'] = `Bearer ${CONFIG.API_TOKEN}`;
-            }
+            // Public endpoint - don't send auth
+            // if (CONFIG.API_TOKEN) {
+            //     headers['Authorization'] = `Bearer ${CONFIG.API_TOKEN}`;
+            // }
 
             // First try featured biographies
             let url = `${CONFIG.API_BASE_URL}/api/biographies?locale=${locale}&filters[featured][$eq]=true&populate[]=image&populate[]=tags&pagination[pageSize]=6&sort[]=createdAt:desc`;
@@ -215,9 +216,10 @@ const Homepage = {
         try {
             const locale = typeof I18N !== 'undefined' ? I18N.currentLocale : 'en';
             const headers = { 'Content-Type': 'application/json' };
-            if (CONFIG.API_TOKEN) {
-                headers['Authorization'] = `Bearer ${CONFIG.API_TOKEN}`;
-            }
+            // Public endpoint - don't send auth
+            // if (CONFIG.API_TOKEN) {
+            //     headers['Authorization'] = `Bearer ${CONFIG.API_TOKEN}`;
+            // }
 
             // First try featured collections
             let url = `${CONFIG.API_BASE_URL}/api/collections?locale=${locale}&filters[featured][$eq]=true&populate[]=coverImage&populate[]=biographies&sort[]=order:asc&pagination[pageSize]=6`;

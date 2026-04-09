@@ -38,10 +38,13 @@ class StrapiAPIClient {
     const token =
       (this.getAccessToken && this.getAccessToken()) || this.apiToken;
 
+    // Don't send auth for public GET requests to biographies and collections
+    const isPublicGet = (options.method || 'GET') === 'GET' &&
+      (endpoint.startsWith('/api/biographies') || endpoint.startsWith('/api/collections'));
 
     const headers = {
       "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
+      ...(!isPublicGet && token && { Authorization: `Bearer ${token}` }),
       ...options.headers,
     };
 
