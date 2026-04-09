@@ -143,9 +143,12 @@ async function loadBiography(slug) {
 
     if (error.status === 404 || error.message?.includes('not found')) {
       showNotFound();
+    } else if (error.status === 403 || error.status === 401) {
+      // Skip showing error for auth issues, let fallback loader handle
+      return;
     } else {
       const errorMessage = error.message || 'Failed to load biography';
-      showError(errorMessage, error.status !== 403 && error.status !== 401);
+      showError(errorMessage, true);
     }
   } finally {
     isLoading = false;
