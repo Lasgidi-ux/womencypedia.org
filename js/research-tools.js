@@ -52,7 +52,7 @@ class ResearchToolsLoader {
             </div>
             <h3 class="font-serif text-lg font-bold text-text-main mb-2">${title}</h3>
             ${description ? `<p class="text-text-secondary text-sm mb-4">${description}</p>` : ''}
-            <a href="${url}" class="inline-flex items-center gap-2 text-accent-gold font-bold hover:underline">
+            <a href="${url}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-accent-gold font-bold hover:underline">
               <span class="material-symbols-outlined text-sm">open_in_new</span>
               ${tool.actionText || 'Access Tool'}
             </a>
@@ -77,7 +77,7 @@ class ResearchToolsLoader {
         </div>
         <h3 class="font-serif text-lg font-bold text-text-main mb-2">${tool.title}</h3>
         <p class="text-text-secondary text-sm mb-4">${tool.description}</p>
-        <a href="${tool.url}" class="inline-flex items-center gap-2 text-accent-gold font-bold hover:underline">
+        <a href="${tool.url}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-accent-gold font-bold hover:underline">
           <span class="material-symbols-outlined text-sm">open_in_new</span>
           ${tool.actionText}
         </a>

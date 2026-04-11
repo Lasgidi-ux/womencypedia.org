@@ -428,6 +428,43 @@
                 </div>
             </div>
 
+            <!-- Profile Completeness -->
+            <div id="profile-completeness" class="bg-white rounded-xl border border-border-light p-6 mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-serif text-lg font-bold text-text-main">Profile Completeness</h3>
+                    <span id="completeness-percentage" class="text-sm font-medium text-text-secondary">0%</span>
+                </div>
+                <div class="w-full bg-border-light rounded-full h-2 mb-4">
+                    <div id="completeness-bar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div id="avatar-check" class="flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full border-2 border-border-light flex items-center justify-center mb-2">
+                            <span class="material-symbols-outlined text-border-light text-sm">photo_camera</span>
+                        </div>
+                        <span class="text-xs text-text-secondary">Avatar</span>
+                    </div>
+                    <div id="bio-check" class="flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full border-2 border-border-light flex items-center justify-center mb-2">
+                            <span class="material-symbols-outlined text-border-light text-sm">description</span>
+                        </div>
+                        <span class="text-xs text-text-secondary">Bio</span>
+                    </div>
+                    <div id="location-check" class="flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full border-2 border-border-light flex items-center justify-center mb-2">
+                            <span class="material-symbols-outlined text-border-light text-sm">location_on</span>
+                        </div>
+                        <span class="text-xs text-text-secondary">Location</span>
+                    </div>
+                    <div id="website-check" class="flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full border-2 border-border-light flex items-center justify-center mb-2">
+                            <span class="material-symbols-outlined text-border-light text-sm">link</span>
+                        </div>
+                        <span class="text-xs text-text-secondary">Website</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Stats Grid -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="bg-white rounded-xl p-6 border border-border-light text-center">
@@ -752,25 +789,7 @@
                                 Change
                             </button>
                         </div>
-                        <div class="flex items-center justify-between py-3 border-b border-border-light">
-                            <div>
-                                <h4 class="font-medium text-text-main">Two-Factor Authentication</h4>
-                                <p class="text-sm text-text-secondary">Add an extra layer of security</p>
-                            </div>
-                            <button
-                                class="px-4 py-2 bg-accent-teal/10 text-accent-teal font-medium rounded-lg hover:bg-accent-teal/20 transition-colors">
-                                Enable
-                            </button>
-                        </div>
-                        <div class="flex items-center justify-between py-3">
-                            <div>
-                                <h4 class="font-medium text-text-main">Active Sessions</h4>
-                                <p class="text-sm text-text-secondary">Manage devices logged into your account</p>
-                            </div>
-                            <button
-                                class="px-4 py-2 border border-border-light text-text-main font-medium rounded-lg hover:bg-lavender-soft transition-colors"><span
-                                    data-i18n="viewAll">View All</span></button>
-                        </div>
+                        <!-- 2FA and Active Sessions hidden until implemented -->
                     </div>
                 </div>
 
@@ -819,6 +838,24 @@
                                 </div>
                             </label>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Data Export -->
+                <div class="bg-white rounded-xl border border-border-light overflow-hidden">
+                    <div class="px-6 py-4 border-b border-border-light bg-lavender-soft/20">
+                        <h3 class="font-serif text-xl font-bold text-text-main flex items-center gap-2">
+                            <span class="material-symbols-outlined text-accent-teal">download</span>
+                            Data Export
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-text-secondary text-sm mb-4">Download a copy of your personal data including profile information, contributions, and activity history.</p>
+                        <button onclick="exportUserData()"
+                            class="px-6 py-3 bg-accent-teal text-white font-bold rounded-lg hover:bg-accent-teal/90 transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[20px]">download</span>
+                            Export My Data
+                        </button>
                     </div>
                 </div>
 
@@ -1036,6 +1073,108 @@
                 <span class="material-symbols-outlined text-[20px]">person_add</span>
                 Create an Account
             </a>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="edit-profile-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+            <div class="sticky top-0 bg-white border-b border-border-light px-6 py-4 flex items-center justify-between rounded-t-2xl">
+                <h2 class="font-serif text-xl font-bold text-text-main">Edit Profile</h2>
+                <button onclick="closeEditModal()"
+                    class="size-8 flex items-center justify-center rounded-full hover:bg-border-light transition-colors">
+                    <span class="material-symbols-outlined text-text-secondary">close</span>
+                </button>
+            </div>
+
+            <div class="p-6">
+                <form id="edit-profile-modal-form" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-text-main mb-2">Full Name</label>
+                            <input type="text" id="modal-name" placeholder="Your full name"
+                                class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-text-main mb-2">Email Address</label>
+                            <input type="email" id="modal-email" placeholder="you@example.com"
+                                class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-text-main mb-2">Bio</label>
+                        <textarea id="modal-bio" rows="3" placeholder="Tell us about yourself..."
+                            class="w-full px-4 py-3 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal resize-none"></textarea>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-text-main mb-2">Location</label>
+                            <input type="text" id="modal-location" placeholder="City, Country"
+                                class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-text-main mb-2">Website</label>
+                            <input type="url" id="modal-website" placeholder="https://yourwebsite.com"
+                                class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-3 pt-4 border-t border-border-light">
+                        <button type="button" onclick="closeEditModal()"
+                            class="px-6 py-2.5 border border-border-light text-text-main font-medium rounded-lg hover:bg-lavender-soft transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit"
+                            class="px-6 py-2.5 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[20px]">save</span>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div id="password-modal" role="dialog" aria-modal="true" aria-labelledby="password-modal-title" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full relative">
+            <div class="px-6 py-4 border-b border-border-light flex items-center justify-between">
+                <h2 id="password-modal-title" class="font-serif text-xl font-bold text-text-main">Change Password</h2>
+                <button onclick="closePasswordModal()"
+                    class="size-8 flex items-center justify-center rounded-full hover:bg-border-light transition-colors">
+                    <span class="material-symbols-outlined text-text-secondary">close</span>
+                </button>
+            </div>
+
+            <div class="p-6">
+                <form id="password-form" class="space-y-4" onsubmit="handlePasswordSubmit(event)">
+                    <div>
+                        <label for="current-password" class="block text-sm font-semibold text-text-main mb-2">Current Password</label>
+                        <input type="password" id="current-password" required
+                            class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                    </div>
+                    <div>
+                        <label for="new-password" class="block text-sm font-semibold text-text-main mb-2">New Password</label>
+                        <input type="password" id="new-password" required minlength="8"
+                            class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                    </div>
+                    <div>
+                        <label for="confirm-password" class="block text-sm font-semibold text-text-main mb-2">Confirm New Password</label>
+                        <input type="password" id="confirm-password" required
+                            class="w-full h-12 px-4 border border-border-light rounded-lg focus:border-accent-teal focus:ring-1 focus:ring-accent-teal">
+                    </div>
+                    <div class="flex justify-end gap-3 pt-4 border-t border-border-light">
+                        <button type="button" onclick="closePasswordModal()"
+                            class="px-6 py-2.5 border border-border-light text-text-main font-medium rounded-lg hover:bg-lavender-soft transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit"
+                            class="px-6 py-2.5 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[20px]">lock_reset</span>
+                            Update Password
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

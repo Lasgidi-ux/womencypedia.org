@@ -42,6 +42,13 @@ const TEACHING_FALLBACK = [
   }
 ];
 
+// Helper function to escape HTML to prevent XSS
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 async function loadTeachingResources(containerId) {
   const container = document.getElementById(containerId);
   const loadingElement = document.getElementById('teaching-resources-loading');
@@ -67,9 +74,9 @@ async function loadTeachingResources(containerId) {
     }
 
     container.innerHTML = resources.map(resource => {
-      const title = resource.title || resource.name || 'Untitled Resource';
-      const description = resource.description || '';
-      const type = resource.type || 'Resource';
+      const title = escapeHtml(resource.title || resource.name || 'Untitled Resource');
+      const description = escapeHtml(resource.description || '');
+      const type = escapeHtml(resource.type || 'Resource');
 
       return `
         <div class="bg-white rounded-xl p-6 border border-border-light hover:shadow-lg transition-shadow">
@@ -92,19 +99,26 @@ async function loadTeachingResources(containerId) {
 }
 
 function renderTeachingFallback(container) {
-  container.innerHTML = TEACHING_FALLBACK.map(r => `
+  container.innerHTML = TEACHING_FALLBACK.map(r => {
+    const title = escapeHtml(r.title);
+    const description = escapeHtml(r.description);
+    const type = escapeHtml(r.type);
+    const level = escapeHtml(r.level);
+
+    return `
     <div class="bg-white rounded-xl p-6 border border-border-light hover:shadow-lg transition-shadow">
       <div class="flex items-center gap-2 mb-3">
-        <span class="px-2 py-1 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider rounded">${r.type}</span>
-        <span class="px-2 py-1 bg-accent-teal/10 text-accent-teal text-xs font-medium rounded">${r.level}</span>
+        <span class="px-2 py-1 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider rounded">${type}</span>
+        <span class="px-2 py-1 bg-accent-teal/10 text-accent-teal text-xs font-medium rounded">${level}</span>
       </div>
-      <h3 class="font-serif text-lg font-bold text-text-main mb-2">${r.title}</h3>
-      <p class="text-text-secondary text-sm mb-4">${r.description}</p>
+      <h3 class="font-serif text-lg font-bold text-text-main mb-2">${title}</h3>
+      <p class="text-text-secondary text-sm mb-4">${description}</p>
       <span class="inline-flex items-center gap-1 text-primary font-bold text-sm opacity-60">
         <span class="material-symbols-outlined text-[16px]">lock</span> Coming Soon
       </span>
     </div>
-  `).join('');
+  `;
+  }).join('');
   container.classList.remove('hidden');
 }
 

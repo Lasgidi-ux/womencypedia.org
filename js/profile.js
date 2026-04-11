@@ -102,6 +102,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 function initUI() {
     initTabs();
     setupSettingsForm();
+    setup2FA();
+    setupSessions();
+    setupNotificationPreferences();
 }
 
 //////////////////////////////
@@ -272,6 +275,7 @@ function renderUI() {
     renderSaved();
     renderNominations();
     renderBadges();
+    renderProfileCompleteness();
 }
 
 function renderAvatar() {
@@ -545,6 +549,74 @@ function renderBadges() {
     }).join('');
 }
 
+function renderProfileCompleteness() {
+    const completenessEl = qs('profile-completeness');
+    if (!completenessEl) return;
+
+    let completed = 0;
+    const total = 4;
+
+    // Check avatar
+    if (profileData.avatar) {
+        completed++;
+        updateCompletenessIcon('avatar-check', true);
+    } else {
+        updateCompletenessIcon('avatar-check', false);
+    }
+
+    // Check bio
+    if (profileData.bio && profileData.bio.trim() && profileData.bio !== 'Member of the Womencypedia community.') {
+        completed++;
+        updateCompletenessIcon('bio-check', true);
+    } else {
+        updateCompletenessIcon('bio-check', false);
+    }
+
+    // Check location
+    if (profileData.location && profileData.location.trim()) {
+        completed++;
+        updateCompletenessIcon('location-check', true);
+    } else {
+        updateCompletenessIcon('location-check', false);
+    }
+
+    // Check website
+    if (profileData.website && profileData.website.trim()) {
+        completed++;
+        updateCompletenessIcon('website-check', true);
+    } else {
+        updateCompletenessIcon('website-check', false);
+    }
+
+    // Update progress bar
+    const percentage = Math.round((completed / total) * 100);
+    const barEl = qs('completeness-bar');
+    const percentEl = qs('completeness-percentage');
+
+    if (barEl) barEl.style.width = `${percentage}%`;
+    if (percentEl) percentEl.textContent = `${percentage}%`;
+}
+
+function updateCompletenessIcon(iconId, completed) {
+    const iconEl = qs(iconId);
+    if (!iconEl) return;
+
+    const circle = iconEl.querySelector('div');
+    const symbol = iconEl.querySelector('span');
+
+    if (completed) {
+        circle.classList.remove('border-border-light');
+        circle.classList.add('border-green-500', 'bg-green-50');
+        symbol.classList.remove('text-border-light');
+        symbol.classList.add('text-green-600');
+    } else {
+        circle.classList.remove('border-green-500', 'bg-green-50');
+        circle.classList.add('border-border-light');
+        symbol.classList.remove('text-green-600');
+        symbol.classList.add('text-border-light');
+    }
+}
+
 //////////////////////////////
 // AVATAR UPLOAD
 //////////////////////////////
@@ -552,7 +624,89 @@ function renderBadges() {
 // Called from profile.html's onchange="handleAvatarUpload(event)"
 function handleAvatarUpload(event) {
     const file = event?.target?.files?.[0];
-    if (file) uploadAvatar(file);
+    if (file) {
+        resizeAndUploadAvatar(file);
+    }
+}
+
+async function resizeAndUploadAvatar(file) {
+    try {
+        // Validate file type
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowedTypes.includes(file.type)) {
+            profileToast('Please upload a JPG, PNG, GIF, or WebP image.', 'warning');
+            return;
+        }
+
+        // Check original file size
+        if (file.size > 5 * 1024 * 1024) { // 5MB limit for original
+            profileToast('Image must be under 5MB.', 'warning');
+            return;
+        }
+
+        profileToast('Processing image...', 'info');
+
+        // Resize image if needed
+        const resizedFile = await resizeImage(file, 512, 512, 0.8); // Max 512x512, 80% quality
+
+        uploadAvatar(resizedFile);
+
+    } catch (err) {
+        console.error('[Profile] Image resize failed:', err);
+        profileToast('Failed to process image. Please try again.', 'error');
+    }
+}
+
+async function resizeImage(file, maxWidth, maxHeight, quality = 0.8) {
+    return new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+
+        img.onload = () => {
+            // Calculate new dimensions
+            let { width, height } = img;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = (height * maxWidth) / width;
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = (width * maxHeight) / height;
+                    height = maxHeight;
+                }
+            }
+
+            // Set canvas size
+            canvas.width = width;
+            canvas.height = height;
+
+            // Draw and compress
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(
+                (blob) => {
+                    if (blob) {
+                        // Create new file with same name but compressed
+                        const resizedFile = new File([blob], file.name, {
+                            type: file.type,
+                            lastModified: Date.now()
+                        });
+                        resolve(resizedFile);
+                    } else {
+                        reject(new Error('Failed to compress image'));
+                    }
+                },
+                file.type,
+                quality
+            );
+        };
+
+        img.onerror = () => reject(new Error('Failed to load image'));
+        img.src = URL.createObjectURL(file);
+    });
 }
 
 async function uploadAvatar(file) {
@@ -629,12 +783,25 @@ async function uploadAvatar(file) {
 //////////////////////////////
 
 function showEditModal() {
-    // Scroll to settings form and focus the name field
-    const settingsSection = qs('settings-section');
-    if (settingsSection) {
-        settingsSection.classList.remove('hidden');
-        settingsSection.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => { qs('settings-name')?.focus(); }, 400);
+    const modal = qs('edit-profile-modal');
+    if (!modal) return;
+
+    // Prefill modal form with current data
+    qs('modal-name').value = profileData.name || '';
+    qs('modal-email').value = profileData.email || '';
+    qs('modal-bio').value = profileData.bio || '';
+    qs('modal-location').value = profileData.location || '';
+    qs('modal-website').value = profileData.website || '';
+
+    // Show modal
+    modal.classList.remove('hidden');
+    setTimeout(() => { qs('modal-name')?.focus(); }, 100);
+}
+
+function closeEditModal() {
+    const modal = qs('edit-profile-modal');
+    if (modal) {
+        modal.classList.add('hidden');
     }
 }
 
@@ -760,27 +927,76 @@ function confirmDeleteAccount() {
         return;
     }
 
-    ProfileAPI.request(`${ProfileAPI.base}/api/users/me`, {
-        method: 'DELETE',
-        headers: ProfileAPI.getAuthHeaders()
+    const password = prompt('Enter your current password to confirm account deletion:');
+    if (!password || password.trim() === '') {
+        profileToast('Password is required to delete account.', 'warning');
+        return;
+    }
+
+    ProfileAPI.request(`${ProfileAPI.base}/api/users/me/delete`, {
+        method: 'POST',
+        headers: {
+            ...ProfileAPI.getAuthHeaders(),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password: password.trim() })
     }).then(() => {
         profileToast('Account deleted.', 'success');
         setTimeout(handleLogout, 1500);
-    }).catch(() => {
-        profileToast('Could not delete account. Please contact support.', 'error');
+    }).catch((err) => {
+        const errorMessage = err.message || 'Could not delete account. Please contact support.';
+        profileToast(`Could not delete account: ${errorMessage}`, 'error');
     });
 }
 
 function openPasswordModal() {
-    const currentPw = prompt('Enter your current password:');
-    if (!currentPw) return;
+    const modal = qs('password-modal');
+    if (!modal) return;
 
-    const newPw = prompt('Enter new password (min 8 characters):');
-    if (!newPw || newPw.length < 8) {
-        if (newPw) profileToast('Password must be at least 8 characters.', 'warning');
+    // Clear form
+    qs('password-form').reset();
+
+    // Show modal
+    modal.classList.remove('hidden');
+    setTimeout(() => { qs('current-password')?.focus(); }, 100);
+
+    // Add keyboard event listener for Escape key
+    const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+            closePasswordModal();
+            document.removeEventListener('keydown', handleEscape);
+        }
+    };
+    document.addEventListener('keydown', handleEscape);
+
+    // Store the handler so we can remove it later
+    modal._escapeHandler = handleEscape;
+}
+
+function closePasswordModal() {
+    const modal = qs('password-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+        // Remove keyboard event listener
+        if (modal._escapeHandler) {
+            document.removeEventListener('keydown', modal._escapeHandler);
+            modal._escapeHandler = null;
+        }
+    }
+}
+
+function handlePasswordSubmit(event) {
+    event.preventDefault();
+
+    const currentPw = qs('current-password').value;
+    const newPw = qs('new-password').value;
+    const confirmPw = qs('confirm-password').value;
+
+    if (newPw.length < 8) {
+        profileToast('Password must be at least 8 characters.', 'warning');
         return;
     }
-    const confirmPw = prompt('Confirm new password:');
+
     if (newPw !== confirmPw) {
         profileToast('Passwords do not match.', 'warning');
         return;
@@ -799,9 +1015,80 @@ function openPasswordModal() {
         })
     }).then(() => {
         profileToast('Password updated successfully!', 'success');
+        closePasswordModal();
     }).catch((err) => {
         profileToast(err.message || 'Could not update password.', 'error');
+        // Keep modal open on error so user can try again
     });
+}
+
+async function enable2FA() {
+    try {
+        // Check if 2FA plugin is available
+        const response = await ProfileAPI.request(`${ProfileAPI.base}/api/auth/2fa/status`, {
+            headers: ProfileAPI.getAuthHeaders()
+        });
+
+        if (!response.available) {
+            hide2FAButton();
+            profileToast('Two-Factor Authentication is not available on this server.', 'info');
+            return;
+        }
+
+        // Generate 2FA secret and QR code
+        const setupResponse = await ProfileAPI.request(`${ProfileAPI.base}/api/auth/2fa/setup`, {
+            method: 'POST',
+            headers: {
+                ...ProfileAPI.getAuthHeaders(),
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // Show QR code modal (simplified - in real implementation, show QR code)
+        const code = prompt('Scan the QR code with your authenticator app and enter the verification code:');
+        if (!code) return;
+
+        // Verify and enable 2FA
+        await ProfileAPI.request(`${ProfileAPI.base}/api/auth/2fa/enable`, {
+            method: 'POST',
+            headers: {
+                ...ProfileAPI.getAuthHeaders(),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                code: code
+            })
+        });
+
+        profileToast('Two-Factor Authentication enabled successfully!', 'success');
+        update2FAButton(true);
+
+    } catch (err) {
+        console.error('[Profile] 2FA setup failed:', err);
+        if (err.status === 404) {
+            hide2FAButton();
+            profileToast('Two-Factor Authentication is not available on this server.', 'info');
+        } else {
+            profileToast('Failed to enable 2FA. Please try again.', 'error');
+        }
+    }
+}
+
+function hide2FAButton() {
+    const btn = qs('enable-2fa-btn');
+    if (btn) btn.style.display = 'none';
+}
+
+function update2FAButton(enabled) {
+    const btn = qs('enable-2fa-btn');
+    if (!btn) return;
+
+    if (enabled) {
+        btn.textContent = 'Enabled';
+        btn.disabled = true;
+        btn.classList.add('bg-green-100', 'text-green-700', 'cursor-not-allowed');
+        btn.classList.remove('bg-accent-teal/10', 'text-accent-teal', 'hover:bg-accent-teal/20');
+    }
 }
 
 //////////////////////////////
@@ -824,33 +1111,206 @@ function prefillSettingsForms() {
 
 function setupSettingsForm() {
     const form = qs('edit-profile-form');
-    if (!form) return;
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = form.querySelector('[type="submit"]');
+            const origText = submitBtn?.innerHTML;
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = form.querySelector('[type="submit"]');
-        const origText = submitBtn?.innerHTML;
+            try {
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Saving...';
+                }
 
-        try {
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Saving...';
+                profileData.name = qs('settings-name')?.value || profileData.name;
+                profileData.bio = qs('settings-bio')?.value || profileData.bio;
+                profileData.location = qs('settings-location')?.value || profileData.location;
+                profileData.website = qs('settings-website')?.value || profileData.website;
+
+                await saveProfile();
+                profileToast('Profile updated!', 'success');
+            } catch {
+                profileToast('Save failed. Please try again.', 'error');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = origText;
+                }
             }
+        });
+    }
 
-            profileData.name = qs('settings-name')?.value || profileData.name;
-            profileData.bio = qs('settings-bio')?.value || profileData.bio;
-            profileData.location = qs('settings-location')?.value || profileData.location;
-            profileData.website = qs('settings-website')?.value || profileData.website;
+    // Setup modal form
+    const modalForm = qs('edit-profile-modal-form');
+    if (modalForm) {
+        modalForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = modalForm.querySelector('[type="submit"]');
+            const origText = submitBtn?.innerHTML;
 
-            await saveProfile();
-            profileToast('Profile updated!', 'success');
-        } catch {
-            profileToast('Save failed. Please try again.', 'error');
-        } finally {
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = origText;
+            try {
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Saving...';
+                }
+
+                profileData.name = qs('modal-name')?.value || profileData.name;
+                profileData.bio = qs('modal-bio')?.value || profileData.bio;
+                profileData.location = qs('modal-location')?.value || profileData.location;
+                profileData.website = qs('modal-website')?.value || profileData.website;
+
+                await saveProfile();
+                profileToast('Profile updated!', 'success');
+                closeEditModal();
+            } catch {
+                profileToast('Save failed. Please try again.', 'error');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = origText;
+                }
             }
+        });
+    }
+}
+
+function setup2FA() {
+    const btn = qs('enable-2fa-btn');
+    if (btn) {
+        btn.addEventListener('click', enable2FA);
+    }
+}
+
+function setupNotificationPreferences() {
+    // Load preferences on page load
+    loadNotificationPreferences();
+
+    // Save preferences when toggles change
+    const toggles = ['email-notifications', 'contribution-updates', 'weekly-digest'];
+    toggles.forEach(id => {
+        const toggle = qs(id);
+        if (toggle) {
+            toggle.addEventListener('change', () => {
+                // Debounce saves to avoid too many API calls
+                clearTimeout(toggle._saveTimeout);
+                toggle._saveTimeout = setTimeout(saveNotificationPreferences, 1000);
+            });
         }
     });
+}
+
+function setupSessions() {
+    const btn = qs('view-sessions-btn');
+    if (btn) {
+        btn.addEventListener('click', viewSessions);
+    }
+}
+
+async function viewSessions() {
+    try {
+        // Try to fetch sessions from Strapi (if custom endpoint exists)
+        const response = await ProfileAPI.request(`${ProfileAPI.base}/api/users/me/sessions`, {
+            headers: ProfileAPI.getAuthHeaders()
+        });
+
+        // If successful, show sessions (implementation would depend on API response)
+        console.log('Sessions:', response);
+        profileToast('Active sessions feature coming soon!', 'info');
+
+    } catch (err) {
+        // If endpoint doesn't exist (404), show message
+        if (err.status === 404) {
+            profileToast('Active sessions are not available with the current server configuration.', 'info');
+        } else {
+            profileToast('Unable to load active sessions.', 'error');
+        }
+    }
+}
+
+async function exportUserData() {
+    try {
+        profileToast('Preparing your data export...', 'info');
+
+        // Try to call the export endpoint
+        const response = await fetch(`${ProfileAPI.base}/api/users/me/export`, {
+            method: 'GET',
+            headers: ProfileAPI.getAuthHeaders()
+        });
+
+        if (!response.ok) {
+            throw new Error(`Export failed: ${response.status}`);
+        }
+
+        // Get the data as blob
+        const blob = await response.blob();
+
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `womencypedia-data-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        profileToast('Data export downloaded successfully!', 'success');
+
+    } catch (err) {
+        console.error('[Profile] Data export failed:', err);
+        if (err.message.includes('404')) {
+            profileToast('Data export is not available with the current server configuration.', 'info');
+        } else {
+            profileToast('Failed to export data. Please try again.', 'error');
+        }
+    }
+}
+
+async function saveNotificationPreferences() {
+    const preferences = {
+        emailNotifications: qs('email-notifications')?.checked || false,
+        contributionUpdates: qs('contribution-updates')?.checked || false,
+        weeklyDigest: qs('weekly-digest')?.checked || false
+    };
+
+    try {
+        await ProfileAPI.request(
+            `${ProfileAPI.base}/api/users/me/preferences`,
+            {
+                method: 'PUT',
+                headers: {
+                    ...ProfileAPI.getAuthHeaders(),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ notificationPreferences: preferences })
+            }
+        );
+
+        profileToast('Notification preferences saved!', 'success');
+
+    } catch (err) {
+        console.error('[Profile] Save preferences failed:', err);
+        // Don't show error for now to avoid spam - preferences can be saved later
+    }
+}
+
+async function loadNotificationPreferences() {
+    try {
+        const response = await ProfileAPI.request(
+            `${ProfileAPI.base}/api/users/me?populate=preferences`,
+            { headers: ProfileAPI.getAuthHeaders() }
+        );
+
+        const prefs = response.notificationPreferences || {};
+
+        if (qs('email-notifications')) qs('email-notifications').checked = prefs.emailNotifications || false;
+        if (qs('contribution-updates')) qs('contribution-updates').checked = prefs.contributionUpdates || false;
+        if (qs('weekly-digest')) qs('weekly-digest').checked = prefs.weeklyDigest || false;
+
+    } catch (err) {
+        // Preferences not available, use defaults
+        console.log('[Profile] Could not load notification preferences');
+    }
 }
