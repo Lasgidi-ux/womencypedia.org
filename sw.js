@@ -5,7 +5,7 @@
  * FIXED: Image 408 offline errors
  */
 
-const CACHE_NAME = 'womencypedia-v5.0';
+const CACHE_NAME = 'womencypedia-v5.1';
 const OFFLINE_URL = '/404.html';
 
 const PRECACHE_ASSETS = [
