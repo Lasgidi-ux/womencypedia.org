@@ -128,7 +128,7 @@
                         url += `&filters[category][$eq]=${encodeURIComponent(searchState.category)}`;
                     }
 
-                    const response = await fetch(url, { headers: { 'Cache-Control': 'no-cache' }, cache: 'no-store' });
+                    const response = await fetch(url, { headers: { 'Content-Type': 'application/json' } });
                     if (response.ok) {
                         const result = await response.json();
                         results = (result.data || []).map(item => {

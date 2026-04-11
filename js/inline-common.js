@@ -30,10 +30,9 @@
         // Build URL with populate (exclude sensitive relations)
         const urlObj = new URL(endpoint, baseUrl);
         if (!endpoint.includes('populate=')) {
-            // Populate content fields but exclude createdBy/updatedBy (contain password hashes)
-            urlObj.searchParams.set('populate[]', 'image');
-            urlObj.searchParams.set('populate[]', 'tags');
-            urlObj.searchParams.set('populate[]', 'sources');
+            // Populate relations/media only — JSON fields (e.g. sources) are returned automatically
+            urlObj.searchParams.append('populate[]', 'image');
+            urlObj.searchParams.append('populate[]', 'tags');
         }
 
         // Build headers

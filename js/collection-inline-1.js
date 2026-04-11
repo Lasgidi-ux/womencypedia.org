@@ -26,8 +26,7 @@
                 // Fetch collection from Strapi by slug
                 const url = `${CONFIG.API_BASE_URL}/api/collections?filters[slug][$eq]=${encodeURIComponent(COLLECTION_SLUG)}&populate[biographies][populate]=image,tags&populate=coverImage`;
                 const response = await fetch(url, {
-                    headers: { 'Cache-Control': 'no-cache' },
-                    cache: 'no-store'
+                    headers: { 'Content-Type': 'application/json' }
                 });
 
                 if (!response.ok) throw new Error('API returned ' + response.status);
@@ -155,8 +154,7 @@
             try {
                 const url = `${CONFIG.API_BASE_URL}/api/collections?filters[slug][$ne]=${encodeURIComponent(COLLECTION_SLUG)}&pagination[pageSize]=5&populate=coverImage`;
                 const response = await fetch(url, {
-                    headers: { 'Cache-Control': 'no-cache' },
-                    cache: 'no-store'
+                    headers: { 'Content-Type': 'application/json' }
                 });
 
                 if (!response.ok) return;
