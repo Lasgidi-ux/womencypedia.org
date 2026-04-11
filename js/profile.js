@@ -593,7 +593,10 @@ function renderProfileCompleteness() {
     const barEl = qs('completeness-bar');
     const percentEl = qs('completeness-percentage');
 
-    if (barEl) barEl.style.width = `${percentage}%`;
+    if (barEl) {
+        barEl.style.width = `${percentage}%`;
+        barEl.setAttribute('aria-valuenow', percentage);
+    }
     if (percentEl) percentEl.textContent = `${percentage}%`;
 }
 

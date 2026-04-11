@@ -467,6 +467,38 @@
                         </div>
                     </div>
 
+                    <!-- Profile Completeness -->
+                    <div class="mb-8 pb-8 border-b border-border-light">
+                        <h3 class="text-text-main font-semibold mb-4" data-i18n="settings.profileCompleteness">Profile Completeness</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Complete your profile to unlock all features</span>
+                                <span id="completeness-percentage" class="text-sm font-medium text-primary">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div id="completeness-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Profile completeness percentage" class="bg-gradient-to-r from-primary to-accent-teal h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div class="flex items-center gap-2">
+                                    <span id="avatar-check" class="material-symbols-outlined text-red-500 text-lg">close</span>
+                                    <span class="text-text-secondary">Profile photo</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span id="bio-check" class="material-symbols-outlined text-red-500 text-lg">close</span>
+                                    <span class="text-text-secondary">Bio</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span id="location-check" class="material-symbols-outlined text-red-500 text-lg">close</span>
+                                    <span class="text-text-secondary">Location</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span id="website-check" class="material-symbols-outlined text-red-500 text-lg">close</span>
+                                    <span class="text-text-secondary">Website</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Profile Form -->
                     <form id="profile-form" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -504,6 +536,12 @@
                             <input type="text" name="location" id="location"
                                 class="w-full px-4 py-3 bg-gray-50 border border-border-light rounded-xl text-text-main placeholder-text-secondary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                                 placeholder="City, Country">
+                        </div>
+                        <div>
+                            <label class="block text-text-main text-sm font-medium mb-2">Website</label>
+                            <input type="url" name="website" id="website"
+                                class="w-full px-4 py-3 bg-gray-50 border border-border-light rounded-xl text-text-main placeholder-text-secondary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                placeholder="https://yourwebsite.com">
                         </div>
                         <div class="flex justify-end">
                             <button type="submit"

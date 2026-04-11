@@ -27,7 +27,7 @@ class DownloadableResourcesLoader {
       });
 
       this.resources = response.entries || [];
-      
+
       if (this.resources.length === 0) {
         throw new Error('No resources returned from API');
       }
@@ -52,7 +52,7 @@ class DownloadableResourcesLoader {
     document.querySelectorAll('.downloadable-pdf-button').forEach(button => {
       const parentContainer = button.closest('.bg-white');
       if (!parentContainer) return;
-      
+
       const titleEl = parentContainer.querySelector('h4');
       if (!titleEl) return;
 
@@ -66,8 +66,8 @@ class DownloadableResourcesLoader {
           button.disabled = false;
           button.textContent = 'Download PDF';
         } else {
-          // Keep enabled but show coming soon for fallbacks if no URL
-          button.disabled = false;
+          // Disable and show coming soon for unavailable resources
+          button.disabled = true;
           button.textContent = 'Coming Soon';
           button.classList.add('opacity-70');
         }
@@ -78,11 +78,14 @@ class DownloadableResourcesLoader {
   async downloadResource(resource) {
     try {
       let downloadUrl;
-      
+
       if (this.isFallback) {
-        // Just use a dummy alert for fallback so users know it's not real yet
-        alert(`Downloaded: ${resource.title} (Demo)`);
-        return;
+        // Use the static URL from fallback data
+        downloadUrl = resource.url;
+        if (!downloadUrl) {
+          alert(`${resource.title} is not available yet.`);
+          return;
+        }
       } else {
         downloadUrl = this.api.downloadableResources.getDownloadUrl(resource);
         if (!downloadUrl) throw new Error('Download URL not available');

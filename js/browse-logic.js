@@ -45,7 +45,7 @@ async function browseFetch(endpoint, params = {}) {
 
     // Only delegate to fetchStrapi for biographies (it auto-adds populate[]=image&tags).
     // Other endpoints (e.g. collections) may not have those relations and will 400.
-    const isBiographies = endpoint === 'biographies' || endpoint.startsWith('biographies?');
+    const isBiographies = endpoint === 'biographies';
     if (isBiographies && typeof fetchStrapi !== 'undefined') {
         return fetchStrapi(`/api/${endpoint}?${url.searchParams.toString()}`);
     }
