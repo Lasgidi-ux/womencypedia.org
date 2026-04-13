@@ -34,9 +34,9 @@ class StrapiAPIClient {
     const token =
       (this.getAccessToken && this.getAccessToken()) || this.apiToken;
 
-    // Don't send auth for public GET requests to biographies and collections
+    // Don't send auth for public GET requests to biographies, collections, education modules, and teaching resources
     const isPublicGet = (options.method || 'GET') === 'GET' &&
-      (endpoint.startsWith('/api/biographies') || endpoint.startsWith('/api/collections'));
+      (endpoint.startsWith('/api/biographies') || endpoint.startsWith('/api/collections') || endpoint.startsWith('/api/education-modules') || endpoint.startsWith('/api/teaching-resources'));
 
     const headers = {
       "Content-Type": "application/json",
