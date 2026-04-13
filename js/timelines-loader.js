@@ -29,7 +29,7 @@ class TimelinesLoader {
       if (!this.api) throw new Error('API not available');
 
       const response = await this.api.timelines.getEvents({
-        sort: 'date:desc',
+        sort: 'year:desc',
         pagination: { pageSize: limit }
       });
 
@@ -43,12 +43,13 @@ class TimelinesLoader {
       container.innerHTML = events.map(event => {
         const title = event.title || 'Untitled Event';
         const description = event.description || '';
-        const date = event.date ? this.formatDate(event.date) : '';
-        const category = event.category || '';
+        const year = event.year || event.date || '';
+        const formattedDate = year ? this.formatDate(year) : '';
+        const category = event.category || event.domain || '';
 
         return `
           <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-20 text-accent-teal font-bold">${date}</div>
+            <div class="flex-shrink-0 w-20 text-accent-teal font-bold">${formattedDate}</div>
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-1">
                 <p class="text-text-main font-medium">${title}</p>
@@ -83,11 +84,25 @@ class TimelinesLoader {
 
   formatDate(dateString) {
     try {
+      // Handle year values (numbers or strings)
+      if (!isNaN(dateString) && !isNaN(parseFloat(dateString))) {
+        const year = parseInt(dateString);
+        if (year < 0) return `${Math.abs(year)} BCE`;
+        if (year < 100) return `${year} CE`;
+        return year.toString();
+      }
+
+      // Handle date strings
       const date = new Date(dateString);
-      const year = date.getFullYear();
-      if (year < 0) return `${Math.abs(year)} BCE`;
-      if (year < 100) return `${year} CE`;
-      return year.toString();
+      if (!isNaN(date.getTime())) {
+        const year = date.getFullYear();
+        if (year < 0) return `${Math.abs(year)} BCE`;
+        if (year < 100) return `${year} CE`;
+        return year.toString();
+      }
+
+      // Return as-is if not a valid date
+      return dateString;
     } catch (error) {
       return dateString;
     }
