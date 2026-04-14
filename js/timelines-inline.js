@@ -39,21 +39,23 @@
                 </div>
             `;
 
-            // Fetch timelines from Strapi
-            const response = await window.fetchStrapi('/api/timelines?populate=*&sort=year:asc');
+            // Timeline feature is coming soon - API endpoint not yet available
+            timelineContainer.innerHTML = `
+                <div class="text-center py-12">
+                    <span class="material-symbols-outlined text-4xl text-text-secondary mb-4 block">timeline</span>
+                    <h3 class="font-serif text-lg font-semibold text-text-main mb-2">Timeline Feature Coming Soon</h3>
+                    <p class="text-text-secondary">We're working on an interactive timeline of women's history. Check back soon for historical timelines and events.</p>
+                </div>
+            `;
+            return;
 
-            if (!response || !response.data || response.data.length === 0) {
-                timelineContainer.innerHTML = `
-                    <div class="text-center py-12">
-                        <span class="material-symbols-outlined text-4xl text-text-secondary mb-4 block">timeline</span>
-                        <p class="text-text-secondary">No timeline events available yet.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Render timelines
-            renderTimelines(response.data, timelineContainer);
+            // Future code when API is ready:
+            // const response = await window.fetchStrapi('/api/timelines?sort=year:asc');
+            // if (!response || !response.data || response.data.length === 0) {
+            //     // Show coming soon message
+            // } else {
+            //     renderTimelines(response.data, timelineContainer);
+            // }
 
         } catch (error) {
             console.error('Error loading timelines:', error);
