@@ -1322,7 +1322,11 @@ async function loadNotificationPreferences() {
 
     } catch (err) {
         // Preferences not available, use defaults
-        console.log('[Profile] Could not load notification preferences');
+        if (err.message?.includes('403') || err.message?.includes('Forbidden')) {
+            console.log('[Profile] User not authenticated, using default preferences');
+        } else {
+            console.log('[Profile] Could not load notification preferences:', err.message);
+        }
     }
 }
 
