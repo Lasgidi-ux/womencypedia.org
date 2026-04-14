@@ -156,7 +156,7 @@ function renderFeaturedModuleCard(module) {
 }
 
 // Render module card from dynamic data
-function renderModuleCard(module, index) {
+function renderModuleCard(module, index, progress = null) {
     const colors = {
         'primary': { bg: 'bg-primary/10', text: 'text-primary', btn: 'bg-primary/10 text-primary hover:bg-primary/20' },
         'accent-teal': { bg: 'bg-accent-teal/10', text: 'text-accent-teal', btn: 'bg-accent-teal/10 text-accent-teal hover:bg-accent-teal/20' },
@@ -180,6 +180,37 @@ function renderModuleCard(module, index) {
     // Determine icon based on module content or default
     const icon = escapeHtml(module.icon || 'school');
 
+    // Check completion status
+    const isCompleted = progress && progress.completed;
+    const progressPercent = progress ? progress.progress : 0;
+
+    let buttonHTML;
+    if (isCompleted) {
+        buttonHTML = `
+            <button onclick="generateCertificate(${JSON.stringify(module).replace(/"/g, '&quot;')})"
+                class="inline-flex items-center justify-center h-10 px-6 bg-green-100 text-green-700 font-bold rounded-lg transition-colors gap-2 w-full hover:bg-green-200">
+                <span class="material-symbols-outlined text-[18px]">emoji_events</span>
+                Get Certificate
+            </button>
+        `;
+    } else if (progressPercent > 0) {
+        buttonHTML = `
+            <a href="education-module.html?slug=${slug}"
+                class="inline-flex items-center justify-center h-10 px-6 ${c.btn} font-bold rounded-lg transition-colors gap-2 w-full">
+                <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                Continue (${progressPercent}%)
+            </a>
+        `;
+    } else {
+        buttonHTML = `
+            <a href="education-module.html?slug=${slug}"
+                class="inline-flex items-center justify-center h-10 px-6 ${c.btn} font-bold rounded-lg transition-colors gap-2 w-full">
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                Start Module
+            </a>
+        `;
+    }
+
     return `
                 <div class="bg-white rounded-2xl p-6 border border-border-light shadow-sm hover:shadow-lg transition-all">
                     <div class="flex items-center gap-3 mb-4">
@@ -198,21 +229,21 @@ function renderModuleCard(module, index) {
                             <span class="material-symbols-outlined text-[16px]">auto_stories</span> ${lessons} Lesson${lessons !== 1 ? 's' : ''}
                         </span>
                     </div>
-                    <a href="education-module.html?slug=${slug}"
-                        class="inline-flex items-center justify-center h-10 px-6 ${c.btn} font-bold rounded-lg transition-colors gap-2 w-full">
-                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                        View Module
-                    </a>
+                    ${progressPercent > 0 ? `<div class="w-full bg-gray-200 rounded-full h-2 mb-4"><div class="bg-${color === 'primary' ? 'primary' : color === 'accent-teal' ? 'accent-teal' : 'accent-gold'} h-2 rounded-full" style="width: ${progressPercent}%"></div></div>` : ''}
+                    ${buttonHTML}
                 </div>
             `;
 }
 
 // Render modules from API data
-function renderModules(modules) {
+function renderModules(modules, progressData = {}) {
     const grid = document.getElementById('modules-grid');
     if (!grid) return;
 
-    grid.innerHTML = modules.map((module, index) => renderModuleCard(module, index)).join('');
+    grid.innerHTML = modules.map((module, index) => {
+        const progress = progressData[module.id];
+        return renderModuleCard(module, index, progress);
+    }).join('');
 
     // Hide loading, show grid
     document.getElementById('modules-loading').classList.add('hidden');
@@ -329,6 +360,60 @@ async function loadEducationModules(retryCount = 0) {
         });
 
         console.log('🔍 [Education] API Response received:', response);
+
+        // Load user progress if user is logged in
+        let progressData = {};
+        try {
+            if (typeof Auth !== 'undefined' && Auth.getUser && Auth.getUser()) {
+                const progressResponse = await StrapiAPI.userProgress.getAll();
+                if (progressResponse && progressResponse.entries) {
+                    progressResponse.entries.forEach(progress => {
+                        if (progress.educationModule && progress.educationModule.id) {
+                            progressData[progress.educationModule.id] = progress;
+                        }
+                    });
+                }
+            }
+        } catch (progressError) {
+            console.warn('⚠️ [Education] Could not load progress data:', progressError);
+            // Continue without progress data
+        }
+
+        if (response && response.entries && response.entries.length > 0) {
+            console.log('🔍 [Education] Found', response.entries.length, 'modules, rendering...');
+            renderModules(response.entries, progressData);
+        } else {
+            console.log('🔍 [Education] No modules found in response');
+            throw new Error('No education modules found');
+        }
+    } catch (error) {
+        console.error('❌ [Education] Error loading modules:', error);
+        
+        // Retry with exponential backoff for network errors
+        if (retryCount < maxRetries && (error.name === 'NetworkError' || error.message.includes('fetch'))) {
+            const delay = Math.pow(2, retryCount) * 1000; // Exponential backoff: 1s, 2s, 4s
+
+            setTimeout(() => {
+                loadEducationModules(retryCount + 1);
+            }, delay);
+            return;
+        }
+
+        showError(error.message || 'Failed to load education modules');
+    }
+}
+
+        // Show loading state
+        if (loading) loading.classList.remove('hidden');
+        if (grid) grid.classList.add('hidden');
+
+        console.log('🔍 [Education] Calling StrapiAPI.educationModules.getAll...');
+        const response = await StrapiAPI.educationModules.getAll({
+            sort: 'order',
+            pageSize: 50
+        });
+
+        console.log('🔍 [Education] API Response received:', response);
         if (response && response.entries && response.entries.length > 0) {
             console.log('🔍 [Education] Found', response.entries.length, 'modules, rendering...');
             renderModules(response.entries);
@@ -352,6 +437,216 @@ async function loadEducationModules(retryCount = 0) {
 
         showError(error.message || 'Failed to load education modules');
     }
+}
+
+// Certificate generation
+async function generateCertificate(module) {
+    try {
+        if (!module || !module.title) {
+            throw new Error('Invalid module data');
+        }
+
+        // Get current user info
+        const user = Auth?.getUser?.() || null;
+        const userName = user?.name || user?.username || 'Valued Learner';
+
+        // Create certificate data
+        const certificateData = {
+            userName: userName,
+            moduleTitle: module.title,
+            completionDate: new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }),
+            moduleId: module.id,
+            certificateId: `CERT-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
+        };
+
+        // Update progress with certificate data
+        if (typeof StrapiAPI !== 'undefined' && module.id) {
+            await StrapiAPI.userProgress.complete(module.id);
+        }
+
+        // Create certificate HTML
+        const certificateHTML = createCertificateHTML(certificateData);
+
+        // Open certificate in new window
+        const certificateWindow = window.open('', '_blank', 'width=800,height=600');
+        if (certificateWindow) {
+            certificateWindow.document.write(certificateHTML);
+            certificateWindow.document.close();
+        } else {
+            // Fallback: download as HTML file
+            const blob = new Blob([certificateHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `certificate-${certificateData.certificateId}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        return certificateData;
+    } catch (error) {
+        console.error('Certificate generation failed:', error);
+        alert('Failed to generate certificate. Please try again.');
+        throw error;
+    }
+}
+
+function createCertificateHTML(data) {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Completion</title>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .certificate {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 10px solid #D67D7D;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #D67D7D, #F4A261);
+            border-radius: 30px;
+            z-index: -1;
+        }
+        .header {
+            color: #D67D7D;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 30px 0;
+            line-height: 1.2;
+        }
+        .presented-to {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin: 20px 0;
+        }
+        .name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #D67D7D;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        .achievement {
+            font-size: 18px;
+            color: #34495e;
+            margin: 30px 0;
+            line-height: 1.6;
+        }
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 0 40px;
+        }
+        .detail-item {
+            text-align: center;
+        }
+        .detail-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .detail-value {
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+        }
+        .signature {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #D67D7D;
+            margin-bottom: 10px;
+        }
+        .certificate-id {
+            font-size: 12px;
+            color: #95a5a6;
+            margin-top: 20px;
+        }
+        @media print {
+            body { background: white; }
+            .certificate { box-shadow: none; border: 2px solid #D67D7D; }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="header">Certificate of Completion</div>
+        <div class="title">Womencypedia Education</div>
+
+        <div class="presented-to">This is to certify that</div>
+        <div class="name">${data.userName}</div>
+        <div class="achievement">has successfully completed the education module<br><strong>"${data.moduleTitle}"</strong></div>
+
+        <div class="details">
+            <div class="detail-item">
+                <div class="detail-label">Completion Date</div>
+                <div class="detail-value">${data.completionDate}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Certificate ID</div>
+                <div class="detail-value">${data.certificateId}</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="signature">Awarded by the Womencypedia Foundation</div>
+            <div class="logo">Womencypedia</div>
+            <div class="certificate-id">Certificate ID: ${data.certificateId}</div>
+        </div>
+    </div>
+</body>
+</html>`;
 }
 
 // Initialize on page load

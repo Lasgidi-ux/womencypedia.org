@@ -585,6 +585,62 @@ class StrapiAPIClient {
         }),
     };
 
+    userProgress = {
+      getAll: (params = {}) =>
+        this.request("/api/user-progresses", { query: params }),
+
+      getByModule: async (moduleId) => {
+        const res = await this.request(
+          `/api/user-progresses?filters[educationModule][id][$eq]=${moduleId}`
+        );
+        return res.entries?.[0] || null;
+      },
+
+      create: (data) =>
+        this.request("/api/user-progresses", {
+          method: "POST",
+          body: JSON.stringify({ data }),
+        }),
+
+      update: (id, data) =>
+        this.request(`/api/user-progresses/${id}`, {
+          method: "PUT",
+          body: JSON.stringify({ data }),
+        }),
+
+      complete: async (moduleId) => {
+        const existing = await this.getByModule(moduleId);
+        const data = {
+          educationModule: moduleId,
+          progress: 100,
+          completed: true,
+          completedAt: new Date().toISOString(),
+          lastAccessedAt: new Date().toISOString()
+        };
+
+        if (existing) {
+          return this.update(existing.id, data);
+        } else {
+          return this.create(data);
+        }
+      },
+
+      updateProgress: async (moduleId, progress) => {
+        const existing = await this.getByModule(moduleId);
+        const data = {
+          educationModule: moduleId,
+          progress: Math.min(100, Math.max(0, progress)),
+          lastAccessedAt: new Date().toISOString()
+        };
+
+        if (existing) {
+          return this.update(existing.id, { ...existing, ...data });
+        } else {
+          return this.create(data);
+        }
+      }
+    };
+
     enterprises = {
       getAll: (params = {}) => {
         // Get all biographies with enterprise categories
