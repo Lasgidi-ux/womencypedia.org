@@ -11,12 +11,106 @@ function escapeHtml(text) {
         .replace(/'/g, '&#039;');
 }
 
+// Calculate real-time duration based on module content
+function calculateModuleDuration(module) {
+    // If explicit duration exists, use it
+    if (module.duration) return module.duration;
+
+    let lessonCount = calculateLessonCount(module);
+    let estimatedMinutes = 0;
+
+    // Estimate based on lessons
+    if (lessonCount > 0) {
+        // Assume 20-30 minutes per lesson
+        estimatedMinutes = lessonCount * 25;
+    } else if (module.content) {
+        // Estimate based on content length (roughly 200 words per minute reading time)
+        const wordCount = module.content.split(/\s+/).length;
+        estimatedMinutes = Math.max(30, Math.ceil(wordCount / 200) * 60); // Minimum 30 minutes
+    } else if (module.description) {
+        // Fallback to description length
+        const wordCount = module.description.split(/\s+/).length;
+        estimatedMinutes = Math.max(15, Math.ceil(wordCount / 150) * 60); // Minimum 15 minutes
+    }
+
+    // Convert to readable format
+    if (estimatedMinutes < 60) {
+        return `${estimatedMinutes} min`;
+    } else if (estimatedMinutes < 120) {
+        return '1 hour';
+    } else {
+        const hours = Math.floor(estimatedMinutes / 60);
+        const remainingMinutes = estimatedMinutes % 60;
+        if (remainingMinutes === 0) {
+            return `${hours} hour${hours > 1 ? 's' : ''}`;
+        } else {
+            return `${hours}h ${remainingMinutes}m`;
+        }
+    }
+}
+
+// Calculate real-time lesson count based on module data
+function calculateLessonCount(module) {
+    // If lessons is an array, count the items
+    if (Array.isArray(module.lessons)) {
+        return module.lessons.length;
+    }
+
+    // If lessons is a JSON string, try to parse it
+    if (typeof module.lessons === 'string') {
+        try {
+            const parsed = JSON.parse(module.lessons);
+            if (Array.isArray(parsed)) {
+                return parsed.length;
+            }
+        } catch (e) {
+            // If parsing fails, treat as single lesson
+        }
+    }
+
+    // If lessons is an object with lessons array
+    if (module.lessons && typeof module.lessons === 'object' && Array.isArray(module.lessons.lessons)) {
+        return module.lessons.lessons.length;
+    }
+
+    // If lessons_count exists, use it
+    if (module.lessons_count && typeof module.lessons_count === 'number') {
+        return module.lessons_count;
+    }
+
+    // If quiz exists, it might indicate lessons
+    if (Array.isArray(module.quiz) && module.quiz.length > 0) {
+        return module.quiz.length;
+    }
+
+    // If quiz is JSON string
+    if (typeof module.quiz === 'string') {
+        try {
+            const parsed = JSON.parse(module.quiz);
+            if (Array.isArray(parsed)) {
+                return parsed.length;
+            }
+        } catch (e) {
+            // Ignore parsing errors
+        }
+    }
+
+    // Estimate based on content structure (rough heuristic)
+    if (module.content) {
+        const sections = module.content.split(/\n\s*\n/).length;
+        return Math.max(1, Math.min(12, sections)); // Between 1-12 lessons
+    }
+
+    // Default fallback
+    return 1;
+}
+
 // Render featured module card from dynamic data
 function renderFeaturedModuleCard(module) {
     const title = escapeHtml(module.title || module.name || '');
     const description = escapeHtml(module.description || module.summary || '');
-    const duration = escapeHtml(module.duration || '4 Hours');
-    const lessons = module.lessons || module.lessons_count || 12;
+    const duration = calculateModuleDuration(module);
+    const lessons = calculateLessonCount(module);
     const slug = encodeURIComponent(module.slug || '');
     const learningObjectives = module.learningObjectives || [];
 
@@ -72,8 +166,8 @@ function renderModuleCard(module, index) {
     // Map Strapi data to display format
     const title = escapeHtml(module.title || module.name || '');
     const description = escapeHtml(module.description || module.summary || '');
-    const duration = escapeHtml(module.duration || '4 Hours');
-    const lessons = module.lessons || module.lessons_count || 12;
+    const duration = calculateModuleDuration(module);
+    const lessons = calculateLessonCount(module);
     const moduleNumber = module.order || module.module_number || (index + 1);
     const slug = encodeURIComponent(module.slug || '');
 
