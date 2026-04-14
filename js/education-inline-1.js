@@ -403,42 +403,6 @@ async function loadEducationModules(retryCount = 0) {
     }
 }
 
-        // Show loading state
-        if (loading) loading.classList.remove('hidden');
-        if (grid) grid.classList.add('hidden');
-
-        console.log('🔍 [Education] Calling StrapiAPI.educationModules.getAll...');
-        const response = await StrapiAPI.educationModules.getAll({
-            sort: 'order',
-            pageSize: 50
-        });
-
-        console.log('🔍 [Education] API Response received:', response);
-        if (response && response.entries && response.entries.length > 0) {
-            console.log('🔍 [Education] Found', response.entries.length, 'modules, rendering...');
-            renderModules(response.entries);
-        } else {
-            console.log('🔍 [Education] No modules found in response');
-            throw new Error('No education modules found');
-        }
-    } catch (error) {
-        console.error('❌ [Education] Error loading modules:', error);
-        
-
-        // Retry with exponential backoff for network errors
-        if (retryCount < maxRetries && (error.name === 'NetworkError' || error.message.includes('fetch'))) {
-            const delay = Math.pow(2, retryCount) * 1000; // Exponential backoff: 1s, 2s, 4s
-
-            setTimeout(() => {
-                loadEducationModules(retryCount + 1);
-            }, delay);
-            return;
-        }
-
-        showError(error.message || 'Failed to load education modules');
-    }
-}
-
 // Certificate generation
 async function generateCertificate(module) {
     try {
