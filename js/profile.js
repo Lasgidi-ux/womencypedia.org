@@ -10,51 +10,224 @@
 // Simple in-memory cache for API responses
 const apiCache = new Map();
 
+// Constants
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const MAX_NAME_LENGTH = 100;
+const MAX_BIO_LENGTH = 500;
+const MAX_LOCATION_LENGTH = 100;
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 128;
+
+// Feature flags for gradual rollout
+const FEATURES = {
+    ENABLE_PROFILE_EDITING: true,
+    ENABLE_PASSWORD_CHANGE: true,
+    ENABLE_AVATAR_UPLOAD: true,
+    ENABLE_CACHING: true,
+    ENABLE_PERFORMANCE_MONITORING: true,
+    ENABLE_ADVANCED_VALIDATION: true
+};
+
+// PWA features
+const pwaFeatures = {
+    /**
+     * Check if the app can be installed as PWA
+     */
+    canInstall() {
+        return 'serviceWorker' in navigator && 'BeforeInstallPromptEvent' in window;
+    },
+
+    /**
+     * Register service worker for offline functionality
+     */
+    async registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            try {
+                const registration = await navigator.serviceWorker.register('/sw.js');
+                console.log('[PWA] Service Worker registered:', registration.scope);
+
+                // Handle updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    if (newWorker) {
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // New content available, show update prompt
+                                this.showUpdatePrompt();
+                            }
+                        });
+                    }
+                });
+            } catch (error) {
+                console.error('[PWA] Service Worker registration failed:', error);
+            }
+        }
+    },
+
+    /**
+     * Show update prompt when new version is available
+     */
+    showUpdatePrompt() {
+        const updateToast = document.createElement('div');
+        updateToast.className = 'fixed top-4 right-4 bg-blue-500 text-white px-4 py-3 rounded-lg shadow-lg z-50';
+        updateToast.innerHTML = `
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined">update</span>
+                <div>
+                    <p class="font-bold">Update Available</p>
+                    <p class="text-sm">Refresh to get the latest version</p>
+                </div>
+                <button onclick="window.location.reload()" class="ml-2 bg-white text-blue-500 px-3 py-1 rounded text-sm font-bold hover:bg-gray-100">
+                    Refresh
+                </button>
+            </div>
+        `;
+        document.body.appendChild(updateToast);
+
+        // Auto-remove after 10 seconds
+        setTimeout(() => updateToast.remove(), 10000);
+    },
+
+    /**
+     * Check for app updates
+     */
+    checkForUpdates() {
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({ type: 'CHECK_FOR_UPDATES' });
+        }
+    }
+};
+
+/**
+ * Profile API Client
+ *
+ * Centralized API client for profile-related operations with:
+ * - Automatic request caching (5-minute TTL)
+ * - Comprehensive error handling
+ * - Performance monitoring
+ * - Authentication header management
+ *
+ * @example
+ * // Get user profile
+ * const profile = await ProfileAPI.request('/api/users/me');
+ *
+ * // Update profile with caching
+ * await ProfileAPI.request('/api/users/123', { method: 'PUT', body: data });
+ *
+ * // Clear cache after updates
+ * ProfileAPI.invalidateCache('/api/users');
+ */
 const ProfileAPI = {
+    /** Base API URL */
     base: (typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL) ? CONFIG.API_BASE_URL : 'https://womencypedia-cms.onrender.com',
 
-    // Cache TTL in milliseconds (5 minutes)
-    CACHE_TTL: 5 * 60 * 1000,
+    /** Cache TTL in milliseconds */
+    CACHE_TTL: CACHE_TTL_MS,
 
+    /**
+     * Make an API request with caching and error handling
+     * @param {string} url - The API endpoint URL
+     * @param {Object} options - Fetch options
+     * @returns {Promise<Object>} Response data
+     */
     async request(url, options = {}) {
-        // Create cache key
-        const cacheKey = `${options.method || 'GET'}:${url}`;
+        const cacheKey = this._createCacheKey(url, options);
 
         // Check cache for GET requests
-        if (!options.method || options.method === 'GET') {
-            const cached = apiCache.get(cacheKey);
-            if (cached && Date.now() - cached.timestamp < this.CACHE_TTL) {
+        if (this._shouldCache(options)) {
+            const cached = this._getCachedResponse(cacheKey);
+            if (cached) {
                 console.log('[Profile] Using cached response for:', url);
-                return cached.data;
+                performanceMonitor.endMark(`api-${cacheKey}`);
+                return cached;
             }
         }
+
+        performanceMonitor.startMark(`api-${cacheKey}`);
 
         try {
-            const res = await fetch(url, {
-                cache: 'no-store',
-                ...options
-            });
-
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(err?.error?.message || `HTTP ${res.status}`);
-            }
-
-            const data = await res.json();
+            const response = await this._makeRequest(url, options);
+            const data = await this._parseResponse(response);
 
             // Cache successful GET responses
-            if (!options.method || options.method === 'GET') {
-                apiCache.set(cacheKey, {
-                    data: data,
-                    timestamp: Date.now()
-                });
+            if (this._shouldCache(options)) {
+                this._cacheResponse(cacheKey, data);
             }
 
+            performanceMonitor.endMark(`api-${cacheKey}`);
             return data;
         } catch (err) {
-            console.warn('[Profile] API request failed:', err.message);
+            console.error('[Profile] API request failed:', {
+                url,
+                error: err.message,
+                stack: err.stack,
+                timestamp: new Date().toISOString()
+            });
+            performanceMonitor.endMark(`api-${cacheKey}`);
             throw err;
         }
+    },
+
+    /**
+     * Create a cache key for the request
+     * @private
+     */
+    _createCacheKey(url, options) {
+        return `${options.method || 'GET'}:${url}`;
+    },
+
+    /**
+     * Check if request should be cached
+     * @private
+     */
+    _shouldCache(options) {
+        return !options.method || options.method === 'GET';
+    },
+
+    /**
+     * Get cached response if valid
+     * @private
+     */
+    _getCachedResponse(cacheKey) {
+        const cached = apiCache.get(cacheKey);
+        if (cached && Date.now() - cached.timestamp < this.CACHE_TTL) {
+            return cached.data;
+        }
+        return null;
+    },
+
+    /**
+     * Make the actual HTTP request
+     * @private
+     */
+    _makeRequest(url, options) {
+        return fetch(url, {
+            cache: 'no-store',
+            ...options
+        });
+    },
+
+    /**
+     * Parse the response safely
+     * @private
+     */
+    async _parseResponse(response) {
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err?.error?.message || `HTTP ${response.status}`);
+        }
+        return await response.json();
+    },
+
+    /**
+     * Cache the response
+     * @private
+     */
+    _cacheResponse(cacheKey, data) {
+        apiCache.set(cacheKey, {
+            data: data,
+            timestamp: Date.now()
+        });
     },
 
     getAuthHeaders() {
@@ -78,6 +251,41 @@ const ProfileAPI = {
         }
         keysToDelete.forEach(key => apiCache.delete(key));
         console.log(`[Profile] Invalidated ${keysToDelete.length} cache entries matching: ${pattern}`);
+    },
+
+    /**
+     * Retry failed requests with exponential backoff
+     * @param {Function} requestFn - The request function to retry
+     * @param {number} maxRetries - Maximum number of retries
+     * @returns {Promise} The result of the successful request
+     */
+    async retryRequest(requestFn, maxRetries = 3) {
+        let lastError;
+
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+            try {
+                return await requestFn();
+            } catch (error) {
+                lastError = error;
+
+                if (attempt < maxRetries && this._shouldRetry(error)) {
+                    const delay = Math.pow(2, attempt) * 1000; // Exponential backoff
+                    console.warn(`[Profile] Request failed, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries + 1})`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+        throw lastError;
+    },
+
+    /**
+     * Check if an error should trigger a retry
+     * @private
+     */
+    _shouldRetry(error) {
+        // Retry on network errors or 5xx server errors
+        return !error.message?.includes('4') || error.message?.includes('50');
     }
 };
 
@@ -93,6 +301,8 @@ function qs(id) {
 
 /**
  * Show a non-blocking toast notification
+ * @param {string} message - The message to display
+ * @param {string} type - The type of toast ('success', 'error', 'warning', 'info')
  */
 function profileToast(message, type = 'info') {
     if (typeof UI !== 'undefined' && UI.showToast) {
@@ -140,16 +350,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (profileInitialized) return;
     profileInitialized = true;
 
+    // Initialize PWA features if enabled
+    if (FEATURES.ENABLE_PERFORMANCE_MONITORING) {
+        performanceMonitor.startMark('app-init');
+    }
+
+    // Register PWA features
+    if (pwaFeatures.canInstall()) {
+        pwaFeatures.registerServiceWorker();
+        // Check for updates every hour
+        setInterval(() => pwaFeatures.checkForUpdates(), 60 * 60 * 1000);
+    }
+
+    // Initialize UI components based on feature flags
     initUI();
     await loadProfile();
+
+    if (FEATURES.ENABLE_PERFORMANCE_MONITORING) {
+        performanceMonitor.endMark('app-init');
+        console.log('[Performance] App initialization metrics:', performanceMonitor.getMetrics());
+    }
 });
 
 function initUI() {
     initTabs();
-    setupSettingsForm();
+
+    if (FEATURES.ENABLE_PROFILE_EDITING) {
+        setupSettingsForm();
+    }
+
     setup2FA();
     setupSessions();
-    setupNotificationPreferences();
+
+    if (FEATURES.ENABLE_ADVANCED_VALIDATION) {
+        setupNotificationPreferences();
+    }
 }
 
 //////////////////////////////
@@ -157,16 +392,20 @@ function initUI() {
 //////////////////////////////
 
 async function loadProfile() {
+    performanceMonitor.startMark('loadProfile');
     showSkeleton();
 
     try {
         if (!Auth?.isAuthenticated?.()) {
+            console.info('[Profile] User not authenticated, loading demo profile');
             loadDemo();
             renderUI();
             hideSkeleton();
+            performanceMonitor.endMark('loadProfile');
             return;
         }
 
+        console.info('[Profile] Loading authenticated user profile');
         const user = await ProfileAPI.request(
             `${ProfileAPI.base}/api/users/me?populate=*`,
             { headers: ProfileAPI.getAuthHeaders() }
@@ -183,13 +422,18 @@ async function loadProfile() {
         ]);
 
     } catch (err) {
-        console.warn('[Profile] Could not load profile, falling back to demo:', err.message);
+        console.error('[Profile] Failed to load profile, falling back to demo:', {
+            error: err.message,
+            stack: err.stack,
+            timestamp: new Date().toISOString()
+        });
         loadDemo();
     }
 
     renderUI();
     prefillSettingsForms();
     hideSkeleton();
+    performanceMonitor.endMark('loadProfile');
 }
 
 function hydrateUser(user) {
@@ -887,7 +1131,11 @@ async function saveProfile() {
         renderUI();
 
     } catch (err) {
-        console.error('[Profile] Save failed:', err.message);
+        console.error('[Profile] Save failed:', {
+            error: err.message,
+            stack: err.stack,
+            timestamp: new Date().toISOString()
+        });
         throw err; // Re-throw so callers can handle
     }
 }
@@ -908,8 +1156,8 @@ function getInitials(name) {
 }
 
 /**
- * Validate profile form inputs
- * @returns {Object} {valid: boolean, message: string}
+ * Validate profile settings form inputs
+ * @returns {Object} Validation result with valid boolean and error message
  */
 function validateProfileForm() {
     const name = qs('settings-name')?.value?.trim();
@@ -943,8 +1191,8 @@ function validateModalForm() {
  */
 function validateProfileData(name, bio, location, website) {
     // Name validation
-    if (name && name.length > 100) {
-        return { valid: false, message: 'Name must be less than 100 characters.' };
+    if (name && name.length > MAX_NAME_LENGTH) {
+        return { valid: false, message: `Name must be less than ${MAX_NAME_LENGTH} characters.` };
     }
 
     if (name && name.length < 2) {
@@ -952,13 +1200,13 @@ function validateProfileData(name, bio, location, website) {
     }
 
     // Bio validation
-    if (bio && bio.length > 500) {
-        return { valid: false, message: 'Bio must be less than 500 characters.' };
+    if (bio && bio.length > MAX_BIO_LENGTH) {
+        return { valid: false, message: `Bio must be less than ${MAX_BIO_LENGTH} characters.` };
     }
 
     // Location validation
-    if (location && location.length > 100) {
-        return { valid: false, message: 'Location must be less than 100 characters.' };
+    if (location && location.length > MAX_LOCATION_LENGTH) {
+        return { valid: false, message: `Location must be less than ${MAX_LOCATION_LENGTH} characters.` };
     }
 
     // Website validation
@@ -982,12 +1230,12 @@ function validateProfileData(name, bio, location, website) {
  * @returns {Object} {valid: boolean, message: string}
  */
 function validatePassword(password) {
-    if (!password || password.length < 8) {
-        return { valid: false, message: 'Password must be at least 8 characters long.' };
+    if (!password || password.length < MIN_PASSWORD_LENGTH) {
+        return { valid: false, message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long.` };
     }
 
-    if (password.length > 128) {
-        return { valid: false, message: 'Password must be less than 128 characters long.' };
+    if (password.length > MAX_PASSWORD_LENGTH) {
+        return { valid: false, message: `Password must be less than ${MAX_PASSWORD_LENGTH} characters long.` };
     }
 
     // Check for at least one uppercase letter
@@ -1023,12 +1271,49 @@ function formatDate(date) {
     }
 }
 
+/**
+ * Show loading skeleton for profile card
+ */
 function showSkeleton() {
     qs('profile-card')?.classList.add('animate-pulse');
 }
 
+/**
+ * Hide loading skeleton for profile card
+ */
 function hideSkeleton() {
     qs('profile-card')?.classList.remove('animate-pulse');
+}
+
+/**
+ * Utility for managing loading states on forms
+ * @param {HTMLFormElement} form - The form element
+ * @param {boolean} loading - Whether to show loading state
+ * @param {string} loadingText - Text to show on submit button while loading
+ */
+function setFormLoadingState(form, loading, loadingText = 'Loading...') {
+    if (!form) return;
+
+    const submitBtn = form.querySelector('[type="submit"]');
+    const inputs = form.querySelectorAll('input, textarea, select');
+
+    if (loading) {
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.dataset.originalText = submitBtn.textContent || submitBtn.innerHTML;
+            submitBtn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin mr-2">refresh</span>${loadingText}`;
+        }
+        inputs.forEach(input => input.disabled = true);
+    } else {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            if (submitBtn.dataset.originalText) {
+                submitBtn.innerHTML = submitBtn.dataset.originalText;
+                delete submitBtn.dataset.originalText;
+            }
+        }
+        inputs.forEach(input => input.disabled = false);
+    }
 }
 
 function initTabs() {
@@ -1557,18 +1842,65 @@ async function loadNotificationPreferences() {
 }
 
 // Ensure functions are globally available for onclick handlers
-// Global error monitoring
+// Global error monitoring and performance tracking
 window.addEventListener('error', function(event) {
-    console.error('[Profile] Unhandled error:', event.error);
+    console.error('[Profile] Unhandled error:', {
+        message: event.error?.message,
+        stack: event.error?.stack,
+        filename: event.filename,
+        lineno: event.lineno,
+        colno: event.colno,
+        timestamp: new Date().toISOString()
+    });
     // Could send to error monitoring service here
-    // Example: sendErrorToMonitoring(event.error, { page: 'profile', userAgent: navigator.userAgent });
 });
 
 window.addEventListener('unhandledrejection', function(event) {
-    console.error('[Profile] Unhandled promise rejection:', event.reason);
+    console.error('[Profile] Unhandled promise rejection:', {
+        reason: event.reason,
+        timestamp: new Date().toISOString()
+    });
     // Could send to error monitoring service here
-    // Example: sendErrorToMonitoring(event.reason, { type: 'promise', page: 'profile' });
 });
+
+// Performance monitoring
+const performanceMonitor = {
+    marks: new Map(),
+    measures: [],
+
+    startMark(name) {
+        if ('performance' in window && performance.mark) {
+            performance.mark(`${name}-start`);
+            this.marks.set(name, Date.now());
+        }
+    },
+
+    endMark(name) {
+        if ('performance' in window && performance.mark && performance.measure) {
+            try {
+                performance.mark(`${name}-end`);
+                performance.measure(name, `${name}-start`, `${name}-end`);
+                const measure = performance.getEntriesByName(name)[0];
+                console.log(`[Performance] ${name}: ${measure.duration.toFixed(2)}ms`);
+                this.measures.push({
+                    name,
+                    duration: measure.duration,
+                    timestamp: Date.now()
+                });
+            } catch (e) {
+                // Performance API not fully supported
+            }
+        }
+    },
+
+    getMetrics() {
+        return {
+            measures: this.measures,
+            averageResponseTime: this.measures.length > 0 ?
+                this.measures.reduce((sum, m) => sum + m.duration, 0) / this.measures.length : 0
+        };
+    }
+};
 
 // Make functions globally available for onclick handlers
 window.exportUserData = exportUserData;
