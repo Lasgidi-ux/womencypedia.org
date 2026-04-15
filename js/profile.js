@@ -7,10 +7,28 @@
 // CONFIG + HELPERS
 //////////////////////////////
 
+// Simple in-memory cache for API responses
+const apiCache = new Map();
+
 const ProfileAPI = {
     base: (typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL) ? CONFIG.API_BASE_URL : 'https://womencypedia-cms.onrender.com',
 
+    // Cache TTL in milliseconds (5 minutes)
+    CACHE_TTL: 5 * 60 * 1000,
+
     async request(url, options = {}) {
+        // Create cache key
+        const cacheKey = `${options.method || 'GET'}:${url}`;
+
+        // Check cache for GET requests
+        if (!options.method || options.method === 'GET') {
+            const cached = apiCache.get(cacheKey);
+            if (cached && Date.now() - cached.timestamp < this.CACHE_TTL) {
+                console.log('[Profile] Using cached response for:', url);
+                return cached.data;
+            }
+        }
+
         try {
             const res = await fetch(url, {
                 cache: 'no-store',
@@ -22,7 +40,17 @@ const ProfileAPI = {
                 throw new Error(err?.error?.message || `HTTP ${res.status}`);
             }
 
-            return await res.json();
+            const data = await res.json();
+
+            // Cache successful GET responses
+            if (!options.method || options.method === 'GET') {
+                apiCache.set(cacheKey, {
+                    data: data,
+                    timestamp: Date.now()
+                });
+            }
+
+            return data;
         } catch (err) {
             console.warn('[Profile] API request failed:', err.message);
             throw err;
@@ -33,6 +61,23 @@ const ProfileAPI = {
         if (typeof Auth === 'undefined') return {};
         const token = Auth.getAccessToken();
         return token ? { Authorization: `Bearer ${token}` } : {};
+    },
+
+    // Cache management methods
+    clearCache() {
+        apiCache.clear();
+        console.log('[Profile] API cache cleared');
+    },
+
+    invalidateCache(pattern) {
+        const keysToDelete = [];
+        for (const key of apiCache.keys()) {
+            if (key.includes(pattern)) {
+                keysToDelete.push(key);
+            }
+        }
+        keysToDelete.forEach(key => apiCache.delete(key));
+        console.log(`[Profile] Invalidated ${keysToDelete.length} cache entries matching: ${pattern}`);
     }
 };
 
@@ -290,7 +335,7 @@ function renderAvatar() {
     if (profileData.avatar) {
         el.innerHTML = `<img src="${safeText(profileData.avatar)}" alt="${safeText(profileData.name)}" class="w-full h-full object-cover">`;
     } else {
-        el.innerHTML = `<span class="text-3xl font-serif font-bold text-white">${getInitials(profileData.name)}</span>`;
+        el.innerHTML = `<span class="text-3xl font-serif font-bold text-white">${safeText(getInitials(profileData.name))}</span>`;
     }
 }
 
@@ -836,6 +881,9 @@ async function saveProfile() {
             localStorage.setItem('demo_profile', JSON.stringify(profileData));
         }
 
+        // Clear cache after successful profile update
+        ProfileAPI.invalidateCache('/api/users');
+
         renderUI();
 
     } catch (err) {
@@ -857,6 +905,113 @@ function getInitials(name) {
         .join('')
         .toUpperCase()
         .slice(0, 2);
+}
+
+/**
+ * Validate profile form inputs
+ * @returns {Object} {valid: boolean, message: string}
+ */
+function validateProfileForm() {
+    const name = qs('settings-name')?.value?.trim();
+    const bio = qs('settings-bio')?.value?.trim();
+    const location = qs('settings-location')?.value?.trim();
+    const website = qs('settings-website')?.value?.trim();
+
+    return validateProfileData(name, bio, location, website);
+}
+
+/**
+ * Validate modal form inputs
+ * @returns {Object} {valid: boolean, message: string}
+ */
+function validateModalForm() {
+    const name = qs('modal-name')?.value?.trim();
+    const bio = qs('modal-bio')?.value?.trim();
+    const location = qs('modal-location')?.value?.trim();
+    const website = qs('modal-website')?.value?.trim();
+
+    return validateProfileData(name, bio, location, website);
+}
+
+/**
+ * Common validation logic for profile data
+ * @param {string} name
+ * @param {string} bio
+ * @param {string} location
+ * @param {string} website
+ * @returns {Object} {valid: boolean, message: string}
+ */
+function validateProfileData(name, bio, location, website) {
+    // Name validation
+    if (name && name.length > 100) {
+        return { valid: false, message: 'Name must be less than 100 characters.' };
+    }
+
+    if (name && name.length < 2) {
+        return { valid: false, message: 'Name must be at least 2 characters.' };
+    }
+
+    // Bio validation
+    if (bio && bio.length > 500) {
+        return { valid: false, message: 'Bio must be less than 500 characters.' };
+    }
+
+    // Location validation
+    if (location && location.length > 100) {
+        return { valid: false, message: 'Location must be less than 100 characters.' };
+    }
+
+    // Website validation
+    if (website && website.length > 0) {
+        if (!website.startsWith('http://') && !website.startsWith('https://')) {
+            website = 'https://' + website;
+        }
+        try {
+            new URL(website);
+        } catch {
+            return { valid: false, message: 'Please enter a valid website URL.' };
+        }
+    }
+
+    return { valid: true };
+}
+
+/**
+ * Validate password strength
+ * @param {string} password
+ * @returns {Object} {valid: boolean, message: string}
+ */
+function validatePassword(password) {
+    if (!password || password.length < 8) {
+        return { valid: false, message: 'Password must be at least 8 characters long.' };
+    }
+
+    if (password.length > 128) {
+        return { valid: false, message: 'Password must be less than 128 characters long.' };
+    }
+
+    // Check for at least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+        return { valid: false, message: 'Password must contain at least one uppercase letter.' };
+    }
+
+    // Check for at least one lowercase letter
+    if (!/[a-z]/.test(password)) {
+        return { valid: false, message: 'Password must contain at least one lowercase letter.' };
+    }
+
+    // Check for at least one number
+    if (!/\d/.test(password)) {
+        return { valid: false, message: 'Password must contain at least one number.' };
+    }
+
+    // Check for common weak passwords
+    const weakPasswords = ['password', '12345678', 'qwerty', 'abc123', 'password123'];
+    if (weakPasswords.includes(password.toLowerCase())) {
+        return { valid: false, message: 'Please choose a stronger password.' };
+    }
+
+    return { valid: true };
 }
 
 function formatDate(date) {
@@ -999,18 +1154,44 @@ function closePasswordModal() {
 function handlePasswordSubmit(event) {
     event.preventDefault();
 
+    const form = qs('password-form');
+    const submitBtn = form?.querySelector('[type="submit"]');
     const currentPw = qs('current-password').value;
     const newPw = qs('new-password').value;
     const confirmPw = qs('confirm-password').value;
 
-    if (newPw.length < 8) {
-        profileToast('Password must be at least 8 characters.', 'warning');
+    // Validate current password
+    if (!currentPw || currentPw.trim().length === 0) {
+        profileToast('Please enter your current password.', 'warning');
+        return;
+    }
+
+    // Validate new password
+    const passwordValidation = validatePassword(newPw);
+    if (!passwordValidation.valid) {
+        profileToast(passwordValidation.message, 'warning');
         return;
     }
 
     if (newPw !== confirmPw) {
         profileToast('Passwords do not match.', 'warning');
         return;
+    }
+
+    // Check if new password is different from current
+    if (currentPw === newPw) {
+        profileToast('New password must be different from current password.', 'warning');
+        return;
+    }
+
+    // Show loading state
+    const origText = submitBtn?.innerHTML;
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Updating...';
+    }
+    if (form) {
+        form.querySelectorAll('input').forEach(input => input.disabled = true);
     }
 
     ProfileAPI.request(`${ProfileAPI.base}/api/auth/change-password`, {
@@ -1030,6 +1211,15 @@ function handlePasswordSubmit(event) {
     }).catch((err) => {
         profileToast(err.message || 'Could not update password.', 'error');
         // Keep modal open on error so user can try again
+    }).finally(() => {
+        // Restore form state
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = origText;
+        }
+        if (form) {
+            form.querySelectorAll('input').forEach(input => input.disabled = false);
+        }
     });
 }
 
@@ -1133,10 +1323,35 @@ function setupSettingsForm() {
             const origText = submitBtn?.innerHTML;
 
             try {
+                // Validate form inputs
+                const validation = validateProfileForm();
+                if (!validation.valid) {
+                    profileToast(validation.message, 'warning');
+                    return;
+                }
+
                 if (submitBtn) {
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Saving...';
                 }
+
+                profileData.name = qs('settings-name')?.value?.trim() || profileData.name;
+                profileData.bio = qs('settings-bio')?.value?.trim() || profileData.bio;
+                profileData.location = qs('settings-location')?.value?.trim() || profileData.location;
+                profileData.website = qs('settings-website')?.value?.trim() || profileData.website;
+
+                await saveProfile();
+                profileToast('Profile updated!', 'success');
+            } catch {
+                profileToast('Save failed. Please try again.', 'error');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = origText;
+                }
+            }
+        });
+    }
 
                 profileData.name = qs('settings-name')?.value || profileData.name;
                 profileData.bio = qs('settings-bio')?.value || profileData.bio;
@@ -1165,15 +1380,22 @@ function setupSettingsForm() {
             const origText = submitBtn?.innerHTML;
 
             try {
+                // Validate modal form inputs
+                const validation = validateModalForm();
+                if (!validation.valid) {
+                    profileToast(validation.message, 'warning');
+                    return;
+                }
+
                 if (submitBtn) {
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Saving...';
                 }
 
-                profileData.name = qs('modal-name')?.value || profileData.name;
-                profileData.bio = qs('modal-bio')?.value || profileData.bio;
-                profileData.location = qs('modal-location')?.value || profileData.location;
-                profileData.website = qs('modal-website')?.value || profileData.website;
+                profileData.name = qs('modal-name')?.value?.trim() || profileData.name;
+                profileData.bio = qs('modal-bio')?.value?.trim() || profileData.bio;
+                profileData.location = qs('modal-location')?.value?.trim() || profileData.location;
+                profileData.website = qs('modal-website')?.value?.trim() || profileData.website;
 
                 await saveProfile();
                 profileToast('Profile updated!', 'success');
@@ -1335,6 +1557,20 @@ async function loadNotificationPreferences() {
 }
 
 // Ensure functions are globally available for onclick handlers
+// Global error monitoring
+window.addEventListener('error', function(event) {
+    console.error('[Profile] Unhandled error:', event.error);
+    // Could send to error monitoring service here
+    // Example: sendErrorToMonitoring(event.error, { page: 'profile', userAgent: navigator.userAgent });
+});
+
+window.addEventListener('unhandledrejection', function(event) {
+    console.error('[Profile] Unhandled promise rejection:', event.reason);
+    // Could send to error monitoring service here
+    // Example: sendErrorToMonitoring(event.reason, { type: 'promise', page: 'profile' });
+});
+
+// Make functions globally available for onclick handlers
 window.exportUserData = exportUserData;
 window.confirmDeleteAccount = confirmDeleteAccount;
 window.handleLogout = handleLogout;
