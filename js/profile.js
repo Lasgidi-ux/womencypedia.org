@@ -1638,24 +1638,6 @@ function setupSettingsForm() {
         });
     }
 
-                profileData.name = qs('settings-name')?.value || profileData.name;
-                profileData.bio = qs('settings-bio')?.value || profileData.bio;
-                profileData.location = qs('settings-location')?.value || profileData.location;
-                profileData.website = qs('settings-website')?.value || profileData.website;
-
-                await saveProfile();
-                profileToast('Profile updated!', 'success');
-            } catch {
-                profileToast('Save failed. Please try again.', 'error');
-            } finally {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = origText;
-                }
-            }
-        });
-    }
-
     // Setup modal form
     const modalForm = qs('edit-profile-modal-form');
     if (modalForm) {
