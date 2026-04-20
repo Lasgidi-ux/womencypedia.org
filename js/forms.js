@@ -242,7 +242,8 @@ const FormHandler = {
                 // Provide more helpful error messages for common issues
                 if (response.status === 404) {
                     throw new Error('Unable to submit nomination. The server endpoint /api/nominations was not found. This may indicate the nominations content type does not exist in the CMS.');
-                } if (response.status === 401) {
+                }
+                if (response.status === 401) {
                     throw new Error('Please sign in to submit a nomination.');
                 }
                 if (response.status === 403) {
@@ -250,14 +251,6 @@ const FormHandler = {
                 }
                 if (response.status === 500) {
                     throw new Error('Server error occurred. The CMS may have an internal issue. Please try again later or contact support if the problem persists.');
-                }
-                throw new Error(errorData.error?.message || errorData.message || `Server error (${response.status})`);
-            }
-                if (response.status === 403) {
-                    throw new Error('You do not have permission to submit nominations. This may indicate the Public role needs to be granted POST permission for contributions in Strapi admin panel.');
-                }
-                if (response.status === 500) {
-                    throw new Error('Server error. Please try again later or contact support.');
                 }
                 throw new Error(errorData.error?.message || errorData.message || `Server error (${response.status})`);
             }
