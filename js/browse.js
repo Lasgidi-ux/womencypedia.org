@@ -627,15 +627,22 @@ async function loadCollectionBiographyCounts() {
     // Process each collection concurrently
     const collectionPromises = Object.entries(collectionMappings).map(async ([slug, elementId]) => {
         try {
-            // Fetch collection with populated biographies to get the count
-            const res = await browseFetch(`collections`, {
+            // First get the collection to find its ID
+            const collectionRes = await browseFetch(`collections`, {
                 "filters[slug][$eq]": slug,
-                "populate": "biographies"
+                "fields[0]": "id"
             });
 
-            if (res.data && res.data.length > 0) {
-                const collection = normaliseItem(res.data[0]);
-                const biographyCount = collection.biographies ? collection.biographies.length : 0;
+            if (collectionRes.data && collectionRes.data.length > 0) {
+                const collectionId = collectionRes.data[0].id;
+
+                // Then query biographies that belong to this collection
+                const bioRes = await browseFetch(`biographies`, {
+                    "filters[collections][id][$eq]": collectionId,
+                    "pagination[pageSize]": 1 // Just need the count
+                });
+
+                const biographyCount = bioRes.meta?.pagination?.total || 0;
 
                 const el = document.getElementById(elementId);
                 if (el) {
