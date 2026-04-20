@@ -177,10 +177,9 @@ const FormHandler = {
             return;
         }
 
-        // Collect form data — map to Strapi contribution schema fields
+        // Collect form data — map to Strapi nomination schema fields
         const nomineeName = form.querySelector('#nomineeName')?.value || '';
         const formData = {
-            title: nomineeName ? `Nomination: ${nomineeName}` : 'Untitled Nomination',
             type: 'nomination',
             nomineeName: nomineeName,
             nomineeEra: form.querySelector('#era')?.value || '',
@@ -190,7 +189,7 @@ const FormHandler = {
             sources: form.querySelector('#sources')?.value ? [form.querySelector('#sources').value] : [],
             nominatorName: form.querySelector('#yourName')?.value || '',
             nominatorEmail: form.querySelector('#yourEmail')?.value || '',
-            
+
             // Standard contribution fields (for compatibility)
             subjectName: nomineeName,
             content: form.querySelector('#bio')?.value || '',
