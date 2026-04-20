@@ -28,6 +28,18 @@ const FEATURES = {
     ENABLE_ADVANCED_VALIDATION: true
 };
 
+/**
+ * Proxy Cloudinary images through CMS to avoid tracking prevention blocks
+ */
+function proxyImageUrl(url) {
+    if (!url || !url.includes('res.cloudinary.com')) {
+        return url;
+    }
+    // Encode the URL and proxy through CMS
+    const encodedUrl = encodeURIComponent(url);
+    return `${ProfileAPI.base}/api/images/proxy?url=${encodedUrl}`;
+}
+
 // PWA features
 const pwaFeatures = {
     /**
@@ -453,7 +465,7 @@ function hydrateUser(user) {
         joinDate: user.createdAt ? formatDate(user.createdAt) : '',
         avatar: avatarUrl
             ? avatarUrl.startsWith('http')
-                ? avatarUrl
+                ? proxyImageUrl(avatarUrl)
                 : `${ProfileAPI.base}${avatarUrl}`
             : null
     };
@@ -711,7 +723,7 @@ function renderSaved() {
         let imageUrl = null;
         if (attrs.image?.url) {
             imageUrl = attrs.image.url.startsWith('http')
-                ? attrs.image.url
+                ? proxyImageUrl(attrs.image.url)
                 : `${ProfileAPI.base}${attrs.image.url}`;
         }
 
