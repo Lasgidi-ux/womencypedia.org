@@ -495,7 +495,7 @@ const Homepage = {
      * v5: { id, url, formats: {...}, hash, provider }
      */
     getMediaUrl(media) {
-        if (!media) return 'images/placeholder-biography.jpg';
+        if (!media) return CONFIG.API_BASE_URL + '/images/placeholder-biography.jpg';
 
         let url = null;
 
@@ -513,7 +513,7 @@ const Homepage = {
             url = media;
         }
 
-        if (!url) return 'images/placeholder-biography.jpg';
+        if (!url) return CONFIG.API_BASE_URL + '/images/placeholder-biography.jpg';
 
         // If URL is relative, prepend the Strapi base URL
         if (url.startsWith('/')) {

@@ -310,7 +310,7 @@ function renderEntries(entries, containerId) {
     el.innerHTML = entries.map(item => {
 
         const image = item.image?.url ||
-            "images/placeholder-biography.jpg"
+            (CONFIG.API_BASE_URL + '/images/placeholder-biography.jpg')
 
         return `
         <a href="biography.html?slug=${encodeURIComponent(item.slug || '')}"

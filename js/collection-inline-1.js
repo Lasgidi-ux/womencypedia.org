@@ -98,10 +98,10 @@
         }
 
         function getMediaUrl(media) {
-            if (!media) return 'images/placeholder-biography.jpg';
+            if (!media) return CONFIG.API_BASE_URL + '/images/placeholder-biography.jpg';
             const mediaData = media.data ? (media.data.attributes || media.data) : media;
             const url = mediaData.url || (mediaData.formats && (mediaData.formats.medium?.url || mediaData.formats.small?.url));
-            if (!url) return 'images/placeholder-biography.jpg';
+            if (!url) return CONFIG.API_BASE_URL + '/images/placeholder-biography.jpg';
             if (url.startsWith('/')) {
                 return CONFIG.API_BASE_URL + url;
             }
